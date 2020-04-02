@@ -7,9 +7,9 @@
                 <div class="row">
                     <div class="col">
                         <Calendar v-model="date12"
-                                  :selectionMode="single || multiple || range"
                                   :inline="true"
                                   :locale="fr"
+                                  v-on:date-select="clickCalendar"
                                   dateFormat="dd/mm/yy">
                         </Calendar>
                     </div>
@@ -31,7 +31,7 @@
                                     </ul>
                                 </div>
                                 <div class="card-body">
-                                    <DataTable v-model="missions"
+                                    <DataTable v-model="missionsJour"
                                                class="table table-bordered"
                                                :paginator="true"
                                                :rows="4">
@@ -42,13 +42,13 @@
                                             Chargement des données en cours.
                                         </template>
                                         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
-                                        <Column field="missionId"
+                                        <Column field="name"
                                                 header="Missions/ Sous-missions"></Column>
-                                        <Column field="missionLibelle"
+                                        <Column field="activite"
                                                 header="Type d'activités"></Column>
-                                        <Column field="missionCommentaire"
+                                        <Column field="commentaire"
                                                 header="Commentaires"></Column>
-                                        <Column field="missionConsommation"
+                                        <Column field="charges"
                                                 header="Charges"></Column>
                                         <Column header="Actions">
                                             <template #body>
@@ -94,6 +94,7 @@
                         </Button>
                     </div>
                 </div>
+                <!--<form v-on:submit="sub" action="#" > -->
                 <div class="row">
                     <span>Dates</span>
                 </div>
@@ -106,7 +107,7 @@
                             <span>Missions / Sous-missions</span>
                         </div>
                         <div class="row">
-                            <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"  />
+                            <Dropdown v-model="selectedMission" :options="missionsData" />
                         </div>
                         <div class="row">
                             <span>Commentaire</span>
@@ -120,19 +121,20 @@
                             <span>Type d'activités</span>
                         </div>
                         <div class="row">
-                            <Dropdown />
+                            <Dropdown v-model="selectedActivite" :options="tabActivite"/>
                         </div>
                         <div class="row">
                             <span>Charges</span>
                         </div>
                         <div class="row">
-                            <Spinner :min="0" :max="100"/> H <Spinner :min="0" :max="59" /> Min
+                            <Spinner v-model="heure" :min="0" :max="24"/> H <Spinner v-model="minute" :min="0" :max="59" /> Min
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <Button label="Valider" class="p-button-secondary"></Button>
+                    <Button type="submit" label="Valider" class="p-button-secondary" v-on:click="clickValider"></Button>
                 </div>
+                <!-- </form> -->
             </div>
         </div>
     </div>
@@ -162,7 +164,7 @@ export default {
   },
   data() {
     return {
-      date1: null,
+      date1: new Date(2020, 3, 1),
       date2: null,
       date3: null,
       date4: null,
@@ -178,7 +180,31 @@ export default {
       date14: null,
       dates1: null,
       dates2: null,
-      missions: null,
+      missionsJour: [],
+      tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
+      missions: [
+        {
+          name: 'Permissions et congés',
+          activite: 'Récupération',
+          commentaire: 'Test1',
+          charges: '4:15',
+          date: '2/4/2020',
+        },
+        {
+          name: 'PACT NG',
+          activite: 'Conception',
+          commentaire: 'Test2',
+          charges: '4:15',
+          date: '2/4/2020',
+        },
+        {
+          name: 'PACT NG',
+          activite: 'Conception',
+          commentaire: 'Test3',
+          charges: '4:15',
+          date: '1/4/2020',
+        },
+      ],
       listDate: [],
       dateAujourdhui: new Date(),
       commentaire: null,
@@ -186,7 +212,7 @@ export default {
       dateFin: null,
       fr: {
         firstDayOfWeek: 1,
-        dayNames: ['Dimache', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
         dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
         dayNamesMin: ['D', 'L', 'Ma', 'Me', 'J', 'V', 'S'],
         monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
@@ -195,39 +221,12 @@ export default {
         clear: 'Effacer',
         weekHeader: 'Sm',
       },
-      missionsData: {
-        mission1: {
-          name: 'Permissions et congés',
-          sousMissions: 'Récupération',
-          typeActivite: [],
-        },
-        mission12: {
-          name: 'Permissions et congés',
-          sousMissions: 'Enfant Malade',
-          typeActivite: [],
-        },
-        mission2: {
-          name: 'PACT NG',
-          sousMissions: 'V1',
-          typeActivite: ['Conception', 'Analyse'],
-        },
-        mission21: {
-          name: 'PACT NG',
-          sousMissions: 'V2',
-          typeActivite: ['Conception', 'Analyse'],
-        },
-        mission3: {
-          name: 'Soutien',
-          sousMissions: 'Vie courante',
-          typeActivite: ['Cérémonie', 'Activité sportive'],
-        },
-        mission31: {
-          name: 'Soutien',
-          sousMissions: 'Activité militaire',
-          typeActivite: ['Cérémonie', 'Activité sportive'],
-        },
-      },
+      missionsData: ['Permissions et congés', 'PACT NG', 'Soutien'],
       selectedMission: null,
+      selectedActivite: null,
+      heure: null,
+      minute: null,
+      missionAdd: null,
     };
   },
   // missionService: null,
@@ -235,7 +234,7 @@ export default {
     this.missionService = new MissionService();
   }, */
   mounted() {
-    MissionService.getMissionServiceAllMissions().then(
+    /* MissionService.getMissionServiceAllMissions().then(
       (response) => {
         console.log(response.data);
         this.missions = response.data;
@@ -244,7 +243,9 @@ export default {
         );
         console.log(this.listDate);
       },
-    );
+    ); */
+    this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
+      .forEach((mission) => this.missionsJour.push(mission));
   },
   methods: {
     reloadMission() {
@@ -258,10 +259,35 @@ export default {
           },
         );
     },
-    sub(event) {
+    /* sub(event) {
       MissionService.postMission(this.dateDebut, this.commentaire);
       this.reloadMission();
       event.preventDefault();
+    }, */
+    clickValider() {
+      this.missionAdd = {
+        name: this.selectedMission,
+        activite: this.selectedActivite,
+        commentaire: this.commentaire,
+        charges: `${this.heure}:${this.minute}`,
+        date: `${this.date2.getDate()}/${this.date2.getMonth() + 1}/${this.date2.getFullYear()}`,
+      };
+      this.missions.push(this.missionAdd);
+      this.missions.forEach((m) => console.log(m.commentaire));
+      this.missionsJour = [];
+      this.missions.forEach((m) => console.log(m.date));
+      this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
+        .forEach((mission) => this.missionsJour.push(mission));
+      this.missionsJour.forEach((m) => console.log(m.commentaire));
+    },
+    filterMissionDuJour() {
+      console.log(`mission du jour : ${this.missions.filter((mission) => mission.date === this.date12)}`);
+      return this.missions.filter((mission) => mission.date === this.date12);
+    },
+    clickCalendar() {
+      this.missionsJour = [];
+      this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
+        .forEach((mission) => this.missionsJour.push(mission));
     },
     formaterJour(numberJour) {
       let stringJour;
@@ -311,7 +337,6 @@ export default {
         default: stringMois = 'decembre';
           break;
       }
-      console.log(stringMois);
       return stringMois;
     },
   },
