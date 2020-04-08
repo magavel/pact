@@ -5,19 +5,19 @@ const API_URL = 'http://localhost:8080/apiPactNG/api/v1/';
 
 class UserService {
   getPublicContent() {
-    return axios.get(API_URL + 'all');
+    return axios.get(`${API_URL}all`);
   }
 
   getUserBoard() {
-    return axios.get(API_URL + 'users', { headers: authHeader() });
+    return axios.get(`${API_URL}users`, { headers: authHeader() });
   }
 
   getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
+    return axios.get(`${API_URL}mod`, { headers: authHeader() });
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+    return axios.get(`${API_URL}admin`, { headers: authHeader() });
   }
 }
 

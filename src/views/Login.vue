@@ -60,13 +60,13 @@ export default {
     return {
       user: new User('', ''),
       loading: false,
-      message: ''
+      message: '',
     };
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
-    }
+    },
   },
   created() {
     if (this.loggedIn) {
@@ -76,7 +76,7 @@ export default {
   methods: {
     handleLogin() {
       this.loading = true;
-      this.$validator.validateAll().then(isValid => {
+      this.$validator.validateAll().then((isValid) => {
         if (!isValid) {
           this.loading = false;
           return;
@@ -87,18 +87,17 @@ export default {
             () => {
               this.$router.push('/profile');
             },
-            error => {
+            (error) => {
               this.loading = false;
-              this.message =
-                (error.response && error.response.data) ||
-                error.message ||
-                error.toString();
-            }
+              this.message = (error.response && error.response.data)
+                || error.message
+                || error.toString();
+            },
           );
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

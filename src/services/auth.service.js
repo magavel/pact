@@ -5,11 +5,11 @@ const API_URL = 'http://localhost:8080/apiPactNG/api/auth/';
 class AuthService {
   login(user) {
     return axios
-      .post(API_URL + 'signin', {
+      .post(`${API_URL}signin`, {
         username: user.username,
-        password: user.password
+        password: user.password,
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.accessToken) {
           localStorage.setItem('user', JSON.stringify(response.data));
         }
@@ -23,13 +23,12 @@ class AuthService {
   }
 
   register(user) {
-    return axios.post(API_URL + 'signup', {
+    return axios.post(`${API_URL}signup`, {
       username: user.username,
       email: user.email,
-      password: user.password
+      password: user.password,
     });
   }
 }
 
 export default new AuthService();
-

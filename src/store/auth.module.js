@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-shadow */
 import AuthService from '../services/auth.service';
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -11,14 +13,14 @@ export const auth = {
   actions: {
     login({ commit }, user) {
       return AuthService.login(user).then(
-        user => {
+        (user) => {
           commit('loginSuccess', user);
           return Promise.resolve(user);
         },
-        error => {
+        (error) => {
           commit('loginFailure');
           return Promise.reject(error);
-        }
+        },
       );
     },
     logout({ commit }) {
@@ -27,16 +29,16 @@ export const auth = {
     },
     register({ commit }, user) {
       return AuthService.register(user).then(
-        response => {
+        (response) => {
           commit('registerSuccess');
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           commit('registerFailure');
           return Promise.reject(error);
-        }
+        },
       );
-    }
+    },
   },
   mutations: {
     loginSuccess(state, user) {
@@ -56,7 +58,6 @@ export const auth = {
     },
     registerFailure(state) {
       state.status.loggedIn = false;
-    }
-  }
+    },
+  },
 };
-

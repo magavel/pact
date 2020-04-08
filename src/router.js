@@ -12,50 +12,55 @@ export const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
     },
     {
       path: '/register',
-      component: Register
+      component: Register,
     },
     {
       path: '/profile',
       name: 'profile',
       // lazy-loaded
-      component: () => import('./views/Profile.vue')
+      component: () => import('./views/Profile.vue'),
     },
     {
       path: '/admin',
       name: 'admin',
       // lazy-loaded
-      component: () => import('./views/BoardAdmin.vue')
+      component: () => import('./views/BoardAdmin.vue'),
     },
     {
       path: '/mod',
       name: 'moderator',
       // lazy-loaded
-      component: () => import('./views/BoardModerator.vue')
+      component: () => import('./views/BoardModerator.vue'),
     },
     {
       path: '/user',
       name: 'user',
       // lazy-loaded
-      component: () => import('./views/BoardUser.vue')
+      component: () => import('./views/BoardUser.vue'),
     },
     {
       path: '/activites',
       name: 'activites',
       // lazy-loaded
-      component: () => import('./views/BoardUserSaisieTest.vue')
-    }
-  ]
+      component: () => import('./views/BoardUserSaisieTest.vue'),
+    },
+    {
+      path: '/projects',
+      name: 'projects',
+      // lazy-loaded
+      component: () => import('./views/createProject.vue'),
+    },
+  ],
 });
-

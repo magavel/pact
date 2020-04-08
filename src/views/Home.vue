@@ -13,22 +13,20 @@ export default {
   name: 'Home',
   data() {
     return {
-      content: ''
+      content: '',
     };
   },
   mounted() {
     UserService.getPublicContent().then(
-      response => {
+      (response) => {
         this.content = response.data;
       },
-      error => {
-        this.content =
-          (error.response && error.response.data) ||
-          error.message ||
-          error.toString();
-      }
+      (error) => {
+        this.content = (error.response && error.response.data)
+          || error.message
+          || error.toString();
+      },
     );
-  }
+  },
 };
 </script>
-

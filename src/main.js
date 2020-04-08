@@ -4,11 +4,14 @@ import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Calendar from 'primevue/calendar';
 import Textarea from 'primevue/textarea';
+import InputText from 'primevue/inputtext';
 import Card from 'primevue/card';
 import Fieldset from 'primevue/fieldset';
 import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
 import Spinner from 'primevue/spinner';
+import Steps from 'primevue/steps';
+import MultiSelect from 'primevue/multiselect';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primevue/resources/themes/nova-light/theme.css';
@@ -45,7 +48,9 @@ Vue.component('Fieldset', Fieldset);
 Vue.component('Button', Button);
 Vue.component('Dropdown', Dropdown);
 Vue.component('Spinner', Spinner);
-
+Vue.component('InputText', InputText);
+Vue.component('Steps', Steps);
+Vue.component('MultiSelect', MultiSelect);
 
 
 new Vue({
