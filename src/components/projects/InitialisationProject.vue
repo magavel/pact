@@ -88,13 +88,10 @@
   </form>
 </template>
 <script>
+// import project from '../../store/modules/project';
+
 export default {
-  methods: {
-    createProject() {
-      console.log('dans la methode', this.project);
-      this.$store.dispatch('createProject', this.project);
-    },
-  },
+  name: 'InitialisationProject',
   data() {
     return {
       typeProjetInput: null,
@@ -104,13 +101,23 @@ export default {
         { type: 'POC', value: 'POC' },
         { type: 'Interne', value: 'Interne' },
       ],
+      project: {
+        longTitle: '',
+        siclade: '',
+        shortTitle: '',
+        zoneFonctionnelle: '',
+        quartierFonctionnel: '',
+        typeProjet: [],
+      },
     };
   },
-  name: 'InitialisationProject',
-  props: {
-    project: {},
-  },
-};
+  methods: {
+    createProject(project) {
+      console.log('project');
+      this.$store.dispatch('createProject', project);
+      },
+    },
+  };
 </script>
 <style scoped>
   .p-multiselect-car-option {

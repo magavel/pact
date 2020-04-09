@@ -1,3 +1,5 @@
+import projectService from '../../services/project.service';
+
 // initial state
 
 const state = {
@@ -11,34 +13,32 @@ const getters = {
 // actions
 //  on dispatch les actions.....
 const actions = {
-  /**
-   * on commit le project une fois que le
-   * service a enregistrer le project en asynchrone
-   * @param commit
-   * @param project
-   */
+
   createProject({ commit }, project) {
+    console.log('ds ll', project);
     projectService.createProject(project)
-      .then(()=> {
-      commit('CREATE_PROJECT', project);
-    });
-  }
+      .then(() => {
+        commit('CREATE_PROJECT', project);
+      });
+  },
+  getProjects({ commit }) {
+    projectService.getAllProjects()
+      .then((res) => {
+        console.log('res dans le store', res)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  },
 };
+/* eslint no-shadow: ["error", { "allow": ["state"] }] */
 
 // mutations
 // on commit les mutations....
 const mutations = {
-  /**
-   * Met a disposition l'état (le state) et le payload
-   * project pour mettre a jour l'état correspondant de project par ajout de project...
-   * via spread operator
-   * @param state
-   * @param project
-   * @constructor
-   */
   CREATE_PROJECT(state, project) {
-    state.project =  {project, ...project};
-  }
+    state.project = { project, ...project };
+  },
 };
 
 export default {

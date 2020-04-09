@@ -23,6 +23,15 @@
         <li class="nav-item">
           <router-link v-if="currentUser" to="/projects" class="nav-link">Projets</router-link>
         </li>
+        <li class="nav-item">
+          <router-link
+                  v-if="currentUser"
+                  to="/list-projects"
+                  class="nav-link"
+          >
+            liste des projets
+          </router-link>
+        </li>
       </div>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
