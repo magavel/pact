@@ -1,16 +1,62 @@
 <template>
   <form @submit.prevent="createProject">
-    <div class="form-group">
-      <label for="longTitle">Libellé fiche projet</label>
-      <input
-              type="text"
-              class="form-control"
-              id="longTitle"
-              placeholder="P@ct-NG"
-              v-model="project.longTitle"
-      />
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="longTitle">
+          Libellé fiche projet
+        </label>
+        <input
+                type="text"
+                class="form-control"
+                id="longTitle"
+                placeholder="P@ct-NG"
+                v-model="project.libelle_systeme_information"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="shortTitle">
+          Libellé court <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"> </i>
+        </label>
+        <input
+                type="text"
+                class="form-control"
+                id="shortTitle"
+                placeholder="PROJET_1"
+                v-model="project.libelle_court_systeme_information"
+        />
+      </div>
     </div>
     <div class="form-row">
+      <div class="form-group col-md-6">
+          <label
+                  for=""
+          >Projet spécifique
+            <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"> </i>
+          </label>
+          <MultiSelect
+                  v-model="project.tag_projet"
+                  :options="projects"
+                  optionLabel="type"
+                  placeholder="Sélectionner un type de projet"
+                  optionDisabled="true"
+          >
+            <template #value="slotProps">
+              <div
+                      class="p-multiselect-typeProject-token"
+                      v-for="option of slotProps.value" :key="option.value">
+                <span>
+                  {{option.value}}
+                  <i class="pi pi-times"></i>
+                </span>
+              </div>
+              <div
+                      class="p-multiselect-empty-typeProject-token"
+                      v-if="!slotProps.value || slotProps.value.length === 0">
+                Sélectionner un tag
+              </div>
+            </template>
+          </MultiSelect>
+        </div>
       <div class="form-group col-md-6">
         <label for="ficheSiclade">
           Fiche(s) Siclade <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"></i>
@@ -20,68 +66,8 @@
                 class="form-control"
                 id="ficheSiclade"
                 placeholder="????"
-                v-model="project.siclade"
+                v-model="project.libelle_fiche_siclade"
         />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="shortTitle">Libellé court</label>
-        <input
-                type="text"
-                class="form-control"
-                id="shortTitle"
-                placeholder="PROJET_1"
-                v-model="project.shortTitle"
-        />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="zoneFonctionnelle">Zone(s) fonctionnelle(s)</label>
-        <input
-                type="text"
-                class="form-control"
-                id="zoneFonctionnelle"
-                placeholder="????"
-                v-model="project.zoneFonctionnelle"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="quartierFonctionnel">Quartier(s) fonctionnel(s)</label>
-        <input
-                type="text"
-                class="form-control"
-                id="quartierFonctionnel"
-                placeholder="????"
-                v-model="project.quartierFonctionnel"
-        />
-      </div>
-      <div class="form-group">
-        <label
-                class="mr-3"
-                for="longTitle"
-        >Projet spécifique
-          <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"> </i>
-        </label>
-        <MultiSelect
-                v-model="typeProjetInput"
-                :options="projects"
-                optionLabel="type"
-                placeholder="Sélectionner un type de projet"
-                optionDisabled="true"
-        >
-          <template #value="slotProps">
-            <div
-                    class="p-multiselect-typeProject-token"
-                    v-for="option of slotProps.value" :key="option.value">
-              <span>{{option.value}}</span>
-            </div>
-            <div
-                    class="p-multiselect-empty-typeProject-token"
-                    v-if="!slotProps.value || slotProps.value.length === 0">
-              Sélectionner un tag
-            </div>
-          </template>
-        </MultiSelect>
       </div>
     </div>
     <button type="submit" class="btn btn-primary float-right">Suivant</button>
@@ -94,7 +80,6 @@ export default {
   name: 'InitialisationProject',
   data() {
     return {
-      typeProjetInput: null,
       projects: [
         { type: 'PMV', value: 'PMV' },
         { type: 'Fab Num', value: 'Fab Num' },
@@ -102,22 +87,20 @@ export default {
         { type: 'Interne', value: 'Interne' },
       ],
       project: {
-        longTitle: '',
-        siclade: '',
-        shortTitle: '',
-        zoneFonctionnelle: '',
-        quartierFonctionnel: '',
-        typeProjet: [],
+        libelle_systeme_information: '',
+        libelle_fiche_siclade: '',
+        libelle_court_systeme_information: '',
+        tag_projet: [],
       },
     };
   },
   methods: {
-    createProject(project) {
-      console.log('project');
-      this.$store.dispatch('createProject', project);
-      },
+    createProject() {
+      console.log('project', this.project);
+      this.$store.dispatch('createProject', this.project);
     },
-  };
+  },
+};
 </script>
 <style scoped>
   .p-multiselect-car-option {
