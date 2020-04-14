@@ -37,7 +37,15 @@ export default new Vuex.Store({
       projectService.createProject(project)
         .then(() => {
           commit('CREATE_PROJECT', project);
-        });
+        }).catch(() => {
+        const error = {
+          date: new Date(),
+          message: `echec sur la récuperation 
+            des projets dans la méthode 
+            getAllProjects: ${err.message}`,
+        };
+        commit('CREATE_ERROR', error);
+      });
     },
     getAllProjects({ commit }) {
       projectService.getAllProjects()
