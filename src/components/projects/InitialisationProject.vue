@@ -97,7 +97,7 @@ export default {
   methods: {
     createProject() {
       console.log('project', this.project);
-      this.$store.dispatch('createProject', this.project);
+      this.$store.dispatch('projects/createProject', this.project);
     },
   },
 };
