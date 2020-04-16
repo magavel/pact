@@ -1,15 +1,16 @@
 <template>
   <div>
-    <Steps :model="items" :readonly="false" />
     <InitialisationProject />
   </div>
 </template>
 
 <script>
 import InitialisationProject from './InitialisationProject.vue';
+import Stepper from '../Stepper';
 
 export default {
   components: {
+    Stepper,
     InitialisationProject,
   },
   data() {

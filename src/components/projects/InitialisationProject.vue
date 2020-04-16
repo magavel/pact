@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="createProject">
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col">
         <label for="longTitle">
           Libellé fiche projet
         </label>
@@ -13,9 +13,9 @@
                 v-model="project.libelle_systeme_information"
         />
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col">
         <label for="shortTitle">
-          Libellé court <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"> </i>
+          Libellé court <i class="pi pi-exclamation-circle"> </i>
         </label>
         <input
                 type="text"
@@ -27,11 +27,11 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col">
           <label
                   for=""
           >Projet spécifique
-            <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"> </i>
+            <i class="pi pi-exclamation-circle"> </i>
           </label>
           <MultiSelect
                   v-model="project.tag_projet"
@@ -57,9 +57,9 @@
             </template>
           </MultiSelect>
         </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col">
         <label for="ficheSiclade">
-          Fiche(s) Siclade <i class="pi pi-exclamation-circle" style="fontSize: 1.5em"></i>
+          Fiche(s) Siclade <i class="pi pi-exclamation-circle"></i>
         </label>
         <input
                 type="text"
@@ -70,6 +70,50 @@
         />
       </div>
     </div>
+    <div>
+      <div class="bg-light">
+        Modules <i class="pi pi-exclamation-circle"></i>
+      </div>
+      <div class="form-row">
+
+        <div class="form-group col">
+          <label for="libelleModule">
+            Libellé modules
+          </label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="libelleModule"
+                  v-model="project.libelle_module"
+          />
+        </div>
+        <div class="form-group col">
+          <label for="libelleFicheDeclic">
+            Fiche(s) Déclic
+          </label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="libelleFicheDeclic"
+                  v-model="project.libelle_module"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="typeModedule">
+            Type de module
+          </label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="typeModedule"
+                  v-model="project.type_module"
+          />
+        </div>
+      </div>
+    </div>
+
     <button type="submit" class="btn btn-primary float-right">Suivant</button>
   </form>
 </template>
@@ -80,6 +124,12 @@ export default {
   name: 'InitialisationProject',
   data() {
     return {
+      typeProjects: [
+        'PMV',
+        'Fab num',
+        'POC',
+        'Autre',
+      ],
       projects: [
         { type: 'PMV', value: 'PMV' },
         { type: 'Fab Num', value: 'Fab Num' },
