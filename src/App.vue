@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-light">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a href class="navbar-brand" @click.prevent>P@ct NG</a>
       <div class="navbar-nav mr-auto">
@@ -22,15 +22,6 @@
         </li>
         <li class="nav-item">
           <router-link v-if="currentUser" to="/projects" class="nav-link">Projets</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link
-                  v-if="currentUser"
-                  to="/list-projects"
-                  class="nav-link"
-          >
-            liste des projets
-          </router-link>
         </li>
       </div>
 
@@ -97,3 +88,4 @@ export default {
   },
 };
 </script>
+

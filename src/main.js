@@ -12,6 +12,7 @@ import Dropdown from 'primevue/dropdown';
 import Spinner from 'primevue/spinner';
 import Steps from 'primevue/steps';
 import MultiSelect from 'primevue/multiselect';
+import Listbox from 'primevue/listbox';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primevue/resources/themes/nova-light/theme.css';
@@ -26,12 +27,22 @@ import {
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
+  faExclamationCircle,
+  faPlusCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import { router } from './router';
 import store from './store';
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+library.add(
+  faHome,
+  faUser,
+  faUserPlus,
+  faSignInAlt,
+  faSignOutAlt,
+  faExclamationCircle,
+  faPlusCircle
+);
 
 Vue.config.productionTip = false;
 
@@ -51,6 +62,7 @@ Vue.component('Spinner', Spinner);
 Vue.component('InputText', InputText);
 Vue.component('Steps', Steps);
 Vue.component('MultiSelect', MultiSelect);
+Vue.component('Listbox', Listbox);
 
 
 new Vue({

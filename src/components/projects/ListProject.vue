@@ -14,7 +14,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'ListProject',
   computed:mapState( {
-    projects: state=> state.projects.projects
+    projects: state=> state.projects.projects.systemeInformations,
   }),
   created() {
     this.$store.dispatch('projects/getAllProjects');

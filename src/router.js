@@ -60,13 +60,7 @@ export const router = new Router({
       path: '/projects',
       name: 'projects',
       // lazy-loaded
-      component: () => import('./views/createProject.vue'),
-    },
-    {
-      path: '/list-projects',
-      name: 'listProjects',
-      // lazy-loaded
-      component: () => import('./views/ListProject.vue'),
+      component: () => import('./views/BoardProject.vue'),
     },
   ],
 });
