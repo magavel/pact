@@ -56,8 +56,7 @@
         "experimentalObjectRestSpread": true
       }
     },
-    "rules": {
-    },
+    "rules": {},
     "overrides": [
       {
         "files": [
