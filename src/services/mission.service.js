@@ -31,6 +31,8 @@ class MissionService {
     axios.post(API_URL.concat('users/', user.username, '/missions'),
       { date: dateDebut, commentaire: commentairePost });
   }
+
+
 }
 
 export default new MissionService();
