@@ -1,15 +1,22 @@
 <template>
   <div>
-    <hr width="25%" color="blue">  djdjdj ------------ zdzdzdz ------------ qxqqd ------------
+    numéro de step: {{ step }}
+    <ul class="d-flex justify-content-around">
+      <li class="trait" v-for="(item, index) in steps" :key="index">
+        {{ item.icon }} {{ item.value }}
+      </li>
+    </ul>
   </div>
 </template>
-
 <script>
   export default {
-    name: 'Stepper'
+    name: "Stepper",
+    props: {
+      step: {},
+      steps: []
+    }
   };
 </script>
-
-<style scoped>
+<style scoped lang="scss">
 
 </style>

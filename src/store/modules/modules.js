@@ -19,7 +19,8 @@ const actions = {
     moduleService.createModule(payload, project_id)
       .then(() => {
         commit('CREATE_PROJECT', payload, project_id);
-      });
+      })
+      .catch(error=> {console.log('message erreur ', error)});
   },
 };
 

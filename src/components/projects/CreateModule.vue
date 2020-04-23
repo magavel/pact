@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="bg-light">
+      <div>
         Modules <font-awesome-icon icon="exclamation-circle" />
       </div>
       <div class="form-row">
@@ -37,7 +37,7 @@
               <Dropdown
                 v-model="moduleSI.module_type"
                 :options="typeModule"
-                optionLabel="name"
+                optionLabel="value"
                 id="typeModedule"
               />
             </div>
@@ -62,7 +62,7 @@
               <Dropdown
                 v-model="moduleSI.module_maturite_client"
                 :options="maturiteClient"
-                optionLabel="name"
+                optionLabel="value"
                 id="maturiteClient"
               />
             </div>
@@ -85,7 +85,7 @@
               <Dropdown
                 v-model="moduleSI.module_priorite_pole"
                 :options="prioritePole"
-                optionLabel="name"
+                optionLabel="value"
                 id="prioritePole"
               />
             </div>
@@ -103,7 +103,7 @@
           </div>
         </div>
       </div>
-      <div><span class="button" @click="deleteModule" >Supprimer le module</span></div>
+<!--      <div><span class="button" @click="deleteModule" >Supprimer le module</span></div>-->
     </div>
 </template>
 
