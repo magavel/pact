@@ -1,11 +1,13 @@
 <template>
     <div id="principal">
-        <h1>Mes Activités</h1>
+        <div id="lien">
+            <a href="#">Mes Activités</a>
+            <a href="#">Saisir à la place de</a>
+        </div>
         <div id="saisie">
-            <h2>Mes saisies</h2>
             <div class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col" id="divCalendar">
                         <Calendar v-model="date12"
                                   :inline="true"
                                   :locale="fr"
@@ -13,27 +15,18 @@
                                   dateFormat="dd/mm/yy">
                         </Calendar>
                     </div>
-                    <div class="col">
+                    <div class="col-8">
                         <div class="row">
-                            <H3 class="text-center">
+                            <span class="text-center">
                             {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
-                            </H3>
+                            </span>
                             <span class="pi pi-heart"></span>
                         </div>
                         <div class="row">
                             <div class="card text-center">
-                                <div class="card-header">
-                                    <ul class="nav nav-pills card-header-pills">
-                                        <li class="nav-item">
-                                            <a class="nav-link active"
-                                               href="#"> Liste des Activités</a>
-                                        </li>
-                                    </ul>
-                                </div>
                                 <div class="card-body">
                                     <DataTable v-model="missionsJour"
-                                               class="table table-bordered"
-                                               :paginator="true"
+                                               class="p-datatable-responsive p-datatable-customers"
                                                :rows="4">
                                         <template #empty>
                                             Aucune Activités trouvées.
@@ -43,13 +36,13 @@
                                         </template>
                                         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
                                         <Column field="name"
-                                                header="Missions/ Sous-missions"></Column>
+                                                header="Missions/ Modules"></Column>
                                         <Column field="activite"
                                                 header="Type d'activités"></Column>
                                         <Column field="commentaire"
                                                 header="Commentaires"></Column>
                                         <Column field="charges"
-                                                header="Charges"></Column>
+                                                header="Charges (h:m)"></Column>
                                         <Column header="Actions">
                                             <template #body>
                                                 <a class="pi pi-times"></a>
@@ -142,6 +135,7 @@
 
 <script>
 import MissionService from '../services/mission.service';
+import SaisieService from '../services/saisie.service';
 
 export default {
   created() {
@@ -227,12 +221,14 @@ export default {
       heure: null,
       minute: null,
       missionAdd: null,
+
     };
   },
   // missionService: null,
-  /* created() {
-    this.missionService = new MissionService();
-  }, */
+   created() {
+    /* this.missionService = new MissionService(); */
+
+  },
   mounted() {
     /* MissionService.getMissionServiceAllMissions().then(
       (response) => {
@@ -244,6 +240,12 @@ export default {
         console.log(this.listDate);
       },
     ); */
+    // toISOString()
+    SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
+        (response) => {
+            console.log(response.data);
+        }
+    );
     this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
       .forEach((mission) => this.missionsJour.push(mission));
   },
@@ -264,6 +266,9 @@ export default {
       this.reloadMission();
       event.preventDefault();
     }, */
+    /*getSaisies(){
+        this.$store.dispatch('saisies/getSaisies', this.saisies)
+    },*/
     clickValider() {
       this.missionAdd = {
         name: this.selectedMission,
@@ -278,7 +283,7 @@ export default {
       this.missions.forEach((m) => console.log(m.date));
       this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
         .forEach((mission) => this.missionsJour.push(mission));
-      this.missionsJour.forEach((m) => console.log(m.commentaire));
+      /*SaisieService.postSaisie(1, `${this.heure}.${this.minute}`, )*/
     },
     filterMissionDuJour() {
       console.log(`mission du jour : ${this.missions.filter((mission) => mission.date === this.date12)}`);
@@ -345,11 +350,48 @@ export default {
 </script>
 
 <style scoped>
+
+    a{
+        padding: 10px;
+    }
     #test{
-        border: 1px solid;
+        background-color: white;
     }
 
     #saisie{
-        border: 1px solid;
+        background-color: white;
+        margin-bottom: 2em;
     }
+    #divCalendar{
+        background-color: #ffca7a;
+        border-top-right-radius: 1em 5em;
+        border-bottom-right-radius: 5em 12em;
+    }
+
+    /deep/ .p-datatable.p-datatable-customers {
+
+        .p-datatable-header {
+            border: 0 none;
+            padding: 12px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .p-paginator {
+            border: 0 none;
+            padding: 1em;
+        }
+
+        .p-datatable-thead > tr > th {
+            border: 0 none;
+            text-align: left;
+        }
+
+        .p-datatable-tbody > tr > td {
+            border: 0 none;
+            cursor: auto;
+        }
+
+    }
+
 </style>

@@ -146,6 +146,7 @@ export default {
   mounted() {
     MissionService.getMissionServiceAllMissions().then(
       (response) => {
+        console.log("réponse");
         console.log(response.data);
         this.missions = response.data;
         this.listDate = response.data.map(
@@ -160,6 +161,7 @@ export default {
       MissionService.getMissionServiceAllMissions()
         .then(
           (response) => {
+            console.log("mission");
             this.missions = response.data;
             this.listDate = response.data.map(
               (x) => Number((x.missionDateRealisation).split('::')[0]),

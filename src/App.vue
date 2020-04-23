@@ -97,3 +97,47 @@ export default {
   },
 };
 </script>
+
+<style>
+  body{
+    background-color: #e8ebf0;
+  }
+
+  body .p-datepicker {
+    border: none;
+    background-color: #ffca7a;
+    border-bottom-right-radius: 7em 5em;
+  }
+
+  body .p-datepicker .p-datepicker-header{
+    background-color: #ffca7a;
+  }
+
+  .card{
+    border: none;
+  }
+
+  .p-datatable.p-datatable-customers {
+    .p-datatable-header {
+      border: 0 none;
+      padding: 12px;
+      text-align: left;
+      font-size: 20px;
+    }
+
+    .p-paginator {
+      border: 0 none;
+      padding: 1em;
+    }
+
+    .p-datatable-thead > tr > th {
+      border: 0 none;
+      text-align: left;
+    }
+
+    .p-datatable-tbody > tr > td {
+      border: 0 none;
+      cursor: auto;
+    }
+  }
+</style>
