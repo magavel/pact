@@ -32,7 +32,7 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="typeModedule">
-                Type de module
+                de module
               </label>
               <Dropdown
                 v-model="moduleSI.module_type"
