@@ -72,16 +72,18 @@ export const router = new Router({
           name: 'besoins',
           component: () => import('./components/projects/Besoins')
         },
-/*        {
+        {
           path: 'equipe',
-          component: () => import('./components/projects/xxxxxx')
+          name: 'equipe',
+          component: () => import('./components/projects/Equipe')
         },
-        /*
+
+
        {
         path: 'planification',
-        component: () => import('./components/projects/xxxxxx')
+        name: 'planification',
+        component: () => import('./components/projects/Planification')
       },
-      */
       ]
     },
   ],

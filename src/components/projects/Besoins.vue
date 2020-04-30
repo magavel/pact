@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form action="">
+    <form>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="authoriteClient">
@@ -126,61 +126,64 @@
         </div>
       </div>
 
-      <h5>Nom du module a fournir...</h5>
-
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="infoGerant">Infogérant</label> <br>
-          <input
-                  type="text"
-                  class="form-control"
-                  id="infoGerant"
-                  v-model="infogerence.infogerant"
-
-          />
-        </div>
-
-        <div class="col-md-4">
-          <label for="hebergement">Hébergement</label><br>
-          <input
-                  type="text"
-                  class="form-control"
-                  id="hebergement"
-                  v-model="infogerence.hebergement"
-
-          />
-        </div>
-
-        <div class="col-md-4">
-          <label for="niveauHerbergement">Niveau d'hébergement</label><br>
-          <MultiSelect
-                  id="niveauHerbergement"
-                  v-model="infogerence.niveauHebergement"
-                  :options="niveauHebergement"
-                  optionLabel="value"
-          />
-        </div>
-      </div>
+      <InfogerenceModule v-for="systeme_information_module in systeme_information_modules" :key="systeme_information_module.module_Id"
+              :infogerence="infogerence"
+              :niveau-hebergement="niveauHebergement"
+              :systeme_information_module="systeme_information_module"
+      />
 
 
     </div>
+      <div class="d-flex justify-content-between">
 
       <button
-              @click.prevent=""
+              @click.prevent="prevStep"
+              class="btn rounded-pill btn-primary"
+      >
+        Revenir à l'étape précedente
+      </button>
+
+      <button
+              @click.prevent="nextStep"
               class="btn rounded-pill btn-primary float-right"
       >
-        Passer à l'étape suivant
+        Enregistrer et passer à l'étape suivant
       </button>
+      </div>
+
 
     </form>
 
   </div>
 </template>
 <script>
+  import InfogerenceModule from "./InfogerenceModule";
+
   export default {
     name: 'Besoins',
+    components: {InfogerenceModule},
+    methods: {
+      nextStep() {
+        // TODO mettre a jour dans le store  le step
+        this.$router.push({name: 'equipe'});
+      },
+      prevStep() {
+        // TODO mettre a jour dans le store  le step
+        this.$router.push('');
+      },
+    },
     data() {
       return {
+        systeme_information_modules: [
+          {
+            module_Id: 2,
+            module_libelle: 'test projet module',
+          },
+          {
+            module_Id: 4,
+            module_libelle: 'Autre module encore',
+          },
+        ],
         infoGerencesTableaux: [],
         infogerence: {
           infogerant: '',
@@ -230,6 +233,13 @@
   };
 </script>
 <style scoped>
+  .bg-grey {
+    background-color: #e6dfdf85;
+  }
+
+  .arrondi {
+    border-radius: 0 120px 0 120px / 0 50px 0 50px;
+  }
   p-multiselect-label-container {
     height: 38px;
   }

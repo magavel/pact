@@ -52,13 +52,23 @@
     ul li::after{
         content: '';
         background: #ccc;
-        height: 5px;
+        height: 2px;
         width: 100px;
         display: block;
         position: absolute;
         left: 100px;
         top: 30px
 
+    }
+    ul li:first-child::before{
+        content: '';
+        background: #ccc;
+        height: 2px;
+        width: 100px;
+        display: block;
+        position: absolute;
+        right:100px;
+        top: 30px
     }
 
 
