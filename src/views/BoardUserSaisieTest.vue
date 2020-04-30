@@ -5,7 +5,7 @@
             <a href="#">Saisir à la place de</a>
         </div>
         <div id="saisie">
-            <div class="container">
+            <div class="container" id="container-saisie">
                 <div class="row">
                     <div class="col" id="divCalendar">
                         <Calendar v-model="date12"
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-8">
                         <div class="row">
-                            <span class="text-center">
+                            <span class="text-center" id="spanJour">
                             {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
                             </span>
                             <span class="pi pi-heart"></span>
@@ -54,15 +54,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" v-bind:class="divClassCharges">
+                            <div class="col"><span >TOTAL CHARGES</span></div>
+                            <div class="col"><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
+                            <div class="col"><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="test">
             <div class="container">
-                <div class="row">
-                    <span>Nouvelle(s) saisie(s)</span>
-                </div>
                 <div class="row">
                     <div class="col">
                         <Button label="Créer" icon="pi pi-plus-circle" class="p-button-secondary">
@@ -89,21 +91,20 @@
                 </div>
                 <!--<form v-on:submit="sub" action="#" > -->
                 <div class="row">
-                    <span>Dates</span>
-                </div>
-                <div class="row">
-                    <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy" />
+                    <div id="periode">
+                    <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy" /><span> au </span><Calendar :locale="fr" dateFormat="dd/mm/yy" />
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <span>Missions / Sous-missions</span>
+                            <span>Missions / Modules</span>
                         </div>
                         <div class="row">
                             <Dropdown v-model="selectedMission" :options="missionsData" />
                         </div>
                         <div class="row">
-                            <span>Commentaire</span>
+                            <span>Commentaire (max 100 caractères)</span>
                         </div>
                         <div class="row">
                             <Textarea v-model="commentaire" rows="5" cols="30" ></Textarea>
@@ -117,15 +118,17 @@
                             <Dropdown v-model="selectedActivite" :options="tabActivite"/>
                         </div>
                         <div class="row">
-                            <span>Charges</span>
+                            <span>Charges(hh:mm)</span>
                         </div>
                         <div class="row">
-                            <Spinner v-model="heure" :min="0" :max="24"/> H <Spinner v-model="minute" :min="0" :max="59" /> Min
+                            <div id="charges">
+                                <Spinner v-model="heure" :min="0" :max="24" id="spin-heure"/> H <Spinner v-model="minute" :min="0" :max="59" id="spin-minute"/> Min
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <Button type="submit" label="Valider" class="p-button-secondary" v-on:click="clickValider"></Button>
+                <div class="row justify-content-end">
+                    <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary" v-on:click="clickValider"></Button>
                 </div>
                 <!-- </form> -->
             </div>
@@ -175,6 +178,8 @@ export default {
       dates1: null,
       dates2: null,
       missionsJour: [],
+      chargesTotalJour: "0:0",
+      messageCharge : null,
       tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
       missions: [
         {
@@ -218,10 +223,11 @@ export default {
       missionsData: ['Permissions et congés', 'PACT NG', 'Soutien'],
       selectedMission: null,
       selectedActivite: null,
-      heure: null,
-      minute: null,
+      heure: 0,
+      minute: 0,
       missionAdd: null,
-
+      classeCharges: null,
+      divClassCharges : null,
     };
   },
   // missionService: null,
@@ -243,7 +249,7 @@ export default {
     // toISOString()
     SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
         (response) => {
-            console.log(response.data);
+            // console.log(response.data);
         }
     );
     this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
@@ -283,16 +289,60 @@ export default {
       this.missions.forEach((m) => console.log(m.date));
       this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
         .forEach((mission) => this.missionsJour.push(mission));
+        this.chargesTotalJour = this.calculerChargesTotalJour();
+        this.messageCharge = this.editerMessageCharges();
       /*SaisieService.postSaisie(1, `${this.heure}.${this.minute}`, )*/
     },
     filterMissionDuJour() {
       console.log(`mission du jour : ${this.missions.filter((mission) => mission.date === this.date12)}`);
       return this.missions.filter((mission) => mission.date === this.date12);
     },
+    calculerChargesTotalJour(){
+          let heures = 0;
+          let minutes = 0;
+          for(let mission of this.missionsJour){
+              let charges = mission.charges.split(":");
+              heures += parseInt(charges[0]);
+              minutes += parseInt(charges[1]);
+          }
+          let totalMinutes = minutes % 60;
+          let totalHeures = Math.trunc(minutes/60) + heures;
+        return `${totalHeures}:${totalMinutes}`;
+     },
+      editerMessageCharges(){
+        let messageReturn;
+        let charges = this.chargesTotalJour.split(":");
+        let heures = parseInt(charges[0]);
+        let minutes = parseInt(charges[1])
+        if(heures * 60 + minutes < 500){
+            this.classeCharges = "charges-manquante";
+            this.divClassCharges = "div-charges-manquante";
+            let tempsManquant = 510 - (heures * 60 + minutes);
+            let heureManquante = Math.trunc(tempsManquant / 60);
+            let minutesManquantes = tempsManquant % 60;
+            messageReturn = heureManquante + "h" + minutesManquantes + " manquantes";
+        }
+        if(heures * 60 + minutes <= 520 && heures * 60 + minutes >= 500){
+            this.divClassCharges = "div-charges-valide";
+            this.classeCharges = "charges-valide";
+            messageReturn = "Valide à +/- 10 minutes";
+        }
+        if(heures * 60 + minutes > 520 ){
+            this.divClassCharges = "div-charges-supp";
+            this.classeCharges = "charges-supp";
+            let tempsSupp = (heures * 60 + minutes) - 510;
+            let heureSupp = Math.trunc(tempsSupp / 60);
+            let minutesSupp = tempsSupp % 60;
+            messageReturn = heureSupp + "h"+ minutesSupp + " supplémentaire(s)";
+        }
+        return messageReturn;
+      },
     clickCalendar() {
       this.missionsJour = [];
       this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
         .forEach((mission) => this.missionsJour.push(mission));
+      this.chargesTotalJour = this.calculerChargesTotalJour();
+      this.messageCharge = this.editerMessageCharges();
     },
     formaterJour(numberJour) {
       let stringJour;
@@ -367,31 +417,44 @@ export default {
         border-top-right-radius: 1em 5em;
         border-bottom-right-radius: 5em 12em;
     }
-
-    /deep/ .p-datatable.p-datatable-customers {
-
-        .p-datatable-header {
-            border: 0 none;
-            padding: 12px;
-            text-align: left;
-            font-size: 20px;
-        }
-
-        .p-paginator {
-            border: 0 none;
-            padding: 1em;
-        }
-
-        .p-datatable-thead > tr > th {
-            border: 0 none;
-            text-align: left;
-        }
-
-        .p-datatable-tbody > tr > td {
-            border: 0 none;
-            cursor: auto;
-        }
-
+    #container-saisie{
+        margin-left: 0;
+        background-image: url("/src/assets/Trace-82.png");
+        background-size: cover;
+        z-index: 1;
     }
 
+    #spanJour{
+        margin-left: 40%;
+    }
+    #btnAjouter{
+        background: #154194 0% 0% no-repeat padding-box;
+        border-radius: 30px;
+        opacity: 1;
+        font: Regular 18px/22px Myriad Pro;
+        letter-spacing: 0px;
+        color: #FFFBFB;
+        opacity: 1;
+    }
+    #periode{
+        background-color: #ffca7a;
+    }
+    .charges-valide{
+        color: #1F9E02;
+    }
+    .charges-supp{
+        color: #DC0007;
+    }
+    .charges-manquante{
+        color: #E67504;
+    }
+    .div-charges-manquante{
+        background-color: #FBE3BF;
+    }
+    .div-charges-valide{
+        background-color: #E1EBE0;
+    }
+    .div-charges-supp{
+        background-color: #F3D6D6;
+    }
 </style>
