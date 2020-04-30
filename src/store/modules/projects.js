@@ -27,6 +27,16 @@ const mutations = {
 const actions = {
   createProject({ commit }, project) {
     projectService.createProject(project)
+        .then((response) => {
+          if(response.status === 201) {
+            console.log('data', response.data);
+            console.log('les routes', this.$route , this.$router)
+            this.$router.push('test');
+          }
+          else {
+            console.log('pas de status 201, pb avec le serveur', response.status)
+          }
+        })
       .then(() => {
         commit('CREATE_PROJECT', project);
       });
