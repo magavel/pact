@@ -159,4 +159,18 @@ export default {
     width: 70px;
   }
 
+  body .dropdownWidth .p-dropdown{
+    width: 90%;
+  }
+
+  .dropdownWidth textarea{
+    width: 90%;
+  }
+
+  body #periode .p-inputtext{
+    width: 100px;
+    margin-top: 10%;
+  }
+
+
 </style>
