@@ -9,7 +9,7 @@
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Identifiant</label>
             <input
               v-model="user.username"
               v-validate="'required|min:3|max:20'"
@@ -37,7 +37,7 @@
             >{{errors.first('email')}}</div>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mot de passe</label>
             <input
               v-model="user.password"
               v-validate="'required|min:6|max:40'"
