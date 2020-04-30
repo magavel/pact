@@ -141,13 +141,13 @@ export default {
     background-color: #e8ebf0;
   }
 
-  body .p-datepicker {
+  body #divCalendar .p-datepicker {
     border: none;
     background-color: #ffca7a;
     border-bottom-right-radius: 7em 5em;
   }
 
-  body .p-datepicker .p-datepicker-header{
+  body #divCalendar .p-datepicker .p-datepicker-header{
     background-color: #ffca7a;
   }
 
@@ -155,27 +155,8 @@ export default {
     border: none;
   }
 
-  .p-datatable.p-datatable-customers {
-    .p-datatable-header {
-      border: 0 none;
-      padding: 12px;
-      text-align: left;
-      font-size: 20px;
-    }
-
-    .p-paginator {
-      border: 0 none;
-      padding: 1em;
-    }
-
-    .p-datatable-thead > tr > th {
-      border: 0 none;
-      text-align: left;
-    }
-
-    .p-datatable-tbody > tr > td {
-      border: 0 none;
-      cursor: auto;
-    }
+  body #charges .p-spinner .p-spinner-input{
+    width: 70px;
   }
+
 </style>
