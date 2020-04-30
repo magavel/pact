@@ -1,11 +1,9 @@
 <template>
   <div>
-    <Stepper t :step="step" :steps="steps" />
+<!--    <Stepper t :step="step" :steps="steps" />-->
     <form @submit.prevent="createProject">
       <div>
-        <keep-alive>
           <Initialisation
-            v-if="step === 1"
             :list_libelle_fiche_siclade="list_libelle_fiche_siclade"
             :maturite-client="maturiteClient"
             :module-s-i="moduleSI"
@@ -16,20 +14,21 @@
             :remove-module-s-i="removeModuleSI"
             :type-module="typeModule"
           />
-
-          <!-- debut de composant  -->
-          <Besoins v-if="step === 2" :besoins="besoins" />
-          <!-- fin de composant  -->
-        </keep-alive>
-
         <div class="pt-3">
+
           <button
-            v-if="step !== steps.length"
             @click.prevent="nextStep"
             class="btn rounded-pill btn-primary float-right"
           >
-            Suivant
+            Passer à l'étape suivant
           </button>
+          <button
+                  @click.prevent="createProject"
+                  class="btn rounded-pill btn-primary mr-3"
+          >
+            Enregistrer le projet
+          </button>
+
         </div>
       </div>
     </form>
@@ -37,45 +36,16 @@
 </template>
 <script>
 // import project from '../../store/modules/project';
-
-import Stepper from "../Stepper";
 import Initialisation from "./Initialisation";
 import Besoins from "./Besoins";
+import projects from "../../store/modules/projects";
 
 export default {
   name: "InitialisationProject",
-  components: { Besoins, Initialisation, Stepper },
+  components: { Besoins, Initialisation },
 
   data() {
     return {
-      besoins: {
-        autoriteClient: null,
-        beneficiaire: null,
-        zoneFonctionnelle: null,
-        quartierFonctionnel: null,
-        descriptionProjet: null,
-        dateMiseEnServiceSouhaite: null,
-        enjeuxProjet: null,
-        typeSI: null,
-        commission: null,
-        reseauxSupports: {},
-        besoinsModules: {}
-      },
-      besoinModule: {
-        infogerant: null,
-        hebergement: null,
-        niveauHebergement: null
-      },
-      niveauHergement: [
-        { value: "Or" },
-        { value: "Argent" },
-        { value: "Bronze" }
-      ],
-      reseauSupport: [
-        { value: "INTERNET" },
-        { value: "INTRADEF" },
-        { value: "INTRACED" }
-      ],
       steps: [
         { value: "Initialisation", icon: "init" },
         { value: "Besoins", icon: "" },
@@ -92,11 +62,11 @@ export default {
         { value: "M5" }
       ],
       typeModule: [
-        { value: "module de type 1" },
-        { value: "module de type 2" },
-        { value: "module de type 3" },
-        { value: "module de type 4" },
-        { value: "module de type 5" }
+        { value: '1'},
+        { value: '2'},
+        { value: '3' },
+        { value: '4' },
+        { value: '5' }
       ],
       prioritePole: [
         { value: "P1" },
@@ -138,6 +108,7 @@ export default {
   methods: {
     nextStep() {
       this.step++;
+        this.$router.push({name: 'besoins'})
     },
     addModule() {
       console.log("ds addModule");
@@ -149,6 +120,7 @@ export default {
     },
     createProject() {
       this.project.systeme_information_list_module.push(this.moduleSI);
+      console.log('le projet', this.project);
       this.$store.dispatch("projects/createProject", this.project);
     }
   }

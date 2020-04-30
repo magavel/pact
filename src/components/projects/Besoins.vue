@@ -1,5 +1,6 @@
 <template>
   <div>
+    <form action="">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="authoriteClient">
@@ -73,28 +74,159 @@
         ></textarea>
       </div>
       <div class="form-group col-md-6">
-        <div class="row">
-          <label for="quartierFonctionnel">
+        <div class="row mt-4 ml-4">
+          <label for="dateMiseService">
             Date de mise en service souhaitée par le client
           </label>
-          <Calendar v-model="besoins.dateMiseEnServiceSouhaite" :numberOfMonths="3"/>
-          <label>
-            Enjeux du projet iiiiii
-          </label>
-          <InputNumber v-model="value20" mode="decimal" showButtons :min="1" :max="4"/>
+          <Calendar id="dateMiseService" v-model="besoins.dateMiseEnServiceSouhaite" :numberOfMonths="1"/>
+          <div class="col">
+            <label>
+              Enjeux du projet
+            </label>
+            <InputNumber v-model="besoins.enjeuxProjet" mode="decimal" showButtons :min="1" :max="4"/>
+          </div>
         </div>
 
       </div>
     </div>
+    <div class="mt-5">
+
+        <h5>Prérequis techniques</h5>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="typeSI">Type de SI</label> <br>
+          <MultiSelect
+                  id="typeSI"
+                  v-model="besoins.typeSI"
+                  :options="typeSI"
+                  optionLabel="value"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="commission">Commission</label><br>
+          <MultiSelect
+                  id="commission"
+                  v-model="besoins.commissions"
+                  :options="value"
+                  optionLabel="value"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="typeSI">Réseaux support</label><br>
+          <MultiSelect
+                  id="typeSI"
+                  v-model="besoins.typeSI"
+                  :options="reseauSupport"
+                  optionLabel="value"
+          />
+        </div>
+      </div>
+
+      <h5>Nom du module a fournir...</h5>
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="infoGerant">Infogérant</label> <br>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="infoGerant"
+                  v-model="infogerence.infogerant"
+
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="hebergement">Hébergement</label><br>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="hebergement"
+                  v-model="infogerence.hebergement"
+
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="niveauHerbergement">Niveau d'hébergement</label><br>
+          <MultiSelect
+                  id="niveauHerbergement"
+                  v-model="infogerence.niveauHebergement"
+                  :options="niveauHebergement"
+                  optionLabel="value"
+          />
+        </div>
+      </div>
+
+
+    </div>
+
+      <button
+              @click.prevent=""
+              class="btn rounded-pill btn-primary float-right"
+      >
+        Passer à l'étape suivant
+      </button>
+
+    </form>
 
   </div>
 </template>
 <script>
   export default {
     name: 'Besoins',
-    props: {
-      besoins: {}
-    }
+    data() {
+      return {
+        infoGerencesTableaux: [],
+        infogerence: {
+          infogerant: '',
+          hebergement: '',
+          niveauHebergement: []
+        },
+        besoins: {
+          autoriteClient: null,
+          beneficiaire: null,
+          zoneFonctionnelle: null,
+          quartierFonctionnel: null,
+          descriptionProjet: null,
+          dateMiseEnServiceSouhaite: null,
+          enjeuxProjet: null,
+          typeSI: null,
+          commissions: [],
+          reseauxSupports: {},
+          besoinsModules: []
+        },
+        typeSI: [
+          { value: "SIAG" },
+          { value: "SIOC" },
+          { value: "SIST" }
+        ],
+        commissions: [
+          { value: "Commision untel" },
+          { value: "Commision bidule" },
+          { value: "Commision truc" }
+        ],
+        besoinModule: {
+          infogerant: null,
+          hebergement: null,
+          niveauHebergement: null
+        },
+        niveauHebergement: [
+          { value: "Or" },
+          { value: "Argent" },
+          { value: "Bronze" }
+        ],
+        reseauSupport: [
+          { value: "INTERNET" },
+          { value: "INTRADEF" },
+          { value: "INTRACED" }
+        ],
+      }
+    },
   };
 </script>
 <style scoped>
