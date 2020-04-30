@@ -25,10 +25,14 @@ import {
   faHome,
   faUser,
   faUserPlus,
+  faUserFriends,
   faSignInAlt,
   faSignOutAlt,
   faExclamationCircle,
   faPlusCircle,
+  faChalkboard,
+  faPencilAlt,
+  faCogs,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import { router } from './router';
@@ -39,10 +43,14 @@ library.add(
   faHome,
   faUser,
   faUserPlus,
+  faUserFriends,
   faSignInAlt,
   faSignOutAlt,
   faExclamationCircle,
-  faPlusCircle
+  faPlusCircle,
+  faChalkboard,
+  faPencilAlt,
+  faCogs,
 );
 
 Vue.config.productionTip = false;
