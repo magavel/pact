@@ -3,6 +3,85 @@
         Ici la planification
         <form >
 
+            <div v-for="module in systemeInformation.systeme_information_modules">
+
+                <h5>{{ module.module_libelle}}</h5>
+                <!-- debut init -->
+                <div class="form-row d-flex align-items-end">
+                    <div class="form-group col-md-4">
+                        <label for="">Niveau de maturité</label>
+                        <input class="bg-light" type="text" :placeholder=" module.module_maturite_client " readonly/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Niveau de priorité </label>
+                        <input class="bg-light" type="text" :placeholder=" module.module_priorite_pole " readonly/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Date de mise en service souhaitée par le client</label>
+                        <input class="bg-light" type="text" :placeholder=" module.module_dateSouhaite " readonly />
+                    </div>
+                </div>
+                <!-- fin init -->
+                <!-- phase conception -->
+
+                <h6 class="ml-5">Phase conception</h6>
+<!--                <div v-for="phaseProjet in module.module_listPhase" :key="phaseProjet.phase_id" class="form-row">-->
+                <div class="pb-5 form-row d-flex align-items-end">
+                    <div class="col-md-3">
+                        <label for="chargePrevi">Charge prévisionnelle (j/h)</label>
+                        <input class="bg-light" id="chargePrevi" type="text" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="datePrevi">Date prévisionnelle</label>
+                        <input class="bg-light" id="datePrevi" type="text" />
+                    </div>
+
+                    <div class=" col-md-3">
+                        <label for="capacitePreviN">Capacité prévisionnelle (j/h) Année N</label>
+                        <input class="bg-light" id="capacitePreviN" type="text" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="capacitePreviN1">Capacité prévisionnelle (j/h) Année N+1</label>
+                        <input class="bg-light" id="capacitePreviN1" type="text" />
+                    </div>
+
+
+                </div>
+                <!-- fin conception -->
+
+                <!-- phase mco -->
+
+                <h6 class="ml-5">Phase MCO</h6>
+                <!--                <div v-for="phaseProjet in module.module_listPhase" :key="phaseProjet.phase_id" class="form-row">-->
+                <div class=" pb-5 form-row d-flex align-items-end">
+                    <div class="col-md-3">
+                        <label for="chargePrevi">Charge prévisionnelle (j/h)</label>
+                        <input class="bg-light" id="chargePrevi" type="text" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="datePrevi">Date prévisionnelle</label>
+                        <input class="bg-light" id="datePrevi" type="text" />
+                    </div>
+
+                    <div class=" col-md-3">
+                        <label for="capacitePreviN">Capacité prévisionnelle (j/h) Année N</label>
+                        <input class="bg-light" id="capacitePreviN" type="text" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="capacitePreviN1">Capacité prévisionnelle (j/h) Année N+1</label>
+                        <input class="bg-light" id="capacitePreviN1" type="text" />
+                    </div>
+
+
+                </div>
+                <!-- fin mco -->
+
+            </div>
+
             <div class="d-flex justify-content-between">
                 <button
                         @click.prevent="prevStep"
@@ -57,7 +136,7 @@
                             "module_Version": null,
                             "module_Etat": null,
                             "module_centreId": null,
-                            "module_dateSouhaite": null,
+                            "module_dateSouhaite": "10/12/2020",
                             "module_maturite_client": "M3",
                             "module_priorite_pole": "P2",
                             "module_priorisation_client": null,
@@ -196,5 +275,12 @@
 </script>
 
 <style scoped>
+    .bg-grey {
+        background-color: #e6dfdf85;
+    }
+
+    .arrondi {
+        border-radius: 0 120px 0 120px / 0 50px 0 50px;
+    }
 
 </style>
