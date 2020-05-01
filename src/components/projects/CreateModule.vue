@@ -27,12 +27,12 @@
           />
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-row d-flex align-items-end">
         <div class="col-md-6">
           <div class="row">
             <div class="form-group col-md-6">
               <label for="typeModedule">
-                de module
+                Type de module
               </label>
               <Dropdown
                 v-model="moduleSI.module_type"
@@ -54,7 +54,7 @@
               />
             </div>
           </div>
-          <div class="row mt-2">
+          <div class="row mt-2 d-flex align-items-end">
             <div class="form-group col-md-4">
               <label for="maturiteClient">
                 Maturité client

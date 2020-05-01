@@ -1,9 +1,6 @@
 <template>
     <div class=" row m-5">
-
-        Ici le stepper ==> étape: {{ step }}
-
-                <div class=" mt-4">
+                <div class="mx-auto mt-4">
                     <ul class="progressBar">
                         <li v-bind:class="{ active: step }">
                             <img src="../assets/logo.png"/>
