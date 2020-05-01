@@ -141,7 +141,18 @@ export default {
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
   body{
-    background-color: #e8ebf0;
+    background-color: $background;
+    & a {
+      font-weight: bold;
+      height: 50px;
+      margin-right: -15px;
+      color: white;
+      &.router-link-exact-active {
+        color: $gris-sombre;
+        background-color: $background;
+        border-radius: 25px 0 0 25px;
+      }
+    }
   }
 
   body #divCalendar .p-datepicker {
@@ -175,17 +186,7 @@ export default {
     margin-top: 10%;
   }
 
-  a {
-    font-weight: bold;
-    height: 50px;
-    margin-right: -15px;
-    color: white;
-    &.router-link-exact-active {
-      color: $gris-sombre;
-      background-color: #cccccc;
-      border-radius: 25px 0 0 25px;
-    }
-  }
+
 
 
 </style>
