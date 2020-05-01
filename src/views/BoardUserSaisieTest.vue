@@ -7,7 +7,7 @@
         <div id="saisie">
             <div class="container" id="container-saisie">
                 <div class="row">
-                    <div class="col" id="divCalendar">
+                    <div class="col-4" id="divCalendar">
                         <Calendar v-model="date12"
                                   :inline="true"
                                   :locale="fr"
@@ -15,7 +15,7 @@
                                   dateFormat="dd/mm/yy">
                         </Calendar>
                     </div>
-                    <div class="col-8">
+                    <div class="col">
                         <div class="row">
                             <span class="text-center" id="spanJour">
                             {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
@@ -96,17 +96,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col" >
                         <div class="row">
                             <span>Missions / Modules</span>
                         </div>
-                        <div class="row">
+                        <div class="row dropdownWidth">
                             <Dropdown v-model="selectedMission" :options="missionsData" />
                         </div>
                         <div class="row">
                             <span>Commentaire (max 100 caractères)</span>
                         </div>
-                        <div class="row">
+                        <div class="row dropdownWidth">
                             <Textarea v-model="commentaire" rows="5" cols="30" ></Textarea>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                         <div class="row">
                             <span>Type d'activités</span>
                         </div>
-                        <div class="row">
+                        <div class="row dropdownWidth">
                             <Dropdown v-model="selectedActivite" :options="tabActivite"/>
                         </div>
                         <div class="row">
@@ -435,9 +435,14 @@ export default {
         letter-spacing: 0px;
         color: #FFFBFB;
         opacity: 1;
+        width: 100px;
+        height: 50px;
+        margin-right: 5%;
     }
     #periode{
         background-color: #ffca7a;
+        height: 70px;
+        padding: 5px;
     }
     .charges-valide{
         color: #1F9E02;
