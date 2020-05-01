@@ -50,13 +50,13 @@
                 <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
               </li>
               <li class="nav-item">
-                <router-link v-if="currentUser" to="/user" class="nav-link text-white">Gestion des utilisateurs</router-link>
+                <router-link v-if="currentUser" to="/user" class="nav-link">Gestion des utilisateurs</router-link>
               </li>
               <li class="nav-item">
-                <router-link v-if="currentUser" to="/activites" class="nav-link text-white">Activites</router-link>
+                <router-link v-if="currentUser" to="/activites" class="nav-link">Activites</router-link>
               </li>
               <li class="nav-item">
-                <router-link v-if="currentUser" to="/projects" class="nav-link text-white">Projets</router-link>
+                <router-link v-if="currentUser" to="/projects" class="nav-link">Projets</router-link>
               </li>
             </ul>
             <h6 class=" text-white sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -173,6 +173,16 @@ export default {
   body #periode .p-inputtext{
     width: 100px;
     margin-top: 10%;
+  }
+
+  a {
+    font-weight: bold;
+    height: 50px;
+    &.router-link-exact-active {
+      color: indianred;
+      background-color: #cccccc;
+      border-radius: 25px 0 0 25px;
+    }
   }
 
 
