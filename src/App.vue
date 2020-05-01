@@ -43,13 +43,13 @@
                   <font-awesome-icon icon="home" />Accueil
                 </router-link>
               </li>
-              <li v-if="showAdminBoard" class="nav-item ">
+              <li v-if="showAdminBoard" class="nav-item">
                 <router-link to="/admin" class="nav-link">Tableau administrateur</router-link>
               </li>
               <li v-if="showModeratorBoard" class="nav-item">
                 <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item align-middle">
                 <router-link v-if="currentUser" to="/user" class="nav-link">Gestion des utilisateurs</router-link>
               </li>
               <li class="nav-item">
@@ -178,8 +178,10 @@ export default {
   a {
     font-weight: bold;
     height: 50px;
+    margin-right: -15px;
+    color: white;
     &.router-link-exact-active {
-      color: indianred;
+      color: $gris-sombre;
       background-color: #cccccc;
       border-radius: 25px 0 0 25px;
     }
