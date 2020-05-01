@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <nav class="navbar  navbar-expand-lg navbar-dark sticky-top flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0 bg-light text-dark" href="#">Pact-NG</a>
         <div v-if="!currentUser" class="navbar-nav ml-auto">
           <ul class="navbar-nav px-3 ">
           <li class="nav-item text-primary ">
@@ -152,17 +151,21 @@ export default {
         background-color: $background;
         border-radius: 25px 0 0 25px;
       }
+      &:hover{
+        color: $secondary;
+      }
     }
+
   }
 
   body #divCalendar .p-datepicker {
     border: none;
-    background-color: #ffca7a;
+    background-color: $secondary;
     border-bottom-right-radius: 7em 5em;
   }
 
   body #divCalendar .p-datepicker .p-datepicker-header{
-    background-color: #ffca7a;
+    background-color: $secondary;
   }
 
   .card{
