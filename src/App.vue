@@ -136,7 +136,10 @@ export default {
 };
 </script>
 
-<style>
+  <style lang="scss">
+  @import "./assets/custom.scss";
+  @import "../node_modules/bootstrap/scss/bootstrap.scss";
+
   body{
     background-color: #e8ebf0;
   }
