@@ -8,6 +8,9 @@ $background: #E0E4EB;
 //gris sombre
 $gris-sombre:#535353;
 
+// gris des modules
+$gris-module: #E6DFDF85;
+
 $primary: #154194;
 $primary-variant: #5172AF;
 $secondary:#FFCA7A;
@@ -25,7 +28,8 @@ $theme-colors: (
         "red": $red,  // pour le texte validation calcul heure de saisi
         "red-variant": $red-variant, // pour le champs validation calcul de saisi
         "green": $green,  // pour le texte validation calcul heure de saisi
-        "green-variant": $green-variant // pour le champs validation calcul de saisi
+        "green-variant": $green-variant, // pour le champs validation calcul de saisi
+        "gris-module": $gris-module
 );
 
 

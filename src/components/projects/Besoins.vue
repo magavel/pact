@@ -116,21 +116,23 @@
           </div>
 
           <div class="col-md-4">
-            <label for="typeSI">Réseaux support</label><br>
+            <label for="reseauSupport">Réseaux support</label><br>
             <MultiSelect
-                    id="typeSI"
+                    id="reseauSupport"
                     v-model="besoins.typeSI"
                     :options="reseauSupport"
                     optionLabel="value"
             />
           </div>
         </div>
+        <div class="bg-gris-module arrondi pb-3 mb-3">
 
-        <InfogerenceModule v-for="systeme_information_module in systeme_information_modules" :key="systeme_information_module.module_Id"
-                           :infogerence="infogerence"
-                           :niveau-hebergement="niveauHebergement"
-                           :systeme_information_module="systeme_information_module"
-        />
+          <InfogerenceModule v-for="systeme_information_module in systeme_information_modules" :key="systeme_information_module.module_Id"
+                             :infogerence="infogerence"
+                             :niveau-hebergement="niveauHebergement"
+                             :systeme_information_module="systeme_information_module"
+          />
+        </div>
 
 
       </div>
@@ -233,9 +235,6 @@
   };
 </script>
 <style scoped>
-  .bg-grey {
-    background-color: #e6dfdf85;
-  }
 
   .arrondi {
     border-radius: 0 120px 0 120px / 0 50px 0 50px;

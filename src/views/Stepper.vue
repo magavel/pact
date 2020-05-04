@@ -6,19 +6,19 @@
                 <div class=" mt-4">
                     <ul class="progressBar">
                         <li v-bind:class="{ active: step }">
-                            <img src="../assets/logo.png"/>
+                            <img src="../assets/icons/initialisation.svg"/>
                             <p>Initialisation</p>
                         </li>
                         <li class="">
-                            <img src="../assets/logo.png"/>
+                            <img src="../assets/icons/besoins.svg"/>
                             <p>Besoins</p>
                         </li>
                         <li>
-                            <img src="../assets/logo.png"/>
+                            <img src="../assets/icons/equipes.svg"/>
                             <p>Equipes</p>
                         </li>
                         <li>
-                            <img src="../assets/logo.png"/>
+                            <img src="../assets/icons/planification.svg"/>
                             <p>Planification</p>
                         </li>
                     </ul>

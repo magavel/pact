@@ -6,8 +6,9 @@
               :project="project"
               :projects="projects"
       />
+
     </div>
-    <div class="bg-grey arrondi py-4 pl-4 pr-4 ml-n3 mr-n3 ">
+    <div class="bg-gris-module arrondi py-4 pl-4 pr-4 ml-n3 mr-n3 ">
       <CreateModule
               v-for="(item, index) in numberOfModule"
               :key="index"
@@ -50,10 +51,7 @@
     }
   };
 </script>
-<style scoped>
-  .bg-grey {
-    background-color: #e6dfdf85;
-  }
+<style lang="scss" scoped>
 
   .arrondi {
     border-radius: 0 120px 0 120px / 0 50px 0 50px;
