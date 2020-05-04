@@ -46,11 +46,6 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <router-link to="/home" class="nav-link">
-                  <font-awesome-icon icon="home" /> Accueil
-                </router-link>
-              </li>
-              <li class="nav-item">
                 <router-link v-if="currentUser" to="/home" class="nav-link">
                   <font-awesome-icon icon="chalkboard" /> Rapport
                 </router-link>
