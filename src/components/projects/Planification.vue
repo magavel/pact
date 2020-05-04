@@ -274,13 +274,14 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+    $colors:#e6dfdf85;
     .bg-grey {
-        background-color: #e6dfdf85;
+        background-color: $colors;
     }
 
     .arrondi {
         border-radius: 0 120px 0 120px / 0 50px 0 50px;
     }
-
 </style>

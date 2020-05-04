@@ -216,6 +216,7 @@
 
     .fond{
         background-color: #cccccc;
+
     }
 
 </style>

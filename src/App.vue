@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    <nav aria-label="Accueil" class="navbar navbar-expand-lg navbar-dark sticky-top flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0 bg-light text-dark" href="#">Pact-NG</a>
+    <nav class="navbar  navbar-expand-lg navbar-dark sticky-top flex-md-nowrap p-0">
         <div v-if="!currentUser" class="navbar-nav ml-auto">
           <ul class="navbar-nav px-3 ">
-          <li class="nav-item ">
+          <li class="nav-item text-primary ">
             <router-link to="/register" class="nav-link">
               <font-awesome-icon icon="user-plus" />Enregistrement
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item text-primary">
             <router-link to="/login" class="nav-link">
               <font-awesome-icon icon="sign-in-alt" />Connexion
             </router-link>
@@ -18,68 +17,82 @@
         </div>
         <div v-if="currentUser" class="navbar-nav ml-auto">
           <ul class="navbar-nav px-3">
-            <li class="nav-item">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <font-awesome-icon icon="user" />
-                  {{ currentUser.username }}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">
-                    <router-link to="/profile" class="nav-link">
-                    <font-awesome-icon icon="user" />
-                    Profile
-                  </router-link>
-                  </a>
-                  <a class="dropdown-item" href @click.prevent="logOut">
-                    <font-awesome-icon icon="sign-out-alt" />Deconnexion
-                  </a>
-                </div>
-              </div>
-            </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <font-awesome-icon icon="user" class="text-primary"/>
+              <span class="text-primary">{{ currentUser.username }}</span>
+            </router-link>
+          </li>
+          <li class="nav-item text-primary">
+            <a class="nav-link" href @click.prevent="logOut">
+             <span class="text-primary"><font-awesome-icon icon="sign-out-alt" />Deconnexion</span>
+            </a>
+          </li>
           </ul>
         </div>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-primary-variant sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
                 <router-link to="/home" class="nav-link">
-                  <font-awesome-icon icon="home" /> Accueil
+                  <font-awesome-icon icon="home" />Accueil
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/home" class="nav-link">
-                  <font-awesome-icon icon="chalkboard" /> Rapport
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/activites" class="nav-link">
-                  <font-awesome-icon icon="pencil-alt" /> saisie
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/projects" class="nav-link">
-                  <font-awesome-icon icon="pencil-alt" /> Projets
-                </router-link>
-              </li>
-              <li v-if="currentUser" class="nav-item">
-                <router-link to="/admin" class="nav-link">
-                  <font-awesome-icon icon="cogs" /> Administration</router-link>
+              <li v-if="showAdminBoard" class="nav-item">
+                <router-link to="/admin" class="nav-link">Tableau administrateur</router-link>
               </li>
               <li v-if="showModeratorBoard" class="nav-item">
                 <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
               </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/user" class="nav-link">
-                  <font-awesome-icon  icon="user-friends" /> Gestion des utilisateurs</router-link>
+              <li class="nav-item align-middle">
+                <router-link v-if="currentUser" to="/user" class="nav-link">Gestion des utilisateurs</router-link>
               </li>
-
+              <li class="nav-item">
+                <router-link v-if="currentUser" to="/activites" class="nav-link">Activites</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link v-if="currentUser" to="/projects" class="nav-link">Projets</router-link>
+              </li>
             </ul>
-
+            <h6 class=" text-white sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span class="text-white">Accès</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <div v-if="!currentUser" class="navbar-nav ml-auto">
+              <ul class="navbar-nav px-3 ">
+                <li class="nav-item ">
+                  <router-link to="/register" class="nav-link">
+                    <font-awesome-icon icon="user-plus" />Enregistrement
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/login" class="nav-link">
+                    <font-awesome-icon icon="sign-in-alt" />Connexion
+                  </router-link>
+                </li>
+              </ul>
+            </div>
+            <div v-if="currentUser" class="navbar-nav ml-auto">
+              <ul class="navbar-nav px-3">
+                <li class="nav-item">
+                  <router-link to="/profile" class="nav-link">
+                    <font-awesome-icon icon="user" />
+                    {{ currentUser.username }}
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href @click.prevent="logOut">
+                    <font-awesome-icon icon="sign-out-alt" />Deconnexion
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
 
@@ -122,19 +135,37 @@ export default {
 };
 </script>
 
-<style>
+  <style lang="scss">
+  @import "./assets/custom.scss";
+  @import "../node_modules/bootstrap/scss/bootstrap.scss";
+
   body{
-    background-color: #e8ebf0;
+    background-color: $background;
+    & a {
+      font-weight: bold;
+      height: 50px;
+      margin-right: -15px;
+      color: white;
+      &.router-link-exact-active {
+        color: $gris-sombre;
+        background-color: $background;
+        border-radius: 25px 0 0 25px;
+      }
+      &:hover{
+        color: $secondary;
+      }
+    }
+
   }
 
   body #divCalendar .p-datepicker {
     border: none;
-    background-color: #ffca7a;
+    background-color: $secondary;
     border-bottom-right-radius: 7em 5em;
   }
 
   body #divCalendar .p-datepicker .p-datepicker-header{
-    background-color: #ffca7a;
+    background-color: $secondary;
   }
 
   .card{
@@ -157,6 +188,8 @@ export default {
     width: 100px;
     margin-top: 10%;
   }
+
+
 
 
 </style>

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed');
+
+$font-family-sans-serif: 'Myriad Pro', sans-serif;
+$font-size-base:0.9rem;
+
+$background: #E0E4EB;
+
+//gris sombre
+$gris-sombre:#535353;
+
+$primary: #154194;
+$primary-variant: #5172AF;
+$secondary:#FFCA7A;
+$danger: #ff4136;
+$red: #DC0007;
+$red-variant:#F3D6D6;
+$green: #1F9E02;
+$green-variant: #E1EBE0;
+
+$theme-colors: (
+        "primary": $primary,
+        "primary-variant": $primary-variant,
+        "secondary": $secondary,
+        "danger": $danger,
+        "red": $red,  // pour le texte validation calcul heure de saisi
+        "red-variant": $red-variant, // pour le champs validation calcul de saisi
+        "green": $green,  // pour le texte validation calcul heure de saisi
+        "green-variant": $green-variant // pour le champs validation calcul de saisi
+);
+
+
+/*
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+*/
