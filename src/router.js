@@ -59,7 +59,7 @@ export const router = new Router({
     },
     {
       path: '/projects',
-      name: 'projects',
+      // name: 'projects',
       // lazy-loaded
       component: () => import('./views/BoardProject.vue'),
       children: [

@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-grey arrondi mx-n3 px-3 mb-2 pt-2 pb-4" >
+    <div class=" mx-n3 px-3 mb-2 pt-2 pb-4" >
 
 
         <h5> {{ systeme_information_module.module_libelle}}</h5>

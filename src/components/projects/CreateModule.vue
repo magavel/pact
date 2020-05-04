@@ -32,7 +32,7 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="typeModedule">
-                de module
+                Type de module
               </label>
               <Dropdown
                 v-model="moduleSI.module_type"
@@ -54,7 +54,7 @@
               />
             </div>
           </div>
-          <div class="row mt-2">
+          <div class="row mt-2 d-flex align-items-end">
             <div class="form-group col-md-4">
               <label for="maturiteClient">
                 Maturité client
@@ -73,7 +73,6 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="?????"
                 id="priorisationClient"
                 v-model="moduleSI.module_priorisation_client"
               />

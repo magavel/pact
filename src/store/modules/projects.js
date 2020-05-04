@@ -5,6 +5,7 @@ const state = {
   projects: [], // un tableau de l'ensemble des projets
   errors: [], // log des erreurs
   success: [], // log des success
+  step: 0
 };
 
 
@@ -21,6 +22,9 @@ const mutations = {
   CREATE_SUCCESS(state, succes) {
     state.success = [ succes, ...state.success ];
   },
+    UPDATE_STEP (state, value) {
+      state.steps= value;
+    }
 };
 
 
