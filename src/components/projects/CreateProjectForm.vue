@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <Stepper t :step="step" :steps="steps" />-->
+
     <form @submit.prevent="createProject">
       <div>
           <Initialisation
@@ -43,7 +43,11 @@ import projects from "../../store/modules/projects";
 export default {
   name: "InitialisationProject",
   components: { Besoins, Initialisation },
-
+  computed: {
+    step() {
+      return this.$store.state.projects.step;
+    }
+  },
   data() {
     return {
       steps: [
@@ -52,7 +56,6 @@ export default {
         { value: "Equipe", icon: "people-fill" },
         { value: "Planification", icon: "plan" }
       ],
-      step: 1,
       numberOfModule: 1,
       maturiteClient: [
         { value: "M1" },
@@ -106,8 +109,10 @@ export default {
     };
   },
   methods: {
+    majStep(){
+      this.$store.commit('projects/UPDATE_STEP', 1)
+    },
     nextStep() {
-      this.step++;
         this.$router.push({name: 'besoins'})
     },
     addModule() {

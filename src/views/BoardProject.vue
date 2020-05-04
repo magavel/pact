@@ -10,7 +10,7 @@
         <h3 class="card-title">
           Nouveau projet
         </h3>
-        <Stepper :step="step"/>
+        <Stepper :steps="steps"/>
         <router-view></router-view>
       </div>
     </div>
@@ -23,7 +23,7 @@
 
   export default {
   computed: {
-    step() {
+    steps() {
       return 1;
     }
   },

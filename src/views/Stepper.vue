@@ -1,37 +1,40 @@
 <template>
-    <div class=" row m-5">
-                <div class="mx-auto mt-4">
-                    <ul class="progressBar">
-                        <li v-bind:class="{ active: step }">
-                            <img src="../assets/logo.png"/>
-                            <p>Initialisation</p>
-                        </li>
-                        <li class="">
-                            <img src="../assets/logo.png"/>
-                            <p>Besoins</p>
-                        </li>
-                        <li>
-                            <img src="../assets/logo.png"/>
-                            <p>Equipes</p>
-                        </li>
-                        <li>
-                            <img src="../assets/logo.png"/>
-                            <p>Planification</p>
-                        </li>
-                    </ul>
-                </div>
+    <div class="d-flex justify-content-center row m-5">
+        <div class="  mt-4">
+            <ul class="progressBar">
+                <li>
+                    <img src="../assets/icons/initialisation.svg"/>
+                    <p>Initialisation</p>
+                </li>
+                <li class="">
+                    <img src="../assets/icons/besoins.svg"/>
+                    <p>Besoins</p>
+                </li>
+                <li>
+                    <img src="../assets/icons/equipes.svg"/>
+                    <p>Equipes</p>
+                </li>
+                <li>
+                    <img src="../assets/icons/planification.svg"/>
+                    <p>Planification</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
     export default {
         name: 'Stepper',
         props: {
-            step: {}
+            steps: ''
         },
 
     }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+    // longuer trait
+    $longueurTrait: 70px;
+
     .active {
         color: blue;
     }
@@ -50,18 +53,30 @@
         content: '';
         background: #ccc;
         height: 2px;
-        width: 100px;
+        width: $longueurTrait;
         display: block;
         position: absolute;
-        left: 100px;
+        left: 115px;
         top: 30px
+
+    }
+
+    ul li:last-child::after{
+        content: '';
+        background: #ccc;
+        height: 2px;
+        width: $longueurTrait;
+        display: block;
+        position: absolute;
+        left: 115px;
+        top: 39px
 
     }
     ul li:first-child::before{
         content: '';
         background: #ccc;
         height: 2px;
-        width: 100px;
+        width: $longueurTrait;
         display: block;
         position: absolute;
         right:100px;

@@ -73,7 +73,6 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="?????"
                 id="priorisationClient"
                 v-model="moduleSI.module_priorisation_client"
               />
