@@ -161,11 +161,12 @@ export default {
   body #divCalendar .p-datepicker {
     border: none;
     background-color: $secondary;
-    border-bottom-right-radius: 7em 5em;
+    border-radius: 0px 30px 30px 0px;
   }
 
   body #divCalendar .p-datepicker .p-datepicker-header{
     background-color: $secondary;
+
   }
 
   .card{
@@ -187,8 +188,13 @@ export default {
   body #periode .p-inputtext{
     width: 100px;
     margin-top: 10%;
+    margin-left: 15px;
   }
 
+  body .p-datepicker .p-datepicker-header .p-datepicker-title{
+    font-weight: bold;
+    font-size: 1em;
+  }
 
 
 

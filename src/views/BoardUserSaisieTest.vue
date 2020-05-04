@@ -1,8 +1,8 @@
 <template>
     <div id="principal">
         <div id="lien">
-            <a href="#">Mes Activités</a>
-            <a href="#">Saisir à la place de</a>
+            <a href="#" class="titre">Mes Activités</a>
+            <a href="#" class="titre">Saisir à la place de</a>
         </div>
         <div id="saisie">
             <div class="container" id="container-saisie">
@@ -15,12 +15,12 @@
                                   dateFormat="dd/mm/yy">
                         </Calendar>
                     </div>
-                    <div class="col">
-                        <div class="row">
-                            <span class="text-center" id="spanJour">
+                    <div class="col mr-n5">
+                        <div class="row mt-3">
+                            <span class="text-center titre" id="spanJour">
                             {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
                             </span>
-                            <span class="pi pi-heart"></span>
+                            <span class="ml-1"><img style="height: 15px" src="../assets/ic_favorite_border_24px.svg"></span>
                         </div>
                         <div class="row">
                             <div class="card text-center">
@@ -34,7 +34,6 @@
                                         <template #loading>
                                             Chargement des données en cours.
                                         </template>
-                                        <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
                                         <Column field="name"
                                                 header="Missions/ Modules"></Column>
                                         <Column field="activite"
@@ -54,10 +53,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" v-bind:class="divClassCharges">
-                            <div class="col"><span >TOTAL CHARGES</span></div>
-                            <div class="col"><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
-                            <div class="col"><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
+                        <div class="d-flex justify-content-around" v-bind:class="divClassCharges">
+                            <div ><span >TOTAL CHARGES</span></div>
+                            <div ><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
+                            <div ><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
                         </div>
                     </div>
                 </div>
@@ -65,37 +64,19 @@
         </div>
         <div id="test">
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <Button label="Créer" icon="pi pi-plus-circle" class="p-button-secondary">
-                        </Button>
-                    </div>
-                    <div class="col">
-                        <Button label="Activités favorites"
-                                icon="pi pi-star"
-                                class="p-button-secondary">
-                        </Button>
-                    </div>
-                    <div class="col">
-                        <Button label="Journées types"
-                                icon="pi pi-heart"
-                                class="p-button-secondary">
-                        </Button>
-                    </div>
-                    <div class="col">
-                        <Button label="Imports"
-                                icon="pi pi-cloud-download"
-                                class="p-button-secondary">
-                        </Button>
-                    </div>
+                <div class="row bg-primary-variant onglet">
+                    <span class="titre" style="color: white">Ajouter une activité</span>
                 </div>
                 <!--<form v-on:submit="sub" action="#" > -->
                 <div class="row">
                     <div id="periode">
-                    <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy" /><span> au </span><Calendar :locale="fr" dateFormat="dd/mm/yy" />
+                        <span class="span-icon-calendar">
+                            <img src="../assets/event-24px.svg">
+                        </span>
+                    <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy" /><span style="margin-left: 15px"> au </span><Calendar :locale="fr" dateFormat="dd/mm/yy" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mr-n5">
                     <div class="col" >
                         <div class="row">
                             <span>Missions / Modules</span>
@@ -123,6 +104,7 @@
                         <div class="row">
                             <div id="charges">
                                 <Spinner v-model="heure" :min="0" :max="24" id="spin-heure"/> H <Spinner v-model="minute" :min="0" :max="59" id="spin-minute"/> Min
+
                             </div>
                         </div>
                     </div>
@@ -414,8 +396,7 @@ export default {
     }
     #divCalendar{
         background-color: #ffca7a;
-        border-top-right-radius: 1em 5em;
-        border-bottom-right-radius: 5em 12em;
+        border-radius: 0px 30px 30px 0px;
     }
     #container-saisie{
         margin-left: 0;
@@ -437,12 +418,15 @@ export default {
         opacity: 1;
         width: 100px;
         height: 50px;
-        margin-right: 5%;
+        margin-right: 1%;
     }
     #periode{
         background-color: #ffca7a;
         height: 70px;
         padding: 5px;
+        width: 368px;
+        margin-left: -67px;
+        border-radius: 0px 30px 30px 0px;
     }
     .charges-valide{
         color: #1F9E02;
@@ -461,5 +445,23 @@ export default {
     }
     .div-charges-supp{
         background-color: #F3D6D6;
+    }
+    .span-icon-calendar{
+        margin-left: 14px;
+    }
+
+    .titre{
+        font-weight: bold;
+        font-size: 1em;
+    }
+
+    #test .row{
+        margin-bottom: 10px;
+    }
+
+    .onglet{
+        width: 115%;
+        margin-left: -82px;
+        height: 50px;
     }
 </style>
