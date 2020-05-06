@@ -35,10 +35,14 @@ export default {
     return {
       filters: {},
       columns: [
-        {field: 'vin', header: 'Vin'},
-        {field: 'year', header: 'Year'},
-        {field: 'brand', header: 'Brand'},
-        {field: 'color', header: 'Color'}
+        {field: 'projets', header: 'Projets'},
+        {field: 'nbreModule', header: 'Nbre de modules'},
+        {field: 'status', header: 'Statut de la fiche'},
+        {field: 'niveau', header: 'Niveau de completion'},
+        {field: 'niveau', header: 'Disponible a la saisie des activité'},
+        {field: 'niveau', header: 'Créé le'},
+        {field: 'niveau', header: 'Dernière modification'},
+        {field: 'niveau', header: 'Actions'},
       ],
     }
   },
