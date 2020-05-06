@@ -8,10 +8,7 @@
          Liste des projets des CDAD
         </div>
       </template>
-
-
       <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.field"></Column>
-
       <template #paginatorLeft>
         <Button type="button" icon="pi pi-refresh" />
       </template>
@@ -22,9 +19,7 @@
       <template #footer>
         Il y a au totale:  {{projects ? projects.length : 0 }} projets.
       </template>
-
     </DataTable>
-
     <ul>
       <li v-for="projet in projects" :key="projet.id">
         {{ projet }}
