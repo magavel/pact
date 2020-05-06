@@ -8,9 +8,9 @@
       />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="username">Identifiant</label>
+          <label for="email">Email</label>
           <input
-            v-model="user.username"
+            v-model="user.email"
             v-validate="'required'"
             type="text"
             class="form-control"
@@ -42,6 +42,12 @@
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <span>Connexion</span>
           </button>
+        </div>
+        <div class="form-group">
+           <a href @click.prevent="register">Mot de passe oublié</a>
+        </div>
+        <div class="form-group">
+          Première visite ? <a href @click.prevent="register">Créer un compte</a>
         </div>
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
@@ -82,7 +88,7 @@ export default {
           return;
         }
 
-        if (this.user.username && this.user.password) {
+        if (this.user.email && this.user.password) {
           this.$store.dispatch('auth/login', this.user).then(
             () => {
               this.$router.push('/profile');
@@ -97,6 +103,9 @@ export default {
         }
       });
     },
+      register() {
+        this.$router.push('/register');
+      },
   },
 };
 </script>

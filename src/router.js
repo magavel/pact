@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Initialisation from "./components/projects/Initialisation";
+import store from './store'
 
 Vue.use(Router);
 
@@ -21,7 +22,9 @@ export const router = new Router({
     },
     {
       path: '/login',
+      name: 'login',
       component: Login,
+      beforeEnter: ifNotAuthenticated,
     },
     {
       path: '/register',
@@ -54,6 +57,7 @@ export const router = new Router({
     {
       path: '/activites',
       name: 'activites',
+      beforeEnter: ifAuthenticated,
       // lazy-loaded
       component: () => import('./views/BoardUserSaisieTest.vue'),
     },
@@ -88,3 +92,19 @@ export const router = new Router({
     },
   ],
 });
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')
+}

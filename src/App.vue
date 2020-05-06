@@ -24,12 +24,16 @@
                   {{ currentUser.username }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">
-                    <router-link to="/profile" class="nav-link">
+
+                    <router-link to="/profile" class="dropdown-item">
                       <font-awesome-icon icon="user" />
                       Profile
                     </router-link>
-                  </a>
+                  <router-link to="/profile" class="dropdown-item">
+                    <font-awesome-icon icon="user" />
+                    Changer son mot de passe
+                  </router-link>
+
                   <a class="dropdown-item" href @click.prevent="logOut">
                     <font-awesome-icon icon="sign-out-alt" />Deconnexion
                   </a>
