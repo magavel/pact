@@ -54,9 +54,9 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-around" v-bind:class="divClassCharges">
-                            <div ><span >TOTAL CHARGES</span></div>
-                            <div ><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
-                            <div ><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
+                            <div><span >TOTAL CHARGES</span></div>
+                            <div><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
+                            <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         <div class="row dropdownWidth">
                             <Dropdown v-model="selectedMission" :options="missionsData" />
                         </div>
-                        <div class="row">
+                        <div class="row mt-4">
                             <span>Commentaire (max 100 caractères)</span>
                         </div>
                         <div class="row dropdownWidth">
@@ -98,13 +98,12 @@
                         <div class="row dropdownWidth">
                             <Dropdown v-model="selectedActivite" :options="tabActivite"/>
                         </div>
-                        <div class="row">
+                        <div class="row mt-4">
                             <span>Charges(hh:mm)</span>
                         </div>
                         <div class="row">
                             <div id="charges">
-                                <Spinner v-model="heure" :min="0" :max="24" id="spin-heure"/> H <Spinner v-model="minute" :min="0" :max="59" id="spin-minute"/> Min
-
+                                <InputMask v-model="charges" mask="9:99" placeholder="  :  " />
                             </div>
                         </div>
                     </div>
@@ -160,6 +159,7 @@ export default {
       dates1: null,
       dates2: null,
       missionsJour: [],
+        charges: "0:0",
       chargesTotalJour: "0:0",
       messageCharge : null,
       tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
@@ -262,7 +262,7 @@ export default {
         name: this.selectedMission,
         activite: this.selectedActivite,
         commentaire: this.commentaire,
-        charges: `${this.heure}:${this.minute}`,
+        charges: this.charges,
         date: `${this.date2.getDate()}/${this.date2.getMonth() + 1}/${this.date2.getFullYear()}`,
       };
       this.missions.push(this.missionAdd);
@@ -464,4 +464,6 @@ export default {
         margin-left: -82px;
         height: 50px;
     }
+
+
 </style>

@@ -154,10 +154,6 @@ export default {
     border: none;
   }
 
-  body #charges .p-spinner .p-spinner-input{
-    width: 70px;
-  }
-
   body .dropdownWidth .p-dropdown{
     width: 90%;
   }
@@ -170,6 +166,7 @@ export default {
     width: 100px;
     margin-top: 10%;
     margin-left: 15px;
+    border-color: #FFCA7A;
   }
 
   body .p-datepicker .p-datepicker-header .p-datepicker-title{
@@ -178,5 +175,13 @@ export default {
   }
 
 
+  body #charges .p-inputtext{
+    width: 57%;
+    text-align: center;
+  }
+
+  body #periode .p-inputtext:first-child{
+    margin-left: 23px;
+  }
 
 </style>
