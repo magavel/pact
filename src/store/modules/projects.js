@@ -5,7 +5,7 @@ const state = {
   projects: [], // un tableau de l'ensemble des projets
   errors: [], // log des erreurs
   success: [], // log des success
-  step: 0
+  step: 1
 };
 
 

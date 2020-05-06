@@ -1,5 +1,6 @@
 <template>
     <div class="d-flex justify-content-center row m-5">
+        step = {{ step }}
         <div class="  mt-4">
             <ul class="progressBar">
                 <li>
@@ -24,6 +25,11 @@
 </template>
 <script>
     export default {
+        computed: {
+            step() {
+                return this.$store.state.projects.step;
+            }
+        },
         name: 'Stepper',
         props: {
             steps: ''

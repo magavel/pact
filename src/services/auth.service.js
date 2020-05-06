@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { config } from '../shared/config';
 
-const API_URL = 'http://localhost:8080/apiPactNG/api/auth/';
+//const API_URL = 'http://localhost:8080/apiPactNG/api/auth/';
 
 class AuthService {
   login(user) {
     return axios
-      .post(`${API_URL}signin`, {
+      .post(`${config.API_URL}signin`, {
         username: user.username,
         password: user.password,
       })
@@ -23,7 +24,7 @@ class AuthService {
   }
 
   register(user) {
-    return axios.post(`${API_URL}signup`, {
+    return axios.post(`${config.API_URL}signup`, {
       username: user.username,
       email: user.email,
       password: user.password,
