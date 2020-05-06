@@ -27,7 +27,7 @@
           />
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-row d-flex align-items-end">
         <div class="col-md-6">
           <div class="row">
             <div class="form-group col-md-6">

@@ -8,21 +8,7 @@
       />
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
-          <div class="form-group">
-            <label for="username">Identifiant</label>
-            <input
-              v-model="user.username"
-              v-validate="'required|min:3|max:20'"
-              type="text"
-              class="form-control"
-              name="username"
-            />
-            <div
-              v-if="submitted && errors.has('username')"
-              class="alert-danger"
-            >{{errors.first('username')}}</div>
-          </div>
-          <div class="form-group">
+                <div class="form-group">
             <label for="email">Email</label>
             <input
               v-model="user.email"
@@ -51,7 +37,10 @@
             >{{errors.first('password')}}</div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+            <button class="btn btn-primary btn-block">Créer un compte</button>
+          </div>
+          <div class="form-group">
+            Vous avez déja un compte ? <a href @click.prevent="login" >se connecter</a>
           </div>
         </div>
       </form>
@@ -108,6 +97,9 @@ export default {
           );
         }
       });
+    },
+    login() {
+      this.$router.push('/login');
     },
   },
 };

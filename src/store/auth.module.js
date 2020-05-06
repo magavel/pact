@@ -5,6 +5,11 @@ const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
 
+const getters = {
+  isAuthenticated: state => !!user.token,
+  authStatus: state => user.status,
+}
+
 export const auth = {
   namespaced: true,
   state: initialState,

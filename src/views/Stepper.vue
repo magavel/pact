@@ -1,29 +1,35 @@
 <template>
     <div class="d-flex justify-content-center row m-5">
-                <div class="  mt-4">
-                    <ul class="progressBar">
-                            <li>
-                                <img src="../assets/icons/initialisation.svg"/>
-                                <p>Initialisation</p>
-                            </li>
-                            <li class="">
-                                <img src="../assets/icons/besoins.svg"/>
-                                <p>Besoins</p>
-                            </li>
-                            <li>
-                                <img src="../assets/icons/equipes.svg"/>
-                                <p>Equipes</p>
-                            </li>
-                            <li>
-                                <img src="../assets/icons/planification.svg"/>
-                                <p>Planification</p>
-                            </li>
-                    </ul>
-                </div>
+        step = {{ step }}
+        <div class="  mt-4">
+            <ul class="progressBar">
+                <li>
+                    <img src="../assets/icons/initialisation.svg"/>
+                    <p>Initialisation</p>
+                </li>
+                <li class="">
+                    <img src="../assets/icons/besoins.svg"/>
+                    <p>Besoins</p>
+                </li>
+                <li>
+                    <img src="../assets/icons/equipes.svg"/>
+                    <p>Equipes</p>
+                </li>
+                <li>
+                    <img src="../assets/icons/planification.svg"/>
+                    <p>Planification</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
     export default {
+        computed: {
+            step() {
+                return this.$store.state.projects.step;
+            }
+        },
         name: 'Stepper',
         props: {
             steps: ''

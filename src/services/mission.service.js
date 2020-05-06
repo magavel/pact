@@ -1,14 +1,15 @@
 import axios from 'axios';
 import authHeader from './auth-header';
+import { config } from '../shared/config';
 
-const API_URL = 'http://localhost:8080/apiPactNG/api/v1/';
+//const API_URL = 'http://localhost:8080/apiPactNG/api/v1/';
 
 class MissionService {
   // eslint-disable-next-line class-methods-use-this
   getMissionServiceUserBoard(datesearch) {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    return axios.get(API_URL.concat('users/', user.username, '/missions'), {
+    return axios.get(config.API_URL.concat('users/', user.username, '/missions'), {
       headers: authHeader(),
       params: { date: datesearch },
     });
@@ -16,7 +17,7 @@ class MissionService {
 
   // eslint-disable-next-line class-methods-use-this
   getMissionServiceAllMissions() {
-    return axios.get(API_URL.concat('missions'), { headers: authHeader() });
+    return axios.get(config.API_URL.concat('missions'), { headers: authHeader() });
   }
 
   /**
@@ -28,11 +29,9 @@ class MissionService {
   postMission(dateDebut, commentairePost) {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    axios.post(API_URL.concat('users/', user.username, '/missions'),
+    axios.post(config.API_URL.concat('users/', user.username, '/missions'),
       { date: dateDebut, commentaire: commentairePost });
   }
-
-
 }
 
 export default new MissionService();
