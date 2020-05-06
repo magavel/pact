@@ -5,6 +5,7 @@
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
+        alt=""
       />
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
@@ -26,7 +27,7 @@
             <label for="password">Mot de passe</label>
             <input
               v-model="user.password"
-              v-validate="'required|min:6|max:40'"
+              v-validate="'required|min:8|max:40'"
               type="password"
               class="form-control"
               name="password"
