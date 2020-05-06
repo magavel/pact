@@ -13,6 +13,8 @@ import Spinner from 'primevue/spinner';
 import Steps from 'primevue/steps';
 import MultiSelect from 'primevue/multiselect';
 import Listbox from 'primevue/listbox';
+import ProgressBar from 'primevue/progressbar';
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primevue/resources/themes/nova-light/theme.css';
@@ -72,6 +74,7 @@ Vue.component('InputText', InputText);
 Vue.component('Steps', Steps);
 Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
+Vue.component('ProgressBar', ProgressBar);
 
 
 new Vue({

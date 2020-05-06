@@ -13,10 +13,18 @@ export default {
     //return axios.post(`${API_URL}/systemeInformations`, project, { headers: authHeader() });
     return axios.post(`${config.API_URL}systemeInformations`, project, { headers: authHeader() });
   },
+    // http://localhost:8080/apiPactNG/api/v1/systemeInformationsList
   getAllProjects() {
-    return axios.get(`${config.API_URL}systemeInformations?search= `, { headers: authHeader() })
+    //return axios.get(`${config.API_URL}systemeInformations?search= `, { headers: authHeader() })
+      return axios.get(`${config.API_URL}systemeInformationsList `, { headers: authHeader() })
         .catch((err) => {
             console.log('erreur', err)
         });
+  },
+  updateProjet(projet) {
+      return axios.put(`${config.API_URL}systemeInformations/{${projet.systemeInformation_Id}}`, projet, { headers:authHeader() })
+          .catch((err)=>{
+              console.log('erreur lors du put ', err)
+          })
   }
 };
