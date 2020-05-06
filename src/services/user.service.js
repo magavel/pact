@@ -6,7 +6,15 @@ import { config } from '../shared/config';
 
 class UserService {
   getPublicContent() {
+
     return axios.get(`${config.API_URL}all`);
+  }
+
+  updatePassword(password) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return axios.put(config.API_URL.concat('users/', user.username, '/password'),
+      password,
+      { headers: authHeader() })
   }
 
   getUserBoard() {
