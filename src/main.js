@@ -40,6 +40,9 @@ import App from './App.vue';
 import { router } from './router';
 import store from './store';
 import "./shared/styles.css";
+import moment from 'moment'
+
+Vue.prototype.moment = moment
 
 library.add(
   faHome,
@@ -82,3 +85,7 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount('#app');
+
+moment.updateLocale("fr", {
+  invalidDate: "Date invalide"
+});

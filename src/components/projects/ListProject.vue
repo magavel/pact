@@ -1,7 +1,5 @@
 <template>
   <div>
-    Liste des projets
-
     <DataTable ref="dt" :value="projects" :paginator="true" :rows="10" selectionMode="single"  dataKey="systeme_information_id" :reorderableColumns="true" >
       <template #loading>
         Loading records, please wait...
@@ -34,10 +32,13 @@
         <template #filter>
           <Calendar v-model="filters['systeme_information_created_date']" dateFormat="dd-mm-yy" class="p-column-filter" placeholder="Création"/>
         </template>
+        <template #body="slotProps">
+          {{moment(slotProps.data.systeme_information_created_date).format('DD/MM/YYYY')}}
+        </template>
       </Column>
       <Column field="systeme_information_last_modified_date" header="Dernière modification">
         <template #body="slotProps">
-            le {{slotProps.data.systeme_information_last_modified_date}} par {{ slotProps.data.systeme_information_last_modified_by}}
+            le {{moment(slotProps.data.systeme_information_last_modified_date).format('DD/MM/YYYY')}} par {{ slotProps.data.systeme_information_last_modified_by}}
         </template>
       </Column>
       <Column field="" header="Actions">
@@ -57,7 +58,7 @@
 
     </DataTable>
 
-        {{ projects }}
+<!--        {{ projects }}-->
 
   </div>
 </template>
@@ -155,44 +156,6 @@ export default {
       color: #805B36;
     }
   }
-  .customer-badge {
-    border-radius: 2px;
-    padding: .25em .5em;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.status-qualified {
-      background-color: #C8E6C9;
-      color: #256029;
-    }
-
-    &.status-unqualified {
-      background-color: #FFCDD2;
-      color: #C63737;
-    }
-
-    &.status-negotiation {
-      background-color: #FEEDAF;
-      color: #8A5340;
-    }
-
-    &.status-new {
-      background-color: #B3E5FC;
-      color: #23547B;
-    }
-
-    &.status-renewal {
-      background-color: #ECCFFF;
-      color: #694382;
-    }
-
-    &.status-proposal {
-      background-color: #FFD8B2;
-      color: #805B36;
-    }
-  }
 
   .p-multiselect-representative-option {
     display: inline-block;
@@ -256,7 +219,7 @@ export default {
       border: 0 none;
       padding: 12px;
       text-align: left;
-      font-size: 20px;
+      font-size: 10px;
     }
 
     .p-paginator {
@@ -271,6 +234,9 @@ export default {
       &.p-filter-column {
         border-top: 1px solid #c8c8c8;
       }
+    }
+    p-column-title {
+      font-size: 10px;
     }
 
     .p-datatable-tbody > tr > td {
