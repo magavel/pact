@@ -62,67 +62,35 @@
                 </div>
             </div>
         </div>
-        <div id="test">
-            <div class="container">
-                <div class="row bg-primary-variant onglet">
-                    <span class="titre" style="color: white">Ajouter une activité</span>
-                </div>
-                <!--<form v-on:submit="sub" action="#" > -->
-                <div class="row">
-                    <div id="periode">
-                        <span class="span-icon-calendar">
-                            <img src="../assets/event-24px.svg">
-                        </span>
-                    <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy" /><span style="margin-left: 15px"> au </span><Calendar :locale="fr" dateFormat="dd/mm/yy" />
-                    </div>
-                </div>
-                <div class="row mr-n5">
-                    <div class="col" >
-                        <div class="row">
-                            <span>Missions / Modules</span>
-                        </div>
-                        <div class="row dropdownWidth">
-                            <Dropdown v-model="selectedMission" :options="missionsData" />
-                        </div>
-                        <div class="row mt-4">
-                            <span>Commentaire (max 100 caractères)</span>
-                        </div>
-                        <div class="row dropdownWidth">
-                            <Textarea v-model="commentaire" rows="5" cols="30" ></Textarea>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <span>Type d'activités</span>
-                        </div>
-                        <div class="row dropdownWidth">
-                            <Dropdown v-model="selectedActivite" :options="tabActivite"/>
-                        </div>
-                        <div class="row mt-4">
-                            <span>Charges(hh:mm)</span>
-                        </div>
-                        <div class="row">
-                            <div id="charges">
-                                <InputMask v-model="charges" mask="9:99" placeholder="  :  " />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-end">
-                    <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary" v-on:click="clickValider"></Button>
-                </div>
-                <!-- </form> -->
-            </div>
+        <div id="formulaire">
+                <Tabs>
+                    <Tab name="Nouvelle activité" :selected="true">
+                        <AjouterActivitee :charges="charges" :click-valider="clickValider" :commentaire="commentaire" :date2="date2"
+                                          :fr="fr" :missions-data="missionsData" :selected-activite="selectedActivite"
+                                          :selected-mission="selectedMission" :tab-activite="tabActivite"/>
+                    </Tab>
+                    <Tab name="Activités favorites">
+                        <h1>How much we do it for</h1>
+                    </Tab>
+                    <Tab name="Journées types">
+                        <h1>Why we do it</h1>
+                    </Tab>
+                </Tabs>
+            <!--<form v-on:submit="sub" action="#" > -->
         </div>
     </div>
 </template>
 
 <script>
-import MissionService from '../services/mission.service';
-import SaisieService from '../services/saisie.service';
+    import MissionService from '../services/mission.service';
+    import SaisieService from '../services/saisie.service';
+    import Tabs from "../components/saisies/Tabs";
+    import Tab from "../components/saisies/Tab";
+    import AjouterActivitee from "../components/saisies/AjouterActivitee";
 
-export default {
-  created() {
+    export default {
+    components: {AjouterActivitee, Tabs, Tab},
+    created() {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -386,9 +354,6 @@ export default {
     a{
         padding: 10px;
     }
-    #test{
-        background-color: white;
-    }
 
     #saisie{
         background-color: white;
@@ -408,26 +373,7 @@ export default {
     #spanJour{
         margin-left: 40%;
     }
-    #btnAjouter{
-        background: #154194 0% 0% no-repeat padding-box;
-        border-radius: 30px;
-        opacity: 1;
-        font: Regular 18px/22px Myriad Pro;
-        letter-spacing: 0px;
-        color: #FFFBFB;
-        opacity: 1;
-        width: 100px;
-        height: 50px;
-        margin-right: 1%;
-    }
-    #periode{
-        background-color: #ffca7a;
-        height: 70px;
-        padding: 5px;
-        width: 368px;
-        margin-left: -67px;
-        border-radius: 0px 30px 30px 0px;
-    }
+
     .charges-valide{
         color: #1F9E02;
     }
@@ -446,9 +392,6 @@ export default {
     .div-charges-supp{
         background-color: #F3D6D6;
     }
-    .span-icon-calendar{
-        margin-left: 14px;
-    }
 
     .titre{
         font-weight: bold;
@@ -457,12 +400,6 @@ export default {
 
     #test .row{
         margin-bottom: 10px;
-    }
-
-    .onglet{
-        width: 115%;
-        margin-left: -82px;
-        height: 50px;
     }
 
 
