@@ -4,7 +4,10 @@ import { config } from '../shared/config';
 
 //const API_URL = 'http://localhost:8080/apiPactNG/api/v1/';
 
-class UserService {
+class LogService {
+  systemHealth() {
+    return axios.get(config.API_MANAGE.concat('management/health'), { headers: authHeader() });
+  }
 
   updatePassword(password) {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -13,17 +16,7 @@ class UserService {
       { headers: authHeader() })
   }
 
-  getUserBoard() {
-    return axios.get(`${config.API_URL}users`, { headers: authHeader() });
-  }
 
-  getModeratorBoard() {
-    return axios.get(`${config.API_URL}mod`, { headers: authHeader() });
-  }
-
-  getAdminBoard() {
-    return axios.get(`${config.API_URL}admin`, { headers: authHeader() });
-  }
 }
 
 export default new UserService();
