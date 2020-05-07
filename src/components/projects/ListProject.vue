@@ -2,44 +2,63 @@
   <div>
     Liste des projets
 
-    <DataTable :value="projects" :paginator="true" :rows="10" selectionMode="single"  dataKey="systeme_information_id" :reorderableColumns="true" >
+    <DataTable ref="dt" :value="projects" :paginator="true" :rows="10" selectionMode="single"  dataKey="systeme_information_id" :reorderableColumns="true" >
       <template #loading>
         Loading records, please wait...
       </template>
-      <template #header class="mb-4">
+      <template #header>
          Liste de vos fiches projets
-          <div class="p-datatable-globalfilter-container">
+          <div class="p-datatable-globalfilter-container mt-n2">
             <InputText v-model="filters['global']" placeholder="Recherche globale" />
           </div>
       </template>
       <Column field="systeme_information_libelle_court" header="Projets" :sortable="true" filterMatchMode="gte"></Column>
       <Column field="systeme_information_nombre_modules" header="Nbre de modules" :sortable="true" filterMatchMode="gte"></Column>
-      <Column field="systeme_information_etatDuSi" header="Statut de la fiche" :sortable="true" filterMatchMode="gte"></Column>
+      <Column field="systeme_information_etatDuSi" header="Statut de la fiche" :sortable="true" filterMatchMode="gte">
+        <template #body="slotProps">
+          <span :class="'statut-fiche status-' + slotProps.data.systeme_information_etatDuSi">{{slotProps.data.systeme_information_etatDuSi}}</span>
+        </template>
+      </Column>
       <Column field="systeme_information_niveau_completion" header="Niveau de complétion" :sortable="true" filterMatchMode="gte">
         <template #body="slotProps">
           <ProgressBar :value="slotProps.data.systeme_information_niveau_completion * 100" :showValue="false" />
         </template>
       </Column>
-
-      <Column field="systeme_information_dispo_saisie" header="Disponible à la saisie des activités" :sortable="true" filterMatchMode="gte"></Column>
-      <Column field="systeme_information_created_date" header="Créé le" :sortable="true" filterMatchMode="gte"></Column>
-      <Column field="systeme_information_last_modified_date" header="Dernière modification">
+      <Column field="systeme_information_dispo_saisie" header="Disponible à la saisie des activités" :sortable="true" filterMatchMode="gte">
         <template #body="slotProps">
-            {{slotProps.data.systeme_information_last_modified_date}} par {{ slotProps.data.systeme_information_last_modified_by}}
+          <span v-if="slotProps.data.systeme_information_dispo_saisie">Oui</span>
+          <span v-else>Non</span>
         </template>
       </Column>
-      <Column field="" header="Actions"></Column>
+      <Column field="systeme_information_created_date" header="Créé le" :sortable="true"  filterMatchMode="custom" :filterFunction="filterDate">
+        <template #filter>
+          <Calendar v-model="filters['systeme_information_created_date']" dateFormat="dd-mm-yy" class="p-column-filter" placeholder="Création"/>
+        </template>
+      </Column>
+      <Column field="systeme_information_last_modified_date" header="Dernière modification">
+        <template #body="slotProps">
+            le {{slotProps.data.systeme_information_last_modified_date}} par {{ slotProps.data.systeme_information_last_modified_by}}
+        </template>
+      </Column>
+      <Column field="" header="Actions">
+        <template #body="slotProps">
+          <div class="d-flex flex-nowrap">
+            <Button type="button" icon="pi pi-upload" class="p-button-secondary" @click="upload(slotProps.data.systeme_information_id)"></Button>
+            <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
+            <Button type="button" icon="pi pi-briefcase" class="p-button-secondary" @click="exportCSV($event)" ></Button>
+          </div>
+        </template>
+      </Column>
       <template #footer>
+        <span v-if="projects.length ===0 ">Il n'y a pas de projet.</span>
         <span v-if="projects.length ===1 ">Il y a au totale:  {{projects ? projects.length : 0 }} projet.</span>
         <span v-if="projects.length >1 ">Il y a au totale:  {{projects ? projects.length : 0 }} projets.</span>
       </template>
 
     </DataTable>
-    <ul>
-      <li v-for="projet in projects" :key="projet.id">
-        {{ projet }}
-      </li>
-    </ul>
+
+        {{ projects }}
+
   </div>
 </template>
 
@@ -69,10 +88,73 @@ export default {
   created() {
     this.$store.dispatch('projects/getAllProjects');
   },
+  methods: {
+    filterDate(value, filter) {
+      if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+        return true;
+      }
+
+      if (value === undefined || value === null) {
+        return false;
+      }
+
+      return value === this.formatDate(filter);
+    },
+    formatDate(date) {
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      if (month < 10) {
+        month = '0' + month;
+      }
+      if (day < 10) {
+        day = '0' + day;
+      }
+      return day + '-'+ month + '-' + date.getFullYear();
+    },
+    exportCSV() {
+      this.$refs.dt.exportCSV();
+    },
+    upload(id) {
+      console.log('ds upload', id);
+
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+  .statut-fiche {
+    border-radius: 2px;
+    padding: .25em .5em;
+    //text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .2px;
+    &.status-Initialisation {
+      background-color: #C8E6C9;
+      color: #256029;
+    }
+    &.status-Besoins {
+      background-color: #FFCDD2;
+      color: #C63737;
+    }
+    &.status-negotiation {
+      background-color: #FEEDAF;
+      color: #8A5340;
+    }
+    &.status-new {
+      background-color: #B3E5FC;
+      color: #23547B;
+    }
+    &.status-renewal {
+      background-color: #ECCFFF;
+      color: #694382;
+    }
+    &.status-proposal {
+      background-color: #FFD8B2;
+      color: #805B36;
+    }
+  }
   .customer-badge {
     border-radius: 2px;
     padding: .25em .5em;
@@ -232,6 +314,9 @@ export default {
         }
       }
     }
+  }
+  p-datatable-header{
+    height: 50px;
   }
 
 </style>
