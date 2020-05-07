@@ -1,6 +1,9 @@
 import AuthService from '../services/auth.service';
+import UserService from '../services/user.service';
 
 const user = JSON.parse(localStorage.getItem('user'));
+const password = JSON.parse(localStorage.getItem('password'));
+
 const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
@@ -42,6 +45,18 @@ export const auth = {
         },
       );
     },
+    updatePassword({ commit }, password) {
+      return UserService.updatePassword(password).then(
+        (response) => {
+          commit('updatePasswordSuccess');
+          return Promise.resolve(response.data);
+        },
+        (error) => {
+          commit('updatePasswordFailure');
+          return Promise.reject(error);
+        },
+      );
+    },
   },
   mutations: {
     loginSuccess(state, user) {
@@ -61,6 +76,12 @@ export const auth = {
     },
     registerFailure(state) {
       state.status.loggedIn = false;
+    },
+    updatePasswordSuccess(state) {
+      state.status.updatePasswordSuccess = false;
+    },
+    updatePasswordFailure(state) {
+      state.status.updatePasswordSuccess = false;
     },
   },
 };

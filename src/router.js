@@ -24,7 +24,11 @@ export const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
-      beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/UpdatePassword',
+      name: 'UpdatePassword',
+      component: () => import('./views/UpdatePassword.vue'),
     },
     {
       path: '/register',
@@ -57,7 +61,6 @@ export const router = new Router({
     {
       path: '/activites',
       name: 'activites',
-      beforeEnter: ifAuthenticated,
       // lazy-loaded
       component: () => import('./views/BoardUserSaisieTest.vue'),
     },

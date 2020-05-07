@@ -14,6 +14,8 @@ import Steps from 'primevue/steps';
 import MultiSelect from 'primevue/multiselect';
 import Listbox from 'primevue/listbox';
 import InputMask from 'primevue/inputmask';
+import ProgressBar from 'primevue/progressbar';
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primevue/resources/themes/nova-light/theme.css';
@@ -39,6 +41,9 @@ import App from './App.vue';
 import { router } from './router';
 import store from './store';
 import "./shared/styles.css";
+import moment from 'moment'
+
+Vue.prototype.moment = moment
 
 library.add(
   faHome,
@@ -73,6 +78,7 @@ Vue.component('InputText', InputText);
 Vue.component('Steps', Steps);
 Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
+Vue.component('ProgressBar', ProgressBar);
 Vue.component('InputMask', InputMask);
 
 
@@ -81,3 +87,7 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount('#app');
+
+moment.updateLocale("fr", {
+  invalidDate: "Date invalide"
+});

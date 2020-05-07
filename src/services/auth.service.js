@@ -6,7 +6,7 @@ import { config } from '../shared/config';
 class AuthService {
     login(user) {
         return axios
-            .post(`${config.API_URL}signin`, {
+            .post(`${config.API_AUTH}signin`, {
                 username: user.email.split('@')[0],
                 password: user.password,
             })
@@ -24,7 +24,7 @@ class AuthService {
     }
 
     register(user) {
-        return axios.post(`${config.API_URL}signup`, {
+        return axios.post(`${config.API_AUTH}signup`, {
             username: user.email.split('@')[0],
             email: user.email,
             password: user.password,
