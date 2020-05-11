@@ -1,7 +1,7 @@
 <template>
     <div>
         equipe
-        <form >
+        <form>
 
             <div v-for="module in systemeInformation.systeme_information_modules" :key="module.module_Id">
                 <h4>{{ module.module_libelle}}</h4>
@@ -9,12 +9,88 @@
                 <span v-for="cdad in module.module_list_CDAD">
                     {{ cdad}},
                 </span>
+                <div class="d-flex">
 
-                <div class="fond">
+                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                        <div class="d-flex justify-content-end pr-1">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                             alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lead développeur</h5>
+                            <p>Capitaine Haddock</p>
+                            <input value="email: haddok@rg.fr">
+
+                        </div>
+                    </div>
+
+
+                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                        <div class="d-flex justify-content-end pr-1">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                             alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lead développeur</h5>
+                            <p>Capitaine Haddock</p>
+                            <input value="email: haddok@rg.fr">
+
+                        </div>
+                    </div>
+
+
+                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                        <div class="d-flex justify-content-end pr-1">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                             alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lead développeur</h5>
+                            <p>Capitaine Haddock</p>
+                            <input value="email: haddok@rg.fr">
+
+                        </div>
+                    </div>
+
+
+                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                        <div class="d-flex justify-content-end pr-1">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle mx-auto"
+                             alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lead développeur</h5>
+                            <p>Capitaine Haddock</p>
+                            <input value="email: haddok@rg.fr">
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="bg-gris-module">
                     {{ module.module_equipe.libelleEquipe}}
                 </div>
             </div>
-
 
 
             <div class="d-flex justify-content-between">
@@ -26,12 +102,12 @@
                     Revenir à l'étape précedente
                 </button>
 
-            <button
-                    @click.prevent="nextStep"
-                    class="btn rounded-pill btn-primary float-right"
-            >
-                Enregistrer et passer à l'étape suivant
-            </button>
+                <button
+                        @click.prevent="nextStep"
+                        class="btn rounded-pill btn-primary float-right"
+                >
+                    Enregistrer et passer à l'étape suivant
+                </button>
             </div>
         </form>
     </div>
@@ -42,6 +118,19 @@
         name: "Equipe",
         data() {
             return {
+                roles: [
+                    {value: 'leadDeveloppeur', title: 'Lead développeur'},
+                    {value: 'deveoppeur', title: 'Développeur'},
+                    {value: 'scrumMaster', title: 'Scrum Master'},
+                    {value: 'productOwner', title: 'Product owner'},
+                    {value: 'respConduiteProjet', title: 'Responsable conduite de projet (RCP)'},
+                    {value: 'UxDesigner', title: 'UX designer'},
+                ],
+                users: [
+                    {prenom: 'Paul', nom: 'Lefebvre', email: 'malotru@jj.fr', id: 697665433},
+                    {prenom: 'Marina', nom: 'Loiseau', email: 'Rocambole@jj.fr', id: 697665433},
+                    {prenom: 'Henri', nom: 'Duflot', email: 'Socrate@jj.fr', id: 697665433},
+                ],
                 systemeInformation: {
                     "systemeInformation_versionEntity": 0,
                     "systemeInformation_Id": 2,
@@ -212,11 +301,13 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-    .fond{
-        background-color: #cccccc;
-
+    .card {
+        & img {
+            max-width: 70px;
+        }
     }
+
 
 </style>

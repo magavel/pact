@@ -6,9 +6,6 @@
       </template>
       <template #header>
          Liste de vos fiches projets
-          <div class="p-datatable-globalfilter-container mt-n2">
-            <InputText v-model="filters['global']" placeholder="Recherche globale" />
-          </div>
       </template>
       <Column field="systeme_information_libelle_court" header="Projets" :sortable="true" filterMatchMode="gte"></Column>
       <Column field="systeme_information_nombre_modules" header="Nbre de modules" :sortable="true" filterMatchMode="gte"></Column>
@@ -28,10 +25,8 @@
           <span v-else>Non</span>
         </template>
       </Column>
-      <Column field="systeme_information_created_date" header="Créé le" :sortable="true"  filterMatchMode="custom" :filterFunction="filterDate">
-        <template #filter>
-          <Calendar v-model="filters['systeme_information_created_date']" dateFormat="dd-mm-yy" class="p-column-filter" placeholder="Création"/>
-        </template>
+      <Column field="systeme_information_created_date" header="Créé le" :sortable="true" >
+
         <template #body="slotProps">
           {{moment(slotProps.data.systeme_information_created_date).format('DD/MM/YYYY')}}
         </template>
@@ -50,11 +45,11 @@
           </div>
         </template>
       </Column>
-      <template #footer>
+<!--      <template #footer>
         <span v-if="projects.length ===0 ">Il n'y a pas de projet.</span>
         <span v-if="projects.length ===1 ">Il y a au totale:  {{projects ? projects.length : 0 }} projet.</span>
         <span v-if="projects.length >1 ">Il y a au totale:  {{projects ? projects.length : 0 }} projets.</span>
-      </template>
+      </template>-->
 
     </DataTable>
 
@@ -90,17 +85,6 @@ export default {
     this.$store.dispatch('projects/getAllProjects');
   },
   methods: {
-    filterDate(value, filter) {
-      if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-        return true;
-      }
-
-      if (value === undefined || value === null) {
-        return false;
-      }
-
-      return value === this.formatDate(filter);
-    },
     formatDate(date) {
       let month = date.getMonth() + 1;
       let day = date.getDate();
@@ -124,6 +108,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  // style du bloc
+  body .p-component {
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 500;
+  }
   .statut-fiche {
     border-radius: 2px;
     padding: .25em .5em;

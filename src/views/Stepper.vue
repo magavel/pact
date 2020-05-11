@@ -1,8 +1,7 @@
 <template>
     <div class="d-flex justify-content-center row m-5">
-        step = {{ step }}
         <div class="  mt-4">
-            <ul class="progressBar">
+            <ul class="d-flex flex-nowrap progressBar">
                 <li>
                     <img src="../assets/icons/initialisation.svg"/>
                     <p>Initialisation</p>
