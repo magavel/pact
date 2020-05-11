@@ -1,16 +1,27 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
+    <div class="card m-3">
+      <div class="card-body">
+        <ListUser />
+      </div>
+    </div>
+      <div class="card m-3">
+        <div class="card-body">
+          <h3>{{content}}</h3>
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
 import UserService from '../services/user.service';
+import ListUser from "../components/administration/ListUser";
 
 export default {
   name: 'User',
+  components: {
+    ListUser
+  },
   data() {
     return {
       content: '',

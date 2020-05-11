@@ -3,7 +3,7 @@
         <div class="row">
             <div id="periode">
                         <span class="span-icon-calendar">
-                            <img src="src/assets/event-24px.svg">
+                            <img alt="" src="src/assets/event-24px.svg">
                         </span>
                 <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
                 <span style="margin-left: 15px"> au </span>
@@ -89,7 +89,7 @@
         height: 70px;
         padding: 5px;
         width: 368px;
-        margin-left: -67px;
+        /*margin-left: -67px;*/
         border-radius: 0px 30px 30px 0px;
     }
 

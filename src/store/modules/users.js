@@ -1,19 +1,20 @@
 import userservice from '../../services/user.service';
-import projectService from '../../services/project.service';
+
 
 // initial state
 const state = {
   users: [], // un tableau de l'ensemble des utilisateurs
+  user: {},
   errors: [], // log des erreurs
   success: [], // log des success
 };
 
 const mutations = {
-  GET_ALL_USERS(state, projects) {
-    state.users = users;
+  GET_ALL_USERS(state, users) {
+    state.users = users.data;
   },
-  CREATE_USER(state, project) {
-    state.users = [ project, ...state.users ];
+  CREATE_USER(state, user) {
+    state.users = [ user, ...state.users ];
   },
   CREATE_ERROR(state, error) {
     state.errors = [ error, ...state.errors ];
@@ -29,7 +30,7 @@ const actions = {
       .then((res) => {
         const succes = {
           date: new Date(),
-          message: 'lecture de tous les projets',
+          message: 'lecture de tous les utilisateurs',
         }
         commit('GET_ALL_USERS', res.data);
         commit('CREATE_SUCCESS', succes);
