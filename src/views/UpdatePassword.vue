@@ -9,7 +9,7 @@
       />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="oldPassword">Mot de passe Actuel </label>
+          <label for="oldPassword">Mot de passe actuel </label>
           <input
             v-model="password.oldpassword"
             v-validate="'required'"
@@ -39,7 +39,7 @@
           >Mot de passe est requis</div>
         </div>
         <div class="form-group">
-          <label for="newPasswordCheck">Nouveau mot de passe</label>
+          <label for="newPasswordCheck">Re-saissir le mot de passe</label>
           <input
                   v-model="password.newpasswordCheck"
                   v-validate="'required'"
