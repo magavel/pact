@@ -17,29 +17,17 @@
         </div>
         <div v-if="currentUser" class="navbar-nav ml-auto">
           <ul class="navbar-nav px-3">
-            <li class="nav-item">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <font-awesome-icon icon="user" />
-                  {{ currentUser.username }}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                    <router-link to="/profile" class="dropdown-item">
-                      <font-awesome-icon icon="user" />
-                      Profile
-                    </router-link>
-                  <router-link to="/profile" class="dropdown-item">
-                    <font-awesome-icon icon="user" />
-                    Changer son mot de passe
-                  </router-link>
-
-                  <a class="dropdown-item" href @click.prevent="logOut">
-                    <font-awesome-icon icon="sign-out-alt" />Deconnexion
-                  </a>
-                </div>
-              </div>
-            </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <font-awesome-icon icon="user" class="text-primary"/>
+              <span class="text-primary">{{ currentUser.username }}</span>
+            </router-link>
+          </li>
+          <li class="nav-item text-primary">
+            <a class="nav-link" href @click.prevent="logOut">
+             <span class="text-primary"><font-awesome-icon icon="sign-out-alt" />Deconnexion</span>
+            </a>
+          </li>
           </ul>
         </div>
     </nav>
@@ -50,34 +38,61 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <router-link v-if="currentUser" to="/home" class="nav-link">
-                  <font-awesome-icon icon="chalkboard" /> Rapport
+                <router-link to="/home" class="nav-link">
+                  <font-awesome-icon icon="home" />Accueil
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/activites" class="nav-link">
-                  <font-awesome-icon icon="pencil-alt" /> saisie
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/projects" class="nav-link">
-                  <font-awesome-icon icon="pencil-alt" /> Projets
-                </router-link>
-              </li>
-              <li v-if="currentUser" class="nav-item">
-                <router-link to="/admin" class="nav-link">
-                  <font-awesome-icon icon="cogs" /> Administration</router-link>
+              <li v-if="showAdminBoard" class="nav-item">
+                <router-link to="/admin" class="nav-link">Tableau administrateur</router-link>
               </li>
               <li v-if="showModeratorBoard" class="nav-item">
                 <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
               </li>
+              <li class="nav-item align-middle">
+                <router-link v-if="currentUser" to="/user" class="nav-link">Gestion des utilisateurs</router-link>
+              </li>
               <li class="nav-item">
-                <router-link v-if="currentUser" to="/user" class="nav-link">
-                  <font-awesome-icon  icon="user-friends" /> Gestion des utilisateurs</router-link>
+                <router-link v-if="currentUser" to="/activites" class="nav-link">Activites</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link v-if="currentUser" to="/projects" class="nav-link">Projets</router-link>
               </li>
             </ul>
-
-
+            <h6 class=" text-white sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span class="text-white">Accès</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <div v-if="!currentUser" class="navbar-nav ml-auto">
+              <ul class="navbar-nav px-3 ">
+                <li class="nav-item ">
+                  <router-link to="/register" class="nav-link">
+                    <font-awesome-icon icon="user-plus" />Enregistrement
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/login" class="nav-link">
+                    <font-awesome-icon icon="sign-in-alt" />Connexion
+                  </router-link>
+                </li>
+              </ul>
+            </div>
+            <div v-if="currentUser" class="navbar-nav ml-auto">
+              <ul class="navbar-nav px-3">
+                <li class="nav-item">
+                  <router-link to="/profile" class="nav-link">
+                    <font-awesome-icon icon="user" />
+                    {{ currentUser.username }}
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href @click.prevent="logOut">
+                    <font-awesome-icon icon="sign-out-alt" />Deconnexion
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
 
@@ -146,7 +161,7 @@ export default {
   body #divCalendar .p-datepicker {
     border: none;
     background-color: $secondary;
-    border-bottom-right-radius: 7em 5em;
+    border-radius: 0px 30px 30px 0px;
   }
 
   body #divCalendar .p-datepicker .p-datepicker-header{
@@ -155,10 +170,6 @@ export default {
 
   .card{
     border: none;
-  }
-
-  body #charges .p-spinner .p-spinner-input{
-    width: 70px;
   }
 
   body .dropdownWidth .p-dropdown{
@@ -172,9 +183,23 @@ export default {
   body #periode .p-inputtext{
     width: 100px;
     margin-top: 10%;
+    margin-left: 15px;
+    border-color: #FFCA7A;
+  }
+
+  body .p-datepicker .p-datepicker-header .p-datepicker-title{
+    font-weight: bold;
+    font-size: 1em;
   }
 
 
+  body #charges .p-inputtext{
+    width: 57%;
+    text-align: center;
+  }
 
+  body #periode .p-inputtext:first-child{
+    margin-left: 23px;
+  }
 
 </style>

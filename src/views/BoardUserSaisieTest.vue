@@ -1,8 +1,8 @@
 <template>
     <div id="principal">
         <div id="lien">
-            <a href="#">Mes Activités</a>
-            <a href="#">Saisir à la place de</a>
+            <a href="#" class="titre">Mes Activités</a>
+            <a href="#" class="titre">Saisir à la place de</a>
         </div>
         <div id="saisie">
             <div class="container" id="container-saisie">
@@ -15,12 +15,12 @@
                                   dateFormat="dd/mm/yy">
                         </Calendar>
                     </div>
-                    <div class="col">
-                        <div class="row">
-                            <span class="text-center" id="spanJour">
+                    <div class="col mr-n5">
+                        <div class="row mt-3">
+                            <span class="text-center titre" id="spanJour">
                             {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
                             </span>
-                            <span class="pi pi-heart"></span>
+                            <span class="ml-1"><img style="height: 15px" src="../assets/ic_favorite_border_24px.svg"></span>
                         </div>
                         <div class="row">
                             <div class="card text-center">
@@ -34,7 +34,6 @@
                                         <template #loading>
                                             Chargement des données en cours.
                                         </template>
-                                        <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
                                         <Column field="name"
                                                 header="Missions/ Modules"></Column>
                                         <Column field="activite"
@@ -54,94 +53,44 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" v-bind:class="divClassCharges">
-                            <div class="col"><span >TOTAL CHARGES</span></div>
-                            <div class="col"><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
-                            <div class="col"><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
+                        <div class="d-flex justify-content-around" v-bind:class="divClassCharges">
+                            <div><span >TOTAL CHARGES</span></div>
+                            <div><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
+                            <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="test">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <Button label="Créer" icon="pi pi-plus-circle" class="p-button-secondary">
-                        </Button>
-                    </div>
-                    <div class="col">
-                        <Button label="Activités favorites"
-                                icon="pi pi-star"
-                                class="p-button-secondary">
-                        </Button>
-                    </div>
-                    <div class="col">
-                        <Button label="Journées types"
-                                icon="pi pi-heart"
-                                class="p-button-secondary">
-                        </Button>
-                    </div>
-                    <div class="col">
-                        <Button label="Imports"
-                                icon="pi pi-cloud-download"
-                                class="p-button-secondary">
-                        </Button>
-                    </div>
-                </div>
-                <!--<form v-on:submit="sub" action="#" > -->
-                <div class="row">
-                    <div id="periode">
-                    <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy" /><span> au </span><Calendar :locale="fr" dateFormat="dd/mm/yy" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col" >
-                        <div class="row">
-                            <span>Missions / Modules</span>
-                        </div>
-                        <div class="row dropdownWidth">
-                            <Dropdown v-model="selectedMission" :options="missionsData" />
-                        </div>
-                        <div class="row">
-                            <span>Commentaire (max 100 caractères)</span>
-                        </div>
-                        <div class="row dropdownWidth">
-                            <Textarea v-model="commentaire" rows="5" cols="30" ></Textarea>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <span>Type d'activités</span>
-                        </div>
-                        <div class="row dropdownWidth">
-                            <Dropdown v-model="selectedActivite" :options="tabActivite"/>
-                        </div>
-                        <div class="row">
-                            <span>Charges(hh:mm)</span>
-                        </div>
-                        <div class="row">
-                            <div id="charges">
-                                <Spinner v-model="heure" :min="0" :max="24" id="spin-heure"/> H <Spinner v-model="minute" :min="0" :max="59" id="spin-minute"/> Min
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-end">
-                    <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary" v-on:click="clickValider"></Button>
-                </div>
-                <!-- </form> -->
-            </div>
+        <div id="formulaire">
+                <Tabs>
+                    <Tab name="Nouvelle activité" :selected="true">
+                        <AjouterActivitee :charges="charges" :click-valider="clickValider" :commentaire="commentaire" :date2="date2"
+                                          :fr="fr" :missions-data="missionsData" :selected-activite="selectedActivite"
+                                          :selected-mission="selectedMission" :tab-activite="tabActivite"/>
+                    </Tab>
+                    <Tab name="Activités favorites">
+                        <h1>How much we do it for</h1>
+                    </Tab>
+                    <Tab name="Journées types">
+                        <h1>Why we do it</h1>
+                    </Tab>
+                </Tabs>
+            <!--<form v-on:submit="sub" action="#" > -->
         </div>
     </div>
 </template>
 
 <script>
-import MissionService from '../services/mission.service';
-import SaisieService from '../services/saisie.service';
+    import MissionService from '../services/mission.service';
+    import SaisieService from '../services/saisie.service';
+    import Tabs from "../components/saisies/Tabs";
+    import Tab from "../components/saisies/Tab";
+    import AjouterActivitee from "../components/saisies/AjouterActivitee";
 
-export default {
-  created() {
+    export default {
+    components: {AjouterActivitee, Tabs, Tab},
+    created() {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -178,6 +127,7 @@ export default {
       dates1: null,
       dates2: null,
       missionsJour: [],
+        charges: "0:0",
       chargesTotalJour: "0:0",
       messageCharge : null,
       tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
@@ -280,7 +230,7 @@ export default {
         name: this.selectedMission,
         activite: this.selectedActivite,
         commentaire: this.commentaire,
-        charges: `${this.heure}:${this.minute}`,
+        charges: this.charges,
         date: `${this.date2.getDate()}/${this.date2.getMonth() + 1}/${this.date2.getFullYear()}`,
       };
       this.missions.push(this.missionAdd);
@@ -404,9 +354,6 @@ export default {
     a{
         padding: 10px;
     }
-    #test{
-        background-color: white;
-    }
 
     #saisie{
         background-color: white;
@@ -414,8 +361,7 @@ export default {
     }
     #divCalendar{
         background-color: #ffca7a;
-        border-top-right-radius: 1em 5em;
-        border-bottom-right-radius: 5em 12em;
+        border-radius: 0px 30px 30px 0px;
     }
     #container-saisie{
         margin-left: 0;
@@ -427,23 +373,7 @@ export default {
     #spanJour{
         margin-left: 40%;
     }
-    #btnAjouter{
-        background: #154194 0% 0% no-repeat padding-box;
-        border-radius: 30px;
-        opacity: 1;
-        font: Regular 18px/22px Myriad Pro;
-        letter-spacing: 0px;
-        color: #FFFBFB;
-        opacity: 1;
-        width: 100px;
-        height: 50px;
-        margin-right: 5%;
-    }
-    #periode{
-        background-color: #ffca7a;
-        height: 70px;
-        padding: 5px;
-    }
+
     .charges-valide{
         color: #1F9E02;
     }
@@ -462,4 +392,15 @@ export default {
     .div-charges-supp{
         background-color: #F3D6D6;
     }
+
+    .titre{
+        font-weight: bold;
+        font-size: 1em;
+    }
+
+    #test .row{
+        margin-bottom: 10px;
+    }
+
+
 </style>

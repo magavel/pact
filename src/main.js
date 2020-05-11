@@ -13,6 +13,7 @@ import Spinner from 'primevue/spinner';
 import Steps from 'primevue/steps';
 import MultiSelect from 'primevue/multiselect';
 import Listbox from 'primevue/listbox';
+import InputMask from 'primevue/inputmask';
 import ProgressBar from 'primevue/progressbar';
 
 import 'bootstrap';
@@ -78,6 +79,7 @@ Vue.component('Steps', Steps);
 Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
 Vue.component('ProgressBar', ProgressBar);
+Vue.component('InputMask', InputMask);
 
 
 new Vue({
