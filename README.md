@@ -1,3 +1,20 @@
+
+#Pour créer le container.
+
+Cloner ou mettre à jour les sources.
+```
+Modifier le ficher /scr/shared/config.js
+```
+puis:
+```
+docker build --no-cache -t front .
+```
+et pour démarrer
+```
+docker run --name frontend -d -p 80:80 front:latest
+```
+
+
 # pactng-vue
 
 ## Project setup
