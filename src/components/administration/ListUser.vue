@@ -38,6 +38,7 @@
                         <Button type="button" icon="pi pi-briefcase" class="p-button-secondary" @click="exportCSV($event)" ></Button>
                     </div>
                 </template>
+            </Column>
         </DataTable>
 
         <!--        {{ projects }}-->
