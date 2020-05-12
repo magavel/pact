@@ -22,6 +22,12 @@ const mutations = {
   CREATE_SUCCESS(state, succes) {
     state.success = [ succes, ...state.success ];
   },
+  UPDATE_ERROR(state, error) {
+    state.errors = [ error, ...state.errors ];
+  },
+  UPDATE_SUCCESS(state, succes) {
+    state.success = [ succes, ...state.success ];
+  },
 };
 
 const actions = {
@@ -44,6 +50,28 @@ const actions = {
             getUserBoard: ${err.message}`,
         };
         commit('CREATE_ERROR', error);
+      });
+  },
+  updateUser({ commit }, user) {
+    userservice.updateUser(user)
+      .then((res) => {
+        const succes = {
+          date: new Date(),
+          message: 'mise à jour d un utilisateur',
+        }
+       // commit('GET_ALL_USERS', res.data);
+        commit('UPDATE_SUCCESS', succes);
+
+      })
+      .catch((err) => {
+        const error = {
+          date: new Date(),
+          message: `echec de la mise à jour 
+             dans la méthode 
+            updateUser: ${err.message}`,
+        };
+        commit('UPDATE_ERROR', error);
+        console.log(error.message);
       });
   },
 };

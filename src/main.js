@@ -15,6 +15,7 @@ import MultiSelect from 'primevue/multiselect';
 import Listbox from 'primevue/listbox';
 import InputMask from 'primevue/inputmask';
 import ProgressBar from 'primevue/progressbar';
+import ToggleButton from 'primevue/togglebutton';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -80,6 +81,7 @@ Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
 Vue.component('ProgressBar', ProgressBar);
 Vue.component('InputMask', InputMask);
+Vue.component('ToggleButton',ToggleButton)
 
 
 new Vue({

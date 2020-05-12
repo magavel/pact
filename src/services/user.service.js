@@ -13,6 +13,17 @@ class UserService {
       { headers: authHeader() })
   }
 
+  /**
+   * Mise à jour d'un utilisateur.
+   * @param unUtilisateur unUtilisateur.
+   * @returns {Promise<AxiosResponse<any>>} retour le mise à jour.
+   */
+  updateUser(unUtilisateur) {
+    return axios.put(config.API_URL.concat('users/', unUtilisateur.utilisateur_username),
+      unUtilisateur,
+      { headers: authHeader() });
+  }
+
   getUserBoard() {
     return axios.get(`${config.API_URL}users`, { headers: authHeader() });
   }

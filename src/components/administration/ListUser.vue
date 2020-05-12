@@ -13,13 +13,26 @@
             <Column field="utilisateur_id" header="ID" :sortable="true" filterMatchMode="gte"></Column>
             <Column field="utilisateur_username" header="username" :sortable="true" filterMatchMode="gte"></Column>
             <Column field="utilisateur_email" header="Email" :sortable="true" filterMatchMode="gte"> </Column>
+            <Column field="utilisateur_actif" header="Active" :sortable="true" filterMatchMode="gte">
+                <template #body="slotProps">
+                <ToggleButton v-model="slotProps.data.utilisateur_actif"
+                              onLabel="Activé" offLabel="Désactivé" onIcon="pi pi-check" offIcon="pi pi-times"
+                              href @click.prevent="activation(slotProps)" />
+                </template>
+            </Column>
             <Column field="utilisateur_roles" header="Roles" :sortable="true" filterMatchMode="gte">
                 <template #body="slotProps">
                         <span v-for="role in slotProps.data.utilisateur_roles">
-                            {{role.name}}
+                            {{role}}
                         </span>
                 </template></Column>
-            <Column field="utilisateur_equipes" header="Equipes" :sortable="true" filterMatchMode="gte"></Column>
+            <Column field="utilisateur_equipes" header="Equipes" :sortable="true" filterMatchMode="gte">
+                <template #body="slotProps">
+                        <span v-for="equipe in slotProps.data.utilisateur_equipes">
+                            {{equipe}}
+                        </span>
+                </template>
+            </Column>
             <Column field="utilisateur_created_date" header="Créé le" :sortable="true" >
 
                 <template #body="slotProps">
@@ -60,7 +73,16 @@
     data() {
       return {
         filters: {},
+        checked: true,
       }
+    },
+    methods: {
+      activation(props) {
+        alert(props.index);
+        alert(this.users[props.index].utilisateur_id);
+        this.$store.dispatch('users/updateUser', this.users[props.index]);
+
+      },
     },
     name: 'ListUser'
   }
