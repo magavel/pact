@@ -33,7 +33,14 @@
       </Column>
       <Column field="systeme_information_last_modified_date" header="Dernière modification" :sortable="true">
         <template #body="slotProps">
-          {{moment(slotProps.data.systeme_information_last_modified_date).fromNow()}} par {{ slotProps.data.systeme_information_last_modified_by}}
+          {{moment(slotProps.data.systeme_information_last_modified_date).fromNow()}}
+          par
+          <a class="bulle">
+            {{ getTrigramme( slotProps.data.systeme_information_last_modified_by) }}
+            <span>
+              {{ slotProps.data.systeme_information_last_modified_by }}
+            </span>
+          </a>
         </template>
       </Column>
       <Column field="" header="Actions">
@@ -74,6 +81,15 @@ export default {
     this.$store.dispatch('projects/getAllProjects');
   },
   methods: {
+    getTrigramme(nomComplet) {
+      if (nomComplet) {
+        const nom = nomComplet.split('.')
+        const trigramme = nom[0].charAt(0) + nom[0].charAt(1) + nom[1].charAt(0)
+        return trigramme.toUpperCase();
+      }else {
+        return 'Inconnu'
+    }
+    },
     exportCSV() {
       this.$refs.dt.exportCSV();
     },
@@ -224,6 +240,31 @@ export default {
   .p-datatable-projet .p-datatable-tbody > tr > td .p-column-title {
     display: none;
   }
+
+  a.bulle {
+    position:relative;
+    color:black;
+    text-decoration:none;
+    text-align:center;
+    & span {
+      display: none;
+    }
+    &:hover {
+      background: none;
+      z-index: 50;
+      & span {
+        display: block;
+        position: absolute;
+        text-align:center;
+        color:#00ACAD;
+        background: white;
+        padding: 5px;
+        //border: #62c0f4 solid 1px ;
+        border-radius: 10px;
+      }
+    }
+  }
+
 
   @media screen and (max-width: 64em) {
     /deep/ .p-datatable {

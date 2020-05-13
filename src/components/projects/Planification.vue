@@ -1,6 +1,5 @@
 <template>
     <div>
-        Ici la planification
         <form >
 
             <div v-for="module in systemeInformation.systeme_information_modules">
@@ -10,15 +9,15 @@
                 <div class="form-row d-flex align-items-end">
                     <div class="form-group col-md-4">
                         <label for="">Niveau de maturité</label>
-                        <input class="bg-light" type="text" :placeholder=" module.module_maturite_client " readonly/>
+                        <input class="bg-light form-control" type="text" :placeholder=" module.module_maturite_client " readonly/>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="">Niveau de priorité </label>
-                        <input class="bg-light" type="text" :placeholder=" module.module_priorite_pole " readonly/>
+                        <input class="bg-light form-control" type="text" :placeholder=" module.module_priorite_pole " readonly/>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="">Date de mise en service souhaitée par le client</label>
-                        <input class="bg-light" type="text" :placeholder=" module.module_dateSouhaite " readonly />
+                        <input class="bg-light form-control" type="text" :placeholder=" module.module_dateSouhaite " readonly />
                     </div>
                 </div>
                 <!-- fin init -->
@@ -29,22 +28,22 @@
                 <div class="pb-5 form-row d-flex align-items-end">
                     <div class="col-md-3">
                         <label for="chargePrevi">Charge prévisionnelle (j/h)</label>
-                        <input class="bg-light" id="chargePrevi" type="text" />
+                        <input class="bg-light form-control" id="chargePrevi" type="text" />
                     </div>
 
                     <div class="col-md-3">
                         <label for="datePrevi">Date prévisionnelle</label>
-                        <input class="bg-light" id="datePrevi" type="text" />
+                        <input class="bg-light form-control" id="datePrevi" type="text" />
                     </div>
 
                     <div class=" col-md-3">
                         <label for="capacitePreviN">Capacité prévisionnelle (j/h) Année N</label>
-                        <input class="bg-light" id="capacitePreviN" type="text" />
+                        <input class="bg-light form-control" id="capacitePreviN" type="text" />
                     </div>
 
                     <div class="col-md-3">
                         <label for="capacitePreviN1">Capacité prévisionnelle (j/h) Année N+1</label>
-                        <input class="bg-light" id="capacitePreviN1" type="text" />
+                        <input class="bg-light form-control" id="capacitePreviN1" type="text" />
                     </div>
 
 
@@ -58,22 +57,22 @@
                 <div class=" pb-5 form-row d-flex align-items-end">
                     <div class="col-md-3">
                         <label for="chargePrevi">Charge prévisionnelle (j/h)</label>
-                        <input class="bg-light" id="chargePrevi" type="text" />
+                        <input class="bg-light form-control" id="chargePrevi" type="text" />
                     </div>
 
                     <div class="col-md-3">
                         <label for="datePrevi">Date prévisionnelle</label>
-                        <input class="bg-light" id="datePrevi" type="text" />
+                        <input class="bg-light form-control" id="datePrevi" type="text" />
                     </div>
 
                     <div class=" col-md-3">
                         <label for="capacitePreviN">Capacité prévisionnelle (j/h) Année N</label>
-                        <input class="bg-light" id="capacitePreviN" type="text" />
+                        <input class="bg-light form-control" id="capacitePreviN" type="text" />
                     </div>
 
                     <div class="col-md-3">
                         <label for="capacitePreviN1">Capacité prévisionnelle (j/h) Année N+1</label>
-                        <input class="bg-light" id="capacitePreviN1" type="text" />
+                        <input class="bg-light form-control" id="capacitePreviN1" type="text" />
                     </div>
 
 

@@ -15,7 +15,6 @@
             :type-module="typeModule"
           />
         <div class="pt-3">
-
           <button
             @click.prevent="nextStep"
             class="btn rounded-pill btn-primary float-right"
@@ -121,7 +120,9 @@ export default {
       this.$store.commit('projects/UPDATE_STEP', 1)
     },
     nextStep() {
-        this.$router.push({name: 'besoins',  params: { project: this.project} })
+      this.project.systeme_information_list_module.push(this.moduleSI);
+      //this.$store.dispatch("projects/createProject", this.project);
+      this.$router.push({name: 'besoins'})
     },
     addModule() {
       console.log("ds addModule");

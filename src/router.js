@@ -96,6 +96,8 @@ export const router = new Router({
   ],
 });
 
+export default router;
+
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
     next()

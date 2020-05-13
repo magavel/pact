@@ -1,96 +1,102 @@
 <template>
     <div>
-        equipe
         <form>
 
 
             <div v-for="module in systemeInformation.systeme_information_modules" :key="module.module_Id">
                 <h4>{{ module.module_libelle}}</h4>
-                <p> Liste des CDAD</p>
-                <span v-for="cdad in module.module_list_CDAD">
-                    {{ cdad}},
-                </span>
-                <div class="d-flex">
+                <p>CDAD</p>
 
-                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
-                        <div class="d-flex justify-content-end pr-1">
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    <span v-for="cdad in module.module_list_CDAD">
+                        <span  class="bg-primary p-2 text-white rounded mx-2" >{{ cdad }}</span>
+                    </span>
+                    <div class="row d-flex justify-content-center">
+                        <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                            <div class="d-flex justify-content-end pr-1">
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <img src="../../assets/images/tournesol.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                                 alt="...">
+                            <div class="card-body d-flex flex-column justify-content-end">
+                                <h5 class="card-title">Lead développeur</h5>
+                                <p>Tryphon Tournesol</p>
+                                <input class="form-control" value="t.tournesol@rg.fr">
 
+                            </div>
                         </div>
-                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
-                             alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Lead développeur</h5>
-                            <p>Capitaine Haddock</p>
-                            <input class="form-control" value="email: haddok@rg.fr">
-
+                        <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                            <div class="d-flex justify-content-end pr-1">
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <img src="../../assets/images/haddok.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                                 alt="...">
+                            <div class="card-body d-flex flex-column justify-content-end ">
+                                <h5 class="card-title">Product Owner</h5>
+                                <p>Archibald Haddock</p>
+                                <input class="form-control" value="a.haddok@rg.fr">
+                            </div>
                         </div>
+                        <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                            <div class="d-flex justify-content-end pr-1">
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <img src="../../assets/images/tintin.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                                 alt="...">
+                            <div class="card-body d-flex flex-column justify-content-end">
+                                <h5 class="card-title">Développeur</h5>
+                                <p>Tintin</p>
+                                <input class="form-control" value="tintin@rg.fr">
+                            </div>
+                        </div>
+                        <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                            <div class="d-flex justify-content-end pr-1">
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <img src="../../assets/images/nestor.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
+                                 alt="...">
+                            <div class="card-body d-flex flex-column justify-content-end ">
+                                <h5 class="card-title">Scrum Master</h5>
+                                <p>Nestor</p>
+                                <input class="form-control" value="nestor@rg.fr">
+
+                            </div>
+                        </div>
+
+
+                        <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
+                            <div class="d-flex justify-content-end pr-1">
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <img src="../../assets/images/bianca-castafiore.png" class="card-img-top p-1 rounded-circle mx-auto"
+                                 alt="...">
+                            <div class="card-body d-flex flex-column justify-content-end">
+                                <h5 class="card-title">Graphiste</h5>
+                                <p>Bianca Castafiore</p>
+                                <input class="form-control" value="b.castafiore@rg.fr">
+
+
+                            </div>
+                        </div>
+
+
+                            <div class="bg-gris-module  my-auto addMember rounded-lg position-relative align-middle d-flex flex-column justify-content-center" @click.prevent="addMember">
+                                +
+                            </div>
+
                     </div>
 
-
-                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
-                        <div class="d-flex justify-content-end pr-1">
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-
-                        </div>
-                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
-                             alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Lead développeur</h5>
-                            <p>Capitaine Haddock</p>
-                            <input class="form-control" value="email: haddok@rg.fr">
-
-                        </div>
-                    </div>
-
-
-                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
-                        <div class="d-flex justify-content-end pr-1">
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-
-                        </div>
-                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle  mx-auto"
-                             alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Lead développeur</h5>
-                            <p>Capitaine Haddock</p>
-                            <input class="form-control" value="email: haddok@rg.fr">
-
-                        </div>
-                    </div>
-
-
-                    <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
-                        <div class="d-flex justify-content-end pr-1">
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-
-                        </div>
-                        <img src="../../assets/images/malotru.jpg" class="card-img-top p-1 rounded-circle mx-auto"
-                             alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Lead développeur</h5>
-                            <p>Capitaine Haddock</p>
-                            <input class="form-control" value="email: haddok@rg.fr">
-
-
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class="bg-gris-module">
-                    {{ module.module_equipe.libelleEquipe}}
-                </div>
             </div>
 
 
@@ -119,7 +125,7 @@
         name: "Equipe",
         data() {
             return {
-                nbreEquipiers: null,
+                nbreEquipiers: 0,
                 roles: [
                     {value: 'leadDeveloppeur', title: 'Lead développeur'},
                     {value: 'deveoppeur', title: 'Développeur'},
@@ -290,6 +296,9 @@
             }
         },
         methods: {
+            addMember() {
+                this.nbreEquipiers++;
+            },
             nextStep() {
                 // TODO mettre a jour dans le store le step
                 this.$router.push({name: 'planification'})
@@ -305,9 +314,20 @@
 
 <style lang="scss" scoped>
 
+    .addMember {
+        width: 80px;
+        height: 70px;
+        line-height: 70px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 50px;
+        color: #535353;
+    }
+
     .card {
         & img {
-            max-width: 70px;
+           width: 70px;
+           height: 70px;
         }
     }
 

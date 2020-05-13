@@ -1,4 +1,5 @@
 import projectService from '../../services/project.service';
+import router from '../../router'
 
 // initial state
 const state = {
@@ -45,8 +46,7 @@ const actions = {
         .then((response) => {
           if(response.status === 201) {
             console.log('data', response.data);
-            console.log('les routes', this.$route , this.$router)
-            this.$router.push('test');
+            router.push({ name: 'besoins', params:response.data });
           }
           else {
             console.log('pas de status 201, pb avec le serveur', response.status)

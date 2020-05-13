@@ -16,11 +16,18 @@ export default {
     // http://localhost:8080/apiPactNG/api/v1/systemeInformationsList
   getAllProjects() {
     //return axios.get(`${config.API_URL}systemeInformations?search= `, { headers: authHeader() })
-      return axios.get(`${config.API_URL}systemeInformationsList `, { headers: authHeader() })
+      return axios.get(`${config.API_URL}systemeInformationsList`, { headers: authHeader() })
         .catch((err) => {
-            console.log('erreur', err)
+            console.log('erreur du getAllProjects', err)
         });
   },
+    //  http://localhost:8080/apiPactNG/api/v1/systemeInformations/1
+    getProjectById(id) {
+      return axios.get(`${config.API_URL}systemeInformations/${id}`,{ headers: authHeader() })
+          .catch((err) => {
+              console.log('erreur du getProjectById', err)
+          });
+    },
   updateProjet(projet) {
       return axios.put(`${config.API_URL}systemeInformations/{${projet.systemeInformation_Id}}`, projet, { headers:authHeader() })
           .catch((err)=>{
