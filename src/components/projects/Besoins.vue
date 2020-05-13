@@ -164,6 +164,27 @@
     components: {InfogerenceModule},
     props: ['projet'],
     methods: {
+      updateProjet() {
+        const {
+          autoriteClient,
+          beneficiaire,
+          zoneFonctionnelle,
+          quartierFonctionnel,
+          descriptionProjet,
+          dateMiseEnServiceSouhaite,
+          enjeuxProjet,
+        } = this.projet.data();
+        this.projetClone = {
+          id : this.projet.id,
+          autoriteClient,
+          beneficiaire,
+          zoneFonctionnelle,
+          quartierFonctionnel,
+          descriptionProjet,
+          dateMiseEnServiceSouhaite,
+          enjeuxProjet,
+        };
+      },
       nextStep() {
         // TODO mettre a jour dans le store  le step
         this.$router.push({name: 'equipe'});
@@ -173,35 +194,12 @@
         this.$router.go(-1)
       },
     },
+    created() {
+      console.log('created' )
+    },
     data() {
       return {
         projetClone:{},
-        created() {
-          console.log('params projet', this.$route.params.project)
-        },
-        methods: {
-          updateProjet() {
-            const {
-              autoriteClient,
-              beneficiaire,
-              zoneFonctionnelle,
-              quartierFonctionnel,
-              descriptionProjet,
-              dateMiseEnServiceSouhaite,
-              enjeuxProjet,
-            } = this.projet.data();
-            this.projetClone = {
-              id : this.projet.id,
-              autoriteClient,
-              beneficiaire,
-              zoneFonctionnelle,
-              quartierFonctionnel,
-              descriptionProjet,
-              dateMiseEnServiceSouhaite,
-              enjeuxProjet,
-            };
-          },
-        },
         systeme_information_modules: [
           {
             module_Id: 2,

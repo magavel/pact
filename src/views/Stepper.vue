@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-center row m-5">
-        <div class=" pr-5 mt-4">
+        <div class=" step pr-5 mt-4">
             <ul class="d-flex flex-nowrap progressBar">
                 <li>
                     <img src="../assets/icons/initialisation.svg"/>
@@ -90,6 +90,9 @@
         right:100px;
         top: 30px
     }
-
-
+    @media screen and (max-width: 64em) {
+         .step {
+                    display: none !important;
+                }
+            }
 </style>
