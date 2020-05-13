@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Lead développeur</h5>
                             <p>Capitaine Haddock</p>
-                            <input value="email: haddok@rg.fr">
+                            <input class="form-control" value="email: haddok@rg.fr">
 
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Lead développeur</h5>
                             <p>Capitaine Haddock</p>
-                            <input value="email: haddok@rg.fr">
+                            <input class="form-control" value="email: haddok@rg.fr">
 
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Lead développeur</h5>
                             <p>Capitaine Haddock</p>
-                            <input value="email: haddok@rg.fr">
+                            <input class="form-control" value="email: haddok@rg.fr">
 
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Lead développeur</h5>
                             <p>Capitaine Haddock</p>
-                            <input value="email: haddok@rg.fr">
+                            <input class="form-control" value="email: haddok@rg.fr">
 
 
                         </div>
@@ -119,6 +119,7 @@
         name: "Equipe",
         data() {
             return {
+                nbreEquipiers: null,
                 roles: [
                     {value: 'leadDeveloppeur', title: 'Lead développeur'},
                     {value: 'deveoppeur', title: 'Développeur'},

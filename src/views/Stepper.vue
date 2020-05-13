@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-center row m-5">
-        <div class="  mt-4">
+        <div class=" step pr-5 mt-4">
             <ul class="d-flex flex-nowrap progressBar">
                 <li>
                     <img src="../assets/icons/initialisation.svg"/>
@@ -39,7 +39,10 @@
 <style lang="scss" scoped>
     // longuer trait
     $longueurTrait: 70px;
+    img {
 
+        height: 38px;
+    }
     .active {
         color: blue;
     }
@@ -74,7 +77,7 @@
         display: block;
         position: absolute;
         left: 115px;
-        top: 39px
+        top: 30px
 
     }
     ul li:first-child::before{
@@ -87,6 +90,9 @@
         right:100px;
         top: 30px
     }
-
-
+    @media screen and (max-width: 64em) {
+         .step {
+                    display: none !important;
+                }
+            }
 </style>

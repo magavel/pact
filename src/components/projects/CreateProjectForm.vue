@@ -20,7 +20,7 @@
             @click.prevent="nextStep"
             class="btn rounded-pill btn-primary float-right"
           >
-            Passer à l'étape suivant
+            Passer à l'étape suivante
           </button>
           <button
                   @click.prevent="createProject"
@@ -109,11 +109,19 @@ export default {
     };
   },
   methods: {
+    resetForm() {
+      project: {}
+    },
+    enregistrementFicheProjet() {
+      this.project.systeme_information_list_module.push(this.moduleSI);
+      console.log('le projet', this.project);
+      this.$store.dispatch("projects/createProject", this.project);
+    },
     majStep(){
       this.$store.commit('projects/UPDATE_STEP', 1)
     },
     nextStep() {
-        this.$router.push({name: 'besoins'})
+        this.$router.push({name: 'besoins',  params: { project: this.project} })
     },
     addModule() {
       console.log("ds addModule");
@@ -124,9 +132,9 @@ export default {
       console.log("ds le remove");
     },
     createProject() {
-      this.project.systeme_information_list_module.push(this.moduleSI);
-      console.log('le projet', this.project);
-      this.$store.dispatch("projects/createProject", this.project);
+      this.enregistrementFicheProjet();
+      this.resetForm();
+      this.$router.push({name: ''})
     }
   }
 };
