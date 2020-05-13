@@ -1,16 +1,14 @@
 <template>
-    <div id="ajoutActivite" class="container">
-        <div class="row">
-            <div id="periode">
-                        <span class="span-icon-calendar">
-                            <img alt="" src="src/assets/event-24px.svg">
-                        </span>
-                <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
-                <span style="margin-left: 15px"> au </span>
-                <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
-            </div>
+    <div id="ajoutActivite" class="">
+        <div id="periode" class="ml-n3">
+                            <span class="mr-2 ml-1">
+                                <img src="src/assets/event-24px.svg">
+                            </span>
+            <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
+            <span class="ml-3 mr-3"> au </span>
+            <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
         </div>
-        <div class="row mr-n5">
+        <div class="row pl-5">
             <div class="col">
                 <div class="row">
                     <span>Missions / Modules</span>
@@ -65,11 +63,7 @@
         }
     }
 </script>
-<style scoped>
-
-    a {
-        padding: 10px;
-    }
+<style lang="scss" scoped>
 
     #btnAjouter {
         background: #154194 0% 0% no-repeat padding-box;
@@ -78,28 +72,28 @@
         font: Regular 18px/22px Myriad Pro;
         letter-spacing: 0px;
         color: #FFFBFB;
-        opacity: 1;
         width: 100px;
         height: 50px;
         margin-right: 1%;
     }
-
     #periode {
         background-color: #ffca7a;
         height: 70px;
         padding: 5px;
         width: 368px;
-        /*margin-left: -67px;*/
         border-radius: 0px 30px 30px 0px;
-    }
-
-    .span-icon-calendar {
-        margin-left: 14px;
+        &::before{
+            content:"\A";
+            border-style: solid;
+            border-width: 10px 15px 10px 0;
+            border-color: transparent #FFCA7A transparent transparent;
+            position: relative;
+            left: -5px;
+            top: -29px;
+        }
     }
 
     #ajoutActivite{
         background-color: white;
     }
-
-
 </style>
