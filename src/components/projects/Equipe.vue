@@ -119,6 +119,7 @@
         name: "Equipe",
         data() {
             return {
+                nbreEquipiers: null,
                 roles: [
                     {value: 'leadDeveloppeur', title: 'Lead développeur'},
                     {value: 'deveoppeur', title: 'Développeur'},

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <DataTable ref="dt" :value="projects" :paginator="true" :rows="10" selectionMode="single"  dataKey="systeme_information_id" :reorderableColumns="true" >
+    <div class="m-3 text-align">
+      <h3>Liste de vos fiches projets</h3>
+    </div>
+    <DataTable class="p-datatable-responsive p-datatable-projet" ref="dt" :value="projects" :paginator="true" :rows="10" selectionMode="single"  dataKey="systeme_information_id" :reorderableColumns="true" >
       <template #loading>
         Loading records, please wait...
-      </template>
-      <template #header>
-         Liste de vos fiches projets
       </template>
       <Column field="systeme_information_libelle_court" header="Projets" :sortable="true" filterMatchMode="gte"></Column>
       <Column field="systeme_information_nombre_modules" header="Nbre de modules" :sortable="true" filterMatchMode="gte"></Column>
@@ -19,7 +19,7 @@
           <ProgressBar :value="slotProps.data.systeme_information_niveau_completion * 100" :showValue="false" />
         </template>
       </Column>
-      <Column field="systeme_information_dispo_saisie" header="Disponible à la saisie des activités" :sortable="true" filterMatchMode="gte">
+      <Column field="systeme_information_dispo_saisie" header="Saisie des activités" :sortable="true" filterMatchMode="gte">
         <template #body="slotProps">
           <span v-if="slotProps.data.systeme_information_dispo_saisie">Oui</span>
           <span v-else>Non</span>
@@ -31,9 +31,9 @@
           {{moment(slotProps.data.systeme_information_created_date).format('DD/MM/YYYY')}}
         </template>
       </Column>
-      <Column field="systeme_information_last_modified_date" header="Dernière modification">
+      <Column field="systeme_information_last_modified_date" header="Dernière modification" :sortable="true">
         <template #body="slotProps">
-            le {{moment(slotProps.data.systeme_information_last_modified_date).format('DD/MM/YYYY')}} par {{ slotProps.data.systeme_information_last_modified_by}}
+          {{moment(slotProps.data.systeme_information_last_modified_date).fromNow()}} par {{ slotProps.data.systeme_information_last_modified_by}}
         </template>
       </Column>
       <Column field="" header="Actions">
@@ -64,17 +64,6 @@ export default {
   data() {
     return {
       filters: {},
-      columns: [
-        {field: 'systeme_information_libelle_court', header: 'Projets'},
-        {field: 'systeme_information_nombre_modules', header: 'Nbre de modules'},
-        {field: 'systeme_information_etatDuSi', header: 'Statut de la fiche'},
-        {field: 'systeme_information_niveau_completion', header: 'Niveau de complétion'},
-        {field: 'systeme_information_dispo_saisie', header: 'Disponible à la saisie des activité'},
-        {field: 'systeme_information_created_date', header: 'Créé le'},
-        {field: 'systeme_information_last_modified_by', header: 'Auteur de la dernière modification'},
-        {field: 'systeme_information_last_modified_date', header: 'Dernière modification'},
-        {field: 'niveau', header: 'Actions'},
-      ],
     }
   },
   name: 'ListProject',
@@ -85,21 +74,11 @@ export default {
     this.$store.dispatch('projects/getAllProjects');
   },
   methods: {
-    formatDate(date) {
-      let month = date.getMonth() + 1;
-      let day = date.getDate();
-      if (month < 10) {
-        month = '0' + month;
-      }
-      if (day < 10) {
-        day = '0' + day;
-      }
-      return day + '-'+ month + '-' + date.getFullYear();
-    },
     exportCSV() {
       this.$refs.dt.exportCSV();
     },
     upload(id) {
+      // TODO
       console.log('ds upload', id);
 
     }
@@ -113,6 +92,8 @@ export default {
     font-size: 12px;
     text-decoration: none;
     font-weight: 500;
+    // border: 0 none;
+    background-color: white;
   }
   .statut-fiche {
     border-radius: 2px;
@@ -204,7 +185,7 @@ export default {
     }
   }
 
-  /deep/ .p-datatable.p-datatable-customers {
+  /deep/ .p-datatable.p-datatable-projet {
     .p-datatable-header {
       border: 0 none;
       padding: 12px;
@@ -240,13 +221,13 @@ export default {
   }
 
   /* Responsive */
-  .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+  .p-datatable-projet .p-datatable-tbody > tr > td .p-column-title {
     display: none;
   }
 
   @media screen and (max-width: 64em) {
     /deep/ .p-datatable {
-      &.p-datatable-customers {
+      &.p-datatable-projet {
         .p-datatable-thead > tr > th,
         .p-datatable-tfoot > tr > td {
           display: none !important;

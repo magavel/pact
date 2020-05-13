@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <form >
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="authoriteClient">
@@ -69,7 +69,7 @@
           <textarea
                   class="form-control"
                   id="descriptionProjet"
-                  rows="5"
+                  rows="7"
                   v-model="besoins.descriptionProjet"
           ></textarea>
         </div>
@@ -79,21 +79,22 @@
               Date de mise en service souhaitée par le client
             </label>
             <Calendar id="dateMiseService" v-model="besoins.dateMiseEnServiceSouhaite" :numberOfMonths="1"/>
-            <div class="col">
-              <label>
-                Enjeux du projet
-              </label>
-              <InputNumber v-model="besoins.enjeuxProjet" mode="decimal" showButtons :min="1" :max="4"/>
-            </div>
           </div>
-
+            <div class="form-group row mt-4 ml-4">
+              <label for="enjeuxProjet">
+                Enjeux du projet
+              </label> <br>
+              <input
+                      id="enjeuxProjet"
+                      v-model="besoins.enjeuxProjet"
+                      class="form-control"
+              />
+            </div>
         </div>
       </div>
       <div class="mt-5">
 
         <h5>Prérequis techniques</h5>
-
-
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="typeSI">Type de SI</label> <br>
@@ -152,10 +153,7 @@
           Enregistrer et passer à l'étape suivant
         </button>
       </div>
-
-
     </form>
-    gitt
   </div>
 </template>
 <script>
@@ -164,6 +162,7 @@
   export default {
     name: 'Besoins',
     components: {InfogerenceModule},
+    props: ['projet'],
     methods: {
       nextStep() {
         // TODO mettre a jour dans le store  le step
@@ -171,11 +170,38 @@
       },
       prevStep() {
         // TODO mettre a jour dans le store  le step
-        this.$router.push('');
+        this.$router.go(-1)
       },
     },
     data() {
       return {
+        projetClone:{},
+        created() {
+          console.log('params projet', this.$route.params.project)
+        },
+        methods: {
+          updateProjet() {
+            const {
+              autoriteClient,
+              beneficiaire,
+              zoneFonctionnelle,
+              quartierFonctionnel,
+              descriptionProjet,
+              dateMiseEnServiceSouhaite,
+              enjeuxProjet,
+            } = this.projet.data();
+            this.projetClone = {
+              id : this.projet.id,
+              autoriteClient,
+              beneficiaire,
+              zoneFonctionnelle,
+              quartierFonctionnel,
+              descriptionProjet,
+              dateMiseEnServiceSouhaite,
+              enjeuxProjet,
+            };
+          },
+        },
         systeme_information_modules: [
           {
             module_Id: 2,

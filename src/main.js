@@ -16,6 +16,7 @@ import Listbox from 'primevue/listbox';
 import InputMask from 'primevue/inputmask';
 import ProgressBar from 'primevue/progressbar';
 
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primevue/resources/themes/nova-light/theme.css';
@@ -80,6 +81,7 @@ Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
 Vue.component('ProgressBar', ProgressBar);
 Vue.component('InputMask', InputMask);
+
 
 
 new Vue({

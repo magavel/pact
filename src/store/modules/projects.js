@@ -11,6 +11,9 @@ const state = {
 
 
 const mutations = {
+  UPDATE_PROJET(state, project) {
+    state.projet = project.data;
+  },
   GET_ALL_PROJECTS(state, projects) {
     state.projects = projects.data;
   },
@@ -30,6 +33,13 @@ const mutations = {
 
 
 const actions = {
+  updateProject({commit}, project) {
+    projectService.updateProjet(project)
+        .then((response)=> {
+          console.log(response);
+          commit('UPDATE_PROJET', projet);
+        });
+  },
   createProject({ commit }, project) {
     projectService.createProject(project)
         .then((response) => {
