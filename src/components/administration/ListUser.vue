@@ -57,6 +57,14 @@
 
         <!--        {{ projects }}-->
 
+
+        <a href="#" class="float">
+            <font-awesome-icon icon="plus" class="my-float"/>
+        </a>
+        <div class="label-container">
+            <div class="label-text">Ajouter un utilisateur</div>
+
+        </div>
     </div>
 </template>
 
@@ -78,8 +86,6 @@
     },
     methods: {
       activation(props) {
-        alert(props.index);
-        alert(this.users[props.index].utilisateur_id);
         this.$store.dispatch('users/updateUser', this.users[props.index]);
 
       },
@@ -210,6 +216,51 @@
     p-datatable-header{
         height: 50px;
     }
+
+    .label-container{
+        position:fixed;
+        bottom:48px;
+        right:105px;
+        display:table;
+        visibility: hidden;
+    }
+
+    .label-text{
+        color:#FFF;
+        background:rgba(51,51,51,0.5);
+        display:table-cell;
+        vertical-align:middle;
+        padding:10px;
+        border-radius:3px;
+    }
+
+    .float{
+        position:fixed;
+        width:60px;
+        height:60px;
+        bottom:40px;
+        right:40px;
+        background-color:#0C9;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    .my-float{
+        margin-top:22px;
+    }
+    a.float + div.label-container {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s ease;
+    }
+
+    a.float:hover + div.label-container{
+        visibility: visible;
+        opacity: 1;
+    }
+
 
 </style>
 
