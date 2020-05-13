@@ -137,7 +137,7 @@
   body #divCalendar .p-datepicker {
     border: none;
     background-color: $secondary;
-    border-bottom-right-radius: 7em 5em;
+    border-radius: 0px 30px 30px 0px;
   }
 
   body #divCalendar .p-datepicker .p-datepicker-header{
@@ -148,8 +148,9 @@
     border: none;
   }
 
-  body #charges .p-spinner .p-spinner-input{
+  body #charges .p-inputtext{
     width: 70px;
+    text-align: center;
   }
 
   body .dropdownWidth .p-dropdown{

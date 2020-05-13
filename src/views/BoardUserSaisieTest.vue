@@ -5,9 +5,9 @@
             <a href="#" class="titre">Saisir à la place de</a>
         </div>
         <div id="saisie">
-            <div class="container" id="container-saisie">
-                <div class="row">
-                    <div class="col-4" id="divCalendar">
+            <div class="" id="container-saisie">
+                <div class="row w-100 ml-0">
+                    <div class="col ml-n3" id="divCalendar">
                         <Calendar v-model="date12"
                                   :inline="true"
                                   :locale="fr"
@@ -15,45 +15,47 @@
                                   dateFormat="dd/mm/yy">
                         </Calendar>
                     </div>
-                    <div class="col mr-n5">
+                    <div class="col-8">
                         <div class="row mt-3">
                             <span class="text-center titre" id="spanJour">
                             {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
                             </span>
                             <span class="ml-1"><img style="height: 15px" src="../assets/ic_favorite_border_24px.svg"></span>
                         </div>
-                        <div class="row">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <DataTable v-model="missionsJour"
-                                               class="p-datatable-responsive p-datatable-customers"
-                                               :rows="4">
-                                        <template #empty>
-                                            Aucune Activités trouvées.
-                                        </template>
-                                        <template #loading>
-                                            Chargement des données en cours.
-                                        </template>
-                                        <Column field="name"
-                                                header="Missions/ Modules"></Column>
-                                        <Column field="activite"
-                                                header="Type d'activités"></Column>
-                                        <Column field="commentaire"
-                                                header="Commentaires"></Column>
-                                        <Column field="charges"
-                                                header="Charges (h:m)"></Column>
-                                        <Column header="Actions">
-                                            <template #body>
-                                                <a class="pi pi-times"></a>
-                                                <a class="pi pi-star-o"></a>
-                                                <a class="pi pi-pencil"></a>
-                                            </template>
-                                        </Column>
-                                    </DataTable>
-                                </div>
-                            </div>
+                        <div class="row mt-3 mr-3">
+                            <DataTable v-model="missionsJour"
+                                       class="p-datatable-responsive p-datatable-customers"
+                                       :rows="4">
+                                <template #empty>
+                                    Aucune Activités trouvées.
+                                </template>
+                                <template #loading>
+                                    Chargement des données en cours.
+                                </template>
+                                <Column field="name"
+                                        header="Missions/ Modules">
+                                    <template #body="slotProps">
+                                        <div>
+                                            {{ slotProps.data.name }}
+                                        </div>
+                                    </template>
+                                </Column>
+                                <Column field="activite"
+                                        header="Type d'activités"></Column>
+                                <Column field="commentaire"
+                                        header="Commentaires"></Column>
+                                <Column field="charges"
+                                        header="Charges (h:m)"></Column>
+                                <Column header="Actions">
+                                    <template #body>
+                                        <a class="pi pi-times"></a>
+                                        <a class="pi pi-star-o"></a>
+                                        <a class="pi pi-pencil"></a>
+                                    </template>
+                                </Column>
+                            </DataTable>
                         </div>
-                        <div class="d-flex justify-content-around" v-bind:class="divClassCharges">
+                        <div class="d-flex justify-content-around w-50" v-bind:class="divClassCharges" style="margin-left: 39%">
                             <div><span >TOTAL CHARGES</span></div>
                             <div><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
                             <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
@@ -65,15 +67,59 @@
         <div id="formulaire">
                 <Tabs>
                     <Tab name="Nouvelle activité" :selected="true">
-                        <AjouterActivitee :charges="charges" :click-valider="clickValider" :commentaire="commentaire" :date2="date2"
-                                          :fr="fr" :missions-data="missionsData" :selected-activite="selectedActivite"
-                                          :selected-mission="selectedMission" :tab-activite="tabActivite"/>
+                        <div id="ajoutActivite" class="">
+                            <div id="periode" class="ml-n3">
+                            <span class="mr-2 ml-1">
+                                <img src="src/assets/event-24px.svg">
+                            </span>
+                                <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
+                                <span class="ml-3 mr-3"> au </span>
+                                <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
+                            </div>
+                            <div class="row pl-5">
+                                <div class="col">
+                                    <div class="row">
+                                        <span>Missions / Modules</span>
+                                    </div>
+                                    <div class="row dropdownWidth">
+                                        <Dropdown v-model="selectedMission" :options="missionsData"/>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span>Commentaire (max 100 caractères)</span>
+                                    </div>
+                                    <div class="row dropdownWidth">
+                                        <Textarea v-model="commentaire" rows="5" cols="30"></Textarea>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <span>Type d'activités</span>
+                                    </div>
+                                    <div class="row dropdownWidth">
+                                        <Dropdown v-model="selectedActivite" :options="tabActivite"/>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span>Charges(hh:mm)</span>
+                                    </div>
+                                    <div class="row">
+                                        <div id="charges">
+                                            <InputMask v-model="charges" mask="9:99" placeholder="  :  "/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end mr-3" style="margin-left: 39%">
+                                <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"
+                                        v-on:click="clickValider"></Button>
+                            </div>
+                            <!-- </form> -->
+                        </div>
                     </Tab>
                     <Tab name="Activités favorites">
-                        <h1>How much we do it for</h1>
+                        <h1>Activités favorites</h1>
                     </Tab>
                     <Tab name="Journées types">
-                        <h1>Why we do it</h1>
+                        <h1>Journées types</h1>
                     </Tab>
                 </Tabs>
             <!--<form v-on:submit="sub" action="#" > -->
@@ -90,7 +136,7 @@
 
     export default {
     components: {AjouterActivitee, Tabs, Tab},
-    created() {
+    /* created() {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -107,7 +153,7 @@
     const invalidDate = new Date();
     invalidDate.setDate(today.getDate() - 1);
     this.invalidDates = [today, invalidDate];
-  },
+  }, */
   data() {
     return {
       date1: new Date(2020, 3, 1),
@@ -127,7 +173,7 @@
       dates1: null,
       dates2: null,
       missionsJour: [],
-        charges: "0:0",
+      charges: "0:0",
       chargesTotalJour: "0:0",
       messageCharge : null,
       tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
@@ -178,6 +224,7 @@
       missionAdd: null,
       classeCharges: null,
       divClassCharges : null,
+      refTypeActivite : []
     };
   },
   // missionService: null,
@@ -197,11 +244,35 @@
       },
     ); */
     // toISOString()
+      SaisieService.getRefTypeActivite().then(
+          (response) => {
+              response.data.data.forEach((d)=> this.refTypeActivite.push({
+                  id : d.refTypeId,
+                  libelle : d.refTypeLibelleCourt
+              }));
+          }
+      );
     SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
         (response) => {
-            // console.log(response.data);
+             console.log(response.data);
+             const donnees = response.data.data;
+             console.log("donnees : " + donnees);
+             donnees.forEach((s)=> console.log(s));
+             for(let saisie of donnees){
+                 let dateSaisie = saisie.saisie_date.split("::");
+                 let newSaisie = {
+                     name: saisie.saisie_Id,
+                     activite: saisie.activite_Id,
+                     commentaire: saisie.saisie_commentaire,
+                     charges: saisie.saisie_charge+":00",
+                     date: dateSaisie[0]+"/"+parseInt(dateSaisie[1])+"/"+dateSaisie[2]
+                 };
+                 this.missions.push(newSaisie);
+             }
+             this.missions.forEach((m) => console.log("mission : " + m.date));
         }
     );
+
     this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
       .forEach((mission) => this.missionsJour.push(mission));
   },
@@ -289,27 +360,39 @@
       },
     clickCalendar() {
       this.missionsJour = [];
+      console.log("date12 : " + this.date12.toISOString());
+        this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
+            .forEach((mission) => console.log(mission));
       this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
         .forEach((mission) => this.missionsJour.push(mission));
       this.chargesTotalJour = this.calculerChargesTotalJour();
       this.messageCharge = this.editerMessageCharges();
     },
+    correspondreActivite(activiteId){
+        let libelleActivite;
+        for(ref of this.refTypeActivite){
+            if(ref.id === activiteId){
+                libelleActivite = ref.libelle;
+            }
+        }
+        return libelleActivite;
+    },
     formaterJour(numberJour) {
       let stringJour;
       switch (numberJour) {
-        case 1: stringJour = 'lundi';
+        case 1: stringJour = 'Lundi';
           break;
-        case 2: stringJour = 'mardi';
+        case 2: stringJour = 'Mardi';
           break;
-        case 3: stringJour = 'mercredi';
+        case 3: stringJour = 'Mercredi';
           break;
-        case 4: stringJour = 'jeudi';
+        case 4: stringJour = 'Jeudi';
           break;
-        case 5: stringJour = 'vendredi';
+        case 5: stringJour = 'Vendredi';
           break;
-        case 6: stringJour = 'samedi';
+        case 6: stringJour = 'Samedi';
           break;
-        default: stringJour = 'dimanche';
+        default: stringJour = 'Dimanche';
           break;
       }
       return stringJour;
@@ -349,7 +432,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
     a{
         padding: 10px;
@@ -360,8 +443,8 @@
         margin-bottom: 2em;
     }
     #divCalendar{
-        background-color: #ffca7a;
-        border-radius: 0px 30px 30px 0px;
+        /*background-color: #ffca7a;*/
+        /*border-radius: 0px 30px 30px 0px;*/
     }
     #container-saisie{
         margin-left: 0;
@@ -403,4 +486,78 @@
     }
 
 
+    #btnAjouter {
+        background: #154194 0% 0% no-repeat padding-box;
+        border-radius: 30px;
+        opacity: 1;
+        font: Regular 18px/22px Myriad Pro;
+        letter-spacing: 0px;
+        color: #FFFBFB;
+        width: 100px;
+        height: 50px;
+        margin-right: 1%;
+    }
+    #periode {
+        background-color: #ffca7a;
+        height: 70px;
+        padding: 5px;
+        width: 368px;
+        border-radius: 0px 30px 30px 0px;
+        &::before{
+            content:"\A";
+            border-style: solid;
+            border-width: 10px 15px 10px 0;
+            border-color: transparent #FFCA7A transparent transparent;
+            position: relative;
+            left: -5px;
+            top: -29px;
+        }
+    }
+
+    #ajoutActivite{
+        background-color: white;
+    }
+
+    /deep/ .p-datatable.p-datatable-customers {
+        .p-datatable-header {
+            border: 0 none;
+            padding: 12px;
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .p-datatable-thead{
+            background-color: #E6DFDF85;
+            border: 10px;
+        }
+
+        .p-datatable-thead > tr > th {
+            border: 0 none;
+            text-align: left;
+
+            &.p-filter-column {
+                border-top: 1px solid #c8c8c8;
+            }
+        }
+        p-column-title {
+            font-size: 10px;
+        }
+
+        .p-datatable-tbody > tr > td {
+            border: 0 none;
+            cursor: auto;
+        }
+
+        .p-dropdown-label:not(.p-placeholder) {
+            text-transform: uppercase;
+        }
+    }
+
+    .testBg{
+        background-color: #1F9E02;
+    }
+
+    .testBg2{
+        background-color: #154194;
+    }
 </style>

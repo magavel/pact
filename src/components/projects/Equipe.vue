@@ -123,6 +123,14 @@
 <script>
     export default {
         name: "Equipe",
+        created() {
+            this.majStep()
+        },
+        computed: {
+            step() {
+                return this.$store.state.projects.step;
+            }
+        },
         data() {
             return {
                 nbreEquipiers: 0,
@@ -296,6 +304,9 @@
             }
         },
         methods: {
+            majStep(){
+                this.$store.commit('projects/UPDATE_STEP', 3)
+            },
             addMember() {
                 this.nbreEquipiers++;
             },
