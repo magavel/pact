@@ -5,11 +5,11 @@
         <ListUser />
       </div>
     </div>
-      <div class="card m-3">
+    <!--  <div class="card m-3">
         <div class="card-body">
           <h3>{{content}}</h3>
         </div>
-      </div>
+      </div> -->
   </div>
 </template>
 

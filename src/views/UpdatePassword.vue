@@ -147,4 +147,7 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+a {
+  color : #154194
+}
 </style>
