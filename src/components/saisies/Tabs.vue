@@ -1,7 +1,7 @@
 <template>
     <div style="background-color: white">
         <div class="tabs">
-            <span class="titre mt-5">Ajouter une activité</span>
+            <span class="titre mt-5 ml-3">Ajouter une activité</span>
             <ul class="d-flex justify-content-center" style="list-style: none">
                 <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }" class="onglet pt-3">
                     <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
