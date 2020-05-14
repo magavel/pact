@@ -8,5 +8,6 @@ Build:
   services:
     - registry.cdadt.fr/appui-specialise/conteneurisation/conteneur/docker-gitlab-ci:latest
   script:
+    - sed 's/localhost/http://77.196.241.97//' src/shared/config.js
     - docker build -t registry.cdadt.fr/pacng/front .
     - docker push registry.cdadt.fr/pacng/front
