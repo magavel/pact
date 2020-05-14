@@ -1,15 +1,15 @@
 image: registry.cdadt.fr/appui-specialise/conteneurisation/conteneur/docker-gitlab-ci:latest
 before_script:
   - docker login -u $CI_REGISTRY_USER -p 5orfYHapCfCK4SMvxYdL $CI_REGISTRY
-
+  - sed 's/localhost/77.196.241.97/' src/shared/config.js
 Build:
    
   stage: build
   
   services:
     - registry.cdadt.fr/appui-specialise/conteneurisation/conteneur/docker-gitlab-ci:latest
-  before_script:
-    - sed 's/localhost/77.196.241.97/' src/shared/config.js
+  
+   
   script:
     - docker build -t registry.cdadt.fr/pacng/front .
     - docker push registry.cdadt.fr/pacng/front
