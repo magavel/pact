@@ -16,11 +16,7 @@ Build:
    
 
     - cat > src/shared/config.js <<-EOF
-        export const config = {
-        API_URL : 'http://77.196.241.97:8080/pactng-backend/api/v1/',
-        API_AUTH : 'http://77.196.241.97:8080/pactng-backend/api/auth/',
-        API_MANAGE : 'http://77.196.241.97:8080/pactng-backend/management/',
-      }
+        export const config = { API_URL : 'http://77.196.241.97:8080/pactng-backend/api/v1/', API_AUTH : 'http://77.196.241.97:8080/pactng-backend/api/auth/', API_MANAGE : 'http://77.196.241.97:8080/pactng-backend/management/',}
       EOF
 
     - docker build --no-cache -t registry.cdadt.fr/pacng/front .
