@@ -12,9 +12,9 @@ Build:
   
    
   script:
-    - sed '2d;4d' src/shared/config.js
-    - sed -i 's@//API_URL@API_URL'
-    - sed -i 's@//API_AUTH@API_AUTH'
-    - sed -i '$@//API_MANAGE@API_MANAGE'
+    - sed '2d;5d' src/shared/config.js
+    - sed -i 's@//API_URL@API_URL@g'
+    - sed -i 's@//API_AUTH@API_AUTH@g'
+    - sed -i '$@//API_MANAGE@API_MANAGE@g'
     - docker build --no-cache -t registry.cdadt.fr/pacng/front .
     - docker push registry.cdadt.fr/pacng/front
