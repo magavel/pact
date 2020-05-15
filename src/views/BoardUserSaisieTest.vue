@@ -58,7 +58,7 @@
                         <div class="d-flex justify-content-around total pt-2 mr-3" v-bind:class="divClassCharges" style="margin-left: 39%">
                             <div><span >TOTAL CHARGES</span></div>
                             <div><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
-                            <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
+                            <!-- <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div> -->
                         </div>
                     </div>
                 </div>
@@ -176,20 +176,23 @@
       charges: "0:0",
       chargesTotalJour: "0:0",
       messageCharge : null,
-      tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
+      tabActivite: ['Analyse',
+        'AMOA', 'Appui technique',
+        'Conduite', 'Design_UX/UI',
+        'Implementation', 'Test'],
       missions: [
         {
-          name: 'Permissions et congés',
-          activite: 'Récupération',
-          commentaire: 'Test1',
+          name: 'PACT NG',
+          activite: 'Analyse',
+          commentaire: 'Feature analyses',
           charges: '4:15',
           date: '2/4/2020',
             classe: 'testBg1'
         },
         {
           name: 'PACT NG',
-          activite: 'Conception',
-          commentaire: 'Test2',
+          activite: 'Implementation',
+          commentaire: 'Implementation "saisir activité"',
           charges: '4:15',
           date: '2/4/2020',
             classe: 'testBg2'
@@ -222,15 +225,15 @@
       missionsData: [
           {
               id: 1,
-              name : 'Permissions et congés'
+              name : 'SERENA NG/MODULE PMV'
           },
           {
             id : 2,
-            name: 'PACT NG'
+            name: 'PACT NG/MODULE PMV'
           },
           {
               id: 3,
-              name: 'Soutien'
+              name: 'MYADJ/MODULE V3'
           }],
       selectedMission: null,
       selectedActivite: null,

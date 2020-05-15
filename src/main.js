@@ -16,7 +16,7 @@ import Listbox from 'primevue/listbox';
 import InputMask from 'primevue/inputmask';
 import ProgressBar from 'primevue/progressbar';
 import ToggleButton from 'primevue/togglebutton';
-
+import Inputswitch from 'primevue/inputswitch';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +34,7 @@ import {
   faSignInAlt,
   faSignOutAlt,
   faExclamationCircle,
+  faQuestionCircle,
   faPlusCircle,
   faChalkboard,
   faPencilAlt,
@@ -56,6 +57,7 @@ library.add(
   faSignInAlt,
   faSignOutAlt,
   faExclamationCircle,
+  faQuestionCircle,
   faPlusCircle,
   faChalkboard,
   faPencilAlt,
@@ -85,7 +87,7 @@ Vue.component('Listbox', Listbox);
 Vue.component('ProgressBar', ProgressBar);
 Vue.component('InputMask', InputMask);
 Vue.component('ToggleButton',ToggleButton)
-
+Vue.component('Inputswitch',Inputswitch)
 
 
 new Vue({

@@ -15,7 +15,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "moment": "^2.25.3",
     "popper.js": "^1.16.1",
     "primeicons": "^2.0.0",
@@ -40,6 +40,7 @@
     "eslint-plugin-vue": "^6.1.2",
     "node-sass": "^4.14.0",
     "sass-loader": "^8.0.2",
+    "sonarqube-scanner": "^2.6.0",
     "style-loader": "^1.2.1",
     "vue-template-compiler": "^2.6.11"
   },

@@ -14,18 +14,21 @@
             <Column field="utilisateur_username" header="username" :sortable="true" filterMatchMode="gte"></Column>
             <Column field="utilisateur_email" header="Email" :sortable="true" filterMatchMode="gte"> </Column>
             <Column field="utilisateur_actif" header="Active" :sortable="true" filterMatchMode="gte">
-                <template #body="slotProps">
-                <ToggleButton v-model="slotProps.data.utilisateur_actif"
-                              onLabel="Activé" offLabel="Désactivé" onIcon="pi pi-check" offIcon="pi pi-times"
+             <template #body="slotProps">
+                 <div class="d-flex justify-content-center">
+                <Inputswitch v-model="slotProps.data.utilisateur_actif"
                               href @click.prevent="activation(slotProps)" />
+                 </div>
                 </template>
+
             </Column>
             <Column field="utilisateur_roles" header="Roles" :sortable="true" filterMatchMode="gte">
                 <template #body="slotProps">
-                        <span v-for="role in slotProps.data.utilisateur_roles">
+                  <span v-for="role in slotProps.data.utilisateur_roles">
                             {{role}}
                         </span>
-                </template></Column>
+                </template>
+              </Column>
             <Column field="utilisateur_equipes" header="Equipes" :sortable="true" filterMatchMode="gte">
                 <template #body="slotProps">
                         <span v-for="equipe in slotProps.data.utilisateur_equipes">
@@ -82,6 +85,11 @@
       return {
         filters: {},
         checked: true,
+        roles: [
+          { type: "ROLE_USER", value: "ROLE_USER" },
+          { type: "ROLE_PILOTE", value: "ROLE_USER" },
+          { type: "ROLE_ADMIN", value: "ROLE_ADMIN" },
+        ],
       }
     },
     methods: {
