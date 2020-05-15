@@ -12,6 +12,6 @@ Build:
   
    
   script:
-    - sed -i -e "s/localhost/77.196.241.97/g" src/shared/config.js
+    - sed -i "s/localhost/77.196.241.97/g" src/shared/config.js
     - docker build --no-cache -t registry.cdadt.fr/pacng/front .
     - docker push registry.cdadt.fr/pacng/front
