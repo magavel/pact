@@ -14,8 +14,8 @@ Build:
   script:
 
     - sed '2,4d' src/shared/config.js
-    - sed -i 's@^//API_URL@API_URL@' src/shared/config.js
-    - sed -i 's@^//API_AUTH@API_AUTH@' src/shared/config.js
-    - sed -i 's@^//API_MANAGE@API_MANAGE@' src/shared/config.js
+    - sed -i "s@^//API_URL : 'http://77.196.241.97:8080/pactng-backend/api/v1\'@API_URL : 'http://77.196.241.97:8080/pactng-backend/api/v1/'@" src/shared/config.js
+    - sed -i "s@^//API_AUTH : 'http://77.196.241.97:8080/pactng-backend/api/auth/'@API_AUTH : \'http://77.196.241.97:8080/pactng-backend/api/auth/'@" src/shared/config.js
+    - sed -i "s@^//API_MANAGE : 'http://77.196.241.97:8080/pactng-backend/management/'@//API_MANAGE : 'http://77.196.241.97:8080/pactng-backend/management/'@" src/shared/config.js
     - docker build --no-cache -t registry.cdadt.fr/pacng/front .
     - docker push registry.cdadt.fr/pacng/front
