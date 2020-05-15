@@ -164,7 +164,8 @@
     components: {InfogerenceModule},
     props: ['projet'],
     methods: {
-      updateProjet() {
+      updateProjet()
+      {
         const {
           autoriteClient,
           beneficiaire,
