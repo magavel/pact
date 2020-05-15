@@ -4,12 +4,43 @@
 
 
             <div v-for="module in systemeInformation.systeme_information_modules" :key="module.module_Id">
-                <h4>{{ module.module_libelle}}</h4>
-                <p>CDAD</p>
+                <h4>Equipe : Module PMV</h4>
+                <div class="form-group col-md-12">
+                <label for="cdadChoose">
+                    CDAD : <font-awesome-icon icon="question-circle" />
+                </label>
+                          <MultiSelect id="cdadChoose" v-model="module.module_list_CDAD"
+                                 :options="cdad"
 
-                    <span v-for="cdad in module.module_list_CDAD">
+                                       optionLabel="type"
+                                 placeholder="Sélectionner un CDAD"
+                                 optionDisabled="true"
+                >
+                    <template #value="slotProps">
+                        <div
+                                class="p-multiselect-car-option"
+                                v-for="option of slotProps.value"
+                                :key="option.value"
+                        >
+              <span>
+                {{ option.value }}
+              </span>
+                        </div>
+                        <div
+                                class="p-multiselect-empty-typeProject-token"
+                                v-if="!slotProps.value || slotProps.value.length === 0"
+                        >
+                            Sélectionner un CDAD
+                        </div>
+                    </template>
+
+
+                </MultiSelect>
+                </div>
+
+                   <!-- <span v-for="cdad in module.module_list_CDAD">
                         <span  class="bg-primary p-2 text-white rounded mx-2" >{{ cdad }}</span>
-                    </span>
+                    </span> -->
                     <div class="row d-flex justify-content-center">
                         <div class="card text-center bg-gris-module  m-3" style="width: 12rem;">
                             <div class="d-flex justify-content-end pr-1">
@@ -134,6 +165,12 @@
         data() {
             return {
                 nbreEquipiers: 0,
+              cdad: [
+                {type: 'CDAD-T', value: 'CDAD-T'},
+                {type: 'CDAD-R', value: 'CDAD-R'},
+                {type: 'CDAD-B', value: 'CDAD-B'},
+                {type: 'CDAD-BDX', value: 'CDAD-BDX'},
+              ],
                 roles: [
                     {value: 'leadDeveloppeur', title: 'Lead développeur'},
                     {value: 'deveoppeur', title: 'Développeur'},
@@ -184,8 +221,8 @@
                             "module_priorisation_client": null,
                             // TODO ajouter un champs ????
                             module_list_CDAD: [
-                                "CDADT",
-                                "CDADB"
+                                "CDAD-T",
+                                "CDAD-B"
                             ],
                             "module_commentaire_pole": "test projet module\ntest projet module\ntest projet module\n",
                             "module_listPhase": [
@@ -340,6 +377,31 @@
            width: 70px;
            height: 70px;
         }
+    }
+
+    .p-multiselect-car-option {
+        display: inline-block;
+        vertical-align: middle;
+
+        img {
+            vertical-align: middle;
+            margin-right: .5em;
+            width: 24px;
+        }
+
+        span {
+            margin-top: .125em;
+        }
+    }
+
+    .p-multiselect-car-token,
+    .p-multiselect-empty-car-token {
+        padding: 2px 4px;
+        margin: 0 0.286em 0 0;
+        display: inline-block;
+        vertical-align: middle;
+        height: 1.857em;
+        border-radius: 3px;
     }
 
 

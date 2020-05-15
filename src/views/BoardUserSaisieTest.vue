@@ -35,8 +35,8 @@
                                 <Column field="name"
                                         header="Missions/ Modules">
                                     <template #body="slotProps">
-                                        <div>
-                                            {{ slotProps.data.name }}
+                                        <div :class="slotProps.data.classe" class="pl-3">
+                                            {{ slotProps.data.name}}
                                         </div>
                                     </template>
                                 </Column>
@@ -45,20 +45,20 @@
                                 <Column field="commentaire"
                                         header="Commentaires"></Column>
                                 <Column field="charges"
-                                        header="Charges (h:m)"></Column>
+                                        header="Charges (h:m)" body-class="pl-4"></Column>
                                 <Column header="Actions">
                                     <template #body>
-                                        <a class="pi pi-times"></a>
-                                        <a class="pi pi-star-o"></a>
-                                        <a class="pi pi-pencil"></a>
+                                        <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
+                                        <Button type="button" icon="pi pi-star-o" class="p-button-secondary"></Button>
+                                        <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
                                     </template>
                                 </Column>
                             </DataTable>
                         </div>
-                        <div class="d-flex justify-content-around w-50" v-bind:class="divClassCharges" style="margin-left: 39%">
+                        <div class="d-flex justify-content-around total pt-2 mr-3" v-bind:class="divClassCharges" style="margin-left: 39%">
                             <div><span >TOTAL CHARGES</span></div>
                             <div><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
-                            <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div>
+                            <!-- <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div> -->
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         <div id="ajoutActivite" class="">
                             <div id="periode" class="ml-n3">
                             <span class="mr-2 ml-1">
-                                <img src="src/assets/event-24px.svg">
+                                <img src="../assets/event-24px.svg">
                             </span>
                                 <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
                                 <span class="ml-3 mr-3"> au </span>
@@ -82,7 +82,7 @@
                                         <span>Missions / Modules</span>
                                     </div>
                                     <div class="row dropdownWidth">
-                                        <Dropdown v-model="selectedMission" :options="missionsData"/>
+                                        <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
                                     </div>
                                     <div class="row mt-4">
                                         <span>Commentaire (max 100 caractères)</span>
@@ -176,21 +176,26 @@
       charges: "0:0",
       chargesTotalJour: "0:0",
       messageCharge : null,
-      tabActivite: ['Récupération', 'Conception', 'Activité sportive', 'Analyse'],
+      tabActivite: ['Analyse',
+        'AMOA', 'Appui technique',
+        'Conduite', 'Design_UX/UI',
+        'Implementation', 'Test'],
       missions: [
         {
-          name: 'Permissions et congés',
-          activite: 'Récupération',
-          commentaire: 'Test1',
+          name: 'PACT NG',
+          activite: 'Analyse',
+          commentaire: 'Feature analyses',
           charges: '4:15',
           date: '2/4/2020',
+            classe: 'testBg1'
         },
         {
           name: 'PACT NG',
-          activite: 'Conception',
-          commentaire: 'Test2',
+          activite: 'Implementation',
+          commentaire: 'Implementation "saisir activité"',
           charges: '4:15',
           date: '2/4/2020',
+            classe: 'testBg2'
         },
         {
           name: 'PACT NG',
@@ -198,6 +203,7 @@
           commentaire: 'Test3',
           charges: '4:15',
           date: '1/4/2020',
+            classe: 'testBg2'
         },
       ],
       listDate: [],
@@ -216,7 +222,19 @@
         clear: 'Effacer',
         weekHeader: 'Sm',
       },
-      missionsData: ['Permissions et congés', 'PACT NG', 'Soutien'],
+      missionsData: [
+          {
+              id: 1,
+              name : 'SERENA NG/MODULE PMV'
+          },
+          {
+            id : 2,
+            name: 'PACT NG/MODULE PMV'
+          },
+          {
+              id: 3,
+              name: 'MYADJ/MODULE V3'
+          }],
       selectedMission: null,
       selectedActivite: null,
       heure: 0,
@@ -298,11 +316,12 @@
     },*/
     clickValider() {
       this.missionAdd = {
-        name: this.selectedMission,
+        name: this.selectedMission.name,
         activite: this.selectedActivite,
         commentaire: this.commentaire,
         charges: this.charges,
         date: `${this.date2.getDate()}/${this.date2.getMonth() + 1}/${this.date2.getFullYear()}`,
+          classe: `testBg${this.selectedMission.id}`
       };
       this.missions.push(this.missionAdd);
       this.missions.forEach((m) => console.log(m.commentaire));
@@ -443,13 +462,17 @@
         margin-bottom: 2em;
     }
     #divCalendar{
-        /*background-color: #ffca7a;*/
-        /*border-radius: 0px 30px 30px 0px;*/
+        background-image: url("../assets/Trace-82.svg");
+        background-size: 354px;
+        background-repeat: no-repeat;
+        background-position-y: -30px;
+        background-position-x: 15px;
     }
     #container-saisie{
-        margin-left: 0;
-        background-image: url("/src/assets/Trace-82.png");
-        background-size: cover;
+            margin-left: 0;
+            /*background-image: url("../assets/Trace-82.svg");*/
+        /*background-size: 800px;
+        background-repeat: no-repeat;*/
         z-index: 1;
     }
 
@@ -459,12 +482,15 @@
 
     .charges-valide{
         color: #1F9E02;
+        margin-right: 34px;
     }
     .charges-supp{
         color: #DC0007;
+        margin-right: 33px;
     }
     .charges-manquante{
         color: #E67504;
+        margin-right: 50px;
     }
     .div-charges-manquante{
         background-color: #FBE3BF;
@@ -528,7 +554,7 @@
 
         .p-datatable-thead{
             background-color: #E6DFDF85;
-            border: 10px;
+            border-radius: 10px;
         }
 
         .p-datatable-thead > tr > th {
@@ -553,11 +579,32 @@
         }
     }
 
-    .testBg{
-        background-color: #1F9E02;
+    .testBg1{
+        background-color: #069F90;
+        border-radius: 8px;
+        color: white;
     }
 
     .testBg2{
-        background-color: #154194;
+        background-color: #AA2393;
+        border-radius: 8px;
+        color: white;
+    }
+    .testBg3{
+        background-color: #4028A7;
+        border-radius: 8px;
+        color: white;
+    }
+    .total{
+        border-radius: 10px;
+        height: 40px;
+    }
+
+    /deep/  .p-datepicker .p-datepicker-header .p-datepicker-title{
+        font-weight: 900;
+    }
+
+    /deep/ #divCalendar .p-datepicker table{
+        font-size: 12px;
     }
 </style>

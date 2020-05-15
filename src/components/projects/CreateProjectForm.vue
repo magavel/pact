@@ -65,11 +65,10 @@ export default {
         { value: "M5" }
       ],
       typeModule: [
-        { value: '1'},
-        { value: '2'},
-        { value: '3' },
-        { value: '4' },
-        { value: '5' }
+        { value: 'Logiciel'},
+        { value: 'Infocentre'},
+        { value: 'PMV' },
+        { value: 'MCO' },
       ],
       prioritePole: [
         { value: "P1" },
@@ -152,8 +151,9 @@ p-multiselect-label-container {
   display: inline-block;
   vertical-align: middle;
   span {
-    margin-top: 0.125em;
+  margin-top: 0.125em;
   }
+
 }
 
 .p-multiselect-typeProject-token img {

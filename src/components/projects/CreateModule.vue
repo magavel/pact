@@ -30,9 +30,9 @@
       <div class="form-row d-flex align-items-end">
         <div class="col-md-6">
           <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
               <label for="typeModedule">
-                Type de module
+                Type de module  <font-awesome-icon icon="question-circle" />
               </label>
               <Dropdown
                 v-model="moduleSI.module_type"

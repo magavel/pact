@@ -16,6 +16,7 @@ import Listbox from 'primevue/listbox';
 import InputMask from 'primevue/inputmask';
 import ProgressBar from 'primevue/progressbar';
 import ToggleButton from 'primevue/togglebutton';
+import Inputswitch from 'primevue/inputswitch';
 import Message from 'primevue/message';
 
 import 'bootstrap';
@@ -35,10 +36,12 @@ import {
   faSignInAlt,
   faSignOutAlt,
   faExclamationCircle,
+  faQuestionCircle,
   faPlusCircle,
   faChalkboard,
   faPencilAlt,
   faCogs,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import { router } from './router';
@@ -56,10 +59,12 @@ library.add(
   faSignInAlt,
   faSignOutAlt,
   faExclamationCircle,
+  faQuestionCircle,
   faPlusCircle,
   faChalkboard,
   faPencilAlt,
   faCogs,
+  faPlus,
 );
 
 Vue.config.productionTip = false;
@@ -84,6 +89,7 @@ Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
 Vue.component('ProgressBar', ProgressBar);
 Vue.component('InputMask', InputMask);
+Vue.component('Inputswitch',Inputswitch)
 Vue.component('ToggleButton',ToggleButton);
 Vue.component('Message',Message);
 Vue.component('ValidationProvider',ValidationProvider);

@@ -3,12 +3,7 @@
     <nav class="navbar  navbar-expand-lg navbar-dark sticky-top flex-md-nowrap p-0">
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <ul class="navbar-nav px-3 ">
-          <li class="nav-item text-primary ">
-            <router-link to="/register" class="nav-link">
-              <font-awesome-icon icon="user-plus" />Enregistrement
-            </router-link>
-          </li>
-          <li class="nav-item text-primary">
+            <li class="nav-item text-primary">
             <router-link to="/login" class="nav-link">
               <font-awesome-icon icon="sign-in-alt" />Connexion
             </router-link>
@@ -29,7 +24,7 @@
                   <font-awesome-icon icon="user" />
                   Profile
                 </router-link>
-                <router-link to="/profile" class="dropdown-item">
+                <router-link to="/updatePassword" class="dropdown-item">
                   <font-awesome-icon icon="user" />
                   Changer son mot de passe
                 </router-link>
@@ -64,16 +59,12 @@
                   <font-awesome-icon icon="pencil-alt" /> Projets
                 </router-link>
               </li>
-              <li v-if="currentUser" class="nav-item">
-                <router-link to="/admin" class="nav-link">
+              <li v-if="showAdminBoard" class="nav-item">
+                <router-link to="/user" class="nav-link">
                   <font-awesome-icon icon="cogs" /> Administration</router-link>
               </li>
               <li v-if="showModeratorBoard" class="nav-item">
                 <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
-              </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/user" class="nav-link">
-                  <font-awesome-icon  icon="user-friends" /> Gestion des utilisateurs</router-link>
               </li>
             </ul>
 
@@ -146,12 +137,15 @@
   body #divCalendar .p-datepicker {
     border: none;
     background-color: $secondary;
-    border-radius: 0px 30px 30px 0px;
+    // border-radius: 0px 30px 30px 0px;
+    border-radius: 0px 30px 65px 0px;
   }
 
   body #divCalendar .p-datepicker .p-datepicker-header{
     background-color: $secondary;
   }
+
+
 
   .card{
     border: none;
