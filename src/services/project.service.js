@@ -25,7 +25,7 @@ export default {
     getProjectById(id) {
       return axios.get(`${config.API_URL}systemeInformations/${id}`,{ headers: authHeader() })
           .catch((err) => {
-              console.log('erreur du getProjectById', err)
+              console.log('erreur du getProjectById dans le service', err)
           });
     },
   updateProjet(projet) {

@@ -192,12 +192,18 @@
       },
       prevStep() {
         // TODO mettre a jour dans le store  le step
-        this.$store.commit('projects/UPDATE_STEP', 1)
+        this.$store.commit('projects/UPDATE_STEP', 1);
         this.$router.push('/projects');
       },
     },
     created() {
-      console.log('created' )
+      console.log('created' );
+      this.$store.dispatch('projects/getProjectById', 1);
+    },
+    computed: {
+      projet() {
+        return this.$store.state.projects.projet;
+      }
     },
     data() {
       return {

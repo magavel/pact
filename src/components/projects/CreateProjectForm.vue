@@ -1,6 +1,7 @@
 <template>
   <div>
 
+
     <form @submit.prevent="createProject">
       <div>
           <Initialisation
@@ -15,15 +16,15 @@
             :type-module="typeModule"
           />
         <div class="pt-3">
-          <button
-            @click.prevent="nextStep"
-            class="btn rounded-pill btn-primary float-right"
-          >
-            Passer à l'étape suivante
-          </button>
+<!--          <button-->
+<!--            @click.prevent="nextStep"-->
+<!--            class="btn rounded-pill btn-primary float-right"-->
+<!--          >-->
+<!--            Passer à l'étape suivante-->
+<!--          </button>-->
           <button
                   @click.prevent="createProject"
-                  class="btn rounded-pill btn-primary mr-3"
+                  class="btn rounded-pill btn-primary mr-3 float-right"
           >
             Enregistrer le projet
           </button>

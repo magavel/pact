@@ -1,5 +1,6 @@
 import projectService from '../../services/project.service';
-import router from '../../router'
+import router from '../../router';
+
 
 // initial state
 const state = {
@@ -19,7 +20,7 @@ const mutations = {
     state.projects = projects.data;
   },
   CREATE_PROJECT(state, project) {
-    state.project = [ project, ...state.project ];
+    state.project =  project;
   },
   CREATE_ERROR(state, error) {
     state.errors = [ error, ...state.errors ];
@@ -35,10 +36,18 @@ const mutations = {
 
 
 const actions = {
+    getProjectById({commit}, id) {
+        projectService.getProjectById(id)
+            .then((response) =>{
+                console.log('resp dans action getProjectById ',response)
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    },
   updateProject({commit}, project) {
     projectService.updateProjet(project)
         .then((response)=> {
-          console.log(response);
           commit('UPDATE_PROJET', projet);
         });
   },
@@ -47,6 +56,7 @@ const actions = {
         .then((response) => {
           if(response.status === 201) {
             console.log('data', response.data);
+            //this.$toast.add({severity:'success', summary: 'Succes', detail:'Fiche projet créé en BDD', life: 3000});
             router.push({ name: 'besoins', params:response.data });
           }
           else {

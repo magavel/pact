@@ -5,13 +5,16 @@
         <label for="longTitle">
           Libellé fiche projet
         </label>
-        <input
-          type="text"
-          class="form-control"
-          id="longTitle"
-          placeholder="P@ct-NG"
-          v-model="project.systeme_information_libelle"
-        />
+<!--        <ValidationProvider rules="required" v-slot="{ errors }">-->
+          <input
+            type="text"
+            class="form-control"
+            id="longTitle"
+            placeholder="P@ct-NG"
+            v-model="project.systeme_information_libelle"
+          />
+<!--          <span>{{ errors[0] }}</span>
+        </ValidationProvider>-->
       </div>
       <div class="form-group col-md-6">
         <label for="shortTitle">
@@ -78,6 +81,21 @@
 </template>
 <script>
 import CreateModule from "./CreateModule";
+/*
+import { extend } from 'vee-validate';
+
+extend('required', {
+  validate (value) {
+    return {
+      required: true,
+      valid: ['', null, undefined].indexOf(value) === -1
+    };
+  },
+  computesRequired: true
+});
+*/
+
+
 export default {
   name: "InitCreateProject",
   components: { CreateModule },

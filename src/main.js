@@ -16,7 +16,7 @@ import Listbox from 'primevue/listbox';
 import InputMask from 'primevue/inputmask';
 import ProgressBar from 'primevue/progressbar';
 import ToggleButton from 'primevue/togglebutton';
-
+import Message from 'primevue/message';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,6 +24,7 @@ import 'primevue/resources/themes/nova-light/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import VeeValidate from 'vee-validate';
+import { ValidationProvider } from 'vee-validate';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -65,6 +66,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
 
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('DataTable', DataTable);
 Vue.component('Column', Column);
@@ -82,7 +84,10 @@ Vue.component('MultiSelect', MultiSelect);
 Vue.component('Listbox', Listbox);
 Vue.component('ProgressBar', ProgressBar);
 Vue.component('InputMask', InputMask);
-Vue.component('ToggleButton',ToggleButton)
+Vue.component('ToggleButton',ToggleButton);
+Vue.component('Message',Message);
+Vue.component('ValidationProvider',ValidationProvider);
+
 
 
 
