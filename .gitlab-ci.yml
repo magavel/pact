@@ -12,12 +12,9 @@ Build:
   
    
   script:
-    - rm -f src/shared/config.js
-   
-
-    - cat > src/shared/config.js <<-EOF
-        export const config = { API_URL : 'http://77.196.241.97:8080/pactng-backend/api/v1/', API_AUTH : 'http://77.196.241.97:8080/pactng-backend/api/auth/', API_MANAGE : 'http://77.196.241.97:8080/pactng-backend/management/',}
-      EOF
-
+    - sed '2d;4d' src/shared/config.js
+    - sed -i 's@//API_URL@API_URL'
+    - sed -i 's@//API_AUTH@API_AUTH'
+    - sed -i '$@//API_MANAGE@API_MANAGE'
     - docker build --no-cache -t registry.cdadt.fr/pacng/front .
     - docker push registry.cdadt.fr/pacng/front
