@@ -12,7 +12,8 @@ Build:
   
    
   script:
-    - sed '2;4d' src/shared/config.js
+
+    - sed '2,4d' src/shared/config.js
     - sed -i 's@//API_URL@API_URL@g' src/shared/config.js
     - sed -i 's@//API_AUTH@API_AUTH@g' src/shared/config.js
     - sed -i '$@//API_MANAGE@API_MANAGE@g' src/shared/config.js
