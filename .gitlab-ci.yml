@@ -17,11 +17,11 @@ unit test:
     - npm run unit
 
 
-build image:
+deploy:
   image: registry.cdadt.fr/appui-specialise/conteneurisation/conteneur/docker-gitlab-ci:latest
   before_script:
     - docker login -u $CI_REGISTRY_USER -p 5orfYHapCfCK4SMvxYdL $CI_REGISTRY 
-  stage: build
+  stage: deploy
   
   services:
     - registry.cdadt.fr/appui-specialise/conteneurisation/conteneur/docker-gitlab-ci:latest
