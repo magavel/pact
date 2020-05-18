@@ -48,6 +48,7 @@ import { router } from './router';
 import store from './store';
 import "./shared/styles.css";
 import moment from 'moment'
+import getTrigramme from "./utils/getTrigramme";
 
 Vue.prototype.moment = moment
 
@@ -94,7 +95,8 @@ Vue.component('ToggleButton',ToggleButton);
 Vue.component('Message',Message);
 Vue.component('ValidationProvider',ValidationProvider);
 
-
+// les filtres... ou pipes c'est la même chose...
+Vue.filter('getTrigramme', getTrigramme)
 
 
 new Vue({

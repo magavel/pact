@@ -64,6 +64,19 @@ export const router = new Router({
       // lazy-loaded
       component: () => import('./views/BoardUserSaisieTest.vue'),
     },
+
+    {
+      path: '/activities',
+      name: 'activities',
+      // lazy-loaded
+      component: () => import('./views/BoardActivities'),
+      children: [
+        {
+          path: 'weekly',
+          component: () => import('./components/saisies/inputByWeekly')
+        }
+      ],
+    },
     {
       path: '/projects',
       // name: 'projects',
