@@ -21,7 +21,7 @@
       />
       <div>
         <!--        <span class="button" @click="addModule"-->
-        <span @click="">
+        <span class="button" @click="addModule">
               <font-awesome-icon icon="plus-circle"/> Ajouter un module</span
         >
       </div>
@@ -37,6 +37,11 @@
     components: {
       CreateModule,
       InitCreateProject
+    },
+    methods: {
+      addModule() {
+        alert('ahh')
+      }
     },
     props: {
       list_libelle_fiche_siclade: {},

@@ -67,6 +67,8 @@
 
 <script>
 import { mapState } from 'vuex';
+import fromNow from '@/utils/FromNow';
+
 export default {
   data() {
     return {
