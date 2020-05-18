@@ -1,5 +1,5 @@
 import moment from 'moment';
 
-export default function formatDate(value) {
+export default function dateFrancaise(value) {
   return moment(value).format('DD/MM/YYYY');
 }

@@ -33,9 +33,8 @@
                 </template>
             </Column>
             <Column field="systeme_information_created_date" header="Créé le" :sortable="true">
-
                 <template #body="slotProps">
-                    {{ slotProps.data.systeme_information_created_date | formatDate()}}
+                    {{ slotProps.data.systeme_information_created_date | dateFrancaise()}}
                 </template>
             </Column>
             <Column field="systeme_information_last_modified_date" header="Dernière modification" :sortable="true">
