@@ -1,22 +1,3 @@
-build site:
-  image: node:12-alpine
-  stage: build
-  script:
-    - npm install --progress=false
-    - npm run build
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - dist
-
-unit test:
-  image: node:12-alpine
-  stage: test
-  script:
-    - npm install --progress=false
-    - npm run test:unit
-
-
 deploy:
   image: registry.cdadt.fr/appui-specialise/conteneurisation/conteneur/docker-gitlab-ci:latest
   before_script:
