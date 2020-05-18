@@ -30,9 +30,9 @@
             </div>
         </div>
 
-        <div id="InputActivities" class="shadow-sm ard m-3">
+        <div id="InputActivities" class="shadow-sm card m-3">
             2eme bloc
-            <div>
+            <div class="card-body">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="collapse navbar-collapse" id="navbarNavSaisie">
                         <ul class="navbar-nav">
