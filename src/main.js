@@ -49,6 +49,7 @@ import store from './store';
 import "./shared/styles.css";
 import moment from 'moment'
 import getTrigramme from "./utils/getTrigramme";
+import formatDate from "./utils/formatDate";
 
 Vue.prototype.moment = moment
 
@@ -96,8 +97,8 @@ Vue.component('Message',Message);
 Vue.component('ValidationProvider',ValidationProvider);
 
 // les filtres... ou pipes c'est la même chose...
-Vue.filter('getTrigramme', getTrigramme)
-
+Vue.filter('getTrigramme', getTrigramme);
+Vue.filter('formatDate', formatDate);
 
 new Vue({
   router,

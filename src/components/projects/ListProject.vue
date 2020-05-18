@@ -35,7 +35,7 @@
             <Column field="systeme_information_created_date" header="Créé le" :sortable="true">
 
                 <template #body="slotProps">
-                    {{moment(slotProps.data.systeme_information_created_date).format('DD/MM/YYYY')}}
+                    {{ slotProps.data.systeme_information_created_date | formatDate()}}
                 </template>
             </Column>
             <Column field="systeme_information_last_modified_date" header="Dernière modification" :sortable="true">

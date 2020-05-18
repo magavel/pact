@@ -72,7 +72,13 @@ export const router = new Router({
       component: () => import('./views/BoardActivities'),
       children: [
         {
+          path: 'daily',
+          name:'daily',
+          component: () => import('./components/saisies/inputByWeekly')
+        },
+        {
           path: 'weekly',
+          name:'weekly',
           component: () => import('./components/saisies/inputByWeekly')
         }
       ],
