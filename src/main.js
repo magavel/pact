@@ -42,6 +42,8 @@ import {
   faPencilAlt,
   faCogs,
   faPlus,
+  faInfoCircle,
+    faAngleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import { router } from './router';
@@ -70,6 +72,8 @@ library.add(
   faPencilAlt,
   faCogs,
   faPlus,
+    faInfoCircle,
+    faAngleRight,
 );
 
 Vue.config.productionTip = false;
