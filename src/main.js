@@ -50,6 +50,9 @@ import "./shared/styles.css";
 import moment from 'moment'
 import getTrigramme from "./utils/getTrigramme";
 import dateFrancaise from "./utils/dateFrancaise";
+import dateFrFull from "./utils/dateFrFull";
+import jourFrShort from "./utils/jourFrShort";
+import monthYearShort from "./utils/monthYearShort";
 
 Vue.prototype.moment = moment
 
@@ -99,6 +102,9 @@ Vue.component('ValidationProvider',ValidationProvider);
 // les filtres... ou pipes c'est la même chose...
 Vue.filter('getTrigramme', getTrigramme);
 Vue.filter('dateFrancaise', dateFrancaise);
+Vue.filter('dateFrFull', dateFrFull);
+Vue.filter('jourFrShort', jourFrShort);
+Vue.filter('monthYearShort', monthYearShort);
 
 new Vue({
   router,
