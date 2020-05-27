@@ -62,7 +62,7 @@ export const router = new Router({
       path: '/activites',
       name: 'activites',
       // lazy-loaded
-      component: () => import('./views/BoardUserSaisieTest.vue'),
+      component: () => import('./views/BoardUserSaisie.vue'),
     },
 
     {
