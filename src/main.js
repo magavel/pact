@@ -44,6 +44,8 @@ import {
   faPlus,
   faInfoCircle,
     faAngleRight,
+  faLock,
+  faLockOpen,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import { router } from './router';
@@ -74,6 +76,8 @@ library.add(
   faPlus,
     faInfoCircle,
     faAngleRight,
+  faLock,
+  faLockOpen,
 );
 
 Vue.config.productionTip = false;
