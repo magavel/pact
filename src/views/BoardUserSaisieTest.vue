@@ -5,21 +5,14 @@
             <a href="#" class="titre">Saisir à la place de</a>
         </div>
         <div id="saisie">
-            <div class="" id="container-saisie">
+            <div id="container-saisie">
                 <div class="row w-100 ml-0">
-                    <div class="col ml-n3" id="divCalendar">
-                        <Calendar v-model="date12"
-                                  :inline="true"
-                                  :locale="fr"
-                                  v-on:date-select="clickCalendar"
-                                  dateFormat="dd/mm/yy">
-                        </Calendar>
-                    </div>
+                    <Calendrier :click-calendar="clickCalendar" :date12="date12" :fr="fr"/>
                     <div class="col-8">
                         <div class="row mt-3">
-                            <span class="text-center titre" id="spanJour">
-                            {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
-                            </span>
+                          <span class="text-center titre" id="spanJour">
+                          {{`${formaterJour(date12.getDay())} ${date12.getDate()} ${formaterMois(date12.getMonth())}`}}
+                          </span>
                             <span class="ml-1"><img style="height: 15px" src="../assets/ic_favorite_border_24px.svg"></span>
                         </div>
                         <div class="row mt-3 mr-3">
@@ -128,14 +121,14 @@
 </template>
 
 <script>
-    import MissionService from '../services/mission.service';
     import SaisieService from '../services/saisie.service';
     import Tabs from "../components/saisies/Tabs";
     import Tab from "../components/saisies/Tab";
-    import AjouterActivitee from "../components/saisies/AjouterActivitee";
+    import Calendrier from "../components/saisies/Calendrier";
+    import TitreDate from "../components/saisies/TitreDate";
 
     export default {
-    components: {AjouterActivitee, Tabs, Tab},
+    components: {TitreDate, Calendrier, Tabs, Tab},
     /* created() {
     const today = new Date();
     const month = today.getMonth();
@@ -156,23 +149,9 @@
   }, */
   data() {
     return {
-      date1: new Date(2020, 3, 1),
-      date2: null,
-      date3: null,
-      date4: null,
-      date5: null,
-      date6: null,
-      date7: null,
-      date8: null,
-      date9: null,
-      date10: null,
-      date11: null,
       date12: new Date(),
-      date13: null,
-      date14: null,
-      dates1: null,
-      dates2: null,
       missionsJour: [],
+        cloneDate: null,
       charges: "0:0",
       chargesTotalJour: "0:0",
       messageCharge : null,
@@ -245,22 +224,18 @@
       refTypeActivite : []
     };
   },
+    computed : {
+        saisies: state => state.saisies.saisies,
+        dateSelectionee(){
+            return this.$store.state.saisies.dateSelectionee;
+        }
+    },
+
   // missionService: null,
    created() {
-    /* this.missionService = new MissionService(); */
-
+    this.$store.dispatch('saisies/getSaisies', '2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z')
   },
   mounted() {
-    /* MissionService.getMissionServiceAllMissions().then(
-      (response) => {
-        console.log(response.data);
-        this.missions = response.data;
-        this.listDate = response.data.map(
-          (x) => Number((x.missionDateRealisation).split('::')[0]),
-        );
-        console.log(this.listDate);
-      },
-    ); */
     // toISOString()
       SaisieService.getRefTypeActivite().then(
           (response) => {
@@ -268,15 +243,19 @@
                   id : d.refTypeId,
                   libelle : d.refTypeLibelleCourt
               }));
+              console.log("refTypeActivité : " +  this.refTypeActivite);
           }
       );
-    SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
+
+
+
+    SaisieService.getSaisie('2020-05-26T08:00:08.566Z', '2020-05-26T08:00:08.566Z').then(
         (response) => {
              console.log(response.data);
              const donnees = response.data.data;
              console.log("donnees : " + donnees);
              donnees.forEach((s)=> console.log(s));
-             for(let saisie of donnees){
+             /*for(let saisie of donnees){
                  let dateSaisie = saisie.saisie_date.split("::");
                  let newSaisie = {
                      name: saisie.saisie_Id,
@@ -287,7 +266,7 @@
                  };
                  this.missions.push(newSaisie);
              }
-             this.missions.forEach((m) => console.log("mission : " + m.date));
+             this.missions.forEach((m) => console.log("mission : " + m.date));*/
         }
     );
 
@@ -333,10 +312,6 @@
         this.messageCharge = this.editerMessageCharges();
       /*SaisieService.postSaisie(1, `${this.heure}.${this.minute}`, )*/
     },
-    filterMissionDuJour() {
-      console.log(`mission du jour : ${this.missions.filter((mission) => mission.date === this.date12)}`);
-      return this.missions.filter((mission) => mission.date === this.date12);
-    },
     calculerChargesTotalJour(){
           let heures = 0;
           let minutes = 0;
@@ -379,7 +354,6 @@
       },
     clickCalendar() {
       this.missionsJour = [];
-      console.log("date12 : " + this.date12.toISOString());
         this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
             .forEach((mission) => console.log(mission));
       this.missions.filter((mission) => mission.date === `${this.date12.getDate()}/${this.date12.getMonth() + 1}/${this.date12.getFullYear()}`)
@@ -461,23 +435,13 @@
         background-color: white;
         margin-bottom: 2em;
     }
-    #divCalendar{
-        background-image: url("../assets/Trace-82.svg");
-        background-size: 354px;
-        background-repeat: no-repeat;
-        background-position-y: -30px;
-        background-position-x: 15px;
-    }
+
     #container-saisie{
             margin-left: 0;
             /*background-image: url("../assets/Trace-82.svg");*/
         /*background-size: 800px;
         background-repeat: no-repeat;*/
         z-index: 1;
-    }
-
-    #spanJour{
-        margin-left: 40%;
     }
 
     .charges-valide{
@@ -604,7 +568,8 @@
         font-weight: 900;
     }
 
-    /deep/ #divCalendar .p-datepicker table{
+
+    /deep/ #divCalendar .p-datepicker table {
         font-size: 12px;
     }
 </style>
