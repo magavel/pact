@@ -2,6 +2,7 @@ import SaisieService from '../../services/saisie.service';
 
 const state = {
     dateSelectionee: new Date(),
+    dateDeSaisie: [],
     saisies: [],
     errors: [], // log des erreurs
     success: [], // log des success
