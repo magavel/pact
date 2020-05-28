@@ -5,7 +5,20 @@ import { config } from '../shared/config';
 //const API_URL = 'http://localhost:8080/apiPactNG/api/v1/';
 
 class UserService {
+  /**
+   * retourne la liste des favorites de l'utilisateur en cours.
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  getAllFavorites() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return axios.get(config.API_URL.concat('users/', user.username, '/favoris'), { headers: authHeader() });
+  }
 
+  /**
+   * methode creation des utilisateurs.
+   * @param user unUser
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   createUser(user) {
     return axios.post(config.API_URL.concat('users'),
       user,

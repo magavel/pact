@@ -8,6 +8,7 @@ const state = {
   user: {},
   errors: [], // log des erreurs
   success: [], // log des success
+  favorites: [] //activites favorites
 };
 
 const mutations = {
@@ -32,9 +33,39 @@ const mutations = {
   UPDATE_SUCCESS(state, succes) {
     state.success = [ succes, ...state.success ];
   },
+  GET_FAVORITE_USERS (state, favorites) {
+    state.favorites = favorites.data;
+  },
+  GET_FAVORITE_SUCCESS(state, succes) {
+    state.success = [ succes, ...state.success ];
+  },
+  GET_FAVORITE_ERROR(state, error) {
+    state.errors = [ error, ...state.errors ];
+  },
 };
 
 const actions = {
+  getAllFavorites({ commit}) {
+    userservice.getAllFavorites()
+      .then((res) => {
+        const succes = {
+          date: new Date(),
+          message: 'lecture de tous les activites favorites utilisateurs',
+        }
+        commit('GET_FAVORITE_USERS', res.data);
+        commit('GET_FAVORITE_SUCCESS', succes);
+
+      })
+      .catch((err) => {
+        const error = {
+          date: new Date(),
+          message: `echec sur la récuperation 
+            des activites favorites dans la méthode 
+             getAllFavorites: ${err.message}`,
+        };
+        commit('GET_FAVORITE_ERROR', error);
+      });
+  },
   createUser({ commit }, user) {
     userservice.createUser(user)
       .then((response) => {

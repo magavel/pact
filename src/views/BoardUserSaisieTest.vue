@@ -110,6 +110,7 @@
                     </Tab>
                     <Tab name="Activités favorites">
                         <h1>Activités favorites</h1>
+                        <InputActivitesFavorites />
                     </Tab>
                     <Tab name="Journées types">
                         <h1>Journées types</h1>
@@ -126,9 +127,10 @@
     import Tab from "../components/saisies/Tab";
     import Calendrier from "../components/saisies/Calendrier";
     import TitreDate from "../components/saisies/TitreDate";
+    import InputActivitesFavorites from '../components/saisies/InputActivitesFavorites';
 
     export default {
-    components: {TitreDate, Calendrier, Tabs, Tab},
+    components: {TitreDate, Calendrier, Tabs, Tab, InputActivitesFavorites},
     /* created() {
     const today = new Date();
     const month = today.getMonth();

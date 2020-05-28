@@ -22,7 +22,7 @@
           <AjoutActivite/>
         </Tab>
         <Tab name="Activités favorites">
-          <h1>Activités favorites</h1>
+          <InputActivitesFavorites />
         </Tab>
         <Tab name="Journées types">
           <h1>Journées types</h1>
@@ -41,6 +41,8 @@
   import Tabs from "../components/saisies/Tabs";
   import Tab from "../components/saisies/Tab";
   import AjoutActivite from "./AjoutActivite";
+  import InputActivitesFavorites from '../components/saisies/InputActivitesFavorites';
+
 
   export default {
     components: {
@@ -50,7 +52,8 @@
       Calendrier,
       TitreDate,
       Tabs,
-      Tab
+      Tab,
+      InputActivitesFavorites
     }
   }
 </script>
