@@ -32,7 +32,7 @@ class SaisieService {
 
   /**
    * methode de mise à jour d'une saisie.
-   * @param uneSaisie uneSaisie
+   * @param uneSaisie uneSaisi
    */
   updateSaisie(uneSaisie) {
     return axios.put(config.API_URL.concat('phases/saisies/',uneSaisie.saisie_Id),

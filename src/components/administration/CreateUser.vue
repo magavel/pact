@@ -2,25 +2,31 @@
     <div ref="CreateUser">
         <div class="card">
             <div class="card-title">Création d'un utilisateur</div>
-            <form class="grid">
-                <div class="form-group">
-                    <label for="lastname">Nom</label>
-                    <input type="text" id="lastname" name="lastname" class="form-control">
+            <form class="grid"  @submit.prevent="createUser" >
+                             <div class="form-group">
+                    <label  for="lastname">Nom</label>
+                    <input v-model="lastname" type="text" id="lastname" name="lastname" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="firstname">Prénom</label>
-                    <input type="text" id="firstname" name="firstname" class="form-control">
+                    <label  for="firstname">Prénom</label>
+                    <input v-model="firstname" type="text" id="firstname" name="firstname" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="email">email</label>
-                    <input type="text" id="email" name="email" class="form-control">
+                    <input v-model="email" type="text" id="email" name="email" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="text" id="password" name="password" class="form-control">
+                    <input v-model="password" type="text" id="password" name="password" class="form-control">
+                </div>
+                <div class="form-group" v-if="errors_form.length">
+                    <b>Corriger les erreurs suivantes:</b>
+                    <ul>
+                        <li v-for="error in errors_form">{{ error }}</li>
+                    </ul>
                 </div>
                 <div class="full flex flex-end">
-                    <button class="btn btn-primary">Enregistrer l'utilisateur</button>
+                    <button class="btn btn-primary"  @click.prevent="createUser">Enregistrer l'utilisateur</button>
                 </div>
             </form>
         </div>
@@ -29,6 +35,7 @@
 
 <script>
   import { mapState } from 'vuex';
+  import UserExtended from '../../models/userExtended';
   export default {
     computed:mapState( {
       users: state=> state.users.users,
@@ -39,7 +46,12 @@
     },
     data() {
       return {
+        errors_form: [],
         filters: {},
+        lastname: null,
+        firstname: null,
+        email:null,
+        password:null,
         checked: true,
         roles: [
           { type: "ROLE_USER", value: "ROLE_USER" },
@@ -54,6 +66,32 @@
         this.$store.dispatch('users/updateUser', this.users[props.index]);
 
       },
+      checkForm: function (e) {
+        if (this.lastname && this.firstname) {
+          return true;
+        }
+
+        this.errors_form = [];
+
+        if (!this.lastname) {
+          this.errors_form.push('Nom requis');
+        }
+        if (!this.firstname) {
+          this.errors_form.push('Prenom requis');
+        }
+
+        e.preventDefault();
+      },
+      createUser: function(e) {
+        if (this.checkForm(e)) {
+          this.errors_form = [];
+          let unUser = new UserExtended(this.email.split('@')[0],this.email,this.password);
+          unUser.utilisateur_nom = this.lastname;
+          unUser.utilisateur_prenom = this.firstname;
+          this.$store.dispatch('users/createUser', unUser);
+          alert('ok');
+        }
+      }
     },
     name: 'CreateUser'
   }

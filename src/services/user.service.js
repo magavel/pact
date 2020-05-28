@@ -6,6 +6,17 @@ import { config } from '../shared/config';
 
 class UserService {
 
+  createUser(user) {
+    return axios.post(config.API_URL.concat('users'),
+      user,
+      { headers: authHeader() })
+  }
+
+  /**
+   * mise a jour du mot de passe.
+   * @param password
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   updatePassword(password) {
     const user = JSON.parse(localStorage.getItem('user'));
     return axios.put(config.API_URL.concat('users/', user.username, '/password'),

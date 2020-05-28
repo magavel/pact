@@ -1,4 +1,6 @@
 import userservice from '../../services/user.service';
+import projectService from '../../services/project.service';
+import router from '../../router';
 
 
 // initial state
@@ -22,6 +24,9 @@ const mutations = {
   CREATE_SUCCESS(state, succes) {
     state.success = [ succes, ...state.success ];
   },
+  GET_ALL_SUCCESS(state, succes) {
+    state.success = [ succes, ...state.success ];
+  },
   UPDATE_ERROR(state, error) {
     state.errors = [ error, ...state.errors ];
   },
@@ -31,6 +36,23 @@ const mutations = {
 };
 
 const actions = {
+  createUser({ commit }, user) {
+    userservice.createUser(user)
+      .then((response) => {
+        if(response.status === 201) {
+          console.log('data', response.data);
+          //this.$toast.add({severity:'success', summary: 'Succes', detail:'Fiche projet créé en BDD', life: 3000});
+
+          router.push({ name: 'user', params:response.data });
+        }
+        else {
+          console.log('pas de status 201, pb avec le serveur', response.status)
+        }
+      })
+      .then(() => {
+        commit('CREATE_USER', user);
+      });
+  },
   getAllUsers({ commit }) {
     userservice.getUserBoard()
       .then((res) => {
@@ -39,7 +61,7 @@ const actions = {
           message: 'lecture de tous les utilisateurs',
         }
         commit('GET_ALL_USERS', res.data);
-        commit('CREATE_SUCCESS', succes);
+        commit('GET_ALL_SUCCESS', succes);
 
       })
       .catch((err) => {

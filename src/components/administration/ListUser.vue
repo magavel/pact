@@ -1,6 +1,8 @@
 <template>
     <div>
-        <DataTable ref="dt" :value="users" :paginator="true"
+        <DataTable ref="dt" :value="users"
+                   :filters="filters"
+                   :paginator="true"
                    class="p-datatable-responsive"
                    :rows="10" selectionMode="single"
                    dataKey="systeme_information_id" :reorderableColumns="true"
