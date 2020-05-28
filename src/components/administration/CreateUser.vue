@@ -20,7 +20,7 @@
                     <input v-model="password" type="text" id="password" name="password" class="form-control">
                 </div>
                 <div class="form-group" v-if="errors_form.length">
-                    <b>Corriger les erreurs suivantes:</b>
+                    <strong>Corriger les erreurs suivantes:</strong>
                     <ul>
                         <li v-for="error in errors_form">{{ error }}</li>
                     </ul>
