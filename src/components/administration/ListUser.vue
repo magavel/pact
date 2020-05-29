@@ -1,6 +1,9 @@
 <template>
     <div>
-        <DataTable ref="dt" :value="users" :paginator="true"
+        <DataTable ref="dt" :value="users"
+                   :filters="filters"
+                   :paginator="true"
+                   class="p-datatable-responsive"
                    :rows="10" selectionMode="single"
                    dataKey="systeme_information_id" :reorderableColumns="true"
                    :resizableColumns="true" columnResizeMode="fit | expand" >
@@ -10,39 +13,45 @@
             <template #header>
                 Liste des utilisateurs
             </template>
-            <Column field="utilisateur_id" header="ID" :sortable="true" filterMatchMode="gte"></Column>
-            <Column field="utilisateur_username" header="username" :sortable="true" filterMatchMode="gte"></Column>
-            <Column field="utilisateur_email" header="Email" :sortable="true" filterMatchMode="gte"> </Column>
-            <Column field="utilisateur_actif" header="Active" :sortable="true" filterMatchMode="gte">
-             <template #body="slotProps">
-                 <div class="d-flex justify-content-center">
-                <Inputswitch v-model="slotProps.data.utilisateur_actif"
-                              href @click.prevent="activation(slotProps)" />
-                 </div>
+            <Column field="utilisateur_prenom" header="Prenom" :sortable="true" filterMatchMode="startsWith">
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_prenom']" class="p-column-filter" placeholder="Commence par" />
                 </template>
-
             </Column>
-            <Column field="utilisateur_roles" header="Roles" :sortable="true" filterMatchMode="gte">
-                <template #body="slotProps">
+            <Column field="utilisateur_nom" header="Nom" :sortable="true" filterMatchMode="startsWith">
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_nom']" class="p-column-filter" placeholder="Commence par" />
+                </template>
+            </Column>
+            <Column field="utilisateur_email" header="Email" :sortable="true" filterMatchMode="startsWith">
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_email']" class="p-column-filter" placeholder="Commence par" />
+                </template>
+            </Column>
+             <Column field="utilisateur_roles" header="Roles" :sortable="true" filterMatchMode="startsWith">
+                 <template #filter>
+                     <InputText type="text" v-model="filters['utilisateur_roles']" class="p-column-filter" placeholder="Commence par" />
+                 </template>
+                 <template #body="slotProps">
                   <span v-for="role in slotProps.data.utilisateur_roles">
                             {{role}}
                         </span>
                 </template>
               </Column>
             <Column field="utilisateur_equipes" header="Equipes" :sortable="true" filterMatchMode="gte">
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_equipes']" class="p-column-filter" placeholder="Commence par" />
+                </template>
                 <template #body="slotProps">
                         <span v-for="equipe in slotProps.data.utilisateur_equipes">
                             {{equipe}}
                         </span>
                 </template>
             </Column>
-            <Column field="utilisateur_created_date" header="Créé le" :sortable="true" >
-
-                <template #body="slotProps">
-                    {{moment(slotProps.data.utilisateur_created_date).format('DD/MM/YYYY')}}
-                </template>
-            </Column>
             <Column field="utilisateur_last_modified_date" header="Dernière modification">
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_last_modified_date']" class="p-column-filter" placeholder="Commence par" />
+                </template>
                 <template #body="slotProps">
                     le {{moment(slotProps.data.utilisateur_last_modified_date).format('DD/MM/YYYY')}} par {{ slotProps.data.utilisateur_last_modified_by}}
                 </template>
@@ -50,9 +59,15 @@
             <Column field="" header="Actions">
                 <template #body="slotProps">
                     <div class="d-flex flex-nowrap">
-                        <Button type="button" icon="pi pi-upload" class="p-button-secondary" @click="upload(slotProps.data.systeme_information_id)"></Button>
-                        <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
+                        <Button type="button" icon="pi pi-upload" class="p-button-secondary" @click="upload(slotProps.data.utilisateur_id)"></Button>
+
                         <Button type="button" icon="pi pi-briefcase" class="p-button-secondary" @click="exportCSV($event)" ></Button>
+                     <div v-if="slotProps.data.utilisateur_actif">
+                        <Button type="button" icon="pi pi-unlock" class="p-button-secondary" @click="activation(slotProps)"></Button>
+                     </div>
+                        <div v-else>
+                            <Button type="button" icon="pi pi-lock" class="p-button-secondary" @click="activation(slotProps)"></Button>
+                        </div>
                     </div>
                 </template>
             </Column>
@@ -60,10 +75,11 @@
 
         <!--        {{ projects }}-->
 
-
-        <a href="#" class="float">
-            <font-awesome-icon icon="plus" class="my-float"/>
+        <a ref="plus" class="float"  to="#CreateUser" @click="scrollMeTo('CreateUser')">
+                     <font-awesome-icon icon="plus" class="my-float"/>
         </a>
+
+
         <div class="label-container">
             <div class="label-text">Ajouter un utilisateur</div>
 
@@ -94,8 +110,15 @@
     },
     methods: {
       activation(props) {
+        this.users[props.index].utilisateur_actif = !this.users[props.index].utilisateur_actif;
         this.$store.dispatch('users/updateUser', this.users[props.index]);
 
+      },
+      scrollMeTo(refName) {
+        var element = this.$parent.$refs[refName];
+        var top = element.offsetTop;
+        this.$refs["plus"].style.display = "none";
+        window.scrollTo(0, top);
       },
     },
     name: 'ListUser'

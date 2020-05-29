@@ -9,7 +9,7 @@ import Card from 'primevue/card';
 import Fieldset from 'primevue/fieldset';
 import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
-import Spinner from 'primevue/spinner';
+import Spinner from 'primevue/progressspinner';
 import Steps from 'primevue/steps';
 import MultiSelect from 'primevue/multiselect';
 import Listbox from 'primevue/listbox';
@@ -21,7 +21,7 @@ import Message from 'primevue/message';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'primevue/resources/themes/nova-light/theme.css';
+import 'primevue/resources/themes/nova/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import VeeValidate from 'vee-validate';
@@ -44,6 +44,8 @@ import {
   faPlus,
   faInfoCircle,
     faAngleRight,
+  faLock,
+  faLockOpen,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import { router } from './router';
@@ -74,6 +76,8 @@ library.add(
   faPlus,
     faInfoCircle,
     faAngleRight,
+  faLock,
+  faLockOpen,
 );
 
 Vue.config.productionTip = false;

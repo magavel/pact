@@ -5,22 +5,24 @@
         <ListUser />
       </div>
     </div>
-    <!--  <div class="card m-3">
+     <div class="card m-3" ref="CreateUser">
         <div class="card-body">
-          <h3>{{content}}</h3>
+          <CreateUser />
         </div>
-      </div> -->
+      </div>
   </div>
 </template>
 
 <script>
 import UserService from '../services/user.service';
 import ListUser from "../components/administration/ListUser";
+import CreateUser from "../components/administration/CreateUser";
 
 export default {
   name: 'User',
   components: {
-    ListUser
+    ListUser,
+    CreateUser
   },
   data() {
     return {

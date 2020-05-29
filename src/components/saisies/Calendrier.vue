@@ -43,6 +43,8 @@
 </script>
 <style lang="scss" scoped>
 
+    @import "../../assets/custom.scss";
+
     a {
         padding: 10px;
     }
@@ -69,4 +71,13 @@
     /deep/ #divCalendar .p-datepicker table {
         font-size: 12px;
     }
+
+    /deep/ #divCalendar .p-datepicker {
+        border: none;
+        background-color: $secondary;
+        // border-radius: 0px 30px 30px 0px;
+        border-radius: 0px 30px 30px 0px;
+    }
+
+
 </style>
