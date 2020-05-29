@@ -36,11 +36,11 @@
 <script>
   import Calendrier from "../components/saisies/Calendrier";
   import TitreDate from "../components/saisies/TitreDate";
-  import DataTableSaisies from "./DataTableSaisies";
-  import TotalCharges from "./TotalCharges";
+  import DataTableSaisies from "../components/saisies/DataTableSaisies";
+  import TotalCharges from "../components/saisies/TotalCharges";
   import Tabs from "../components/saisies/Tabs";
   import Tab from "../components/saisies/Tab";
-  import AjoutActivite from "./AjoutActivite";
+  import AjoutActivite from "../components/saisies/AjoutActivite";
   import InputActivitesFavorites from '../components/saisies/InputActivitesFavorites';
 
 

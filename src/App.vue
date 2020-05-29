@@ -135,13 +135,6 @@
 
   }
 
-  body #divCalendar .p-datepicker {
-    border: none;
-    background-color: $secondary;
-    // border-radius: 0px 30px 30px 0px;
-    border-radius: 0px 30px 65px 0px;
-  }
-
   body #divCalendar .p-datepicker .p-datepicker-header{
     background-color: $secondary;
   }
