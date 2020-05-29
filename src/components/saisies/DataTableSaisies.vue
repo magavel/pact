@@ -34,7 +34,7 @@
     </div>
 </template>
 <script>
-    import SaisieService from "../services/saisie.service";
+    import SaisieService from "../../services/saisie.service";
 
     export default {
         name: 'DataTableSaisies',
@@ -47,13 +47,13 @@
             }
         },
         created() {
-            SaisieService.getSaisie('2020-05-26T08:00:08.566Z', '2020-05-26T08:00:08.566Z').then(
+            /*SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
                 (response) => {
                     console.log(response.data);
                     const donnees = response.data.data;
                     console.log("donnees : " + donnees);
                     donnees.forEach((s)=> console.log(s));
-                    /*for(let saisie of donnees){
+                    for(let saisie of donnees){
                         let dateSaisie = saisie.saisie_date.split("::");
                         let newSaisie = {
                             name: saisie.saisie_Id,
@@ -64,11 +64,11 @@
                         };
                         this.missions.push(newSaisie);
                     }
-                    this.missions.forEach((m) => console.log("mission : " + m.date));*/
+                    this.missions.forEach((m) => console.log("mission : " + m.date));
                 }
-            );
-            this.$store.dispatch('saisies/getSaisies', this.dateSelectionee.toISOString(), this.dateSelectionee.toISOString());
-            console.log(this.saisies);
+            );*/
+            this.$store.dispatch('saisies/getSaisies', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
+            console.log("saisies : " +this.$store.state.saisies);
         }
     }
 </script>

@@ -1,13 +1,6 @@
 <template>
     <div id="ajoutActivite" class="">
-        <div id="periode" class="ml-n3">
-                            <span class="mr-2 ml-1">
-                                <img src="../assets/event-24px.svg">
-                            </span>
-            <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
-            <span class="ml-3 mr-3"> au </span>
-            <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
-        </div>
+        <Periode/>
         <div class="row pl-5">
             <div class="col">
                 <div class="row">
@@ -48,28 +41,15 @@
     </div>
 </template>
 <script>
+    import Periode from "./Periode";
+
     export default {
-        name: 'AjoutActivite'
+        name: 'AjoutActivite',
+        components: {Periode}
     }
 </script>
 
 <style lang="scss" scoped>
-    #periode {
-        background-color: #ffca7a;
-        height: 70px;
-        padding: 5px;
-        width: 368px;
-        border-radius: 0px 30px 30px 0px;
-    &::before{
-         content:"\A";
-         border-style: solid;
-         border-width: 10px 15px 10px 0;
-         border-color: transparent #FFCA7A transparent transparent;
-         position: relative;
-         left: -5px;
-         top: -29px;
-     }
-    }
 
 
     #btnAjouter {
