@@ -1,13 +1,6 @@
 <template>
     <div>
-        <div id="periode" class="ml-n3">
-                            <span class="mr-2 ml-1">
-                                <img src="../../assets/event-24px.svg">
-                            </span>
-            <Calendar v-model="date2" :locale="fr" dateFormat="dd/mm/yy"/>
-            <span class="ml-3 mr-3"> au </span>
-            <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
-        </div>
+        <Periode/>
     <p>Vos activites</p>
         <div class="row pl-5 mr-5">
     <DataTable v-model="favorites"
@@ -66,6 +59,8 @@
 </template>
 <script>
   import { mapState } from 'vuex';
+  import Periode from "./Periode";
+
   export default {
     computed:mapState( {
       favorites: state=> state.users.favorites,
@@ -75,6 +70,7 @@
       this.$store.dispatch('users/getAllFavorites');
     },
     name: 'InputActivitesFavorites',
+      components: {Periode}
   }
 
     </script>

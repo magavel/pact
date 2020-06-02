@@ -1,8 +1,8 @@
 <template>
     <div id="principal">
         <div id="lien">
-            <a href="#" class="titre">Mes Activités</a>
-            <a href="#" class="titre">Saisir à la place de</a>
+            <span><a href="#" class="titre">Mes Activités</a></span>
+            <span><a href="#" class="titre">Saisir à la place de</a></span>
         </div>
         <div id="saisie">
             <div id="container-saisie">
@@ -365,7 +365,7 @@
     },
     correspondreActivite(activiteId){
         let libelleActivite;
-        for(ref of this.refTypeActivite){
+        for(let ref of this.refTypeActivite){
             if(ref.id === activiteId){
                 libelleActivite = ref.libelle;
             }

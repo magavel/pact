@@ -18,6 +18,9 @@ import ProgressBar from 'primevue/progressbar';
 import ToggleButton from 'primevue/togglebutton';
 import Inputswitch from 'primevue/inputswitch';
 import Message from 'primevue/message';
+import TreeTable from 'primevue/treetable';
+import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -81,6 +84,7 @@ library.add(
 Vue.config.productionTip = false;
 
 
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('DataTable', DataTable);
 Vue.component('Column', Column);
@@ -101,6 +105,8 @@ Vue.component('InputMask', InputMask);
 Vue.component('Inputswitch',Inputswitch)
 Vue.component('ToggleButton',ToggleButton);
 Vue.component('Message',Message);
+Vue.component('TreeTable',TreeTable);
+Vue.component('Toast',Toast);
 
 
 // les filtres... ou pipes c'est la même chose...
@@ -109,6 +115,8 @@ Vue.filter('dateFrancaise', dateFrancaise);
 Vue.filter('dateFrFull', dateFrFull);
 Vue.filter('jourFrShort', jourFrShort);
 Vue.filter('monthYearShort', monthYearShort);
+
+Vue.use(ToastService);
 
 new Vue({
   router,

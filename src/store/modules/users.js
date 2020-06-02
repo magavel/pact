@@ -8,7 +8,8 @@ const state = {
   user: {},
   errors: [], // log des erreurs
   success: [], // log des success
-  favorites: [] //activites favorites
+  favorites: [], //activites favorites
+  journeesFavorites: [] //journee favorites
 };
 
 const mutations = {

@@ -89,7 +89,9 @@
           unUser.utilisateur_nom = this.lastname;
           unUser.utilisateur_prenom = this.firstname;
           this.$store.dispatch('users/createUser', unUser);
-          alert('ok');
+          this.$toast.add({severity:'success', summary: 'Success Message', detail:'Utilisateur crée', life: 3000});
+
+
         }
       }
     },

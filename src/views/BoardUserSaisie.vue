@@ -1,8 +1,8 @@
 <template>
   <div id="principal">
     <div id="lien">
-      <a href="#" class="titre">Mes Activités</a>
-      <a href="#" class="titre">Saisir à la place de</a>
+        <span><a href="#" class="titre">Mes Activités</a></span>
+        <span><a href="#" class="titre">Saisir à la place de</a></span>
     </div>
     <div id="saisie">
       <div id="container-saisie">
@@ -27,10 +27,9 @@
           <InputActivitesFavorites />
         </Tab>
         <Tab name="Journées types">
-          <h1>Journées types</h1>
+            <InputJourneeFavorites />
         </Tab>
       </Tabs>
-      <!--<form v-on:submit="sub" action="#" > -->
     </div>
   </div>
 </template>
@@ -44,7 +43,7 @@
   import Tab from "../components/saisies/Tab";
   import AjoutActivite from "../components/saisies/AjoutActivite";
   import InputActivitesFavorites from '../components/saisies/InputActivitesFavorites';
-
+  import InputJourneeFavorites from "../components/saisies/InputJourneeFavorites";
 
   export default {
     components: {
@@ -55,7 +54,8 @@
       TitreDate,
       Tabs,
       Tab,
-      InputActivitesFavorites
+      InputActivitesFavorites,
+        InputJourneeFavorites
     }
   }
 </script>
