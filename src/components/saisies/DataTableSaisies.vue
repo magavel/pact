@@ -1,28 +1,40 @@
 <template>
-    <div class="row mt-3 mr-3">
+    <div class="row mt-3 mr-auto">
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
-                   :rows="4">
+                   :rows="4"
+                   dataKey="saisie_Id" :rowHover="true" :selection.sync="selectedSaisies">
             <template #empty>
                 Aucune Activités trouvées.
             </template>
             <template #loading>
                 Chargement des données en cours.
             </template>
-            <Column field="name"
-                    header="Missions/ Modules">
+            <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
+            <Column field="name" header="Missions" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
-                    <div :class="slotProps.data.classe" class="pl-3">
-                        {{ slotProps.data.name}}
-                    </div>
+                    <span class="p-column-title">Missions/ Modules</span>
+                    {{ slotProps.data.name}}
                 </template>
             </Column>
-            <Column field="activite"
-                    header="Type d'activités"></Column>
-            <Column field="commentaire"
-                    header="Commentaires"></Column>
-            <Column field="charges"
-                    header="Charges (h:m)" body-class="pl-4"></Column>
+            <Column field="activite" header="activite" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Type d'activités</span>
+                    {{ slotProps.data.activite}}
+                </template>
+            </Column>
+            <Column field="commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Commentaire</span>
+                    {{ slotProps.data.commentaire}}
+                </template>
+            </Column>
+            <Column field="charges" header="charges" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Charges (h:m)</span>
+                    {{ slotProps.data.charges}}
+                </template>
+            </Column>
             <Column header="Actions">
                 <template #body>
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
@@ -38,6 +50,11 @@
 
     export default {
         name: 'DataTableSaisies',
+        data() {
+            return {
+                selectedSaisies: null,
+            }
+        },
         computed: {
             saisies(){
                 return this.$store.state.saisies.saisies;

@@ -115,6 +115,12 @@
   @import "./assets/custom.scss";
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+  body #divCalendar .p-datepicker {
+      border: none;
+      background-color: $secondary;
+      // border-radius: 0px 30px 30px 0px;
+      border-radius: 0px 30px 30px 0px;
+  }
 
   body{
     background-color: $background;

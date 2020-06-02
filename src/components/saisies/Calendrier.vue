@@ -1,5 +1,5 @@
 <template>
-    <div class="col ml-n3" id="divCalendar">
+    <div  id="divCalendar">
         <Calendar v-model="dateCalendrier"
                   :inline="true"
                   :locale="fr"
@@ -72,12 +72,12 @@
         font-size: 12px;
     }
 
-    /deep/ #divCalendar .p-datepicker {
+   /* /deep/ #divCalendar .p-datepicker {
         border: none;
         background-color: $secondary;
         // border-radius: 0px 30px 30px 0px;
         border-radius: 0px 30px 30px 0px;
-    }
+    }*/
 
 
 </style>

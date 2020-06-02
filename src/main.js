@@ -21,11 +21,9 @@ import Message from 'primevue/message';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'primevue/resources/themes/nova/theme.css';
+import 'primevue/resources/themes/saga-blue/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
-import VeeValidate from 'vee-validate';
-import { ValidationProvider } from 'vee-validate';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -82,8 +80,6 @@ library.add(
 
 Vue.config.productionTip = false;
 
-Vue.use(VeeValidate);
-
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('DataTable', DataTable);
@@ -105,7 +101,7 @@ Vue.component('InputMask', InputMask);
 Vue.component('Inputswitch',Inputswitch)
 Vue.component('ToggleButton',ToggleButton);
 Vue.component('Message',Message);
-Vue.component('ValidationProvider',ValidationProvider);
+
 
 // les filtres... ou pipes c'est la même chose...
 Vue.filter('getTrigramme', getTrigramme);

@@ -1,59 +1,82 @@
 <template>
     <div>
-        <DataTable ref="dt" :value="users"
-                   :filters="filters"
-                   :paginator="true"
-                   class="p-datatable-responsive"
-                   :rows="10" selectionMode="single"
-                   dataKey="systeme_information_id" :reorderableColumns="true"
-                   :resizableColumns="true" columnResizeMode="fit | expand" >
-            <template #loading>
-                Loading records, please wait...
-            </template>
-            <template #header>
+        <DataTable :value="users" :paginator="true" class="p-datatable-responsive p-datatable-customers" :rows="10"
+                   dataKey="utilisateur_id" :rowHover="true" :selection.sync="selectedUser" :filters="filters" :loading="loading"
+                   paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[10,25,50]"
+                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+
+        <template #header>
+            <div class="table-header">
                 Liste des utilisateurs
-            </template>
-            <Column field="utilisateur_prenom" header="Prenom" :sortable="true" filterMatchMode="startsWith">
+                <span class="p-input-icon-left">
+                        <i class="pi pi-search" />
+                        <InputText v-model="filters['global']" placeholder="Global Search" />
+                    </span>
+            </div>
+        </template>
+        <template #empty>
+           Pas d'utilisateurs trouvés
+        </template>
+        <template #loading>
+            chargement des utilisateurs.
+        </template>
+            <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
+            <Column field="utilisateur_prenom" header="Prenom" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Prenom</span>
+                    {{slotProps.data.utilisateur_prenom}}
+                </template>
                 <template #filter>
-                    <InputText type="text" v-model="filters['utilisateur_prenom']" class="p-column-filter" placeholder="Commence par" />
+                    <InputText type="text" v-model="filters['utilisateur_prenom']" class="p-column-filter" placeholder="Recherche par prenom"/>
                 </template>
             </Column>
-            <Column field="utilisateur_nom" header="Nom" :sortable="true" filterMatchMode="startsWith">
+            <Column field="utilisateur_nom" header="Nom" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Nom</span>
+                    {{slotProps.data.utilisateur_nom}}
+                </template>
                 <template #filter>
-                    <InputText type="text" v-model="filters['utilisateur_nom']" class="p-column-filter" placeholder="Commence par" />
+                    <InputText type="text" v-model="filters['utilisateur_nom']" class="p-column-filter" placeholder="Recherche par nom"/>
                 </template>
             </Column>
-            <Column field="utilisateur_email" header="Email" :sortable="true" filterMatchMode="startsWith">
+            <Column field="utilisateur_email" header="Email" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Email</span>
+                    {{slotProps.data.utilisateur_email}}
+                </template>
                 <template #filter>
-                    <InputText type="text" v-model="filters['utilisateur_email']" class="p-column-filter" placeholder="Commence par" />
+                    <InputText type="text" v-model="filters['utilisateur_email']" class="p-column-filter" placeholder="Recherche par nom"/>
                 </template>
             </Column>
-             <Column field="utilisateur_roles" header="Roles" :sortable="true" filterMatchMode="startsWith">
-                 <template #filter>
-                     <InputText type="text" v-model="filters['utilisateur_roles']" class="p-column-filter" placeholder="Commence par" />
-                 </template>
-                 <template #body="slotProps">
-                  <span v-for="role in slotProps.data.utilisateur_roles">
+            <Column field="utilisateur_roles" header="Roles" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Roles</span>
+                    <span v-for="role in slotProps.data.utilisateur_roles">
                             {{role}}
                         </span>
                 </template>
-              </Column>
-            <Column field="utilisateur_equipes" header="Equipes" :sortable="true" filterMatchMode="gte">
                 <template #filter>
-                    <InputText type="text" v-model="filters['utilisateur_equipes']" class="p-column-filter" placeholder="Commence par" />
-                </template>
-                <template #body="slotProps">
-                        <span v-for="equipe in slotProps.data.utilisateur_equipes">
-                            {{equipe}}
-                        </span>
+                    <InputText type="text" v-model="filters['utilisateur_roles']" class="p-column-filter" placeholder="Recherche par nom"/>
                 </template>
             </Column>
-            <Column field="utilisateur_last_modified_date" header="Dernière modification">
-                <template #filter>
-                    <InputText type="text" v-model="filters['utilisateur_last_modified_date']" class="p-column-filter" placeholder="Commence par" />
-                </template>
+            <Column field="utilisateur_equipes" header="Equipes" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
+                    <span class="p-column-title">Equipes</span>
+                    <span v-for="role in slotProps.data.utilisateur_equipes">
+                            {{role}}
+                        </span>
+                </template>
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_equipes']" class="p-column-filter" placeholder="Recherche par nom"/>
+                </template>
+            </Column>
+            <Column field="utilisateur_last_modified_date" header="Date de modification" :sortable="true" filterMatchMode="contains">
+                <template #body="slotProps">
+                    <span class="p-column-title">Email</span>
                     le {{moment(slotProps.data.utilisateur_last_modified_date).format('DD/MM/YYYY')}} par {{ slotProps.data.utilisateur_last_modified_by}}
+                </template>
+                <template #filter>
+                    <InputText type="text" v-model="filters['utilisateur_last_modified_date']" class="p-column-filter" placeholder="date de modification"/>
                 </template>
             </Column>
             <Column field="" header="Actions">
@@ -62,9 +85,9 @@
                         <Button type="button" icon="pi pi-upload" class="p-button-secondary" @click="upload(slotProps.data.utilisateur_id)"></Button>
 
                         <Button type="button" icon="pi pi-briefcase" class="p-button-secondary" @click="exportCSV($event)" ></Button>
-                     <div v-if="slotProps.data.utilisateur_actif">
-                        <Button type="button" icon="pi pi-unlock" class="p-button-secondary" @click="activation(slotProps)"></Button>
-                     </div>
+                        <div v-if="slotProps.data.utilisateur_actif">
+                            <Button type="button" icon="pi pi-unlock" class="p-button-secondary" @click="activation(slotProps)"></Button>
+                        </div>
                         <div v-else>
                             <Button type="button" icon="pi pi-lock" class="p-button-secondary" @click="activation(slotProps)"></Button>
                         </div>
@@ -99,7 +122,8 @@
     },
     data() {
       return {
-        filters: {},
+          selectedUser: null,
+          filters: {},
         checked: true,
         roles: [
           { type: "ROLE_USER", value: "ROLE_USER" },
@@ -133,83 +157,22 @@
         font-weight: 500;
     }
 
-    /deep/ .p-paginator {
-        .p-dropdown {
-            float: left;
-        }
-
-        .p-paginator-current {
-            float: right;
-        }
-    }
-
-    /deep/ .p-progressbar {
-        height: 8px;
-        background-color: #D8DADC;
-
-        .p-progressbar-value {
-            background-color: #00ACAD;
-        }
-    }
-
-    /deep/ .p-column-filter {
-        display: block;
-
-        input {
-            width: 100%;
-        }
-    }
-
-    .p-datatable-globalfilter-container {
-        float: right;
-
-        input {
-            width: 200px;
-        }
-    }
-
-    /deep/ .p-datepicker {
-        min-width: 25em;
-
-        td {
-            font-weight: 400;
-        }
+    .table-header {
+        display: flex;
+        justify-content: space-between;
     }
 
     /deep/ .p-datatable.p-datatable-customers {
         .p-datatable-header {
-            border: 0 none;
-            padding: 12px;
+            padding: 1rem;
             text-align: left;
-            font-size: 10px;
+            font-size: 1.5rem;
         }
+    }
 
-        .p-paginator {
-            border: 0 none;
-            padding: 1em;
-        }
 
-        .p-datatable-thead > tr > th {
-            border: 0 none;
-            text-align: left;
-
-            &.p-filter-column {
-                border-top: 1px solid #c8c8c8;
-            }
-        }
-        p-column-title {
-            font-size: 10px;
-        }
-
-        .p-datatable-tbody > tr > td {
-            border: 0 none;
-            cursor: auto;
-            align-items: center;
-        }
-
-        .p-dropdown-label:not(.p-placeholder) {
-            text-transform: uppercase;
-        }
+    /deep/ .p-column-filter {
+        width: 100%;
     }
 
     /* Responsive */
@@ -232,38 +195,20 @@
                     width: 100% !important;
                     float: left;
                     clear: left;
+                    border: 0 none;
 
                     .p-column-title {
-                        padding: .4em;
+                        padding: .4rem;
                         min-width: 30%;
                         display: inline-block;
-                        margin: -.4em 1em -.4em -.4em;
+                        margin: -.4rem 1rem -.4rem -.4rem;
                         font-weight: bold;
                     }
                 }
             }
         }
     }
-    p-datatable-header{
-        height: 50px;
-    }
 
-    .label-container{
-        position:fixed;
-        bottom:48px;
-        right:105px;
-        display:table;
-        visibility: hidden;
-    }
-
-    .label-text{
-        color:#FFF;
-        background:rgba(51,51,51,0.5);
-        display:table-cell;
-        vertical-align:middle;
-        padding:10px;
-        border-radius:3px;
-    }
 
     .float{
         position:fixed;

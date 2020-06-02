@@ -6,37 +6,42 @@
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="email">Email</label>
+        <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+      <form  name="form" @submit.prevent="handleSubmit(submit)">
+          <ValidationProvider name="username" rules="required" v-slot="{ errors }">
+          <div class="form-group">
+          <label for="username">Email</label>
           <input
             v-model="user.email"
-            v-validate="'required'"
             type="text"
             class="form-control"
             name="username"
           />
-          <div
+              <span>{{ errors[0] }}</span>
+           <!--<div
             v-if="errors.has('username')"
             class="alert alert-danger"
             role="alert"
-          >l'identifiant est requis </div>
+          >l'identifiant est requis </div>-->
         </div>
+          </ValidationProvider>
+          <ValidationProvider name="password" rules="required" v-slot="{ errors }">
         <div class="form-group">
           <label for="password">Mot de passe</label>
           <input
             v-model="user.password"
-            v-validate="'required'"
             type="password"
             class="form-control"
             name="password"
           />
-          <div
+            <span>{{ errors[0] }}</span>
+          <!-- <div
             v-if="errors.has('password')"
             class="alert alert-danger"
             role="alert"
-          >Mot de passe est requis</div>
+          >Mot de passe est requis</div>-->
         </div>
+          </ValidationProvider>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -53,15 +58,27 @@
           <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
         </div>
       </form>
+        </ValidationObserver>
     </div>
   </div>
 </template>
 
 <script>
+import { ValidationProvider,ValidationObserver,extend } from 'vee-validate';
+import {required } from 'vee-validate/dist/rules';
+
 import User from '../models/user';
+
+extend('required', {
+    ...required,
+    message: 'Ce champs est requis'
+});
 
 export default {
   name: 'Login',
+    components: {
+      ValidationProvider, ValidationObserver
+    },
   data() {
     return {
       user: new User('', ''),
@@ -80,29 +97,29 @@ export default {
     }
   },
   methods: {
-    handleLogin() {
-      this.loading = true;
-      this.$validator.validateAll().then((isValid) => {
+      async submit() {
+          this.loading = true;
+        const isValid = await this.$refs.observer.validate();
         if (!isValid) {
+            this.loading = false;
+            return;
+        }
           this.loading = false;
-          return;
-        }
-
-        if (this.user.email && this.user.password) {
-          this.$store.dispatch('auth/login', this.user).then(
-            () => {
-              this.$router.push('/profile');
-            },
-            (error) => {
-              this.loading = false;
-              this.message = (error.response && error.response.data)
-                || error.message
-                || error.toString();
-            },
-          );
-        }
-      });
-    },
+          if (this.user.email && this.user.password) {
+              this.$store.dispatch('auth/login', this.user).then(
+                      () => {
+                          this.$router.push('/profile');
+                      },
+                      (error) => {
+                          this.loading = false;
+                          this.message = (error.response && error.response.data)
+                                  || error.message
+                                  || error.toString();
+                      },
+              );
+          }
+      }
+    ,
       register() {
         this.$router.push('/register');
       },

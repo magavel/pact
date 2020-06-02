@@ -6,9 +6,11 @@
     </div>
     <div id="saisie">
       <div id="container-saisie">
-        <div class="row w-100 ml-0">
+        <div class="row ">
+            <div class="col-0">
           <Calendrier/>
-          <div class="col-8">
+            </div>
+          <div class="col-sm ml-5 mr-5">
             <TitreDate/>
             <DataTableSaisies/>
             <TotalCharges/>
