@@ -28,10 +28,9 @@ const mutations = {
   CREATE_SUCCESS(state, succes) {
     state.success = [ succes, ...state.success ];
   },
-
     UPDATE_STEP (state, value) {
-      state.step= value;
-    }
+        state.step= value;
+    },
 };
 
 
