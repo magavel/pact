@@ -4,7 +4,7 @@ const state = {
     dateSelectionee: new Date(),
     dateDeSaisie: [],
     saisies: [],
-    saisiesFullByWeek: [],
+    saisiesParPeriode: [],
     errors: [], // log des erreurs
     success: [], // log des success
 };
@@ -16,8 +16,8 @@ const mutations = {
     UPDATE_DATE(state, value){
         state.dateSelectionee = value;
     },
-    GET_SAISIES_BY_WEEK(state, value){
-        state.saisiesFullByWeek = value;
+    GET_SAISIES_PAR_PERIODE(state, value){
+        state.saisiesParPeriode = value;
     },
     CREATE_ERROR(state, error) {
         state.errors = [ error, ...state.errors ];
@@ -28,6 +28,23 @@ const mutations = {
 }
 
 const actions = {
+    getSaisieParPeriode( {commit}, periode) {
+        SaisieService.getSaisieParPeriode(periode)
+            .then((response) => {
+                console.log('getSaisieParPeriode', response.data.data);
+                commit('GET_SAISIES_PAR_PERIODE', response.data.data)
+
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec sur la récuperation 
+            des projets dans la méthode 
+            getSaisieParPeriode: ${err.message}`,
+                };
+                commit('CREATE_ERROR', error);
+            });;
+    },
     getSaisies( {commit}, dateDebutFin){
         console.log("test");
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])

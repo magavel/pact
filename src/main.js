@@ -58,6 +58,7 @@ import dateFrancaise from "./utils/dateFrancaise";
 import dateFrFull from "./utils/dateFrFull";
 import jourFrShort from "./utils/jourFrShort";
 import monthYearShort from "./utils/monthYearShort";
+import dateFrShort from "./utils/dateFrShort"
 
 Vue.prototype.moment = moment
 
@@ -115,6 +116,7 @@ Vue.filter('dateFrancaise', dateFrancaise);
 Vue.filter('dateFrFull', dateFrFull);
 Vue.filter('jourFrShort', jourFrShort);
 Vue.filter('monthYearShort', monthYearShort);
+Vue.filter('dateFrShort', dateFrShort);
 
 Vue.use(ToastService);
 

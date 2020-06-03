@@ -17,16 +17,15 @@ class SaisieService {
         });
     }
 
-  getSaisieWeekly(dateDebut, dateFin){
+  getSaisieParPeriode(periode){
     // GET http://localhost:8080/apiPactNG/api/v1/users/titi/saisiesByWeek?dateDebut=2020-03-18T08:00:08.566Z&dateFin=2020-03-18T08:00:08.566Z
     const user = JSON.parse(localStorage.getItem('user'));
+    const dateDebut = periode.dateDebut;
+    const dateFin = periode.dateFin;
+    console.log('periode dans le service', periode)
 
-    return axios.get(config.API_URL.concat('users/', user.username, '/saisiesByWeek'), {
-      headers: authHeader(),
-      params: {
-        dateDebut: dateDebut,
-        dateFin: dateFin
-      },
+    return axios.get(`${config.API_URL}users/${user.username}/saisiesByWeek?dateDebut=${dateDebut}&dateFin=${dateFin}`, {
+      headers: authHeader()
     });
   }
 
