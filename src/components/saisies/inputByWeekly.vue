@@ -41,7 +41,7 @@
             <Column v-for="date in activitiesByWeek.periode" :field="date" :key="date"
                     :header="date | dateFrShort()">
             </Column>
-            <Column header="Actions">
+            <Column header="Actions"  headerStyle="width: 100px">
                 <template #body>
                     <Button type="button" icon="pi pi-plus" class="p-button-secondary"></Button>
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
