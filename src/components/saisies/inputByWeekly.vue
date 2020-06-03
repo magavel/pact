@@ -71,12 +71,13 @@
                 dateDebut: this.periode.dateDebut,
                 dateFin: this.periode.dateFin
             });
-            this.calculPeriode(this.periode)
+            this.calculPeriode(this.periode2);
         },
         data() {
             return {
                 // todo recuperer les dates dans le store pour la periode
                 periode:{dateDebut:'2020-03-18', dateFin:'2020-03-21'},
+                periode2:{dateDebut:'2020-03-18T18:20:33.516Z', dateFin:'2020-03-21T18:20:33.516Z'},
                 activitiesByWeek: {
                     periode: [
                         '2020-05-18',
@@ -93,10 +94,10 @@
         },
         methods: {
             calculPeriode(periode) {
-                let a = moment([periode.dateDebut]);
-                let b = moment([periode.dateFin]);
+                let a = moment(periode.dateDebut);
+                let b = moment(periode.dateFin);
                 a.diff(b, 'days')
-                console.log('calculPeriode', a.diff(b, 'days'))
+                console.log('calculPeriode', b.diff(a, 'days'))
             }
         },
     }
