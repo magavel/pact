@@ -58,6 +58,7 @@
 
 <script>
     import {mapState} from "vuex";
+    import  moment from "moment";
 
     export default {
         name: "inputByWeekly",
@@ -95,7 +96,7 @@
                 let a = moment([periode.dateDebut]);
                 let b = moment([periode.dateFin]);
                 a.diff(b, 'days')
-                console.log('tableauPeriode', a.diff(b, 'days'))
+                console.log('calculPeriode', a.diff(b, 'days'))
             }
         },
     }
