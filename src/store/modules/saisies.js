@@ -1,7 +1,7 @@
 import SaisieService from '../../services/saisie.service';
 
 const state = {
-    dateSelectionee: new Date(),
+    dateSelectionee: [],
     dateDeSaisie: [],
     saisies: [],
     phases: [],
@@ -26,6 +26,9 @@ const mutations = {
     },
     UPDATE_DATE(state, value){
         state.dateSelectionee = value;
+    },
+    UPDATE_DATE_SAISIE(state, value){
+        state.dateDeSaisie = value;
     },
     GET_SAISIES_PAR_PERIODE(state, value){
         state.saisiesParPeriode = value;

@@ -65,35 +65,17 @@ export const router = new Router({
       component: () => import('./views/BoardUserSaisie.vue'),
       children: [
         {
-          path: 'dailyListing',
-          name: 'dailyListing',
-          component: () => import('./components/saisies/DailyListing.vue'),
-        },
-        {
           path: 'periodeListing',
           name: 'periodeListing',
-          components: () => import('./components/saisies/inputByWeekly.vue'),
-        }
-      ]
-    },
-
-    {
-      path: '/activities',
-      name: 'activities',
-      // lazy-loaded
-      component: () => import('./views/BoardActivities'),
-      children: [
-        {
-          path: 'daily',
-          name:'daily',
-          component: () => import('./components/saisies/inputByWeekly')
+          component: () => import('./components/saisies/inputByWeekly'),
         },
         {
-          path: 'weekly',
-          name:'weekly',
-          component: () => import('./components/saisies/inputByWeekly')
-        }
-      ],
+          path: 'dailyListing',
+          name: 'dailyListing',
+          component: () => import('./components/saisies/DailyListing'),
+        },
+
+      ]
     },
     {
       path: '/projects',

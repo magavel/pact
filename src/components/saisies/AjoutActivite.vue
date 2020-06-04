@@ -53,6 +53,7 @@
         data() {
             return {
                 selectedMission: [],
+                commentaire:"",
                 selectedActivite: [],
                 commentaire:"",
                 charges: null,
