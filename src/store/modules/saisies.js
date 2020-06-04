@@ -4,8 +4,8 @@ const state = {
     dateSelectionee: [],
     dateDeSaisie: [],
     saisies: [],
-    saisiesParPeriode: [],
     phases: [],
+    saisiesFullByWeek: [],
     errors: [], // log des erreurs
     success: [], // log des success
 };
