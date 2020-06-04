@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission"  option-label="name"/>
+                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" />
+                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
@@ -42,42 +42,34 @@
 </template>
 <script>
     import Periode from "./Periode";
-    import SaisieService from "../../services/saisie.service"
+    import { mapState } from 'vuex';
 
     export default {
-        name: 'AjoutActivite',
-        components: {Periode},
-        computed : {
-            phases(){
-                return this.$store.state.saisies.phases;
+        computed:mapState( {
+            phaseActives: state=> state.saisies.phaseActives,
+            loading: false,
+        }),
+        data() {
+            return {
+                selectedMission: [],
+                commentaire:"",
+                selectedActivite: [],
+                charges: null,
+                tabActivite: [{phase_chemin: 'New York', code: 'NY'}],
+
             }
         },
         created() {
-            SaisieService.getPhases().then((response) =>{
-                console.log("response phases : " + response);
-                for(let prop in response){
-                    console.log(`response.${prop} = ${response[prop]}`);
-                }
-                for(let prop in response.headers){
-                    console.log(`response.${prop} = ${response.headers[prop]}`);
-                }
-            });
-            /*this.$store.dispatch('saisies/getPhases');
-            console.log("data phases : " + this.$store.state.phases);*/
+            this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
+
         },
-        methods:{
-            clickValider(){
-                console.log("cliquer");
+        methods: {
+            clickValider() {
+
             }
         },
-        data(){
-            return{
-                selectedMission: null,
-                commentaire: null,
-                selectedActivite: null,
-                charges: "0:0"
-            }
-        }
+        name: 'AjoutActivite',
+        components: {Periode}
     }
 </script>
 

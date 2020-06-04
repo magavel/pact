@@ -1,19 +1,28 @@
 import SaisieService from '../../services/saisie.service';
 
 const state = {
-    dateSelectionee: [],
+    dateSelectionee: new Date(),
     dateDeSaisie: [],
     saisies: [],
     phases: [],
     saisiesParPeriode: [],
-    saisiesFullByWeek: [],
     errors: [], // log des erreurs
     success: [], // log des success
+    phaseActives: [],
 };
 
 const mutations = {
     GET_SAISIES(state, saisies) {
         state.saisies = saisies.data;
+    },
+    GET_PHASES_ACTIVES(state, phases) {
+        state.phaseActives = phases.data;
+    },
+    GET_PHASES_ACTIVES_SUCCESS(state, succes) {
+        state.success = [ succes, ...state.success ];
+    },
+    GET_PHASES_ACTIVES_ERROR(state, succes) {
+        state.errors = [ succes, ...state.errors ];
     },
     UPDATE_DATE(state, value){
         state.dateSelectionee = value;
@@ -21,18 +30,12 @@ const mutations = {
     GET_SAISIES_PAR_PERIODE(state, value){
         state.saisiesParPeriode = value;
     },
-    GET_SAISIES_BY_WEEK_TEST(state, saisies){
-        state.saisies = saisies.data;
-    },
     CREATE_ERROR(state, error) {
         state.errors = [ error, ...state.errors ];
     },
     CREATE_SUCCESS(state, succes) {
         state.success = [ succes, ...state.success ];
     },
-    GET_PHASES(state, phases){
-        state.phases = phases.data;
-    }
 }
 
 const actions = {
@@ -73,23 +76,27 @@ const actions = {
                 commit('CREATE_ERROR', error);
             });
     },
-    getSaisieByWeekTest({commit}, dateDebutFin){
-        console.log("test by week");
-        SaisieService.getSaisieWeekly(dateDebutFin[0], dateDebutFin[1])
-            .then((response) => {
-                console.log(response.data);
-                for(let prop in response.data.data){
-                    console.log(`response.data.data.${prop} = ${response.data.data[prop]}`);
+    getPhaseActivesUtilisateurs( {commit}) {
+        console.log("store phases actives");
+        SaisieService.getPhaseActivesUtilisateurs()
+            .then((res) => {
+                const succes = {
+                    date: new Date(),
+                    message: 'lecture de tous les phases actives',
                 }
+                commit('GET_PHASES_ACTIVES', res.data);
+                commit('GET_PHASES_ACTIVES_SUCCESS', succes);
+
             })
-    },
-    getPhases( {commit} ){
-        SaisieService.getPhases().then((response)=>{
-            console.log("response phases : " + response);
-            console.log("response phases data: " + response.data);
-            console.log("response phases data data : " + response.data.data);
-            commit('GET_PHASES', response.data);
-        });
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec sur la récuperation 
+            des phases actives.
+             getPhaseActivesUtilisateurs: ${err.message}`,
+                };
+                commit('GET_PHASES_ACTIVES_ERROR', error);
+            });
     }
 }
 
