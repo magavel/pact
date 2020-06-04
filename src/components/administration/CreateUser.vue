@@ -19,6 +19,10 @@
                     <label for="password">Mot de passe</label>
                     <input v-model="password" type="text" id="password" name="password" class="form-control">
                 </div>
+                <div class="form-group">
+                    <label for="password">Roles</label>
+                    <MultiSelect v-model="selectedRole" :options="roles" optionLabel="type" placeholder="Selection les rôles" />
+                </div>
                 <div class="form-group" v-if="errors_form.length">
                     <strong>Corriger les erreurs suivantes:</strong>
                     <ul>
@@ -53,9 +57,10 @@
         email:null,
         password:null,
         checked: true,
+          selectedRole: null,
         roles: [
           { type: "ROLE_USER", value: "ROLE_USER" },
-          { type: "ROLE_PILOTE", value: "ROLE_USER" },
+          { type: "ROLE_PILOTE", value: "ROLE_PILOTE" },
           { type: "ROLE_ADMIN", value: "ROLE_ADMIN" },
         ],
       }
@@ -88,6 +93,12 @@
           let unUser = new UserExtended(this.email.split('@')[0],this.email,this.password);
           unUser.utilisateur_nom = this.lastname;
           unUser.utilisateur_prenom = this.firstname;
+            this.selectedRole.forEach(function(y)
+                {
+                    unUser.utilisateur_roles.push(y.value)
+                }
+            );
+
           this.$store.dispatch('users/createUser', unUser);
           this.$toast.add({severity:'success', summary: 'Success Message', detail:'Utilisateur crée', life: 3000});
 

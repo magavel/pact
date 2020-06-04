@@ -1,4 +1,5 @@
 import SaisieService from '../../services/saisie.service';
+import userservice from "../../services/user.service";
 
 const state = {
     dateSelectionee: new Date(),
@@ -7,11 +8,21 @@ const state = {
     saisiesParPeriode: [],
     errors: [], // log des erreurs
     success: [], // log des success
+    phaseActives: [],
 };
 
 const mutations = {
     GET_SAISIES(state, saisies) {
         state.saisies = saisies.data;
+    },
+    GET_PHASES_ACTIVES(state, phases) {
+        state.phaseActives = phases.data;
+    },
+    GET_PHASES_ACTIVES_SUCCESS(state, succes) {
+        state.success = [ succes, ...state.success ];
+    },
+    GET_PHASES_ACTIVES_ERROR(state, succes) {
+        state.errors = [ succes, ...state.errors ];
     },
     UPDATE_DATE(state, value){
         state.dateSelectionee = value;
@@ -65,6 +76,28 @@ const actions = {
                 commit('CREATE_ERROR', error);
             });
     },
+    getPhaseActivesUtilisateurs( {commit}) {
+        console.log("store phases actives");
+        SaisieService.getPhaseActivesUtilisateurs()
+            .then((res) => {
+                const succes = {
+                    date: new Date(),
+                    message: 'lecture de tous les phases actives',
+                }
+                commit('GET_PHASES_ACTIVES', res.data);
+                commit('GET_PHASES_ACTIVES_SUCCESS', succes);
+
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec sur la récuperation 
+            des phases actives.
+             getPhaseActivesUtilisateurs: ${err.message}`,
+                };
+                commit('GET_PHASES_ACTIVES_ERROR', error);
+            });
+    }
 }
 
 export default {

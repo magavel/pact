@@ -53,12 +53,13 @@
         data() {
             return {
                 selectedSaisies: null,
+                saisies: this.$store.state.saisies.saisies,
             }
         },
         computed: {
-            saisies(){
+           /* saisies(){
                 return this.$store.state.saisies.saisies;
-            },
+            },*/
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
             }

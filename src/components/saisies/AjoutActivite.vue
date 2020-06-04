@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
+                    <Dropdown v-model="selectedMission" :options="phaseActives" optionLabel="phase_chemin" placeholder="selectionner une mission" />
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
+                    <Dropdown v-model="selectedActivite" :options="tabActivite" optionLabel="phase_chemin" />
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
@@ -42,8 +42,32 @@
 </template>
 <script>
     import Periode from "./Periode";
+    import { mapState } from 'vuex';
 
     export default {
+        computed:mapState( {
+            phaseActives: state=> state.saisies.phaseActives,
+            loading: false,
+        }),
+        data() {
+            return {
+                selectedMission: [],
+                commentaire:"",
+                selectedActivite: [],
+                charges: null,
+                tabActivite: [{phase_chemin: 'New York', code: 'NY'}],
+
+            }
+        },
+        created() {
+            this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
+
+        },
+        methods: {
+            clickValider() {
+
+            }
+        },
         name: 'AjoutActivite',
         components: {Periode}
     }
