@@ -69,10 +69,8 @@ const actions = {
         console.log("test");
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])
             .then((response) => {
-                console.log("response.data : " + response.data);
-                const donnees = response.data.data;
-                console.log("donnees : " + donnees);
-                donnees.forEach((s)=> console.log("s :" + s.saisie_Id));
+                console.log("response.data : " );
+                console.log(response.data);
                 commit('GET_SAISIES', response.data);
             })
             .catch((err) => {

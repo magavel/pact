@@ -44,12 +44,14 @@
 
                 //this.$store.commit('saisies/UPDATE_DATE', this.dateCalendrier.toISOString());
 
-                if(this.dateCalendrier[1] === null){
+                if(this.dateCalendrier[1] === null || this.dateCalendrier[1] === this.dateCalendrier[0]){
                     tabDateISO.push(this.dateCalendrier[0].toISOString());
-                    //tabDateISO.push(this.dateCalendrier[0]);
+                    tabDateISO.push(this.dateCalendrier[0].toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[0]]);
-                    //this.$store.dispatch('saisies/getSaisies', this.dateCalendrier[0].toISOString());
+                    console.log("tabDateISO");
+                    console.log(tabDateISO[0]);
+                    this.$store.dispatch('saisies/getSaisies', tabDateISO);
                     router.push({ name: 'dailyListing'});
                 }
                 else{
