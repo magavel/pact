@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
+                    <Dropdown v-model="selectedMission" :options="phaseActives" option-label="phase_chemin"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
+                    <Dropdown v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
@@ -47,13 +47,14 @@
     export default {
         computed:mapState( {
             phaseActives: state=> state.saisies.phaseActives,
+            refActivite: state=> state.references.refActivite,
             loading: false,
         }),
         data() {
             return {
                 selectedMission: [],
-                commentaire:"",
                 selectedActivite: [],
+                commentaire:"",
                 charges: null,
                 tabActivite: [{phase_chemin: 'New York', code: 'NY'}],
 
@@ -61,10 +62,11 @@
         },
         created() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
-
+            this.$store.dispatch('references/getRefActivite');
         },
         methods: {
             clickValider() {
+
 
             }
         },
