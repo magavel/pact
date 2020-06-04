@@ -1,6 +1,6 @@
 <template>
     <div class="row mt-3" onclick="alert('je suis cliqué')">
-        <span class="text-center titre" id="spanJour">{{moment(this.dateSelectionee).format('dddd D MMMM')}}</span>
+        <span class="text-center titre" id="spanJour">{{moment(this.dateSelectionee[0]).format('dddd D MMMM')}}</span>
         <span class="ml-1"><img style="height: 15px" src="../../assets/ic_favorite_border_24px.svg"></span>
     </div>
 </template>

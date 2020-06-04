@@ -1,14 +1,16 @@
 <template>
-    <div  id="divCalendar">
+    <div class="col ml-n3" id="divCalendar">
         <Calendar v-model="dateCalendrier"
                   :inline="true"
                   :locale="fr"
+                  selectionMode="range"
                   v-on:date-select="clickCalendar"
                   dateFormat="dd/mm/yy">
         </Calendar>
     </div>
 </template>
 <script>
+    import router from "../../router";
     export default {
         name: 'Calendrier',
         data(){
@@ -35,8 +37,29 @@
         methods: {
             clickCalendar(){
                 console.log("date selectionée : " + this.dateSelectionee);
-                this.$store.commit('saisies/UPDATE_DATE', this.dateCalendrier);
+                console.log("dateCalendrier : " + this.dateCalendrier);
+                console.log("dateCalendrier[0] : " + this.dateCalendrier[0]);
+                console.log("dateCalendrier[1] : " + this.dateCalendrier[1]);
+                let tabDate = [];
+
+                //this.$store.commit('saisies/UPDATE_DATE', this.dateCalendrier.toISOString());
                 console.log("date selectionée : " + this.dateSelectionee);
+
+                if(this.dateCalendrier[1] === null){
+                    tabDate.push(this.dateCalendrier[0].toISOString());
+                    this.$store.commit('saisies/UPDATE_DATE', tabDate);
+                    console.log("date selectionée : " + this.dateSelectionee);
+                    router.push({ name: 'dailyListing'});
+                    console.log('DAILY');
+                }
+                else{
+                    tabDate.push(this.dateCalendrier[0].toISOString());
+                    tabDate.push(this.dateCalendrier[1].toISOString());
+                    this.$store.commit('saisies/UPDATE_DATE', tabDate);
+                    console.log("date selectionée : " + this.dateSelectionee);
+                    router.push({name: 'periodeListing'});
+                    console.log('PERIODE');
+                }
             }
         }
     }
@@ -60,7 +83,7 @@
 
 
     /deep/ #divCalendar .p-datepicker table {
-        font-size: 12px;
+        font-size: 50px;
     }
 
     /deep/  .p-datepicker .p-datepicker-header .p-datepicker-title{
@@ -78,6 +101,13 @@
         // border-radius: 0px 30px 30px 0px;
         border-radius: 0px 30px 30px 0px;
     }*/
+
+   /deep/ body #divCalendar .p-datepicker {
+       border: none;
+       background-color: $secondary;
+       // border-radius: 0px 30px 30px 0px;
+       border-radius: 0px 30px 30px 0px;
+   }
 
 
 </style>

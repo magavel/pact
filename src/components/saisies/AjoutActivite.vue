@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
+                    <Dropdown v-model="selectedMission"  option-label="name"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
+                    <Dropdown v-model="selectedActivite" />
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
@@ -42,10 +42,42 @@
 </template>
 <script>
     import Periode from "./Periode";
+    import SaisieService from "../../services/saisie.service"
 
     export default {
         name: 'AjoutActivite',
-        components: {Periode}
+        components: {Periode},
+        computed : {
+            phases(){
+                return this.$store.state.saisies.phases;
+            }
+        },
+        created() {
+            SaisieService.getPhases().then((response) =>{
+                console.log("response phases : " + response);
+                for(let prop in response){
+                    console.log(`response.${prop} = ${response[prop]}`);
+                }
+                for(let prop in response.headers){
+                    console.log(`response.${prop} = ${response.headers[prop]}`);
+                }
+            });
+            /*this.$store.dispatch('saisies/getPhases');
+            console.log("data phases : " + this.$store.state.phases);*/
+        },
+        methods:{
+            clickValider(){
+                console.log("cliquer");
+            }
+        },
+        data(){
+            return{
+                selectedMission: null,
+                commentaire: null,
+                selectedActivite: null,
+                charges: "0:0"
+            }
+        }
     }
 </script>
 

@@ -7,7 +7,14 @@
 </template>
 <script>
     export default {
-        name: 'TotalCharges'
+        name: 'TotalCharges',
+        data(){
+            return{
+                divClassCharges : null,
+                classeCharges: null,
+                chargesTotalJour: "0:0",
+            }
+        }
     }
 </script>
 

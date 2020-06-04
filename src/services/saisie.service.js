@@ -45,6 +45,12 @@ class SaisieService {
         return axios.get(config.API_URL.concat("referentiels/ref_type_activite"));
     }
 
+    // GET http://localhost:8080/apiPactNG/api/v1/users/titi/phases
+    getPhases(){
+        const user = JSON.parse(localStorage.getItem('user'));
+        return axios.get(config.API_URL.concat("users/", user.username, "/phases"), { headers: authHeader() });
+    }
+
     // POST http://localhost:8080/apiPactNG/api/v1/phases/1/saisies
     // Content-Type: application/json
     //

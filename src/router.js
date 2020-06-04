@@ -63,6 +63,18 @@ export const router = new Router({
       name: 'activites',
       // lazy-loaded
       component: () => import('./views/BoardUserSaisie.vue'),
+      children: [
+        {
+          path: 'dailyListing',
+          name: 'dailyListing',
+          component: () => import('./components/saisies/DailyListing.vue'),
+        },
+        {
+          path: 'periodeListing',
+          name: 'periodeListing',
+          components: () => import('./components/saisies/inputByWeekly.vue'),
+        }
+      ]
     },
 
     {

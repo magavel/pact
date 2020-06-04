@@ -3,9 +3,12 @@
                             <span class="mr-2 ml-1">
                                 <img src="../../assets/event-24px.svg">
                             </span>
-        <Calendar v-model="dateSelectionee" :locale="fr" dateFormat="dd/mm/yy"/>
+        <Calendar v-model="dateSelectionee[0]" :locale="fr" dateFormat="dd/mm/yy"/>
         <span class="ml-3 mr-3"> au </span>
-        <Calendar v-model="dateSelectionee" :locale="fr" dateFormat="dd/mm/yy"/>
+        <Calendar v-if="dateSelectionee[1] !== null" v-model="dateSelectionee[1]" :locale="fr" dateFormat="dd/mm/yy"/>
+        <Calendar v-else v-model="dateSelectionee[0]" :locale="fr" dateFormat="dd/mm/yy"/>
+
+
     </div>
 </template>
 <script>
