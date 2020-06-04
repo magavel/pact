@@ -169,6 +169,13 @@
     margin-top: 10%;
   }
 
+  body #divCalendar .p-datepicker {
+    border: none;
+    background-color: $secondary;
+    // border-radius: 0px 30px 30px 0px;
+    border-radius: 0px 30px 30px 0px;
+  }
+
 
 
 

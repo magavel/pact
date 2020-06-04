@@ -1,18 +1,20 @@
 <template>
-    <div class="d-flex justify-content-around total pt-2 mr-3"  style="margin-left: 39%">
+    <div class="d-flex justify-content-around total pt-2 mr-3" v-bind:class="divClassCharges" style="margin-left: 39%">
         <div><span>TOTAL CHARGES</span></div>
-        <div><span id="sommes-charges" >{{ this.chargesTotalJour }}</span></div>
+        <div><span id="sommes-charges" v-bind:class="classeCharges">{{ this.chargesTotalJour }}</span></div>
         <!-- <div><span v-bind:class="classeCharges">{{ this.messageCharge }}</span></div> -->
     </div>
 </template>
 <script>
     export default {
         name: 'TotalCharges',
-        data() {
-            return {
-                chargesTotalJour:null,
+        data(){
+            return{
+                divClassCharges : null,
+                classeCharges: null,
+                chargesTotalJour: "0:0",
             }
-            }
+        }
     }
 </script>
 

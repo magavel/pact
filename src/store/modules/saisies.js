@@ -1,10 +1,10 @@
 import SaisieService from '../../services/saisie.service';
-import userservice from "../../services/user.service";
 
 const state = {
     dateSelectionee: new Date(),
     dateDeSaisie: [],
     saisies: [],
+    phases: [],
     saisiesParPeriode: [],
     errors: [], // log des erreurs
     success: [], // log des success
@@ -60,7 +60,7 @@ const actions = {
         console.log("test");
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])
             .then((response) => {
-                console.log(response.data);
+                console.log("response.data : " + response.data);
                 const donnees = response.data.data;
                 console.log("donnees : " + donnees);
                 donnees.forEach((s)=> console.log("s :" + s.saisie_Id));

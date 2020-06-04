@@ -85,8 +85,12 @@
                     this.missions.forEach((m) => console.log("mission : " + m.date));
                 }
             );*/
+            //this.$store.dispatch('saisies/getSaisieByWeekTest', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
             this.$store.dispatch('saisies/getSaisies', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
             console.log("saisies : " +this.$store.state.saisies);
+            for(let prop in this.saisies){
+                console.log(`saisies.${prop} = ${this.saisies[prop]}`);
+            }
         }
     }
 </script>

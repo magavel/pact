@@ -11,9 +11,8 @@
           <Calendrier/>
             </div>
           <div class="col-sm ml-5 mr-5">
-            <TitreDate/>
-            <DataTableSaisies/>
-            <TotalCharges/>
+            <!-- router-view -->
+            <router-view></router-view>
           </div>
         </div>
       </div>
@@ -36,22 +35,18 @@
 
 <script>
   import Calendrier from "../components/saisies/Calendrier";
-  import TitreDate from "../components/saisies/TitreDate";
-  import DataTableSaisies from "../components/saisies/DataTableSaisies";
-  import TotalCharges from "../components/saisies/TotalCharges";
   import Tabs from "../components/saisies/Tabs";
   import Tab from "../components/saisies/Tab";
   import AjoutActivite from "../components/saisies/AjoutActivite";
   import InputActivitesFavorites from '../components/saisies/InputActivitesFavorites';
   import InputJourneeFavorites from "../components/saisies/InputJourneeFavorites";
+  import DailyListing from "../components/saisies/DailyListing";
 
   export default {
     components: {
+      DailyListing,
       AjoutActivite,
-      TotalCharges,
-      DataTableSaisies,
       Calendrier,
-      TitreDate,
       Tabs,
       Tab,
       InputActivitesFavorites,

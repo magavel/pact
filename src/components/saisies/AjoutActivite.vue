@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="phaseActives" optionLabel="phase_chemin" placeholder="selectionner une mission" />
+                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="tabActivite" optionLabel="phase_chemin" />
+                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
