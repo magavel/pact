@@ -87,6 +87,19 @@ class SaisieService {
 
     }
 
+    /**
+     * ajouter un favoris.
+     * @param uneSaisie
+     */
+    updateActiviteFavorite(uneSaisie) {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        return axios.post(`${config.API_URL}users/${user.username}/favoris`,
+            uneSaisie,{
+                headers: authHeader()
+            } );
+    }
+
 }
 
 export default new SaisieService();
