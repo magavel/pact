@@ -11,16 +11,16 @@
                 Chargement des données en cours.
             </template>
             <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
-            <Column header="Missions" :sortable="true" filterMatchMode="contains">
+            <Column field="saisie_phase" header="Missions" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column header="activite" :sortable="true" filterMatchMode="contains">
+            <Column field="activite_Id" header="activite" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column header="commentaire" :sortable="true" filterMatchMode="contains">
+            <Column field="saisie_commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column header="charges" :sortable="true" filterMatchMode="contains">
+            <Column field="saisie_charge" header="charges" :sortable="true" filterMatchMode="contains">
 
             </Column>
             <Column header="Actions">
@@ -41,39 +41,17 @@
         data() {
             return {
                 selectedSaisies: null,
-                saisies: this.$store.state.saisies.saisies,
             }
         },
         computed: {
-           /* saisies(){
+            saisies(){
                 return this.$store.state.saisies.saisies;
-            },*/
+            },
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
             }
         },
         created() {
-            SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
-                (response) => {
-                    console.log(response.data);
-                    /*const donnees = response.data.data;
-                    console.log("donnees : " + donnees);
-                    donnees.forEach((s)=> console.log(s));
-                    for(let saisie of donnees){
-                        let dateSaisie = saisie.saisie_date.split("::");
-                        let newSaisie = {
-                            name: saisie.saisie_Id,
-                            activite: saisie.activite_Id,
-                            commentaire: saisie.saisie_commentaire,
-                            charges: saisie.saisie_charge+":00",
-                            date: dateSaisie[0]+"/"+parseInt(dateSaisie[1])+"/"+dateSaisie[2]
-                        };
-                        this.missions.push(newSaisie);
-                    }
-                    this.missions.forEach((m) => console.log("mission : " + m.date));*/
-                }
-            );
-            //this.$store.dispatch('saisies/getSaisieByWeekTest', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
             this.$store.dispatch('saisies/getSaisies', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
             console.log("saisies : " +this.$store.state.saisies);
             for(let prop in this.saisies){

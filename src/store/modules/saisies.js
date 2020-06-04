@@ -67,7 +67,7 @@ const actions = {
                 const donnees = response.data.data;
                 console.log("donnees : " + donnees);
                 donnees.forEach((s)=> console.log("s :" + s.saisie_Id));
-                commit('GET_SAISIES', response);
+                commit('GET_SAISIES', response.data);
             })
             .catch((err) => {
                 const error = {

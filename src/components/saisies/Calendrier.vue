@@ -49,6 +49,7 @@
                     //tabDateISO.push(this.dateCalendrier[0]);
                     this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[0]]);
+                    //this.$store.dispatch('saisies/getSaisies', this.dateCalendrier[0].toISOString());
                     router.push({ name: 'dailyListing'});
                 }
                 else{
