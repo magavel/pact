@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
+                    <Dropdown v-model="selectedMission" option-label="name"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
+                    <Dropdown v-model="selectedActivite" />
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
@@ -63,9 +63,9 @@
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
 
         },
-        methods: {
-            clickValider() {
-
+        methods:{
+            clickValider(){
+                console.log("cliquer");
             }
         },
         name: 'AjoutActivite',

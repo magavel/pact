@@ -11,29 +11,17 @@
                 Chargement des données en cours.
             </template>
             <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
-            <Column field="name" header="Missions" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Missions/ Modules</span>
-                    {{ slotProps.data.name}}
-                </template>
+            <Column header="Missions" :sortable="true" filterMatchMode="contains">
+
             </Column>
-            <Column field="activite" header="activite" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Type d'activités</span>
-                    {{ slotProps.data.activite}}
-                </template>
+            <Column header="activite" :sortable="true" filterMatchMode="contains">
+
             </Column>
-            <Column field="commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Commentaire</span>
-                    {{ slotProps.data.commentaire}}
-                </template>
+            <Column header="commentaire" :sortable="true" filterMatchMode="contains">
+
             </Column>
-            <Column field="charges" header="charges" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Charges (h:m)</span>
-                    {{ slotProps.data.charges}}
-                </template>
+            <Column header="charges" :sortable="true" filterMatchMode="contains">
+
             </Column>
             <Column header="Actions">
                 <template #body>
@@ -65,10 +53,10 @@
             }
         },
         created() {
-            /*SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
+            SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
                 (response) => {
                     console.log(response.data);
-                    const donnees = response.data.data;
+                    /*const donnees = response.data.data;
                     console.log("donnees : " + donnees);
                     donnees.forEach((s)=> console.log(s));
                     for(let saisie of donnees){
@@ -82,9 +70,9 @@
                         };
                         this.missions.push(newSaisie);
                     }
-                    this.missions.forEach((m) => console.log("mission : " + m.date));
+                    this.missions.forEach((m) => console.log("mission : " + m.date));*/
                 }
-            );*/
+            );
             //this.$store.dispatch('saisies/getSaisieByWeekTest', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
             this.$store.dispatch('saisies/getSaisies', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
             console.log("saisies : " +this.$store.state.saisies);
