@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="phaseActives" option-label="phase_chemin"/>
+                    <Dropdown v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -43,6 +43,7 @@
 <script>
     import Periode from "./Periode";
     import { mapState } from 'vuex';
+    import Saisie from "../../models/saisie";
 
     export default {
         computed:mapState( {
@@ -52,13 +53,11 @@
         }),
         data() {
             return {
-                selectedMission: [],
+                selectedMission: null,
                 commentaire:"",
-                selectedActivite: [],
-                commentaire:"",
+                selectedActivite: null,
                 charges: null,
-                tabActivite: [{phase_chemin: 'New York', code: 'NY'}],
-
+                tabActivite: null,
             }
         },
         created() {
@@ -68,6 +67,30 @@
         methods: {
             clickValider() {
 
+               // alert(this.selectedMission.option-value);
+            //    alert(this.selectedActivite.option-value);
+               let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
+                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
+
+                let loop =  new Date(start)
+                while (loop <= end) {
+
+                    alert(this.charges);
+
+
+                    let newDate = loop.setDate(loop.getDate() + 1);
+                    loop = new Date(newDate);
+                    let uneSaisie = new Saisie();
+                    uneSaisie.saisie_phaseId = this.selectedMission;
+                    uneSaisie.activite_Id= this.selectedActivite;
+                    uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
+                    uneSaisie.saisie_commentaire = this.commentaire;
+                    uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
+                    uneSaisie.saisie_date = loop;
+
+                    this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
+
+                }
 
             }
         },

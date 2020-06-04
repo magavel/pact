@@ -1,4 +1,6 @@
 import SaisieService from '../../services/saisie.service';
+import userservice from "../../services/user.service";
+import router from "../../router";
 
 const state = {
     dateSelectionee: [],
@@ -14,6 +16,9 @@ const state = {
 const mutations = {
     GET_SAISIES(state, saisies) {
         state.saisies = saisies.data;
+    },
+    CREATE_SAISIES(state, saisies) {
+        state.saisies = [ saisies, ...state.saisies ];
     },
     GET_PHASES_ACTIVES(state, phases) {
         state.phaseActives = phases.data;
@@ -39,6 +44,7 @@ const mutations = {
     CREATE_SUCCESS(state, succes) {
         state.success = [ succes, ...state.success ];
     },
+
 }
 
 const actions = {
@@ -100,7 +106,28 @@ const actions = {
                 };
                 commit('GET_PHASES_ACTIVES_ERROR', error);
             });
+    },
+    ajouterUneSaisie({commit} , uneSaisie) {
+        SaisieService.postSaisie(uneSaisie)
+            .then((response) => {
+                if(response.status === 201) {
+                    console.log('data', response.data);
+                    //this.$toast.add({severity:'success', summary: 'Succes', detail:'Fiche projet créé en BDD', life: 3000});
+
+                   // router.push({ name: 'user', params:response.data });
+                }
+                else {
+                    console.log('pas de status 201, pb avec le serveur', response.status)
+                }
+            })
+            .then(() => {
+                commit('CREATE_SAISIES', uneSaisie);
+            });
     }
+
+
+
+
 }
 
 export default {
