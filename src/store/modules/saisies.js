@@ -23,6 +23,9 @@ const mutations = {
     GET_SAISIES_BY_WEEK_TEST(state, saisies){
         state.saisies = saisies.data;
     },
+    GET_SAISIES_BY_WEEK_TEST(state, saisies){
+        state.saisies = saisies.data;
+    },
     CREATE_ERROR(state, error) {
         state.errors = [ error, ...state.errors ];
     },
@@ -56,7 +59,7 @@ const actions = {
         console.log("test");
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])
             .then((response) => {
-                console.log(response.data);
+                console.log("response.data : " + response.data);
                 const donnees = response.data.data;
                 console.log("donnees : " + donnees);
                 donnees.forEach((s)=> console.log("s :" + s.saisie_Id));
