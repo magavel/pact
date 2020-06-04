@@ -63,7 +63,7 @@
         name: "inputByWeekly",
         computed: mapState({
             saisiesParPeriode: state => state.saisies.saisiesParPeriode,
-            datePeriode: state => state.saisies.saisiesFullByWeek,
+            datePeriode: state => state.saisies.dateSelectionee,
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {

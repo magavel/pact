@@ -54,7 +54,8 @@
                     tabDate.push(this.dateCalendrier[0].toISOString());
                     tabDate.push(this.dateCalendrier[1].toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDate);
-                    router.push({name: 'periodeListing'});
+                    this.$router.push({name: 'periodeListing'}, (data)=> {
+                        console.log('ds le router ', data)});
                 }
             }
         }
