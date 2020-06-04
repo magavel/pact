@@ -11,16 +11,16 @@
                 Chargement des données en cours.
             </template>
             <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
-            <Column field="saisie_phase" header="Missions" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_moduleLibelle" header="Missions" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="activite_Id" header="activite" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_activite_libelle" header="activite" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="saisie_commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="saisie_charge" header="charges" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_charges" header="charges" :sortable="true" filterMatchMode="contains">
 
             </Column>
             <Column header="Actions">
@@ -52,7 +52,7 @@
             }
         },
         created() {
-            this.$store.dispatch('saisies/getSaisies', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
+            this.$store.dispatch('saisies/getSaisies', [new Date().toISOString(), new Date().toISOString()]);
             console.log("saisies : " +this.$store.state.saisies);
             for(let prop in this.saisies){
                 console.log(`saisies.${prop} = ${this.saisies[prop]}`);
