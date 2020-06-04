@@ -5,6 +5,7 @@ const state = {
     dateDeSaisie: [],
     saisies: [],
     phases: [],
+    saisiesParPeriode: [],
     saisiesFullByWeek: [],
     errors: [], // log des erreurs
     success: [], // log des success
@@ -19,9 +20,6 @@ const mutations = {
     },
     GET_SAISIES_PAR_PERIODE(state, value){
         state.saisiesParPeriode = value;
-    },
-    GET_SAISIES_BY_WEEK_TEST(state, saisies){
-        state.saisies = saisies.data;
     },
     GET_SAISIES_BY_WEEK_TEST(state, saisies){
         state.saisies = saisies.data;

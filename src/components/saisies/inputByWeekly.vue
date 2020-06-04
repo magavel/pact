@@ -1,8 +1,7 @@
 <template>
     <div>
-
         <div class="text-center bg-white">
-            <span class="font-weight-bolder"> Du {{ activitiesByWeek.periode.start | dateFrFull() }} au {{ activitiesByWeek.periode.end | dateFrFull()}}</span>
+            <span class="font-weight-bolder"> Du {{ periode2.dateDebut | dateFrFull() }} au {{ periode2.dateFin | dateFrFull()}}</span>
         </div>
         <DataTable v-model="saisiesParPeriode"
                    class="p-datatable-responsive p-datatable-customers p-datatable-sm"
@@ -68,8 +67,8 @@
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {
-                dateDebut: this.periode.dateDebut,
-                dateFin: this.periode.dateFin
+                dateDebut: this.periode2.dateDebut,
+                dateFin: this.periode2.dateFin
             });
             this.calculPeriode(this.periode2);
         },

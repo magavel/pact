@@ -48,17 +48,13 @@
                 if(this.dateCalendrier[1] === null){
                     tabDate.push(this.dateCalendrier[0].toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDate);
-                    console.log("date selectionée : " + this.dateSelectionee);
                     router.push({ name: 'dailyListing'});
-                    console.log('DAILY');
                 }
                 else{
                     tabDate.push(this.dateCalendrier[0].toISOString());
                     tabDate.push(this.dateCalendrier[1].toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDate);
-                    console.log("date selectionée : " + this.dateSelectionee);
                     router.push({name: 'periodeListing'});
-                    console.log('PERIODE');
                 }
             }
         }
