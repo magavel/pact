@@ -3,7 +3,9 @@
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
                    :rows="4"
-                   dataKey="saisie_Id" :rowHover="true" :selection.sync="selectedSaisies">
+                   :scrollable="true"
+                   scrollHeight="200px"
+                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies">
             <template #empty>
                 Aucune Activités trouvées.
             </template>
@@ -11,34 +13,22 @@
                 Chargement des données en cours.
             </template>
             <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
-            <Column field="name" header="Missions" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Missions/ Modules</span>
-                    {{ slotProps.data.name}}
-                </template>
+            <Column field="SaisieFavorite_moduleLibelle" header="Missions" :sortable="true" filterMatchMode="contains">
+
             </Column>
-            <Column field="activite" header="activite" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Type d'activités</span>
-                    {{ slotProps.data.activite}}
-                </template>
+            <Column field="SaisieFavorite_activite_libelle" header="activite" :sortable="true" filterMatchMode="contains">
+
             </Column>
-            <Column field="commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Commentaire</span>
-                    {{ slotProps.data.commentaire}}
-                </template>
+            <Column field="SaisieFavorite_commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
+
             </Column>
-            <Column field="charges" header="charges" :sortable="true" filterMatchMode="contains">
-                <template #body="slotProps">
-                    <span class="p-column-title">Charges (h:m)</span>
-                    {{ slotProps.data.charges}}
-                </template>
+            <Column field="SaisieFavorite_charges" header="charges" :sortable="true" filterMatchMode="contains">
+
             </Column>
             <Column header="Actions">
-                <template #body>
+                <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-                    <Button type="button" icon="pi pi-star-o" class="p-button-secondary"></Button>
+                    <Button type="button" icon="pi pi-star-o" class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'></Button>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
                 </template>
             </Column>
@@ -48,48 +38,33 @@
 <script>
     import SaisieService from "../../services/saisie.service";
 
+
     export default {
         name: 'DataTableSaisies',
         data() {
             return {
                 selectedSaisies: null,
-                saisies: this.$store.state.saisies.saisies,
             }
         },
         computed: {
-           /* saisies(){
+            saisies(){
                 return this.$store.state.saisies.saisies;
-            },*/
+            },
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
             }
         },
         created() {
-            /*SaisieService.getSaisie('2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z').then(
-                (response) => {
-                    console.log(response.data);
-                    const donnees = response.data.data;
-                    console.log("donnees : " + donnees);
-                    donnees.forEach((s)=> console.log(s));
-                    for(let saisie of donnees){
-                        let dateSaisie = saisie.saisie_date.split("::");
-                        let newSaisie = {
-                            name: saisie.saisie_Id,
-                            activite: saisie.activite_Id,
-                            commentaire: saisie.saisie_commentaire,
-                            charges: saisie.saisie_charge+":00",
-                            date: dateSaisie[0]+"/"+parseInt(dateSaisie[1])+"/"+dateSaisie[2]
-                        };
-                        this.missions.push(newSaisie);
-                    }
-                    this.missions.forEach((m) => console.log("mission : " + m.date));
-                }
-            );*/
-            //this.$store.dispatch('saisies/getSaisieByWeekTest', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
-            this.$store.dispatch('saisies/getSaisies', ['2020-03-18T08:00:08.566Z', '2020-03-18T08:00:08.566Z']);
+            this.$store.dispatch('saisies/getSaisies', [new Date().toISOString(), new Date().toISOString()]);
             console.log("saisies : " +this.$store.state.saisies);
             for(let prop in this.saisies){
                 console.log(`saisies.${prop} = ${this.saisies[prop]}`);
+            }
+        },
+        methods:{
+            ajouterActiviteFavorite(props) {
+
+                this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
             }
         }
     }

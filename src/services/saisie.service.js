@@ -63,16 +63,13 @@ class SaisieService {
     //   "saisie_username" : "titi"
     //
     // }
-    postSaisie(typeActivite, charge, date, commentaire){
+    postSaisie(uneSaisie){
         const user = JSON.parse(localStorage.getItem('user'));
-        axios.post(config.API_URL.concat('phases/1/saisies'),
-            {
-                saisie_type_activite: typeActivite,
-                saisie_charge: charge,
-                saisie_date: date,
-                saisie_commentaire: commentaire,
-                saisie_username: user.username
-            });
+
+        axios.post(`${config.API_URL}phases/${uneSaisie.saisie_phaseId}/saisies`,
+            uneSaisie,{
+                headers: authHeader()
+            } );
     }
 
     /**
@@ -88,6 +85,19 @@ class SaisieService {
             headers: authHeader()
         });
 
+    }
+
+    /**
+     * ajouter un favoris.
+     * @param uneSaisie
+     */
+    updateActiviteFavorite(uneSaisie) {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        return axios.post(`${config.API_URL}users/${user.username}/favoris`,
+            uneSaisie,{
+                headers: authHeader()
+            } );
     }
 
 }

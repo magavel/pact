@@ -3,20 +3,18 @@
                             <span class="mr-2 ml-1">
                                 <img src="../../assets/event-24px.svg">
                             </span>
-        <Calendar v-model="dateSelectionee[0]" :locale="fr" dateFormat="dd/mm/yy"/>
+        <Calendar v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy" v-on:date-select="updateDate"/>
         <span class="ml-3 mr-3"> au </span>
-        <Calendar v-if="dateSelectionee[1] !== null" v-model="dateSelectionee[1]" :locale="fr" dateFormat="dd/mm/yy"/>
-        <Calendar v-else v-model="dateSelectionee[0]" :locale="fr" dateFormat="dd/mm/yy"/>
-
-
+        <Calendar v-if="dateDeSaisie[1] !== null" v-model="dateDeSaisie[1]" :locale="fr" dateFormat="dd/mm/yy"/>
+        <Calendar v-else v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"/>
     </div>
 </template>
 <script>
     export default {
         name: 'Periode',
         computed:{
-            dateSelectionee(){
-                return this.$store.state.saisies.dateSelectionee;
+            dateDeSaisie(){
+                return this.$store.state.saisies.dateDeSaisie;
             }
         },
         data(){
@@ -32,6 +30,18 @@
                     clear: 'Effacer',
                     weekHeader: 'Sm',
                 },
+                dateDebut: null,
+                dateFin: null,
+            }
+        },
+        created() {
+
+        },
+        methods: {
+            updateDate(){
+                console.log("UPDATE CALENDAR");
+                console.log(this.dateDeSaisie[0]);
+                this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
             }
         }
     }

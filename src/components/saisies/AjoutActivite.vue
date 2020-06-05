@@ -7,7 +7,7 @@
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="missionsData" option-label="name"/>
+                    <Dropdown v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
                 </div>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
@@ -21,7 +21,7 @@
                     <span>Type d'activités</span>
                 </div>
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="tabActivite"/>
+                    <Dropdown v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
                 </div>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
@@ -43,28 +43,54 @@
 <script>
     import Periode from "./Periode";
     import { mapState } from 'vuex';
+    import Saisie from "../../models/saisie";
 
     export default {
         computed:mapState( {
             phaseActives: state=> state.saisies.phaseActives,
+            refActivite: state=> state.references.refActivite,
             loading: false,
         }),
         data() {
             return {
-                selectedMission: [],
+                selectedMission: null,
                 commentaire:"",
-                selectedActivite: [],
+                selectedActivite: null,
                 charges: null,
-                tabActivite: [{phase_chemin: 'New York', code: 'NY'}],
-
+                tabActivite: null,
             }
         },
         created() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
-
+            this.$store.dispatch('references/getRefActivite');
         },
         methods: {
             clickValider() {
+
+               // alert(this.selectedMission.option-value);
+            //    alert(this.selectedActivite.option-value);
+               let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
+                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
+
+                let loop =  new Date(start)
+                while (loop <= end) {
+
+                    alert(this.charges);
+
+
+                    let newDate = loop.setDate(loop.getDate() + 1);
+                    loop = new Date(newDate);
+                    let uneSaisie = new Saisie();
+                    uneSaisie.saisie_phaseId = this.selectedMission;
+                    uneSaisie.activite_Id= this.selectedActivite;
+                    uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
+                    uneSaisie.saisie_commentaire = this.commentaire;
+                    uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
+                    uneSaisie.saisie_date = loop;
+
+                    this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
+
+                }
 
             }
         },

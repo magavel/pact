@@ -32,28 +32,33 @@
         computed: {
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
+            },
+            dateDeSaisie(){
+                return this.$store.state.saisies.dateDeSaisie;
             }
         },
         methods: {
             clickCalendar(){
-                console.log("date selectionée : " + this.dateSelectionee);
-                console.log("dateCalendrier : " + this.dateCalendrier);
-                console.log("dateCalendrier[0] : " + this.dateCalendrier[0]);
-                console.log("dateCalendrier[1] : " + this.dateCalendrier[1]);
-                let tabDate = [];
+                let tabDateISO = [];
+
 
                 //this.$store.commit('saisies/UPDATE_DATE', this.dateCalendrier.toISOString());
-                console.log("date selectionée : " + this.dateSelectionee);
 
-                if(this.dateCalendrier[1] === null){
-                    tabDate.push(this.dateCalendrier[0].toISOString());
-                    this.$store.commit('saisies/UPDATE_DATE', tabDate);
+                if(this.dateCalendrier[1] === null || this.dateCalendrier[1] === this.dateCalendrier[0]){
+                    tabDateISO.push(this.dateCalendrier[0].toISOString());
+                    tabDateISO.push(this.dateCalendrier[0].toISOString());
+                    this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
+                    this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[0]]);
+                    console.log("tabDateISO");
+                    console.log(tabDateISO[0]);
+                    this.$store.dispatch('saisies/getSaisies', tabDateISO);
                     router.push({ name: 'dailyListing'});
                 }
                 else{
-                    tabDate.push(this.dateCalendrier[0].toISOString());
-                    tabDate.push(this.dateCalendrier[1].toISOString());
-                    this.$store.commit('saisies/UPDATE_DATE', tabDate);
+                    tabDateISO.push(this.dateCalendrier[0].toISOString());
+                    tabDateISO.push(this.dateCalendrier[1].toISOString());
+                    this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
+                    this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[1]]);
                     this.$router.push({name: 'periodeListing'}, (data)=> {
                         console.log('ds le router ', data)});
                 }

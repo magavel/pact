@@ -1,7 +1,9 @@
 import SaisieService from '../../services/saisie.service';
+import userservice from "../../services/user.service";
+import router from "../../router";
 
 const state = {
-    dateSelectionee: new Date(),
+    dateSelectionee: [],
     dateDeSaisie: [],
     saisies: [],
     phases: [],
@@ -15,6 +17,15 @@ const mutations = {
     GET_SAISIES(state, saisies) {
         state.saisies = saisies.data;
     },
+    CREATE_SAISIES(state, saisies) {
+        state.saisies = [ saisies, ...state.saisies ];
+    },
+    UPDATE_SAISIES_SUCESS(state, succes) {
+        state.success = [ succes, ...state.succes ];
+    },
+    UPDATE_SAISIES_ERROR(state, succes) {
+        state.errors = [ succes, ...state.errors ];
+    },
     GET_PHASES_ACTIVES(state, phases) {
         state.phaseActives = phases.data;
     },
@@ -27,6 +38,9 @@ const mutations = {
     UPDATE_DATE(state, value){
         state.dateSelectionee = value;
     },
+    UPDATE_DATE_SAISIE(state, value){
+        state.dateDeSaisie = value;
+    },
     GET_SAISIES_PAR_PERIODE(state, value){
         state.saisiesParPeriode = value;
     },
@@ -36,10 +50,11 @@ const mutations = {
     CREATE_SUCCESS(state, succes) {
         state.success = [ succes, ...state.success ];
     },
+
 }
 
 const actions = {
-    getSaisieParPeriode( {commit}, periode) {
+    getSaisieParPeriode({commit}, periode) {
         SaisieService.getSaisieParPeriode(periode)
             .then((response) => {
                 console.log('getSaisieParPeriode', response.data.data);
@@ -54,17 +69,16 @@ const actions = {
             getSaisieParPeriode: ${err.message}`,
                 };
                 commit('CREATE_ERROR', error);
-            });;
+            });
+        ;
     },
-    getSaisies( {commit}, dateDebutFin){
+    getSaisies({commit}, dateDebutFin) {
         console.log("test");
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])
             .then((response) => {
-                console.log("response.data : " + response.data);
-                const donnees = response.data.data;
-                console.log("donnees : " + donnees);
-                donnees.forEach((s)=> console.log("s :" + s.saisie_Id));
-                commit('GET_SAISIES', response);
+                console.log("response.data : ");
+                console.log(response.data);
+                commit('GET_SAISIES', response.data);
             })
             .catch((err) => {
                 const error = {
@@ -76,7 +90,7 @@ const actions = {
                 commit('CREATE_ERROR', error);
             });
     },
-    getPhaseActivesUtilisateurs( {commit}) {
+    getPhaseActivesUtilisateurs({commit}) {
         console.log("store phases actives");
         SaisieService.getPhaseActivesUtilisateurs()
             .then((res) => {
@@ -97,7 +111,50 @@ const actions = {
                 };
                 commit('GET_PHASES_ACTIVES_ERROR', error);
             });
-    }
+    },
+    ajouterUneSaisie({commit}, uneSaisie) {
+        SaisieService.postSaisie(uneSaisie)
+            .then((res) => {
+                const succes = {
+                    date: new Date(),
+                    message: 'ajout une saisie',
+                }
+                commit('CREATE_SUCCESS', succes);
+
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec de la mise à jour 
+             dans la méthode 
+            ajouterUneSaisie: ${err.message}`,
+                };
+                commit('CREATE_ERROR', error);
+                console.log(error.message);
+            });
+    },
+    updateActiviteFavorite({commit}, uneSaisie) {
+        SaisieService.updateActiviteFavorite(uneSaisie)
+            .then((res) => {
+                const succes = {
+                    date: new Date(),
+                    message: 'mise à jour des favoris une saisie',
+                }
+                commit('UPDATE_SAISIES_SUCESS', succes);
+
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec de la mise à jour 
+             dans la méthode 
+            updateActiviteFavorite: ${err.message}`,
+                };
+                commit('UPDATE_SAISIES_ERROR', error);
+                console.log(error.message);
+            });
+    },
+
 }
 
 export default {
