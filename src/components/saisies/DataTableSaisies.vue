@@ -28,6 +28,7 @@
             <Column header="Actions">
                 <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
+
                     <Button type="button" icon="pi pi-star-o" class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'></Button>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
                 </template>
@@ -63,6 +64,7 @@
             ajouterActiviteFavorite(props) {
 
                 this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
+                this.$store.dispatch('users/getAllFavorites');
             }
         }
     }

@@ -70,7 +70,23 @@
             this.$store.dispatch('references/getRefActivite');
         },
         methods: {
-            clickValider(event) {
+            dateBetween: function(startDate, endDate) {
+                var dates = [],
+                    currentDate = startDate,
+                    addDays = function(days) {
+                        var date = new Date(this.valueOf());
+                        date.setDate(date.getDate() + days);
+                        return date;
+                    };
+                while (currentDate <= endDate) {
+                    dates.push(currentDate);
+                    currentDate = addDays.call(currentDate, 1);
+                }
+                return dates;
+            },
+           clickValider(event) {
+
+
 
                     let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
 
@@ -80,7 +96,11 @@
 
                // for (let loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
 
-                while (loop <= end) {
+
+               let dates = this.dateBetween(start, end);
+               dates.forEach((date) =>{
+
+
 
                     let uneSaisie = new Saisie();
                     uneSaisie.saisie_phaseId = this.selectedMission;
@@ -88,13 +108,13 @@
                     uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
                     uneSaisie.saisie_commentaire = this.commentaire;
                     uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
-                    uneSaisie.saisie_date = loop;
+                    uneSaisie.saisie_date = date;
 
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
-                    let newDate = loop.setDate(loop.getDate() + 1);
-                    loop = new Date(newDate);
 
-                }
+
+
+               });
 
                 this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
                 this.$store.dispatch('saisies/getSaisieParPeriode', {

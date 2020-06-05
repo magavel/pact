@@ -5,6 +5,8 @@
         <div class="row pl-5 mr-5">
     <DataTable v-model="favorites"
                class="p-datatable-responsive p-datatable-customers"
+               :scrollable="true"
+               scrollHeight="200px"
                :rows="4">
         <template #empty>
             Aucune Activités trouvées.
