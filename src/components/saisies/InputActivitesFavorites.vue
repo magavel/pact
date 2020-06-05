@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mb-4 pb-4">
         <Periode/>
     <p>Vos activites</p>
         <div class="row pl-5 mr-5">
