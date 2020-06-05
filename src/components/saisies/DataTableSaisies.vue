@@ -55,7 +55,9 @@
             }
         },
         created() {
-            this.$store.dispatch('saisies/getSaisies', [new Date().toISOString(), new Date().toISOString()]);
+            let dateJour = new Date();
+            dateJour.setHours(0, -dateJour.getTimezoneOffset(), 0, 0);
+            this.$store.dispatch('saisies/getSaisies', [dateJour.toISOString(), dateJour.toISOString()]);
         },
         methods:{
             ajouterActiviteFavorite(props) {
