@@ -114,7 +114,6 @@ const actions = {
     ajouterUneSaisie({commit}, uneSaisie) {
         SaisieService.postSaisie(uneSaisie)
             .then((res) => {
-                alert(res.response);
                 const succes = {
                     date: new Date(),
                     message: 'ajout une saisie',

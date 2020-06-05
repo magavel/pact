@@ -72,14 +72,18 @@
 
 
                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
+
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
 
-                let loop =  new Date(start)
-                while (loop <= end) {
+                let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
+
+                for (loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
+
+                //while (loop <= end) {
 
                     alert(this.charges);
-                    alert(this.$store.state.saisies.dateDeSaisie[0]);
-                    alert(this.$store.state.saisies.dateDeSaisie[1]);
+                    alert("debut :" +this.$store.state.saisies.dateDeSaisie[0]);
+                    alert("fin :" + this.$store.state.saisies.dateDeSaisie[1]);
 
 
                     let uneSaisie = new Saisie();
@@ -88,6 +92,8 @@
                     uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
                     uneSaisie.saisie_commentaire = this.commentaire;
                     uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
+
+                    alert("loop :" + loop);
                     uneSaisie.saisie_date = loop;
 
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
