@@ -69,17 +69,19 @@
 
                // alert(this.selectedMission.option-value);
             //    alert(this.selectedActivite.option-value);
+
+
                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
-                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
+               let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
 
                 let loop =  new Date(start)
                 while (loop <= end) {
 
                     alert(this.charges);
+                    alert(this.$store.state.saisies.dateDeSaisie[0]);
+                    alert(this.$store.state.saisies.dateDeSaisie[1]);
 
 
-                    let newDate = loop.setDate(loop.getDate() + 1);
-                    loop = new Date(newDate);
                     let uneSaisie = new Saisie();
                     uneSaisie.saisie_phaseId = this.selectedMission;
                     uneSaisie.activite_Id= this.selectedActivite;
@@ -89,6 +91,9 @@
                     uneSaisie.saisie_date = loop;
 
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
+
+                    let newDate = loop.setDate(loop.getDate() + 1);
+                    loop = new Date(newDate);
 
                 }
 

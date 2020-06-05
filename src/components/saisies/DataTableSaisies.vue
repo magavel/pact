@@ -2,7 +2,7 @@
     <div class="row mt-3 mr-auto">
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
-                   :rows="4"
+                   :rows="5"
                    :scrollable="true"
                    scrollHeight="200px"
                    dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies">

@@ -66,7 +66,7 @@ class SaisieService {
     postSaisie(uneSaisie){
         const user = JSON.parse(localStorage.getItem('user'));
 
-        axios.post(`${config.API_URL}phases/${uneSaisie.saisie_phaseId}/saisies`,
+        return axios.post(`${config.API_URL}phases/${uneSaisie.saisie_phaseId}/saisies`,
             uneSaisie,{
                 headers: authHeader()
             } );
