@@ -1,6 +1,11 @@
 <template>
     <div id="ajoutActivite" class="">
         <Periode/>
+        <form
+                id="formSaisie"
+                novalidate="true"
+                @submit.prevent="clickValider"
+        >
         <div class="row pl-5">
             <div class="col">
                 <div class="row">
@@ -35,9 +40,9 @@
         </div>
         <div class="row justify-content-end mr-3" style="margin-left: 39%">
             <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"
-                    v-on:click="clickValider"></Button>
+                    ></Button>
         </div>
-        <!-- </form> -->
+        </form>>
     </div>
 </template>
 <script>
@@ -65,26 +70,17 @@
             this.$store.dispatch('references/getRefActivite');
         },
         methods: {
-            clickValider() {
+            clickValider(event) {
 
-               // alert(this.selectedMission.option-value);
-            //    alert(this.selectedActivite.option-value);
-
-
-               let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
+                    let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
 
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
 
                 let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
 
-                for (loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
+               // for (let loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
 
-                //while (loop <= end) {
-
-                    alert(this.charges);
-                    alert("debut :" +this.$store.state.saisies.dateDeSaisie[0]);
-                    alert("fin :" + this.$store.state.saisies.dateDeSaisie[1]);
-
+                while (loop <= end) {
 
                     let uneSaisie = new Saisie();
                     uneSaisie.saisie_phaseId = this.selectedMission;
@@ -92,16 +88,26 @@
                     uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
                     uneSaisie.saisie_commentaire = this.commentaire;
                     uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
-
-                    alert("loop :" + loop);
                     uneSaisie.saisie_date = loop;
 
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
-
                     let newDate = loop.setDate(loop.getDate() + 1);
                     loop = new Date(newDate);
 
                 }
+
+                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+                this.$store.dispatch('saisies/getSaisieParPeriode', {
+                    dateDebut: this.$store.state.saisies.dateSelectionee[0],
+                    dateFin: this.$store.state.saisies.dateSelectionee[1]
+                });
+
+                this.selectedMission = null;
+                this.commentaire= "";
+                this.selectedActivite= null;
+                this.charges= null;
+                event.target.reset();
+
 
             }
         },

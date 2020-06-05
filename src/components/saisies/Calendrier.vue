@@ -45,6 +45,7 @@
                 //this.$store.commit('saisies/UPDATE_DATE', this.dateCalendrier.toISOString());
 
                 if(this.dateCalendrier[1] === null || this.dateCalendrier[1] === this.dateCalendrier[0]){
+                   // this.$store.state.saisies.saisies = [];
                     let dateDebut = this.dateCalendrier[0];
                     dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
                     tabDateISO.push(dateDebut.toISOString());
