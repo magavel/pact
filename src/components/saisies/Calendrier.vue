@@ -77,7 +77,9 @@
         background-position-y: -30px;
         background-position-x: 15px;*/
     }
-
+    p-calendar{
+        font-size: 10px;
+    }
 
     /deep/ #divCalendar .p-datepicker table {
         font-size: 50px;
@@ -103,7 +105,7 @@
        border: none;
        background-color: $secondary;
        // border-radius: 0px 30px 30px 0px;
-       border-radius: 0px 30px 30px 0px;
+       border-radius: 0 30px 30px 0;
    }
 
 

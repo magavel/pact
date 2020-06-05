@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="mt-5">
         <div class="text-center bg-white">
-            <span class="font-weight-bolder"> Du {{ periode2.dateDebut | dateFrFull() }} au {{ periode2.dateFin | dateFrFull()}}</span>
+            <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
         <DataTable v-model="saisiesParPeriode"
                    class="p-datatable-responsive p-datatable-customers p-datatable-sm"
@@ -64,17 +64,19 @@
         computed: mapState({
             saisiesParPeriode: state => state.saisies.saisiesParPeriode,
             datePeriode: state => state.saisies.dateSelectionee,
+
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {
-                dateDebut: this.periode2.dateDebut,
-                dateFin: this.periode2.dateFin
+                dateDebut: this.datePeriode[0],
+                dateFin: this.datePeriode[1]
             });
-            this.calculPeriode(this.periode2);
+            this.calculPeriode(this.datePeriode);
         },
         data() {
             return {
-                // todo recuperer les dates dans le store pour la periode
+
+                tableauPeriode:[],
                 periode:{dateDebut:'2020-03-18', dateFin:'2020-03-21'},
                 periode2:{dateDebut:'2020-03-18T18:20:33.516Z', dateFin:'2020-03-21T18:20:33.516Z'},
                 activitiesByWeek: {
@@ -93,10 +95,16 @@
         },
         methods: {
             calculPeriode(periode) {
-                let a = moment(periode.dateDebut);
-                let b = moment(periode.dateFin);
-                a.diff(b, 'days')
-                console.log('calculPeriode', b.diff(a, 'days'))
+                let a = moment(periode[0]);
+                let b = moment(periode[1]);
+                let n =0
+                let dureeTotal = b.diff(a, 'days')
+                this.tableauPeriode = [periode[0]];
+                while (n < dureeTotal) {
+                    this.tableauPeriode.push(JSON.stringify(moment([periode[0]]).add(n, 'days')));
+                    n++;
+                }
+                console.log('tableauPeriode', this.tableauPeriode)
             }
         },
     }
