@@ -181,5 +181,18 @@
         color: white;
     }
 
+    .PACTNG_PMV{
+        background-color: #069F90;
+        border-radius: 8px;
+        color: white;
+
+    }
+
+    .PACTNG_INFOCENTRE{
+        background-color: #AA2393;
+        border-radius: 8px;
+        color: white;
+
+    }
 
 </style>
