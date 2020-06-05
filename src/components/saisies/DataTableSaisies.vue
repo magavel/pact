@@ -14,7 +14,11 @@
             </template>
             <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
             <Column field="SaisieFavorite_moduleLibelle" header="Missions" :sortable="true" filterMatchMode="contains">
-
+                <template #body="slotProps">
+                    <div :class="slotProps.data.SaisieFavorite_moduleLibelle" class="pl-3">
+                        {{ slotProps.data.SaisieFavorite_moduleLibelle}}
+                    </div>
+                </template>
             </Column>
             <Column field="SaisieFavorite_activite_libelle" header="activite" :sortable="true" filterMatchMode="contains">
 
@@ -106,20 +110,23 @@
         }
     }
 
-    .testBg1{
+    .PACTNG_PMV{
         background-color: #069F90;
         border-radius: 8px;
         color: white;
+        width: 9em;
     }
 
-    .testBg2{
+    .PACTNG_INFOCENTRE{
         background-color: #AA2393;
         border-radius: 8px;
         color: white;
+        width: 9em;
     }
     .testBg3{
         background-color: #4028A7;
         border-radius: 8px;
         color: white;
+
     }
 </style>
