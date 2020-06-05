@@ -8,7 +8,6 @@
                    :rows="4"
                    :resizableColumns="true"
                    columnResizeMode="expand"
-                   :paginator="true" rows="2"
         >
             <template #empty>
                 Aucune Activités trouvées.

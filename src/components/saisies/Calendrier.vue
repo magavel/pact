@@ -45,18 +45,22 @@
                 //this.$store.commit('saisies/UPDATE_DATE', this.dateCalendrier.toISOString());
 
                 if(this.dateCalendrier[1] === null || this.dateCalendrier[1] === this.dateCalendrier[0]){
-                    tabDateISO.push(this.dateCalendrier[0].toISOString());
-                    tabDateISO.push(this.dateCalendrier[0].toISOString());
+                    let dateDebut = this.dateCalendrier[0];
+                    dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+                    tabDateISO.push(dateDebut.toISOString());
+                    tabDateISO.push(dateDebut.toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[0]]);
-                    console.log("tabDateISO");
-                    console.log(tabDateISO[0]);
                     this.$store.dispatch('saisies/getSaisies', tabDateISO);
                     router.push({ name: 'dailyListing'});
                 }
                 else{
-                    tabDateISO.push(this.dateCalendrier[0].toISOString());
-                    tabDateISO.push(this.dateCalendrier[1].toISOString());
+                    let dateDebut = this.dateCalendrier[0];
+                    let dateFin = this.dateCalendrier[1];
+                    dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+                    dateFin = setHours(0, -dateFin.getTimezoneOffset(), 0, 0);
+                    tabDateISO.push(dateDebut.toISOString());
+                    tabDateISO.push(dateFin.toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[1]]);
                     this.$router.push({name: 'periodeListing'}, (data)=> {

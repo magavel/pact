@@ -3,7 +3,9 @@ import userservice from "../../services/user.service";
 import router from "../../router";
 
 const state = {
+    // format : 2020-06-04T22:00:00.000Z
     dateSelectionee: [],
+    // format : Fri Jun 05 2020 09:35:47 GMT+0200 (heure d’été d’Europe centrale)
     dateDeSaisie: [],
     saisies: [],
     phases: [],
@@ -72,12 +74,9 @@ const actions = {
             });
         ;
     },
-    getSaisies({commit}, dateDebutFin) {
-        console.log("test");
+    getSaisies( {commit}, dateDebutFin){
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])
             .then((response) => {
-                console.log("response.data : ");
-                console.log(response.data);
                 commit('GET_SAISIES', response.data);
             })
             .catch((err) => {
