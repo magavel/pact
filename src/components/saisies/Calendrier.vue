@@ -51,14 +51,13 @@
                     tabDateISO.push(dateDebut.toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[0]]);
-                    this.$store.dispatch('saisies/getSaisies', tabDateISO);
                     router.push({ name: 'dailyListing'});
                 }
                 else{
                     let dateDebut = this.dateCalendrier[0];
                     let dateFin = this.dateCalendrier[1];
                     dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
-                    dateFin = setHours(0, -dateFin.getTimezoneOffset(), 0, 0);
+                    dateFin.setHours(0, -dateFin.getTimezoneOffset(), 0, 0);
                     tabDateISO.push(dateDebut.toISOString());
                     tabDateISO.push(dateFin.toISOString());
                     this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
@@ -86,9 +85,7 @@
         background-position-y: -30px;
         background-position-x: 15px;*/
     }
-    p-calendar{
-        font-size: 10px;
-    }
+
 
     /deep/ #divCalendar .p-datepicker table {
         font-size: 50px;
@@ -114,7 +111,7 @@
        border: none;
        background-color: $secondary;
        // border-radius: 0px 30px 30px 0px;
-       border-radius: 0 30px 30px 0;
+       border-radius: 0px 30px 30px 0px;
    }
 
 
