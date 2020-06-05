@@ -53,10 +53,6 @@
         },
         created() {
             this.$store.dispatch('saisies/getSaisies', [new Date().toISOString(), new Date().toISOString()]);
-            console.log("saisies : " +this.$store.state.saisies);
-            for(let prop in this.saisies){
-                console.log(`saisies.${prop} = ${this.saisies[prop]}`);
-            }
         }
     }
 </script>
