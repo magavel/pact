@@ -3,7 +3,9 @@
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
                    :rows="4"
-                   dataKey="saisie_Id" :rowHover="true" :selection.sync="selectedSaisies">
+                   :scrollable="true"
+                   scrollHeight="200px"
+                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies">
             <template #empty>
                 Aucune Activités trouvées.
             </template>
@@ -24,9 +26,9 @@
 
             </Column>
             <Column header="Actions">
-                <template #body>
+                <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-                    <Button type="button" icon="pi pi-star-o" class="p-button-secondary"></Button>
+                    <Button type="button" icon="pi pi-star-o" class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'></Button>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
                 </template>
             </Column>
@@ -35,6 +37,7 @@
 </template>
 <script>
     import SaisieService from "../../services/saisie.service";
+
 
     export default {
         name: 'DataTableSaisies',
@@ -53,6 +56,12 @@
         },
         created() {
             this.$store.dispatch('saisies/getSaisies', [new Date().toISOString(), new Date().toISOString()]);
+        },
+        methods:{
+            ajouterActiviteFavorite(props) {
+
+                this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
+            }
         }
     }
 </script>
