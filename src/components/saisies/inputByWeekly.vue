@@ -36,13 +36,16 @@
                 </template>
 
             </Column>
-            <Column v-for="date in activitiesByWeek.periode" :field="date" :key="date"
+            <Column v-for="date in periode" :field="date" :key="date"
                     :header="date | dateFrShort()">
+
             </Column>
             <Column header="Actions"  headerStyle="width: 100px">
                 <template #body>
-                    <Button type="button" icon="pi pi-plus" class="p-button-secondary"></Button>
-                    <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
+                    <div class="d-flex flex-nowrap">
+                        <Button type="button" icon="pi pi-plus" class="p-button-secondary"></Button>
+                        <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
+                    </div>
                 </template>
             </Column>
         </DataTable>
@@ -64,34 +67,17 @@
         computed: mapState({
             saisiesParPeriode: state => state.saisies.saisiesParPeriode,
             datePeriode: state => state.saisies.dateDeSaisie,
-
-
+            dateSaisiePeriode: state => state.saisies.dateSelectionee,
+            periode(){
+                return (utils.dateBetween(this.datePeriode[0], this.datePeriode[1]))
+            },
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {
-                dateDebut: this.datePeriode[0],
-                dateFin: this.datePeriode[1]
+                dateDebut: this.dateSaisiePeriode[0],
+                dateFin: this.dateSaisiePeriode[1]
             });
-            console.log('tableau de utils',utils.dateBetween(this.datePeriode[0], this.datePeriode[1]))
-        },
-        data() {
-            return {
-                tableauPeriode:[],
-                periode:{dateDebut:'2020-03-18', dateFin:'2020-03-21'},
-                periode2:{dateDebut:'2020-03-18T18:20:33.516Z', dateFin:'2020-03-21T18:20:33.516Z'},
-                activitiesByWeek: {
-                    periode: [
-                        '2020-05-18',
-                        '2020-05-19',
-                        '2020-05-20',
-                        '2020-05-21',
-                        '2020-05-22',
-                        '2020-05-23',
-                        '2020-05-24',
-                    ],
-
-                }
-            }
+            console.log("saisiesParPeriode",saisiesParPeriode)
         },
         methods: {
         },
