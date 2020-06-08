@@ -71,10 +71,10 @@
         },
         methods: {
             dateBetween: function(startDate, endDate) {
-                var dates = [],
+                let dates = [],
                     currentDate = startDate,
                     addDays = function(days) {
-                        var date = new Date(this.valueOf());
+                        let date = new Date(this.valueOf());
                         date.setDate(date.getDate() + days);
                         return date;
                     };
@@ -85,23 +85,12 @@
                 return dates;
             },
            clickValider(event) {
-
-
-
-                    let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
-
+               let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
-
-                let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
-
+               let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
                // for (let loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
-
-
                let dates = this.dateBetween(start, end);
                dates.forEach((date) =>{
-
-
-
                     let uneSaisie = new Saisie();
                     uneSaisie.saisie_phaseId = this.selectedMission;
                     uneSaisie.activite_Id= this.selectedActivite;
@@ -109,26 +98,18 @@
                     uneSaisie.saisie_commentaire = this.commentaire;
                     uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
                     uneSaisie.saisie_date = date;
-
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
-
-
-
                });
-
                 this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
                 this.$store.dispatch('saisies/getSaisieParPeriode', {
                     dateDebut: this.$store.state.saisies.dateSelectionee[0],
                     dateFin: this.$store.state.saisies.dateSelectionee[1]
                 });
-
                 this.selectedMission = null;
                 this.commentaire= "";
                 this.selectedActivite= null;
                 this.charges= null;
                 event.target.reset();
-
-
             }
         },
         name: 'AjoutActivite',

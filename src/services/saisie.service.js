@@ -22,7 +22,7 @@ class SaisieService {
     const user = JSON.parse(localStorage.getItem('user'));
     const dateDebut = periode.dateDebut;
     const dateFin = periode.dateFin;
-    console.log('periode dans le service', periode)
+    // console.log('periode dans le service', periode)
 
     return axios.get(`${config.API_URL}users/${user.username}/saisiesByWeek?dateDebut=${dateDebut}&dateFin=${dateFin}`, {
       headers: authHeader()
