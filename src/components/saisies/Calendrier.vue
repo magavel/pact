@@ -115,5 +115,16 @@
        border-radius: 0px 30px 30px 0px;
    }
 
+    /deep/ .p-datepicker .p-datepicker-header{
+        border-bottom: none;
+    }
+
+    /deep/ .p-datepicker .p-datepicker-header .p-datepicker-prev{
+        color: black;
+    }
+
+    /deep/.p-datepicker .p-datepicker-header .p-datepicker-next{
+        color: black;
+    }
 
 </style>
