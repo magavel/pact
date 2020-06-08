@@ -17,6 +17,15 @@ class SaisieService {
         });
     }
 
+    supprimerSaisie(saisieId) {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        /*return axios.delete(`${config.API_URL}phases/saisies/${saisieId}`), {
+            headers: authHeader()
+        });*/
+    }
+
+
   getSaisieParPeriode(periode){
     // GET http://localhost:8080/apiPactNG/api/v1/users/titi/saisiesByWeek?dateDebut=2020-03-18T08:00:08.566Z&dateFin=2020-03-18T08:00:08.566Z
     const user = JSON.parse(localStorage.getItem('user'));

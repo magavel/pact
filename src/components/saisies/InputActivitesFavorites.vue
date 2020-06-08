@@ -7,7 +7,7 @@
                class="p-datatable-responsive p-datatable-customers"
                :scrollable="true"
                scrollHeight="200px"
-               :rows="4">
+               :rows="4" :key="componentKey">
         <template #empty>
             Aucune Activités trouvées.
         </template>
@@ -64,7 +64,7 @@
             Voulez-vous supprimer votre activité favorites ?
             <template #footer>
                 <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerFavoris" />
-                <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.prevent="fermerSupprimerDialog" />
+                <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.passive="fermerSupprimerDialog" />
             </template>
         </Dialog>
     </div>
@@ -85,6 +85,7 @@
         return {
             display: false,
             selectedSupprime : null, // favoris selectionnée
+            componentKey: 0,
         }
       },
       methods: {
@@ -96,7 +97,13 @@
               this.display = false;
           },
           supprimerFavoris(e) {
-              this.$store.dispatch('users/supprimerFavoris', this.selectedSupprime.SaisieFavorite_saisieId );
+              this.$store.dispatch('users/supprimerFavoris', this.selectedSupprime.SaisieFavorite_saisieId);
+              this.display = false;
+              this.$store.dispatch('users/getAllFavorites');
+              this.forceRerender();
+          },
+          forceRerender() {
+              this.componentKey += 1;
           }
       },
     name: 'InputActivitesFavorites',

@@ -43,6 +43,12 @@ const mutations = {
   GET_FAVORITE_ERROR(state, error) {
     state.errors = [ error, ...state.errors ];
   },
+  DELETE_FAVORITE_SUCCESS(state, succes) {
+    state.success = [ succes, ...state.success ];
+  },
+  DELETE_FAVORITE_ERROR(state, error) {
+    state.errors = [ error, ...state.errors ];
+  },
 };
 
 const actions = {
@@ -67,6 +73,25 @@ const actions = {
         commit('GET_FAVORITE_ERROR', error);
       });
   },
+  supprimerFavoris({commit}, Saisie_id) {
+    userservice.supprimerFavoris(Saisie_id)
+        .then((res) => {
+          const succes = {
+            date: new Date(),
+            message: 'suppression du favoris',
+          }
+         commit('DELETE_FAVORITE_SUCCESS', succes);
+
+        })
+        .catch((err) => {
+          const error = {
+            date: new Date(),
+            message: `echec sur la suppression du favoris: ${err.message}`,
+          };
+          commit('DELETE_FAVORITE_ERROR', error);
+        });
+  },
+
   createUser({ commit }, user) {
     userservice.createUser(user)
       .then((response) => {

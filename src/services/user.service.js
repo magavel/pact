@@ -15,6 +15,16 @@ class UserService {
   }
 
   /**
+   * methode de suppression des favoris.
+   * @param Saisie_id
+   */
+  supprimerFavoris(saisie_id) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return axios.delete(`${config.API_URL}users/${user.username}/favoris/${saisie_id}`, { headers: authHeader() });
+
+  }
+
+  /**
    * methode creation des utilisateurs.
    * @param user unUser
    * @returns {Promise<AxiosResponse<any>>}
