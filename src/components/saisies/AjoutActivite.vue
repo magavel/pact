@@ -105,6 +105,7 @@
                     dateDebut: this.$store.state.saisies.dateSelectionee[0],
                     dateFin: this.$store.state.saisies.dateSelectionee[1]
                 });
+                this.$parent.DataTableSaisies.forceRerender();
                 this.selectedMission = null;
                 this.commentaire= "";
                 this.selectedActivite= null;

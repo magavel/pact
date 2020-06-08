@@ -5,7 +5,7 @@
                    :rows="5"
                    :scrollable="true"
                    scrollHeight="200px"
-                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies">
+                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies" :key="componentKey">
             <template #empty>
                 Aucune Activités trouvées.
             </template>
@@ -51,6 +51,7 @@
             return {
                 selectedSaisies: null,
                 favChecked: false,
+                componentKey : 0,
             }
         },
         computed: {
@@ -71,6 +72,9 @@
                 this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
                 this.$store.dispatch('users/getAllFavorites');
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+            },
+            forceRerender() {
+                this.componentKey += 1;
             }
         }
     }
