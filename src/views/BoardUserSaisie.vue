@@ -19,13 +19,13 @@
     </div>
     <div id="formulaire">
       <Tabs>
-        <Tab name="Nouvelle activité" :selected="true">
+        <Tab name="Nouvelle activité" icon="pi pi-calendar-plus" :selected="true">
           <AjoutActivite/>
         </Tab>
-        <Tab name="Activités favorites" >
+        <Tab name="Activités favorites" icon="pi pi-star-o">
           <InputActivitesFavorites />
         </Tab>
-        <Tab name="Journées types">
+        <Tab name="Journées types" icon="pi pi-heart">
             <InputJourneeFavorites />
         </Tab>
       </Tabs>

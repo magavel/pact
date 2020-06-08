@@ -57,12 +57,14 @@
 <script>
     import {mapState} from "vuex";
     import  moment from "moment";
+    import utils from '../../shared/utils'
 
     export default {
         name: "inputByWeekly",
         computed: mapState({
             saisiesParPeriode: state => state.saisies.saisiesParPeriode,
-            datePeriode: state => state.saisies.dateSelectionee,
+            datePeriode: state => state.saisies.dateDeSaisie,
+
 
         }),
         created() {
@@ -70,11 +72,10 @@
                 dateDebut: this.datePeriode[0],
                 dateFin: this.datePeriode[1]
             });
-            this.calculPeriode(this.datePeriode);
+            console.log('tableau de utils',utils.dateBetween(this.datePeriode[0], this.datePeriode[1]))
         },
         data() {
             return {
-
                 tableauPeriode:[],
                 periode:{dateDebut:'2020-03-18', dateFin:'2020-03-21'},
                 periode2:{dateDebut:'2020-03-18T18:20:33.516Z', dateFin:'2020-03-21T18:20:33.516Z'},
@@ -93,18 +94,6 @@
             }
         },
         methods: {
-            calculPeriode(periode) {
-                let a = moment(periode[0]);
-                let b = moment(periode[1]);
-                let n =0
-                let dureeTotal = b.diff(a, 'days')
-                this.tableauPeriode = [periode[0]];
-                while (n < dureeTotal) {
-                    this.tableauPeriode.push(JSON.stringify(moment([periode[0]]).add(n, 'days')));
-                    n++;
-                }
-                console.log('tableauPeriode', this.tableauPeriode)
-            }
         },
     }
 </script>

@@ -7,6 +7,7 @@
         name: "Tab",
         props: {
             name: { required: true },
+            icon: { required: true},
             selected: { default: false}
         },
 

@@ -4,7 +4,7 @@
             <span class="titre mt-5 ml-3">Ajouter une activité</span>
             <ul class="d-flex justify-content-center" style="list-style: none">
                 <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }" class="onglet pt-3">
-                    <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
+                    <a :href="tab.href" @click="selectTab(tab)"><i v-bind:class="tab.icon" class="mr-1"></i>{{ tab.name }}</a>
                 </li>
             </ul>
         </div>
@@ -59,6 +59,7 @@
 
     .onglet a{
         color: #535353;
+        margin-right: 0px;
     }
 
     .is-active{

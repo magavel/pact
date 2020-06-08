@@ -59,7 +59,7 @@ const actions = {
     getSaisieParPeriode({commit}, periode) {
         SaisieService.getSaisieParPeriode(periode)
             .then((response) => {
-                console.log('getSaisieParPeriode', response.data.data);
+                // console.log('getSaisieParPeriode', response.data.data);
                 commit('GET_SAISIES_PAR_PERIODE', response.data.data)
 
             })
