@@ -23,7 +23,7 @@
           <AjoutActivite/>
         </Tab>
         <Tab name="Activités favorites" icon="pi pi-star-o">
-          <InputActivitesFavorites />
+          <InputActivitesFavorites :key="activiteFavKey" />
         </Tab>
         <Tab name="Journées types" icon="pi pi-heart">
             <InputJourneeFavorites />
@@ -51,6 +51,11 @@
       Tab,
       InputActivitesFavorites,
         InputJourneeFavorites
+    },
+    computed: {
+      activiteFavKey(){
+        return this.$store.state.saisies.activiteFavKey;
+      }
     }
   }
 </script>

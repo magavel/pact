@@ -32,7 +32,9 @@
             <Column header="Actions">
                 <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-                    <Button type="button" icon="pi pi-star-o" class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'></Button>
+                    <ToggleButton v-model="favChecked" type="button"
+                                  class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'
+                                  off-icon="pi pi-star-o" on-icon="pi pi-star"></ToggleButton>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
                 </template>
             </Column>
@@ -48,6 +50,7 @@
         data() {
             return {
                 selectedSaisies: null,
+                favChecked: false,
             }
         },
         computed: {
@@ -65,9 +68,9 @@
         },
         methods:{
             ajouterActiviteFavorite(props) {
-
                 this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
                 this.$store.dispatch('users/getAllFavorites');
+                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
             }
         }
     }
@@ -127,5 +130,33 @@
         border-radius: 8px;
         color: white;
 
+    }
+
+    /deep/ .p-togglebutton.p-button .p-button-icon-left{
+        color: #1976D2;
+    }
+
+    /deep/ .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-left{
+        color: #1976D2;
+    }
+
+    .p-togglebutton{
+        height: 2.1em;
+    }
+
+    /deep/ .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover{
+        border-color: #2196F3;
+    }
+
+    /deep/ .p-togglebutton.p-button.p-highlight{
+        background-color: white;
+    }
+
+    /deep/ .p-togglebutton.p-button.p-highlight:hover{
+        background-color: #e9ecef;
+    }
+
+    /deep/ .p-togglebutton.p-button.p-highlight:hover .p-button-icon-left{
+        color: #1976D2;
     }
 </style>
