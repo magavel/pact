@@ -13,6 +13,7 @@ const state = {
     errors: [], // log des erreurs
     success: [], // log des success
     phaseActives: [],
+    activiteFavKey: 0
 };
 
 const mutations = {
@@ -52,6 +53,10 @@ const mutations = {
     CREATE_SUCCESS(state, succes) {
         state.success = [ succes, ...state.success ];
     },
+    UPDATE_ACTIVITE_FAV_KEY(state){
+        state.activiteFavKey += 1;
+        console.log('state.activiteFavKey', state.activiteFavKey);
+    }
 
 }
 
