@@ -56,6 +56,9 @@
       activiteFavKey(){
         return this.$store.state.saisies.activiteFavKey;
       }
+    },
+    created() {
+      this.$store.dispatch('users/getAllFavorites');
     }
   }
 </script>
