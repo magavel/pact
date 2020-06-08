@@ -22,7 +22,7 @@
         <Tab name="Nouvelle activité" :selected="true">
           <AjoutActivite/>
         </Tab>
-        <Tab name="Activités favorites">
+        <Tab name="Activités favorites" >
           <InputActivitesFavorites />
         </Tab>
         <Tab name="Journées types">

@@ -48,15 +48,25 @@
             </template>
         </Column>
         <Column header="Actions">
-            <template #body>
+            <template #body="slotProps">
                 <Button type="button" icon="pi pi-plus" class="p-button-secondary"></Button>
-                <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
+                <Button type="button" icon="pi pi-times" class="p-button-secondary" @click.prevent="afficherSupprimerDialog(slotProps)"></Button>
             </template>
         </Column>
     </DataTable>
         </div>
         <div class="row">
         </div>
+        <Dialog :visible.sync="display">
+            <template #header>
+                <h3>Confirmation</h3>
+            </template>
+            Voulez-vous supprimer votre activité favorites ?
+            <template #footer>
+                <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerFavoris" />
+                <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.prevent="fermerSupprimerDialog" />
+            </template>
+        </Dialog>
     </div>
 </template>
 <script>
@@ -71,6 +81,24 @@
     created() {
       this.$store.dispatch('users/getAllFavorites');
     },
+      data() {
+        return {
+            display: false,
+            selectedSupprime : null, // favoris selectionnée
+        }
+      },
+      methods: {
+          afficherSupprimerDialog(props) {
+              this.display = true;
+              this.selectedSupprime = this.favorites[props.index];
+          },
+          fermerSupprimerDialog(e) {
+              this.display = false;
+          },
+          supprimerFavoris(e) {
+              this.$store.dispatch('users/supprimerFavoris', this.selectedSupprime.SaisieFavorite_saisieId );
+          }
+      },
     name: 'InputActivitesFavorites',
       components: {Periode}
   }

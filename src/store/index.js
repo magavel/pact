@@ -7,6 +7,7 @@ import modules from './modules/modules';
 import users from './modules/users';
 import saisies from "./modules/saisies";
 import references from "./modules/references";
+import equipes from "./modules/equipes";
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     modules,
     users,
     saisies,
-    references
+    references,
+    equipes
   },
 });

@@ -20,8 +20,12 @@
                     <input v-model="password" type="text" id="password" name="password" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="password">Roles</label>
-                    <MultiSelect v-model="selectedRole" :options="roles" optionLabel="type" placeholder="Selection les rôles" />
+                    <label for="roles">Roles</label>
+                    <MultiSelect name="roles" v-model="selectedRole" :options="roles" optionLabel="type" placeholder="Selection les rôles" />
+                </div>
+                <div class="form-group">
+                    <label for="equipes">Equipes</label>
+                    <MultiSelect name="equipes" v-model="selectedEquipe" :options="equipes" optionLabel="equipe_libelleEquipe" placeholder="Selection les equipes" />
                 </div>
                 <div class="form-group" v-if="errors_form.length">
                     <strong>Corriger les erreurs suivantes:</strong>
@@ -43,10 +47,12 @@
   export default {
     computed:mapState( {
       users: state=> state.users.users,
-      loading: false,
+        equipes: state=> state.equipes.equipes,
+        loading: false,
     }),
     created() {
       this.$store.dispatch('users/getAllUsers');
+      this.$store.dispatch('equipes/getAllEquipes');
     },
     data() {
       return {
@@ -63,6 +69,7 @@
           { type: "ROLE_PILOTE", value: "ROLE_PILOTE" },
           { type: "ROLE_ADMIN", value: "ROLE_ADMIN" },
         ],
+          selectedEquipe:null,
       }
     },
     methods: {
@@ -98,6 +105,9 @@
                     unUser.utilisateur_roles.push(y.value)
                 }
             );
+            this.selectedEquipe.forEach((x) => {
+                unUser.utilisateur_equipes.push(x.equipe_libelleEquipe)
+            })
 
           this.$store.dispatch('users/createUser', unUser);
           this.$toast.add({severity:'success', summary: 'Success Message', detail:'Utilisateur crée', life: 3000});

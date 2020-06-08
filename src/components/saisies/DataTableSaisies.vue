@@ -32,7 +32,6 @@
             <Column header="Actions">
                 <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-
                     <Button type="button" icon="pi pi-star-o" class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'></Button>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
                 </template>
@@ -121,7 +120,7 @@
         background-color: #AA2393;
         border-radius: 8px;
         color: white;
-        width: 9em;
+        width: 12em;
     }
     .testBg3{
         background-color: #4028A7;
