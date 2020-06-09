@@ -32,7 +32,7 @@
             <Column header="Actions">
                 <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-                    <ToggleButton v-model="favChecked" type="button"
+                    <ToggleButton v-model="slotProps.data.SaisieFavorite_isFavorite" type="button"
                                   class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'
                                   off-icon="pi pi-star-o" on-icon="pi pi-star"></ToggleButton>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
@@ -50,7 +50,6 @@
         data() {
             return {
                 selectedSaisies: null,
-                favChecked: false,
                 componentKey : 0,
             }
         },
@@ -60,7 +59,7 @@
             },
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
-            }
+            },
         },
         created() {
             let dateJour = new Date();
