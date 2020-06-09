@@ -1,5 +1,6 @@
 <template>
     <div class="mb-4 pb-4">
+        <Toast />
         <Periode/>
     <p>Vos activites</p>
         <div class="row pl-5 mr-5">
@@ -87,6 +88,7 @@
             display: false,
             selectedSupprime : null, // favoris selectionnée
             componentKey: 0,
+            messages: [],
         }
       },
       methods: {
@@ -100,9 +102,11 @@
               uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
               uneSaisie.saisie_date = new Date(this.$store.state.saisies.dateDeSaisie[0]);
               this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
-              this.$store.dispatch('users/getAllFavorites');
-              this.$parent.$parent.$parent.$forceUpdate(); // a checker
+              this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+              this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
               this.forceRerender();
+              this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
+
 
           },
           afficherSupprimerDialog(props) {
@@ -117,6 +121,9 @@
               this.display = false;
               this.$store.dispatch('users/getAllFavorites');
               this.forceRerender();
+              this.$toast.add({severity:'info', summary: 'Info Message', detail:'Activité favorite supprimée', life: 3000});
+              this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+              this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
           },
           forceRerender() {
               this.componentKey += 1;

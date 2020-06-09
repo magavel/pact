@@ -15,6 +15,13 @@
                    :resizableColumns="true"
                    columnResizeMode="expand"
         >
+            <ColumnGroup type="header">
+                <Row>
+                    <Column header="Missions/ Modules"  />
+                    <Column header="Type d'activités" />
+                    <Column v-for="activite of header" header="1"  :key="activite.chargeHebdomadaire_saisieId"/>
+                </Row>
+            </ColumnGroup>
             <template #empty>
                 Aucune Activités trouvées.
             </template>
@@ -22,7 +29,6 @@
                 Chargement des données en cours.
             </template>
             <Column field="saisieByWeek_moduleLibelle"
-                    header="Missions/ Modules"
                     headerStyle="width: 150px"
             >
                 <template #body="slotProps">
@@ -32,7 +38,6 @@
                 </template>
             </Column>
             <Column field="saisieByWeek_activite_id"
-                    header="Type d'activités"
                     headerStyle="width: 100px"
             >
                 <template #body="slotProps">
@@ -42,7 +47,9 @@
                 </template>
 
             </Column>
-            <Column v-for="activite of saisieByWeek_charges"
+
+
+         <Column v-for="activite of saisieByWeek_charges"
                     :header="activite.chargeHebdomadaire_date "
                     :field="activite.chargeHebdomadaire_charges"
                     :key="activite.chargeHebdomadaire_saisieId"
@@ -82,7 +89,14 @@
                 dateDebut: this.dateSaisiePeriode[0],
                 dateFin: this.dateSaisiePeriode[1]
             });
+
         },
+        data () {
+            return {
+                header : [],
+            }
+        },
+
         methods: {
         },
     }
@@ -175,3 +189,5 @@
     }
 
 </style>
+
+{"data":[{"saisieByWeek_moduleLibelle":"PACTNG_PMV","saisieByWeek_moduleId":1,"saisieByWeek_activite_id":"Appui-tech","01-02":5.5,"02-2":5.5}]

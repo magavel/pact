@@ -22,6 +22,8 @@ import TreeTable from 'primevue/treetable';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import Dialog from 'primevue/dialog';
+import Row from 'primevue/row';
+
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -110,6 +112,7 @@ Vue.component('Message',Message);
 Vue.component('TreeTable',TreeTable);
 Vue.component('Toast',Toast);
 Vue.component('Dialog', Dialog),
+    Vue.component('Row',Row),
 
 
 // les filtres... ou pipes c'est la même chose...

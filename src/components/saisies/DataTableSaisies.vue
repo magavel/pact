@@ -1,5 +1,6 @@
 <template>
     <div class="row mt-3 mr-auto">
+        <Toast />
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
                    :rows="5"
@@ -68,9 +69,15 @@
         },
         methods:{
             ajouterActiviteFavorite(props) {
-                this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
-                this.$store.dispatch('users/getAllFavorites');
-                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                if (this.saisies[props.index].SaisieFavorite_isFavorite) {
+                    this.$store.dispatch('users/supprimerFavoris', this.saisies[props.index].SaisieFavorite_saisieId);
+                    this.$store.dispatch('users/getAllFavorites');
+                    this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                } else {
+                    this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
+                    this.$store.dispatch('users/getAllFavorites');
+                    this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                }
             },
             forceRerender() {
                 this.componentKey += 1;

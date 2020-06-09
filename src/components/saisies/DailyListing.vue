@@ -1,7 +1,7 @@
 <template>
     <div>
         <TitreDate/>
-        <DataTableSaisies/>
+        <DataTableSaisies :key="tableauSaisieKey" />
         <TotalCharges/>
     </div>
 </template>
@@ -12,6 +12,11 @@
 
     export default {
         name: 'DailyListing',
-        components: {DataTableSaisies, TitreDate, TotalCharges}
+        components: {DataTableSaisies, TitreDate, TotalCharges},
+        computed: {
+            tableauSaisieKey(){
+                return this.$store.state.saisies.tableauSaisieKey;
+            }
+        },
     }
 </script>

@@ -95,7 +95,6 @@ class SaisieService {
         });
 
     }
-
     /**
      * ajouter un favoris.
      * @param uneSaisie
@@ -104,6 +103,18 @@ class SaisieService {
         const user = JSON.parse(localStorage.getItem('user'));
 
         return axios.post(`${config.API_URL}users/${user.username}/favoris`,
+            uneSaisie,{
+                headers: authHeader()
+            } );
+    }
+    /**
+     * ajouter un favoris.
+     * @param uneSaisie
+     */
+    deleteActiviteFavorite(saisieId) {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        return axios.delete(`${config.API_URL}users/${user.username}/favoris/${saisieId}`,
             uneSaisie,{
                 headers: authHeader()
             } );

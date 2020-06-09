@@ -1,5 +1,7 @@
 <template>
+
     <div id="ajoutActivite" class="">
+        <Toast />
         <Periode/>
         <form
                 id="formSaisie"
@@ -63,6 +65,7 @@
                 selectedActivite: null,
                 charges: null,
                 tabActivite: null,
+                messages: [],
             }
         },
         created() {
@@ -106,6 +109,9 @@
                     dateFin: this.$store.state.saisies.dateSelectionee[1]
                 });
                 this.$parent.$parent.$parent.$forceUpdate(); // a checker
+               //appel du Toaster
+               this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
+               //reset des champs
                 this.selectedMission = null;
                 this.commentaire= "";
                 this.selectedActivite= null;
