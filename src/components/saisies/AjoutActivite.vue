@@ -105,6 +105,7 @@
                     dateDebut: this.$store.state.saisies.dateSelectionee[0],
                     dateFin: this.$store.state.saisies.dateSelectionee[1]
                 });
+                this.$parent.$parent.$parent.$forceUpdate(); // a checker
                 this.selectedMission = null;
                 this.commentaire= "";
                 this.selectedActivite= null;

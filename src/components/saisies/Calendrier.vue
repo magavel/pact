@@ -127,4 +127,17 @@
         color: black;
     }
 
+    /deep/.p-datepicker table th{
+        text-align: center;
+        padding: 0.2rem;
+    }
+
+    /deep/.p-datepicker table th{
+        padding: 0.2rem;
+    }
+
+    /deep/ .p-datepicker .p-datepicker-header{
+        padding: 0;
+    }
+
 </style>

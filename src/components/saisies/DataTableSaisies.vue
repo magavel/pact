@@ -5,7 +5,7 @@
                    :rows="5"
                    :scrollable="true"
                    scrollHeight="200px"
-                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies">
+                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies" :key="componentKey">
             <template #empty>
                 Aucune Activités trouvées.
             </template>
@@ -32,7 +32,7 @@
             <Column header="Actions">
                 <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-                    <ToggleButton v-model="favChecked" type="button"
+                    <ToggleButton v-model="slotProps.data.SaisieFavorite_isFavorite" type="button"
                                   class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'
                                   off-icon="pi pi-star-o" on-icon="pi pi-star"></ToggleButton>
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
@@ -50,7 +50,7 @@
         data() {
             return {
                 selectedSaisies: null,
-                favChecked: false,
+                componentKey : 0,
             }
         },
         computed: {
@@ -59,7 +59,7 @@
             },
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
-            }
+            },
         },
         created() {
             let dateJour = new Date();
@@ -71,6 +71,9 @@
                 this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
                 this.$store.dispatch('users/getAllFavorites');
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+            },
+            forceRerender() {
+                this.componentKey += 1;
             }
         }
     }
