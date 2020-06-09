@@ -113,6 +113,7 @@
                 this.$toast.add({severity:'info', summary: 'Info Message', detail:'Activité favorite supprimée', life: 3000});
                 this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
                 this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
+                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
             },
             forceRerender() {
                 this.componentKey += 1;
