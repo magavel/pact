@@ -49,7 +49,7 @@
         </Column>
         <Column header="Actions">
             <template #body="slotProps">
-                <Button type="button" icon="pi pi-plus" class="p-button-secondary"></Button>
+                <Button type="button" icon="pi pi-plus" class="p-button-secondary" @click.prevent="ajouterUneActiviteFavorite(slotProps)"></Button>
                 <Button type="button" icon="pi pi-times" class="p-button-secondary" @click.prevent="afficherSupprimerDialog(slotProps)"></Button>
             </template>
         </Column>
@@ -72,6 +72,7 @@
 <script>
   import { mapState } from 'vuex';
   import Periode from "./Periode";
+  import Saisie from "../../models/saisie";
 
   export default {
     computed:mapState( {
@@ -89,6 +90,21 @@
         }
       },
       methods: {
+          ajouterUneActiviteFavorite(props) {
+              let uneSaisieSelec = this.favorites[props.index];
+              let uneSaisie = new Saisie();
+              uneSaisie.saisie_phaseId = uneSaisieSelec.SaisieFavorite_phaseId;
+              uneSaisie.activite_Id= uneSaisieSelec.SaisieFavorite_activiteId;
+              uneSaisie.saisie_charge = uneSaisieSelec.SaisieFavorite_charges;
+              uneSaisie.saisie_commentaire = uneSaisieSelec.SaisieFavorite_commentaire;
+              uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
+              uneSaisie.saisie_date = new Date(this.$store.state.saisies.dateDeSaisie[0]);
+              this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
+              this.$store.dispatch('users/getAllFavorites');
+              this.$parent.$parent.$parent.$forceUpdate(); // a checker
+              this.forceRerender();
+
+          },
           afficherSupprimerDialog(props) {
               this.display = true;
               this.selectedSupprime = this.favorites[props.index];
