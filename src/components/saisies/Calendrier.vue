@@ -37,6 +37,14 @@
                 return this.$store.state.saisies.dateDeSaisie;
             }
         },
+        created() {
+            console.log('this.dateDeSaisie', this.dateDeSaisie);
+            this.dateCalendrier = new Date();
+            if(this.dateDeSaisie !== undefined){
+                this.dateCalendrier = this.dateDeSaisie;
+            }
+
+        },
         methods: {
             clickCalendar(){
                 let tabDateISO = [];
@@ -66,7 +74,7 @@
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateCalendrier[0], this.dateCalendrier[1]]);
                     this.$router.push({name: 'periodeListing'});
                 }
-            }
+            },
         }
     }
 </script>
