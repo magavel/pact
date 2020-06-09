@@ -1,9 +1,15 @@
 <template>
     <div class="mt-5">
+        <div v-for="mission in saisiesParPeriode">
+            <div v-for="col in mission.saisieByWeek_charges">
+            le {{ col.chargeHebdomadaire_date }} charges: {{ col.chargeHebdomadaire_charges }}
+            </div>
+        </div>
         <div class="text-center bg-white">
             <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
-        <DataTable v-model="saisiesParPeriode"
+        <DataTable
+                   :value="saisiesParPeriode"
                    class="p-datatable-responsive p-datatable-customers p-datatable-sm"
                    :rows="4"
                    :resizableColumns="true"
@@ -36,8 +42,11 @@
                 </template>
 
             </Column>
-            <Column v-for="date in periode" :field="date" :key="date"
-                    :header="date | dateFrShort()">
+            <Column v-for="activite of saisieByWeek_charges"
+                    :header="activite.chargeHebdomadaire_date "
+                    :field="activite.chargeHebdomadaire_charges"
+                    :key="activite.chargeHebdomadaire_saisieId"
+            >
 
             </Column>
             <Column header="Actions"  headerStyle="width: 100px">
@@ -48,11 +57,10 @@
                     </div>
                 </template>
             </Column>
+            <template #footer>
+                In total there are
+            </template>
         </DataTable>
-
-
-
-
 
     </div>
 </template>
@@ -68,16 +76,12 @@
             saisiesParPeriode: state => state.saisies.saisiesParPeriode,
             datePeriode: state => state.saisies.dateDeSaisie,
             dateSaisiePeriode: state => state.saisies.dateSelectionee,
-            periode(){
-                return (utils.dateBetween(this.datePeriode[0], this.datePeriode[1]))
-            },
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {
                 dateDebut: this.dateSaisiePeriode[0],
                 dateFin: this.dateSaisiePeriode[1]
             });
-            console.log("saisiesParPeriode",saisiesParPeriode)
         },
         methods: {
         },
