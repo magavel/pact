@@ -32,7 +32,7 @@
             </Column>
             <Column header="Actions">
                 <template #body="slotProps">
-                    <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
+                    <Button type="button" icon="pi pi-times" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
                     <ToggleButton v-model="slotProps.data.SaisieFavorite_isFavorite" type="button"
                                   class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'
                                   off-icon="pi pi-star-o" on-icon="pi pi-star"></ToggleButton>
@@ -40,6 +40,16 @@
                 </template>
             </Column>
         </DataTable>
+        <Dialog :visible.sync="display">
+            <template #header>
+                <h3>Confirmation</h3>
+            </template>
+            Voulez-vous supprimer votre saisie ?
+            <template #footer>
+                <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerSaisie" />
+                <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.passive="fermerSaisieDialog" />
+            </template>
+        </Dialog>
     </div>
 </template>
 <script>
@@ -51,7 +61,9 @@
         data() {
             return {
                 selectedSaisies: null,
+                selectedSupprime : null,
                 componentKey : 0,
+                display:false,
             }
         },
         computed: {
@@ -84,6 +96,23 @@
                     this.$store.dispatch('users/getAllFavorites');
                     this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                 }
+            },
+            afficherSaisieDialog(props) {
+                this.display = true;
+                this.selectedSupprime = this.saisies[props.index];
+            },
+            fermerSaisieDialog(e) {
+                this.display = false;
+            },
+            supprimerSaisie(e) {
+                this.$store.dispatch('saisies/supprimerSaisie', this.selectedSupprime.SaisieFavorite_saisieId);
+                this.display = false;
+                this.$store.dispatch('users/getAllFavorites');
+                //this.saisies.splice(index, 1);
+                this.forceRerender();
+                this.$toast.add({severity:'info', summary: 'Info Message', detail:'Activité favorite supprimée', life: 3000});
+                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+                this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
             },
             forceRerender() {
                 this.componentKey += 1;

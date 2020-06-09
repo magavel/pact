@@ -17,12 +17,16 @@ class SaisieService {
         });
     }
 
+    /**
+     * methode de suppression d'une saisie
+     * @param saisieId identifiant de la saisie.
+     * @returns {Promise<AxiosResponse<any>>}
+     */
     supprimerSaisie(saisieId) {
         const user = JSON.parse(localStorage.getItem('user'));
-
-        /*return axios.delete(`${config.API_URL}phases/saisies/${saisieId}`), {
+        return axios.delete(`${config.API_URL}phases/saisies/${saisieId}`, {
             headers: authHeader()
-        });*/
+        });
     }
 
 

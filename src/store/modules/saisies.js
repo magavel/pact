@@ -60,6 +60,12 @@ const mutations = {
     },
     UPDATE_TABLE_SAISIE_KEY(state){
         state.tableauSaisieKey += 1;
+    },
+    DELETE_SUCCESS(state, sucess) {
+        state.success = [ succes, ...state.success ];
+    },
+    DELETE_ERROR(state, error) {
+        state.errors = [ error, ...state.errors ];
     }
 
 }
@@ -162,6 +168,24 @@ const actions = {
                 console.log(error.message);
             });
     },
+    supprimerSaisie({commit}, Saisie_id) {
+        SaisieService.supprimerSaisie(Saisie_id)
+            .then((res) => {
+                const succes = {
+                    date: new Date(),
+                    message: 'suppression d un saisie',
+                }
+                commit('DELETE_SUCCESS', succes);
+
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec sur la suppression d'une saisie: ${err.message}`,
+                };
+                commit('DELETE_ERROR', error);
+            });
+    }
 
 }
 

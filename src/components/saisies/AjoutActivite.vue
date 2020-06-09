@@ -108,7 +108,8 @@
                     dateDebut: this.$store.state.saisies.dateSelectionee[0],
                     dateFin: this.$store.state.saisies.dateSelectionee[1]
                 });
-                this.$parent.$parent.$parent.$forceUpdate(); // a checker
+                //this.$parent.$parent.$parent.$forceUpdate(); // a checker
+               this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                //appel du Toaster
                this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
                //reset des champs

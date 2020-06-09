@@ -15,13 +15,7 @@
                    :resizableColumns="true"
                    columnResizeMode="expand"
         >
-            <ColumnGroup type="header">
-                <Row>
-                    <Column header="Missions/ Modules"  />
-                    <Column header="Type d'activités" />
-                    <Column v-for="activite of header" header="1"  :key="activite.chargeHebdomadaire_saisieId"/>
-                </Row>
-            </ColumnGroup>
+
             <template #empty>
                 Aucune Activités trouvées.
             </template>
@@ -29,6 +23,7 @@
                 Chargement des données en cours.
             </template>
             <Column field="saisieByWeek_moduleLibelle"
+                    header="Missions/ Modules"
                     headerStyle="width: 150px"
             >
                 <template #body="slotProps">
@@ -38,6 +33,7 @@
                 </template>
             </Column>
             <Column field="saisieByWeek_activite_id"
+                    header="Type d'activités"
                     headerStyle="width: 100px"
             >
                 <template #body="slotProps">
@@ -49,13 +45,9 @@
             </Column>
 
 
-         <Column v-for="activite of saisieByWeek_charges"
-                    :header="activite.chargeHebdomadaire_date "
-                    :field="activite.chargeHebdomadaire_charges"
-                    :key="activite.chargeHebdomadaire_saisieId"
-            >
+            <Column v-for="activite of header" :header='activite'  :key="activite.chargeHebdomadaire_saisieId"/>
 
-            </Column>
+
             <Column header="Actions"  headerStyle="width: 100px">
                 <template #body>
                     <div class="d-flex flex-nowrap">
@@ -86,10 +78,10 @@
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {
-                dateDebut: this.dateSaisiePeriode[0],
-                dateFin: this.dateSaisiePeriode[1]
+                dateDebut: this.$store.state.saisies.dateSelectionee[0],
+                dateFin: this.$store.state.saisies.dateSelectionee[1]
             });
-
+            this.test();
         },
         data () {
             return {
@@ -98,6 +90,19 @@
         },
 
         methods: {
+
+            test() {
+             //   alert(this.saisiesParPeriode.length)
+               // alert(this.saisiesParPeriode[0].saisieByWeek_charges.length);
+                this.saisiesParPeriode[0].saisieByWeek_charges.forEach((saisie) => {
+                    let value ;
+                        this.header.push(saisie.chargeHebdomadaire_date);
+                }
+
+
+                );
+            }
+
         },
     }
 </script>
