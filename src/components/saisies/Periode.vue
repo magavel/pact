@@ -5,8 +5,8 @@
                             </span>
         <Calendar v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy" v-on:date-select="updateDate"/>
         <span class="ml-3 mr-3"> au </span>
-        <Calendar v-if="dateDeSaisie[1] !== null" v-model="dateDeSaisie[1]" :locale="fr" dateFormat="dd/mm/yy"/>
-        <Calendar v-else v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"/>
+        <Calendar v-if="dateDeSaisie[1] !== null" v-model="dateDeSaisie[1]" :locale="fr" dateFormat="dd/mm/yy" v-on:date-select="updateDate"/>
+        <Calendar v-else v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy" v-on:date-select="updateDate"/>
     </div>
 </template>
 <script>
@@ -35,13 +35,21 @@
             }
         },
         created() {
-
+            this.dateDeSaisie.push(new Date());
         },
         methods: {
             updateDate(){
-                console.log("UPDATE CALENDAR");
-                console.log(this.dateDeSaisie[0]);
+                let tabDateISO = [];
+                let dateDebut = this.dateDeSaisie[0];
+                let dateFin = this.dateCalendrier[1];
+                dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+                dateFin.setHours(0, -dateFin.getTimezoneOffset(), 0, 0);
+                tabDateISO.push(dateDebut.toISOString());
+                tabDateISO.push(dateFin.toISOString());
                 this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
+                this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
+                console.log('this.dateDeSaisie', this.dateDeSaisie);
+                console.log('this.$store.state.saisies.dateSelectionee', this.$store.state.saisies.dateSelectionee);
             }
         }
     }
