@@ -15,6 +15,15 @@ class UserService {
   }
 
   /**
+   * retourne la liste des journees favorites de l'utilisateur en cours.
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  getAllJourneeFavorites() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return axios.get(config.API_URL.concat('users/', user.username, '/journeeFavoris'), { headers: authHeader() });
+  }
+
+  /**
    * methode de suppression des favoris.
    * @param Saisie_id
    */
@@ -22,6 +31,19 @@ class UserService {
     const user = JSON.parse(localStorage.getItem('user'));
     return axios.delete(`${config.API_URL}users/${user.username}/favoris/${saisie_id}`, { headers: authHeader() });
 
+  }
+
+  /**
+   * methode d'ajout d'une journée favorite.
+   * @param journee journée favorite
+   */
+  ajouterJourneeFavorites(journee) {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    return axios.post(`${config.API_URL}users/${user.username}/journeeFavoris`,
+        journee,{
+          headers: authHeader()
+        } );
   }
 
   /**

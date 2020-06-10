@@ -4,11 +4,17 @@
     <p>Vos Journées favorites</p>
         <div class="row pl-5 mr-5">
         </div>
-        <TreeTable  selectionMode="multiple" :value="favorites" :lazy="true" :paginator="true" :rows="rows" :loading="loading"
-                   :totalRecords="totalRecords">
-            <Column field="SaisieFavorite_moduleLibelle" header="SaisieFavorite_moduleLibelle" :expander="true"></Column>
-            <Column field="SaisieFavorite_commentaire" header="SaisieFavorite_commentaire"></Column>
-            <Column field="SaisieFavorite_charges" header="SaisieFavorite_charges"></Column>
+        <TreeTable  selectionMode="multiple" :value="journeesFavorites" :lazy="true" :paginator="true" :rows="rows" :loading="loading"
+                   :totalRecords="totalRecords" >
+            <Column field="SaisieFavorite_moduleLibelle" header="Mission" :expander="true"></Column>
+            <Column field="SaisieFavorite_charges" header="Charge"></Column>
+            <Column field="SaisieFavorite_commentaire" header="Commentaire"></Column>
+            <Column headerStyle="width: 8em" bodyStyle="text-align: center">
+                <template #body="slotProps">
+                    <Button type="button" icon="pi pi-plus" class="p-button-secondary" @click.prevent="ajouterUneActiviteFavorite(slotProps)"></Button>
+                    <Button type="button" icon="pi pi-times" class="p-button-secondary" @click.prevent="afficherSupprimerDialog(slotProps)"></Button>
+                </template>
+            </Column>
         </TreeTable>
     </div>
 
@@ -22,9 +28,9 @@
         journeesFavorites: state=> state.users.journeesFavorites,
         favorites: state=> state.users.favorites,
     }),
-
     created() {
       this.$store.dispatch('users/getAllFavorites');
+      this.$store.dispatch('users/getAllJourneeFavorites');
     },
       data() {
           return {

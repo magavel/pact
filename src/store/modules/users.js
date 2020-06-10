@@ -49,6 +49,9 @@ const mutations = {
   DELETE_FAVORITE_ERROR(state, error) {
     state.errors = [ error, ...state.errors ];
   },
+  GET_JOURNEE_FAVORITE_USERS(state, journee) {
+    state.journeesFavorites = journee;
+  },
 };
 
 const actions = {
@@ -72,6 +75,47 @@ const actions = {
         };
         commit('GET_FAVORITE_ERROR', error);
       });
+  },  getAllJourneeFavorites({ commit}) {
+    userservice.getAllJourneeFavorites()
+        .then((res) => {
+          const succes = {
+            date: new Date(),
+            message: 'lecture de tous les journees favorites utilisateurs',
+          }
+          commit('GET_JOURNEE_FAVORITE_USERS', res.data.data);
+          commit('GET_FAVORITE_SUCCESS', succes);
+
+        })
+        .catch((err) => {
+          const error = {
+            date: new Date(),
+            message: `echec sur la récuperation 
+            des activites favorites dans la méthode 
+             getAllFavorites: ${err.message}`,
+          };
+          commit('GET_FAVORITE_ERROR', error);
+        });
+  },
+  ajouterJourneeFavorites({commit}, journee) {
+    userservice.ajouterJourneeFavorites(journee)
+        .then((res) => {
+          const succes = {
+            date: new Date(),
+            message: 'ajout une journee favorite',
+          }
+          commit('CREATE_SUCCESS', succes);
+
+        })
+        .catch((err) => {
+          const error = {
+            date: new Date(),
+            message: `echec de la mise à jour 
+             dans la méthode 
+            ajouterJourneeFavorites: ${err.message}`,
+          };
+          commit('CREATE_ERROR', error);
+          console.log(error.message);
+        });
   },
   supprimerFavoris({commit}, Saisie_id) {
     userservice.supprimerFavoris(Saisie_id)

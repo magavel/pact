@@ -106,8 +106,6 @@
               this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
               this.forceRerender();
               this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
-
-
           },
           afficherSupprimerDialog(props) {
               this.display = true;
