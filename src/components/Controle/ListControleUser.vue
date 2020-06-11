@@ -1,8 +1,15 @@
 <template>
     <div>
-        <TreeTable :value="nodes">
+        <TreeTable :value="nodes" selectionMode="checkbox" >
+            <Column field="mission" header="mission" :expander="true"></Column>
+            <Column field="activite" header="activite"></Column>
             <Column v-for="col of columns" :key="col.field"
-                    :field="col.field" :header="col.header" :expander="col.expander">
+                     :header="col.header" :expander="col.expander">
+                    <template #body="slotProps">
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled tooltip">
+                       <div > {{meth(col,slotProps)}}</div>
+                        </span>
+                </template>
             </Column>
         </TreeTable>
     </div>
@@ -15,8 +22,11 @@
             controle: state => state.users.controle,
             loading: false,
         }),
-        created() {
+            created() {
 
+            this.$store.dispatch('users/getControleSaisies');
+
+            if (this.controle.data === undefined) {
             if (localStorage.getItem('controles')) {
                 try {
                     this.local = JSON.parse(localStorage.getItem('controles'));
@@ -25,7 +35,7 @@
                 } catch(e) {
                     localStorage.removeItem('controles');
                 }
-            }  else {
+            } }  else {
                 this.$store.dispatch('users/getControleSaisies');
                 this.test();
             }
@@ -45,6 +55,9 @@
                 this.columns = this.controle.colunns;
                 console.log(this.controle.data.length);
                 console.log(this.controle.data.length);
+            },
+            meth(col,slotProps) {
+                return eval("slotProps.node.data."+col.field.toString()+".charge");
             }
         }
     }

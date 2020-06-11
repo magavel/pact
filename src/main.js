@@ -25,6 +25,7 @@ import Dialog from 'primevue/dialog';
 import Row from 'primevue/row';
 
 
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primevue/resources/themes/saga-blue/theme.css';
@@ -88,7 +89,6 @@ library.add(
 Vue.config.productionTip = false;
 
 
-
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('DataTable', DataTable);
 Vue.component('Column', Column);
@@ -113,6 +113,7 @@ Vue.component('TreeTable',TreeTable);
 Vue.component('Toast',Toast);
 Vue.component('Dialog', Dialog),
     Vue.component('Row',Row),
+    //Vue.component('Tooltip',Tooltip),
 
 
 // les filtres... ou pipes c'est la même chose...
@@ -122,6 +123,8 @@ Vue.filter('dateFrFull', dateFrFull);
 Vue.filter('jourFrShort', jourFrShort);
 Vue.filter('monthYearShort', monthYearShort);
 Vue.filter('dateFrShort', dateFrShort);
+
+
 
 Vue.use(ToastService);
 
