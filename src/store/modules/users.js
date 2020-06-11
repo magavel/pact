@@ -9,7 +9,8 @@ const state = {
   errors: [], // log des erreurs
   success: [], // log des success
   favorites: [], //activites favorites
-  journeesFavorites: [] //journee favorites
+  journeesFavorites: [], //journee favorites
+  controle: [], //donnée pour le controle
 };
 
 const mutations = {
@@ -52,6 +53,11 @@ const mutations = {
   GET_JOURNEE_FAVORITE_USERS(state, journee) {
     state.journeesFavorites = journee;
   },
+  GET_CONTROLE(state, controles) {
+      const parsed = JSON.stringify(controles);
+      localStorage.setItem('controles', parsed);
+    state.controle = controles;
+  }
 };
 
 const actions = {
@@ -97,7 +103,7 @@ const actions = {
         });
   },
   ajouterJourneeFavorites({commit}, journee) {
-    userservice.ajouterJourneeFavorites(journee)
+    userservice.ajouterJourneeFavorites(GET_CONTROLEjournee)
         .then((res) => {
           const succes = {
             date: new Date(),
@@ -196,6 +202,28 @@ const actions = {
         console.log(error.message);
       });
   },
+  getControleSaisies({ commit }) {
+    userservice.getControleSaisies()
+        .then((res) => {
+          const succes = {
+            date: new Date(),
+            message: 'lecture des contrôles',
+          }
+          commit('GET_CONTROLE', res.data);
+          commit('GET_ALL_SUCCESS', succes);
+
+        })
+        .catch((err) => {
+          const error = {
+            date: new Date(),
+            message: `echec sur la récuperation 
+            des user dans la méthode 
+            getUserBoard: ${err.message}`,
+          };
+          commit('CREATE_ERROR', error);
+        });
+  },
+
 };
 
 

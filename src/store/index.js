@@ -19,6 +19,6 @@ export default new Vuex.Store({
     users,
     saisies,
     references,
-    equipes
+    equipes,
   },
 });

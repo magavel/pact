@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Initialisation from "./components/projects/Initialisation";
+import BoardControleSaisieUser from "./views/BoardControleSaisieUser";
 import store from './store'
 
 Vue.use(Router);
@@ -57,6 +58,12 @@ export const router = new Router({
       name: 'user',
       // lazy-loaded
       component: () => import('./views/BoardUser.vue'),
+    },
+    {
+      path: '/controleUser',
+      name: 'BoardControleSaisieUser',
+      // lazy-loaded
+      component: () => import('./views/BoardControleSaisieUser'),
     },
     {
       path: '/activites',

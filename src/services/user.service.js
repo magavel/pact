@@ -91,6 +91,11 @@ class UserService {
   getAdminBoard() {
     return axios.get(`${config.API_URL}admin`, { headers: authHeader() });
   }
+
+  getControleSaisies() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return axios.get(`${config.API_URL}users/${user.username}/controleSaisie`, { headers: authHeader() });
+  }
 }
 
 export default new UserService();
