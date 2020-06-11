@@ -6,7 +6,7 @@
             <Column v-for="col of columns" :key="col.field"
                      :header="col.header" :expander="col.expander">
                     <template #body="slotProps">
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled tooltip">
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" :title="commentaire(col,slotProps)">
                        <div > {{meth(col,slotProps)}}</div>
                         </span>
                 </template>
@@ -58,6 +58,9 @@
             },
             meth(col,slotProps) {
                 return eval("slotProps.node.data."+col.field.toString()+".charge");
+            },
+            commentaire(col,slotProps) {
+                return eval("slotProps.node.data."+col.field.toString()+".commentaire");
             }
         }
     }
