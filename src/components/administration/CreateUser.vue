@@ -25,7 +25,11 @@
                 </div>
                 <div class="form-group">
                     <label for="equipes">Equipes</label>
-                    <MultiSelect name="equipes" v-model="selectedEquipe" :options="equipes" optionLabel="equipe_libelleEquipe" placeholder="Selection les equipes" />
+                    <MultiSelect name="equipes" v-model="selectedEquipe" :options="equipes" optionLabel="equipe_libelleEquipe" placeholder="Selectionner les equipes" />
+                </div>
+                <div class="form-group">
+                    <label for="equipes">Centre</label>
+                    <MultiSelect name="centre" v-model="selectedCentre" :options="centres" optionLabel="type" placeholder="Selectionner le centre" />
                 </div>
                 <div class="form-group" v-if="errors_form.length">
                     <strong>Corriger les erreurs suivantes:</strong>
@@ -69,6 +73,13 @@
           { type: "ROLE_PILOTE", value: "ROLE_PILOTE" },
           { type: "ROLE_ADMIN", value: "ROLE_ADMIN" },
         ],
+          selectedCentre: null,
+          centres: [
+              { type: "CDAD-B", value: "CDAD-B" },
+              { type: "CDAD-BDX", value: "BDX" },
+              { type: "CDAD-R", value: "CDAD-R" },
+              { type: "CDAD-T", value: "CDAD-T" }
+          ],
           selectedEquipe:null,
       }
     },
@@ -107,7 +118,11 @@
             );
             this.selectedEquipe.forEach((x) => {
                 unUser.utilisateur_equipes.push(x.equipe_libelleEquipe)
+            });
+            this.selectedCentre.forEach((x) => {
+                unUser.utilisateur_centre.push(x.value);
             })
+
 
           this.$store.dispatch('users/createUser', unUser);
           this.$toast.add({severity:'success', summary: 'Success Message', detail:'Utilisateur crée', life: 3000});
