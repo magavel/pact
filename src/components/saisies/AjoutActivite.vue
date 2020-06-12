@@ -109,7 +109,6 @@
                let dates = this.dateBetween(start, end);
                dates.forEach((date) =>{
                     let uneSaisie = new Saisie();
-                    uneSaisie.saisie_Id = this.saisieUpdate.SaisieFavorite_saisieId;
                     uneSaisie.saisie_phaseId = this.selectedMission;
                     uneSaisie.activite_Id= this.selectedActivite;
                     uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
@@ -148,14 +147,6 @@
                 // for (let loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
                 let dates = this.dateBetween(start, end);
                 dates.forEach((date) =>{
-                    /* let uneSaisie = new Saisie();
-                    uneSaisie.saisie_phaseId = this.selectedMission;
-                    uneSaisie.activite_Id= this.selectedActivite;
-                    uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
-                    uneSaisie.saisie_commentaire = this.commentaire;
-                    uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
-                    uneSaisie.saisie_date = date;
-                    this.$store.dispatch('saisies/updateSaisie',  uneSaisie);*/
                     let saisieModif = {
                         saisie_Id : this.saisieUpdate.SaisieFavorite_saisieId,
                         saisie_phaseId : this.selectedMission,
@@ -164,7 +155,7 @@
                         saisie_commentaire : this.commentaire,
                         saisie_username : JSON.parse(localStorage.getItem('user')).username,
                         saisie_date : date,
-                    }
+                    };
                     this.$store.dispatch('saisies/updateSaisie',  saisieModif);
                 });
                 this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);

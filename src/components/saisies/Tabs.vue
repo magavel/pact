@@ -1,8 +1,9 @@
 <template>
     <div style="background-color: white">
         <div class="tabs">
-            <span class="titre mt-5 ml-3">Ajouter une activité</span>
-            <ul class="d-flex justify-content-center" style="list-style: none">
+            <span v-if="isAjout" class="titre mt-5 ml-3">AJOUTER UNE ACTIVITE</span>
+            <span v-else class="titre mt-5 ml-3">MODIFIER UNE ACTIVITE</span>
+            <ul v-if="isAjout"  class="d-flex justify-content-center" style="list-style: none">
                 <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }" class="onglet pt-3">
                     <a :href="tab.href" @click="selectTab(tab)"><i v-bind:class="tab.icon" class="mr-1"></i>{{ tab.name }}</a>
                 </li>
@@ -19,12 +20,19 @@
     export default {
         name: "Tabs",
         data() {
-            return {tabs: [] };
+            return {
+                tabs: [],
+                isAjout : true
+            };
         },
 
         created() {
 
             this.tabs = this.$children;
+            this.isAjout = true;
+            if(this.$store.state.saisies.saisieUpdate !== null && this.$store.state.saisies.saisieUpdate !== undefined){
+                this.isAjout = false;
+            }
 
         },
         methods: {
