@@ -15,11 +15,17 @@ const state = {
     phaseActives: [],
     activiteFavKey: 0,
     tableauSaisieKey: 0,
+    saisieUpdate: null,
+    ajoutActiviteKey: 0,
+    tabsKey: 0
 };
 
 const mutations = {
     GET_SAISIES(state, saisies) {
         state.saisies = saisies.data;
+    },
+    GET_SAISIE_UPDATE(state, value){
+        state.saisieUpdate = value;
     },
     CREATE_SAISIES(state, saisies) {
         state.saisies = [ saisies, ...state.saisies ];
@@ -56,10 +62,15 @@ const mutations = {
     },
     UPDATE_ACTIVITE_FAV_KEY(state){
         state.activiteFavKey += 1;
-        console.log('state.activiteFavKey', state.activiteFavKey);
+    },
+    UPDATE_TABS_KEY(state){
+        state.tabsKey += 1;
     },
     UPDATE_TABLE_SAISIE_KEY(state){
         state.tableauSaisieKey += 1;
+    },
+    UPDATE_AJOUT_ACTIVITE_KEY(state){
+        state.ajoutActiviteKey += 1;
     },
     DELETE_SUCCESS(state, sucess) {
         state.success = [ succes, ...state.success ];
@@ -146,6 +157,12 @@ const actions = {
                 commit('CREATE_ERROR', error);
                 console.log(error.message);
             });
+    },
+    updateSaisie({commit}, uneSaisie){
+        console.log('uneSaisie', uneSaisie);
+        SaisieService.updateSaisie(uneSaisie).then(r => {
+            console.log('r', r);
+        });
     },
     updateActiviteFavorite({commit}, uneSaisie) {
         SaisieService.updateActiviteFavorite(uneSaisie)

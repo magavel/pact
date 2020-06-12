@@ -40,11 +40,14 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-end mr-3" style="margin-left: 39%">
-            <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"
-                    ></Button>
+        <div v-if="isAjout" class="row justify-content-end mr-3" style="margin-left: 39%">
+            <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"></Button>
         </div>
-        </form>>
+        <div v-else class="row justify-content-end mr-3" style="margin-left: 39%">
+            <Button id="annuler" label="Annuler" class="p-button-secondary" v-on:click="annuler"></Button>
+            <Button id="btnModifier" label="Modifier" v-on:click="updateSaisie"></Button>
+        </div>
+        </form>
     </div>
 </template>
 <script>
@@ -56,6 +59,7 @@
         computed:mapState( {
             phaseActives: state=> state.saisies.phaseActives,
             refActivite: state=> state.references.refActivite,
+            saisieUpdate: state=> state.saisies.saisieUpdate,
             loading: false,
         }),
         data() {
@@ -66,11 +70,21 @@
                 charges: null,
                 tabActivite: null,
                 messages: [],
+                isAjout: true
             }
         },
         created() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
             this.$store.dispatch('references/getRefActivite');
+
+             if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
+                this.selectedMission = this.saisieUpdate.SaisieFavorite_moduleId;
+                this.commentaire = this.saisieUpdate.SaisieFavorite_commentaire;
+                this.selectedActivite = this.saisieUpdate.SaisieFavorite_activiteId;
+                this.charges = this.saisieUpdate.SaisieFavorite_charges;
+                this.isAjout = false;
+            }
+
         },
         methods: {
             dateBetween: function(startDate, endDate) {
@@ -118,6 +132,51 @@
                 this.selectedActivite= null;
                 this.charges= null;
                 event.target.reset();
+            },
+            annuler(){
+                this.isAjout = true;
+                this.selectedMission = null;
+                this.commentaire = null;
+                this.selectedActivite = null;
+                this.charges = null;
+                this.$store.commit("saisies/UPDATE_TABS_KEY");
+                this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
+            },
+            updateSaisie(event){
+                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
+                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
+                let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
+                // for (let loop = new Date(start); loop <= end; loop = loop.getDate()+1 ){
+                let dates = this.dateBetween(start, end);
+                dates.forEach((date) =>{
+                    let saisieModif = {
+                        saisie_Id : this.saisieUpdate.SaisieFavorite_saisieId,
+                        saisie_phaseId : this.selectedMission,
+                        activite_Id : this.selectedActivite,
+                        saisie_charge : parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]),
+                        saisie_commentaire : this.commentaire,
+                        saisie_username : JSON.parse(localStorage.getItem('user')).username,
+                        saisie_date : date,
+                    };
+                    this.$store.dispatch('saisies/updateSaisie',  saisieModif);
+                });
+                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+                this.$store.dispatch('saisies/getSaisieParPeriode', {
+                    dateDebut: this.$store.state.saisies.dateSelectionee[0],
+                    dateFin: this.$store.state.saisies.dateSelectionee[1]
+                });
+                //this.$parent.$parent.$parent.$forceUpdate(); // a checker
+                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                //appel du Toaster
+                this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie modifiée', life: 3000});
+                //reset des champs
+                this.selectedMission = null;
+                this.commentaire= "";
+                this.selectedActivite= null;
+                this.charges= null;
+                this.$store.commit("saisies/UPDATE_TABS_KEY");
+                this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
+                //event.target.reset();
             }
         },
         name: 'AjoutActivite',
