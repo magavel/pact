@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TreeTable :value="nodes" :filters="filters" filterMode="strict" >
+        <TreeTable :value="nodes" :filters="filters" filterMode="lenient" >
             <Column field="username" header="username" :expander="true">
                 <template #filter>
                     <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par nom" />
