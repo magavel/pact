@@ -139,6 +139,8 @@
                 this.commentaire = null;
                 this.selectedActivite = null;
                 this.charges = null;
+                this.$store.commit("saisies/UPDATE_TABS_KEY");
+                this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
             },
             updateSaisie(event){
                 let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
@@ -172,6 +174,8 @@
                 this.commentaire= "";
                 this.selectedActivite= null;
                 this.charges= null;
+                this.$store.commit("saisies/UPDATE_TABS_KEY");
+                this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
                 //event.target.reset();
             }
         },

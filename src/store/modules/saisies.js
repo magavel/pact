@@ -16,7 +16,8 @@ const state = {
     activiteFavKey: 0,
     tableauSaisieKey: 0,
     saisieUpdate: null,
-    ajoutActiviteKey: 0
+    ajoutActiviteKey: 0,
+    tabsKey: 0
 };
 
 const mutations = {
@@ -61,6 +62,9 @@ const mutations = {
     },
     UPDATE_ACTIVITE_FAV_KEY(state){
         state.activiteFavKey += 1;
+    },
+    UPDATE_TABS_KEY(state){
+        state.tabsKey += 1;
     },
     UPDATE_TABLE_SAISIE_KEY(state){
         state.tableauSaisieKey += 1;

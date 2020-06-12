@@ -18,7 +18,7 @@
       </div>
     </div>
     <div id="formulaire">
-      <Tabs>
+      <Tabs :key="tabsKey">
         <Tab name="Nouvelle activité" icon="pi pi-calendar-plus" :selected="true">
           <AjoutActivite :key="ajoutActiviteKey"/>
         </Tab>
@@ -58,6 +58,9 @@
       },
       ajoutActiviteKey(){
         return this.$store.state.saisies.ajoutActiviteKey;
+      },
+      tabsKey(){
+        return this.$store.state.saisies.tabsKey;
       }
     },
     created() {

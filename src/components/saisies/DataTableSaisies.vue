@@ -119,6 +119,7 @@
                 console.log('this.saisies[props.index]', this.saisies[props.index]);
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', this.saisies[props.index]);
                 this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
+                this.$store.commit('saisies/UPDATE_TABS_KEY');
             }
         }
     }

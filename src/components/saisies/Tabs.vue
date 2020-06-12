@@ -30,6 +30,7 @@
 
             this.tabs = this.$children;
             this.isAjout = true;
+            console.log('this.$store.state.saisies.saisieUpdate', this.$store.state.saisies.saisieUpdate);
             if(this.$store.state.saisies.saisieUpdate !== null && this.$store.state.saisies.saisieUpdate !== undefined){
                 this.isAjout = false;
             }
@@ -49,6 +50,8 @@
 
     .tabs{
         background-color: #5172AF;
+        margin-bottom: 15px;
+        height: 78px;
     }
     .titre{
         color: white;
