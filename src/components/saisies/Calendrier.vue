@@ -19,7 +19,7 @@
                   firstDayOfWeek: 1,
                   dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
                   dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-                  dayNamesMin: ['D', 'L', 'Ma', 'Me', 'J', 'V', 'S'],
+                  dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
                   monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
                   monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
                   today: 'Aujourd\'hui',
@@ -137,10 +137,6 @@
 
     /deep/.p-datepicker table th{
         text-align: center;
-        padding: 0.2rem;
-    }
-
-    /deep/.p-datepicker table th{
         padding: 0.2rem;
     }
 

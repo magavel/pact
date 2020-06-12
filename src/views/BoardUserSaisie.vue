@@ -20,7 +20,7 @@
     <div id="formulaire">
       <Tabs>
         <Tab name="Nouvelle activité" icon="pi pi-calendar-plus" :selected="true">
-          <AjoutActivite/>
+          <AjoutActivite :key="ajoutActiviteKey"/>
         </Tab>
         <Tab name="Activités favorites" icon="pi pi-star-o">
           <InputActivitesFavorites :key="activiteFavKey" />
@@ -55,6 +55,9 @@
     computed: {
       activiteFavKey(){
         return this.$store.state.saisies.activiteFavKey;
+      },
+      ajoutActiviteKey(){
+        return this.$store.state.saisies.ajoutActiviteKey;
       }
     },
     created() {

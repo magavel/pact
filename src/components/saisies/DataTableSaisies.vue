@@ -36,7 +36,7 @@
                     <ToggleButton v-model="slotProps.data.SaisieFavorite_isFavorite" type="button"
                                   class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'
                                   off-icon="pi pi-star-o" on-icon="pi pi-star"></ToggleButton>
-                    <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
+                    <Button type="button" icon="pi pi-pencil" class="p-button-secondary" @click="modifierSaisie(slotProps)"></Button>
                 </template>
             </Column>
         </DataTable>
@@ -76,12 +76,9 @@
         },
         created() {
             let dateJour = new Date();
-            console.log("this.$store.state.saisies.dateDeSaisie[0]", this.$store.state.saisies.dateDeSaisie[0]);
             if(this.$store.state.saisies.dateDeSaisie[0] !== undefined){
-                console.log("laaaaa");
                 dateJour = this.$store.state.saisies.dateDeSaisie[0];
             }
-            console.log('dateJour', dateJour);
             dateJour.setHours(0, -dateJour.getTimezoneOffset(), 0, 0);
             this.$store.dispatch('saisies/getSaisies', [dateJour.toISOString(), dateJour.toISOString()]);
         },
@@ -117,6 +114,11 @@
             },
             forceRerender() {
                 this.componentKey += 1;
+            },
+            modifierSaisie(props){
+                console.log('this.saisies[props.index]', this.saisies[props.index]);
+                this.$store.commit('saisies/GET_SAISIE_UPDATE', this.saisies[props.index]);
+                this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
             }
         }
     }
