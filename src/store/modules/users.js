@@ -202,8 +202,8 @@ const actions = {
         console.log(error.message);
       });
   },
-  getControleSaisies({ commit }) {
-    userservice.getControleSaisies()
+  getControleSaisies({ commit }, periode) {
+    userservice.getControleSaisies(periode)
         .then((res) => {
           const succes = {
             date: new Date(),

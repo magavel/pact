@@ -1,13 +1,18 @@
 <template>
     <div>
-        <TreeTable :value="nodes" selectionMode="checkbox" >
-            <Column field="mission" header="mission" :expander="true"></Column>
+        <TreeTable :value="nodes" :filters="filters" filterMode="strict" >
+            <Column field="username" header="username" :expander="true">
+                <template #filter>
+                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par nom" />
+                </template>
+            </Column>
+            <Column field="mission" header="mission" ></Column>
             <Column field="activite" header="activite"></Column>
             <Column v-for="col of columns" :key="col.field"
                      :header="col.header" :expander="col.expander">
                     <template #body="slotProps">
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" :title="commentaire(col,slotProps)">
-                       <div > {{meth(col,slotProps)}}</div>
+                       <div>{{meth(col,slotProps)}}</div>
                         </span>
                 </template>
             </Column>
@@ -24,8 +29,11 @@
         }),
             created() {
 
-            this.$store.dispatch('users/getControleSaisies');
+            let periode = new Object();
+                periode.dateDebut =     "2020-03-18T00:00:00.000Z";
+                periode.dateFin =     "2020-03-20T00:00:00.000Z";
 
+            this.$store.dispatch('users/getControleSaisies', periode);
             if (this.controle.data === undefined) {
             if (localStorage.getItem('controles')) {
                 try {
@@ -36,17 +44,19 @@
                     localStorage.removeItem('controles');
                 }
             } }  else {
-                this.$store.dispatch('users/getControleSaisies');
+                this.$store.dispatch('users/getControleSaisies',periode);
                 this.test();
             }
 
         },
         data() {
             return {
+                filters: {},
                 nodes : null,
                 columns : null,
                 local: null,
-
+                selectedKey1:null,
+                periode:null,
             }
         },
         methods : {

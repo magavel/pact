@@ -78,7 +78,7 @@
             this.$store.dispatch('references/getRefActivite');
 
              if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
-                this.selectedMission = this.saisieUpdate.SaisieFavorite_moduleId;
+                this.selectedMission = this.saisieUpdate.SaisieFavorite_phaseId;
                 this.commentaire = this.saisieUpdate.SaisieFavorite_commentaire;
                 this.selectedActivite = this.saisieUpdate.SaisieFavorite_activiteId;
                 this.charges = this.saisieUpdate.SaisieFavorite_charges;
@@ -167,6 +167,7 @@
                 });
                 //this.$parent.$parent.$parent.$forceUpdate(); // a checker
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
                 //appel du Toaster
                 this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie modifiée', life: 3000});
                 //reset des champs

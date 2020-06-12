@@ -92,9 +92,12 @@ class UserService {
     return axios.get(`${config.API_URL}admin`, { headers: authHeader() });
   }
 
-  getControleSaisies() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return axios.get(`${config.API_URL}users/${user.username}/controleSaisie`, { headers: authHeader() });
+  getControleSaisies(periode) {
+    const user = JSON.parse(localStorage.getItem('user'))
+    const dateDebut = periode.dateDebut;
+    const dateFin = periode.dateFin;
+
+    return axios.get(`${config.API_URL}users/${user.username}/controleSaisie?dateDebut=${dateDebut}&dateFin=${dateFin}`, { headers: authHeader() });
   }
 }
 
