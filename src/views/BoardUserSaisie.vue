@@ -1,56 +1,22 @@
 <template>
   <div id="principal">
     <div id="lien">
-        <span><a href="#" class="titre">Mes Activités</a></span>
-        <span><a href="#" class="titre">Saisir à la place de</a></span>
+        <!--<span><a href="#" class="titre">Mes Activités</a></span>-->
+        <!--<span class="ml-5"><a href="#" class="titre">Saisir à la place de</a></span>-->
+      <router-link to="/activites/myActivities">Mes Activités</router-link>
+      <router-link to="/activites/ajoutActiviteControle" class="ml-5">Activités de mes équipes</router-link>
     </div>
-    <div id="saisie">
-      <div id="container-saisie">
-        <div class="row ">
-            <div class="col-0">
-          <Calendrier/>
-            </div>
-          <div class="col-sm ml-5 mr-5">
-            <!-- router-view -->
-            <router-view></router-view>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="formulaire">
-      <Tabs :key="tabsKey">
-        <Tab name="Nouvelle activité" icon="pi pi-calendar-plus" :selected="true">
-          <AjoutActivite :key="ajoutActiviteKey"/>
-        </Tab>
-        <Tab name="Activités favorites" icon="pi pi-star-o">
-          <InputActivitesFavorites :key="activiteFavKey" />
-        </Tab>
-        <Tab name="Journées types" icon="pi pi-heart">
-            <InputJourneeFavorites />
-        </Tab>
-      </Tabs>
-    </div>
+    <router-view></router-view>
+    <!--<MyActivities :activite-fav-key="activiteFavKey" :ajout-activite-key="ajoutActiviteKey" :tabs-key="tabsKey"/>-->
   </div>
 </template>
 
 <script>
-  import Calendrier from "../components/saisies/Calendrier";
-  import Tabs from "../components/saisies/Tabs";
-  import Tab from "../components/saisies/Tab";
-  import AjoutActivite from "../components/saisies/AjoutActivite";
-  import InputActivitesFavorites from '../components/saisies/InputActivitesFavorites';
-  import InputJourneeFavorites from "../components/saisies/InputJourneeFavorites";
-  import DailyListing from "../components/saisies/DailyListing";
+  import MyActivities from "../components/saisies/MyActivities";
 
   export default {
     components: {
-      DailyListing,
-      AjoutActivite,
-      Calendrier,
-      Tabs,
-      Tab,
-      InputActivitesFavorites,
-        InputJourneeFavorites
+      MyActivities
     },
     computed: {
       activiteFavKey(){
@@ -65,21 +31,25 @@
     },
     created() {
       this.$store.dispatch('users/getAllFavorites');
+      this.$router.push({name: 'myActivities'});
     }
   }
 </script>
 
 <style>
-  #saisie{
-    background-color: white;
-    margin-bottom: 2em;
+
+  #lien a{
+    color: #535353;
   }
-  #container-saisie{
-    margin-left: 0;
-    /*background-image: url("../assets/Trace-82.svg");*/
-    /*background-size: 800px;
-    background-repeat: no-repeat;*/
-    z-index: 1;
+
+  #lien a:active{
+    color: #154194;
+    text-decoration: underline;
+  }
+
+  #lien .router-link-active{
+    color: #154194;
+    text-decoration: underline;
   }
 </style>
 
