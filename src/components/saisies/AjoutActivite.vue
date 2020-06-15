@@ -44,7 +44,7 @@
             <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"></Button>
         </div>
         <div v-else class="row justify-content-end mr-3" style="margin-left: 39%">
-            <Button id="annuler" label="Annuler" class="p-button-secondary" v-on:click="annuler"></Button>
+            <Button id="annuler" label="Annuler" class="p-button-secondary mr-3" v-on:click="annuler"></Button>
             <Button id="btnModifier" label="Modifier" v-on:click="updateSaisie"></Button>
         </div>
         </form>
@@ -177,6 +177,7 @@
                 this.charges= null;
                 this.$store.commit("saisies/UPDATE_TABS_KEY");
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
+                this.$store.commit('saisies/UPDATE_TABLE_SAISIE_KEY');
                 //event.target.reset();
             }
         },
@@ -197,8 +198,29 @@
         width: 100px;
         height: 50px;
         margin-right: 1%;
+        border: none;
     }
-
+    #btnModifier{
+        background: #154194 0% 0% no-repeat padding-box;
+        border-radius: 30px;
+        opacity: 1;
+        letter-spacing: 0px;
+        color: #FFFBFB;
+        width: 100px;
+        height: 50px;
+        margin-right: 1%;
+        border: none;
+    }
+    #annuler{
+        border-radius: 30px;
+        opacity: 1;
+        letter-spacing: 0px;
+        width: 100px;
+        height: 50px;
+        background: #E0E4EB 0% 0% no-repeat padding-box;
+        border: none;
+        color: #535353;
+    }
     #ajoutActivite{
         background-color: white;
     }

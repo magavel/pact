@@ -81,6 +81,11 @@ export const router = new Router({
           name: 'dailyListing',
           component: () => import('./components/saisies/DailyListing'),
         },
+        {
+          path: 'ajoutActiviteControle',
+          name: 'ajoutActiviteControle',
+          component: () => import('./components/Controle/AjoutActiviteControleUser')
+        }
 
       ]
     },
