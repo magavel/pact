@@ -99,6 +99,8 @@ class UserService {
 
     return axios.get(`${config.API_URL}users/${user.username}/controleSaisie?dateDebut=${dateDebut}&dateFin=${dateFin}`, { headers: authHeader() });
   }
+
+
 }
 
 export default new UserService();

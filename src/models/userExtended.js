@@ -10,5 +10,6 @@ export default class UserExtended {
     this.utilisateur_actif = true;
     this.utilisateur_roles = [];
     this.utilisateur_equipes= [];
+    this.utilisateur_centre = [];
   }
 }

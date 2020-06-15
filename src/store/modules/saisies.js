@@ -202,7 +202,18 @@ const actions = {
                 };
                 commit('DELETE_ERROR', error);
             });
-    }
+    },
+    updateCharge({ commit }, charge) {
+        SaisieService.updateCharge(charge)
+             .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec update charge: ${err.message}`,
+                };
+                commit('UPDATE_SAISIES_ERROR', error);
+                console.log(err.message)
+            });
+    },
 
 }
 

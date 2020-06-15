@@ -123,6 +123,14 @@ class SaisieService {
                 headers: authHeader()
             } );
     }
+    updateCharge(uneSaisie) {
+        const user = JSON.parse(localStorage.getItem('user'))
+        return axios.patch(`${config.API_URL}phases/saisies/${uneSaisie.saisieId}`,
+            uneSaisie,{
+                headers: authHeader()
+            } );
+
+    }
 
 }
 

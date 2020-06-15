@@ -11,6 +11,12 @@
         <div class="row pl-5">
             <div class="col">
                 <div class="row">
+                    <span>Collaborateurs</span>
+                </div>
+                <div class="row dropdownWidth">
+                    <Dropdown v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+                </div>
+                <div class="row">
                     <span>Missions / Modules</span>
                 </div>
                 <div class="row dropdownWidth">
