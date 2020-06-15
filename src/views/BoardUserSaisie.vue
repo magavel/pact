@@ -1,13 +1,13 @@
 <template>
   <div id="principal">
     <div id="lien">
-        <<span><a href="#" class="titre">Mes Activités</a></span>
-        <span class="ml-5"><a href="#" class="titre">Saisir à la place de</a></span>
-      <!--<router-link to="/activites">Mes Activités</router-link>-->
-      <!--<router-link to="/activites/ajoutActiviteControle">Activités de mes équipes</router-link>-->
+        <!--<span><a href="#" class="titre">Mes Activités</a></span>-->
+        <!--<span class="ml-5"><a href="#" class="titre">Saisir à la place de</a></span>-->
+      <router-link to="/activites/myActivities">Mes Activités</router-link>
+      <router-link to="/activites/ajoutActiviteControle" class="ml-5">Activités de mes équipes</router-link>
     </div>
-    <!--<router-view></router-view>-->
-    <MyActivities :activite-fav-key="activiteFavKey" :ajout-activite-key="ajoutActiviteKey" :tabs-key="tabsKey"/>
+    <router-view></router-view>
+    <!--<MyActivities :activite-fav-key="activiteFavKey" :ajout-activite-key="ajoutActiviteKey" :tabs-key="tabsKey"/>-->
   </div>
 </template>
 
@@ -31,7 +31,7 @@
     },
     created() {
       this.$store.dispatch('users/getAllFavorites');
-      this.$router.push({ name: 'dailyListing'});
+      this.$router.push({name: 'myActivities'});
     }
   }
 </script>
@@ -47,5 +47,9 @@
     text-decoration: underline;
   }
 
+  #lien .router-link-active{
+    color: #154194;
+    text-decoration: underline;
+  }
 </style>
 

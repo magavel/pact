@@ -43,6 +43,9 @@
             activiteFavKey: {},
             ajoutActiviteKey: {},
             tabsKey: {}
+        },
+        created() {
+            this.$router.push({ name: 'dailyListing'});
         }
     }
 </script>

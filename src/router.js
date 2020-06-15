@@ -72,19 +72,26 @@ export const router = new Router({
       component: () => import('./views/BoardUserSaisie.vue'),
       children: [
         {
-          path: 'periodeListing',
-          name: 'periodeListing',
-          component: () => import('./components/saisies/inputByWeekly'),
-        },
-        {
-          path: 'dailyListing',
-          name: 'dailyListing',
-          component: () => import('./components/saisies/DailyListing'),
-        },
-        {
           path: 'ajoutActiviteControle',
           name: 'ajoutActiviteControle',
-          component: () => import('./components/Controle/AjoutActiviteControleUser')
+          component: () => import('./views/BoardControleSaisieUser'),
+        },
+        {
+          path: 'myActivities',
+          name: 'myActivities',
+          component: () => import('./components/saisies/MyActivities'),
+          children:[
+            {
+              path: 'periodeListing',
+              name: 'periodeListing',
+              component: () => import('./components/saisies/inputByWeekly'),
+            },
+            {
+              path: 'dailyListing',
+              name: 'dailyListing',
+              component: () => import('./components/saisies/DailyListing'),
+            },
+          ]
         }
 
       ]
