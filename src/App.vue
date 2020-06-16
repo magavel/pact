@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="backgroundNav mt-n2">
+    <div class="backgroundNav mt-n3">
     </div>
-    <div class="card bgCard m-2">
+    <div class="card shadow-lg bgCard m-3">
       <div class="card-body">
         <Navigation
                 :current-user="currentUser"
@@ -61,7 +61,7 @@
   .backgroundNav {
     position:absolute;
     width: 200px;
-    min-height: 100vh;
+    min-height: 200vh;
     background-color: $primary;
   }
 
