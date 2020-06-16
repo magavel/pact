@@ -1,88 +1,27 @@
 <template>
-  <div id="app">
-    <nav class="navbar  navbar-expand-lg navbar-dark sticky-top flex-md-nowrap p-0">
-      <div v-if="!currentUser" class="navbar-nav ml-auto">
-        <ul class="navbar-nav px-3 ">
-            <li class="nav-item text-primary">
-            <router-link to="/login" class="nav-link">
-              <font-awesome-icon icon="sign-in-alt" />Connexion
-            </router-link>
-          </li>
-        </ul>
-      </div>
-      <div v-if="currentUser" class="navbar-nav ml-auto">
-        <ul class="navbar-nav px-3">
-          <li class="nav-item">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <font-awesome-icon icon="user" />
-                {{ currentUser.username }}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                <router-link to="/profile" class="dropdown-item">
-                  <font-awesome-icon icon="user" />
-                  Profile
-                </router-link>
-                <router-link to="/updatePassword" class="dropdown-item">
-                  <font-awesome-icon icon="user" />
-                  Changer son mot de passe
-                </router-link>
-
-                <a class="dropdown-item" href @click.prevent="logOut">
-                  <font-awesome-icon icon="sign-out-alt" />Deconnexion
-                </a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-primary-variant sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/home" class="nav-link">
-                  <font-awesome-icon icon="chalkboard" /> Rapport
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/activites" class="nav-link">
-                  <font-awesome-icon icon="pencil-alt" /> saisie
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link v-if="currentUser" to="/projects" class="nav-link">
-                  <font-awesome-icon icon="pencil-alt" /> Projets
-                </router-link>
-              </li>
-              <li v-if="showAdminBoard" class="nav-item">
-                <router-link to="/user" class="nav-link">
-                  <font-awesome-icon icon="cogs" /> Administration</router-link>
-              </li>
-              <li v-if="showModeratorBoard" class="nav-item">
-                <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
-              </li>
-            </ul>
-
-
-          </div>
-        </nav>
-
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <router-view />
-        </main>
+  <div>
+    <div class="backgroundNav mt-n2">
+    </div>
+    <div class="card bgCard m-2">
+      <div class="card-body">
+        <Navigation
+                :current-user="currentUser"
+                :log-out="logOut"/>
+        <CentralContainer
+                :current-user="currentUser"
+                :show-admin-board="showAdminBoard"
+                :show-moderator-board="showModeratorBoard"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Navigation from "./components/Navigation";
+  import CentralContainer from "./components/CentralContainer";
+
   export default {
+    components: {CentralContainer, Navigation},
     computed: {
       currentUser() {
         return this.$store.state.auth.user;
@@ -114,6 +53,17 @@
 <style lang="scss">
   @import "./assets/custom.scss";
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
+.bgCard {
+  border-radius: 27px;
+  background-color: rgba(255, 255, 255, 0.26);
+}
+
+  .backgroundNav {
+    position:absolute;
+    width: 200px;
+    min-height: 100vh;
+    background-color: $primary;
+  }
 
   body #divCalendar .p-datepicker {
       border: none;
@@ -143,12 +93,6 @@
 
   body #divCalendar .p-datepicker .p-datepicker-header{
     background-color: $secondary;
-  }
-
-
-
-  .card{
-    border: none;
   }
 
   body #charges .p-inputtext{

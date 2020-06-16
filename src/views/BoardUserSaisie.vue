@@ -37,6 +37,17 @@
 </script>
 
 <style>
+  #saisie{
+    background-color: white;
+    margin-bottom: 2em;
+  }
+  #container-saisie{
+    margin-left: 0;
+    /*background-image: url("../assets/Trace-82.svg");*/
+    /*background-size: 800px;
+    background-repeat: no-repeat;*/
+    z-index: 1;
+  }
 
   #lien a{
     color: #535353;

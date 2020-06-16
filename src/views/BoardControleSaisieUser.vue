@@ -2,6 +2,7 @@
   <div class="container">
     <div class="card m-3">
       <div class="card-body">
+        <CardPeriodeControle/>
         <ListControleUser />
       </div>
     </div>
@@ -22,15 +23,16 @@
 </template>
 
 <script>
-import UserService from '../services/user.service';
-import ListControleUser from "../components/Controle/ListControleUser";
-import AjoutActiviteControleUser from "../components/Controle/AjoutActiviteControleUser";
-import Tabs from "../components/saisies/Tabs";
-import Tab from "../components/saisies/Tab";
+  import ListControleUser from "../components/Controle/ListControleUser";
+  import AjoutActiviteControleUser from "../components/Controle/AjoutActiviteControleUser";
+  import Tabs from "../components/saisies/Tabs";
+  import Tab from "../components/saisies/Tab";
+  import CardPeriodeControle from "../components/Controle/CardPeriodeControle";
 
-export default {
+  export default {
   name: 'BoardControleSaisieUser',
   components: {
+    CardPeriodeControle,
       ListControleUser,
       AjoutActiviteControleUser,
     Tab,
@@ -48,3 +50,12 @@ export default {
   }
 };
 </script>
+
+
+<style>
+
+  #periodeControle .p-inputtext {
+    width: 100px;
+    margin-top: 10%;
+  }
+</style>
