@@ -18,26 +18,23 @@
                     <template #body="slotProps">
 
                         <div v-if="slotProps.node.data.username !== undefined">
-                      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" :title="commentaire(col,slotProps)">
+                      <span class="d-inline-block" tabindex="0" >
                                                         <div id="charges">{{meth(col,slotProps)}}</div>
 
                         </span>       </div>
                         <div v-else>
                         <div @dblclick="update(col,slotProps)">
                             <div v-if= "isUpdate(col,slotProps) === false">
-                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" :title="commentaire(col,slotProps)">
-                                 <div id="chargesChild"> {{meth(col,slotProps)}}</div>
-                                 </span>
+                                <div class="popup" @click="myFunction(col,slotProps)">{{meth(col,slotProps)}}
+                                    <span class="popuptext" :id="myPopupId(col,slotProps)"  @click="modifierSaisie(col,slotProps)">{{commentaire(col,slotProps)}}</span>
+                                </div>
                         </div>
                             <div v-else>
 
                                 <InputMask @keydown.enter.stop="miseAjour(col,slotProps)"
                                            class="p-field col-xs-2 inputcolumn"
                                            :value="meth(col,slotProps)" v-model="selectedCaseCharge" mask="9:99" placeholder="  :  "/>
-                                <!-- <input-text  @keydown.enter.stop="miseAjour(col,slotProps)"
-                                             class="p-field col-xs-2 inputcolumn"
-                                             :value="meth(col,slotProps)"
-                                v-model="selectedCaseCharge"></input-text> -->
+
                             </div>
                         </div>
 
@@ -56,9 +53,9 @@
                         <!--   je suis un fils -->
                         <Button type="button" icon="pi pi-upload" class="p-button-secondary"
                                 @click="upload(slotProps.data.systeme_information_id)"></Button>
-                        <Button type="button" icon="pi pi-pencil" class="p-button-secondary"></Button>
-                        <Button type="button" icon="pi pi-briefcase" class="p-button-secondary"
-                                @click="exportCSV($event,slotProps)"></Button>
+
+                        <!-- <Button type="button" icon="pi pi-briefcase" class="p-button-secondary"
+                                @click="exportCSV($event,slotProps)"></Button> -->
                      </div>
                  </template>
 
@@ -108,10 +105,15 @@
                  selectedCase: null,
                  selectedCaseCharge:null,
                  componentKey:null,
+                 selectedPopup: null,
 
              }
          },
          methods : {
+             myPopupId(col,slotProps) {
+
+                 return "".concat(eval("slotProps.node.key"),'-',col.field.toString());
+             },
              test() {
                  this.nodes = this.controle.data;
                  this.columns = this.controle.colunns;
@@ -122,10 +124,11 @@
                 return eval("this.controle.data[slotProps.node.key.split('-')[0]].data." +col.field.toString()+".charge")
              },
              meth(col,slotProps) {
-                 return eval("slotProps.node.data."+col.field.toString()+".charge");
+                 let res = eval("slotProps.node.data."+col.field.toString()+".charge");
+                 return res.toString();
              },
              commentaire(col,slotProps) {
-                 return eval("slotProps.node.data."+col.field.toString()+".commentaire");
+                 return eval("slotProps.node.data."+col.field.toString()+".commentaire ") ;
              },
              modifierSaisie(col,slotProps) {
                  alert(eval("slotProps.node.data."+col.field.toString()+".saisieId"));
@@ -147,8 +150,7 @@
              },
          forceRerender() {
              this.componentKey += 1;
-         },
-             miseAjour(col,slotProps){
+         },             miseAjour(col,slotProps){
 
                  let uneSaisieCharge = 0;
                  if (this.selectedCase.saisieId !== -1) {
@@ -185,10 +187,8 @@
                  let resColun = (this.getColunnPere(col,slotProps) + (uneSaisieCharge - this.selectedCase.charge));
 
                 eval("this.$store.state.users.controle.data[slotProps.node.key.split('-')[0]].data."+col.field.toString()+".charge = "+ resColun.toString());
-
                 eval("this.controle.data[slotProps.node.key.split('-')[0]].data."+col.field.toString()+".charge = "+ resColun.toString());
-
-                 eval("this.nodes[slotProps.node.key.split('-')[0]].data."+col.field.toString()+".charge = "+ resColun.toString());
+                eval("this.nodes[slotProps.node.key.split('-')[0]].data."+col.field.toString()+".charge = "+ resColun.toString());
 
                  this.miseAjourColunmValue (col,slotProps, uneSaisieCharge )
 
@@ -208,12 +208,77 @@
              exportCSV(event,slotProps) {
                  console.log(slotProps);
              },
+             myFunction(col,slotProps) {
+
+                 if (this.selectedPopup !== null) {
+                     this.selectedPopup.display = "none";
+                 }
+
+                 let popup = document.getElementById("".concat(eval("slotProps.node.key"),'-',col.field.toString()));
+                popup.classList.toggle("show");
+                this.selectedPopup = popup;
+     }
          }
      }
 
    </script>
 
  <style lang="scss" scoped>
+
+
+     /* Popup container */
+     .popup {
+         position: relative;
+         display: inline-block;
+         cursor: pointer;
+     }
+
+     /* The actual popup (appears on top) */
+     .popup .popuptext {
+         visibility: hidden;
+         width: 160px;
+         background-color: #555;
+         color: #fff;
+         text-align: center;
+         border-radius: 6px;
+         padding: 8px 0;
+         position: absolute;
+         z-index: 1;
+         bottom: 125%;
+         left: 50%;
+         margin-left: -80px;
+     }
+
+     /* Popup arrow */
+     .popup .popuptext::after {
+         content: "";
+         position: absolute;
+         top: 100%;
+         left: 50%;
+         margin-left: -5px;
+         border-width: 5px;
+         border-style: solid;
+         border-color: #555 transparent transparent transparent;
+     }
+
+     /* Toggle this class when clicking on the popup container (hide and show the popup) */
+     .popup .show {
+         visibility: visible;
+         -webkit-animation: fadeIn 1s;
+         animation: fadeIn 1s
+     }
+
+     /* Add animation (fade in the popup) */
+     @-webkit-keyframes fadeIn {
+         from {opacity: 0;}
+         to {opacity: 1;}
+     }
+
+     @keyframes fadeIn {
+         from {opacity: 0;}
+         to {opacity:1 ;}
+     }
+
 
      .inputcolumn {
          width: 60px;

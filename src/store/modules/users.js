@@ -59,9 +59,9 @@ const mutations = {
     state.controle = controles;
   },
     UPDATE_TABLE_CONTROLE(state, data) {
-        state.controle.data = data;
-        const parsed = JSON.stringify(state.controle);
-        localStorage.setItem('controles', parsed);
+      //  state.controle.data = data;
+      //  const parsed = JSON.stringify(state.controle);
+     //   localStorage.setItem('controles', parsed);
     }
 };
 
