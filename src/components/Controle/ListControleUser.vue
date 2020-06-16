@@ -21,7 +21,7 @@
                       <span class="d-inline-block" tabindex="0" >
                                                         <div id="charges">{{meth(col,slotProps)}}</div>
 
-                        </span>       </div>
+                        </span> </div>
                         <div v-else>
                         <div @dblclick="update(col,slotProps)">
                             <div v-if= "isUpdate(col,slotProps) === false">
@@ -211,12 +211,29 @@
              myFunction(col,slotProps) {
 
                  if (this.selectedPopup !== null) {
-                     this.selectedPopup.display = "none";
+                     this.selectedPopup.style.display = "none";
                  }
 
+                 this.selectedCase = eval("slotProps.node.data."+col.field.toString()); // recuperation de la case lu.
+
                  let popup = document.getElementById("".concat(eval("slotProps.node.key"),'-',col.field.toString()));
-                popup.classList.toggle("show");
-                this.selectedPopup = popup;
+                 popup.classList.toggle("show");
+                 this.selectedPopup = popup;
+
+                 let uneSaisie = {
+                     saisieId: this.selectedCase.saisieId,
+                     saisie_charge: eval("slotProps.node.data."+col.field.toString()+".charge"),
+                     //  saisie_charge: this.selectedCaseCharge,
+                     saisie_phaseId : slotProps.node.data.phaseId,
+                     activite_Id : slotProps.node.data.activiteId,
+                     saisie_commentaire : "",
+                     saisie_username : JSON.parse(localStorage.getItem('user')).username,
+                     saisie_date : this.selectedCase.dateSaisie,
+                 }
+
+                 this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
+                 this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
+                 this.$store.commit('saisies/UPDATE_TABS_KEY');
      }
          }
      }
