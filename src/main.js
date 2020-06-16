@@ -23,8 +23,9 @@ import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import Dialog from 'primevue/dialog';
 import Row from 'primevue/row';
+import JsonCSV from 'vue-json-csv';
 
-
+import Tooltip from 'primevue/tooltip';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -88,6 +89,7 @@ library.add(
 
 Vue.config.productionTip = false;
 
+Vue.directive('tooltip', Tooltip);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('DataTable', DataTable);
@@ -113,7 +115,7 @@ Vue.component('TreeTable',TreeTable);
 Vue.component('Toast',Toast);
 Vue.component('Dialog', Dialog),
     Vue.component('Row',Row),
-    //Vue.component('Tooltip',Tooltip),
+    Vue.component('downloadCsv', JsonCSV)
 
 
 // les filtres... ou pipes c'est la même chose...
