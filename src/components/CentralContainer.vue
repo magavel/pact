@@ -11,7 +11,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-if="currentUser" to="/activites" class="nav-link">
+                            <router-link v-if="currentUser" to="/activites/myActivities/dailyListing" class="nav-link">
                                 <font-awesome-icon icon="pencil-alt"/>
                                 saisie
                             </router-link>
@@ -70,10 +70,6 @@
             margin-right: -15px;
             color: white;
             width: 149px;
-
-            &:hover {
-                color: #e8ebf0;
-            }
         }
 
     }

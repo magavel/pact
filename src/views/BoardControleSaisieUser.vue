@@ -6,6 +6,7 @@
       </div>
     </div>
     <div id="formulaire">
+
       <Tabs :key="tabsKey">
         <Tab name="Nouvelle activité" icon="pi pi-calendar-plus" :selected="true">
           <AjoutActiviteControleUser />
