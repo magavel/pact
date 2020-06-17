@@ -17,7 +17,8 @@ const state = {
     tableauSaisieKey: 0,
     saisieUpdate: null,
     ajoutActiviteKey: 0,
-    tabsKey: 0
+    tabsKey: 0,
+    lastSaisie:0,
 };
 
 const mutations = {
@@ -77,6 +78,10 @@ const mutations = {
     },
     DELETE_ERROR(state, error) {
         state.errors = [ error, ...state.errors ];
+    },
+    LAST_SAISIE_ID(state,id) {
+        state.lastSaisie = id;
+        console.log("LAST_SAISIE_ID :" + id);
     }
 
 }
@@ -98,7 +103,7 @@ const actions = {
                 };
                 commit('CREATE_ERROR', error);
             });
-        ;
+
     },
     getSaisies( {commit}, dateDebutFin){
         SaisieService.getSaisie(dateDebutFin[0], dateDebutFin[1])
@@ -145,6 +150,12 @@ const actions = {
                     message: 'ajout une saisie',
                 }
                 commit('CREATE_SUCCESS', succes);
+                if(res.status === 201) {
+                    console.log (res.data.saisie_Id);
+                    let value = res.data.saisie_Id;
+                    commit('LAST_SAISIE_ID',value);
+                }
+
 
             })
             .catch((err) => {

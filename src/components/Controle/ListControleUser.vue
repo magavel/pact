@@ -19,7 +19,7 @@
 
                         <div v-if="slotProps.node.data.username !== undefined">
                       <span class="d-inline-block" tabindex="0" >
-                                                        <div id="charges">{{meth(col,slotProps)}}</div>
+                                                        <div id="charges">{{meth(col,slotProps) | fromMinutesToHours()}}</div>
 
                         </span> </div>
                         <div v-else>
@@ -125,7 +125,7 @@
              },
              meth(col,slotProps) {
                  let res = eval("slotProps.node.data."+col.field.toString()+".charge");
-                 return res.toString();
+                 return parseFloat(res.toString());
              },
              commentaire(col,slotProps) {
                  return eval("slotProps.node.data."+col.field.toString()+".commentaire ") ;
@@ -147,6 +147,7 @@
              },
              miseAjourColunmValue(col,slotProps, value) {
                  eval("slotProps.node.data."+col.field.toString()+".charge = "+value);
+                 eval("slotProps.node.data."+col.field.toString()+".saisieId = "+this.$store.state.saisies.lastSaisie);
              },
          forceRerender() {
              this.componentKey += 1;
@@ -178,7 +179,7 @@
 
                      this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
                      uneSaisieCharge = uneSaisie.saisie_charge;
-                     ;
+
 
                  }
 
