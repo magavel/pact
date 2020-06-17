@@ -25,7 +25,7 @@
                         <div v-else>
                         <div @dblclick="update(col,slotProps)">
                             <div v-if= "isUpdate(col,slotProps) === false">
-                                <div class="popup" @click="myFunction(col,slotProps)">{{meth(col,slotProps)}}
+                                <div class="popup" @click="myFunction(col,slotProps)">{{meth(col,slotProps) | fromMinutesToHours()}}
                                     <span class="popuptext" :id="myPopupId(col,slotProps)"  @click="modifierSaisie(col,slotProps)">{{commentaire(col,slotProps)}}</span>
                                 </div>
                         </div>
