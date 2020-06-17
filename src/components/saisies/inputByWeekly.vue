@@ -8,59 +8,37 @@
         <div class="text-center bg-white">
             <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
-        <DataTable
-                   :value="saisiesParPeriode"
-                   class="p-datatable-responsive p-datatable-customers p-datatable-sm"
-                   :rows="4"
-                   :resizableColumns="true"
-                   columnResizeMode="expand"
-        >
-
-            <template #empty>
-                Aucune Activités trouvées.
-            </template>
-            <template #loading>
-                Chargement des données en cours.
-            </template>
-            <Column field="saisieByWeek_moduleLibelle"
-                    header="Missions/ Modules"
-                    headerStyle="width: 150px"
-            >
-                <template #body="slotProps">
-                    <div :class="slotProps.data.saisieByWeek_moduleLibelle" class="pl-3">
-                        {{ slotProps.data.saisieByWeek_moduleLibelle}}
-                    </div>
-                </template>
-            </Column>
-            <Column field="saisieByWeek_activite_id"
-                    header="Type d'activités"
-                    headerStyle="width: 100px"
-            >
-                <template #body="slotProps">
-                    <div :class="slotProps.data.saisieByWeek_activite_id" class="pl-3">
-                        {{ slotProps.data.saisieByWeek_activite_id}}
-                    </div>
-                </template>
-
-            </Column>
-
-
-            <Column v-for="activite of header" :header='activite'  :key="activite.chargeHebdomadaire_saisieId"/>
-
-
-            <Column header="Actions"  headerStyle="width: 100px">
-                <template #body>
-                    <div class="d-flex flex-nowrap">
-                        <Button type="button" icon="pi pi-plus" class="p-button-secondary"></Button>
-                        <Button type="button" icon="pi pi-times" class="p-button-secondary"></Button>
-                    </div>
-                </template>
-            </Column>
-            <template #footer>
-                In total there are
-            </template>
-        </DataTable>
-
+        <div class="divTable">
+            <div class="divTableBody">
+                <!-- ligne des titres -->
+                <div class="divTableRow">
+                    <div class="divTableCell rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
+                    <div class="divTableCell bg-gris-module align-middle entete ">Type d'activités</div>
+                    <div class="divTableCell bg-gris-module align-middle text-center entete"> < </div>
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell align-middle bg-gris-module entete font-weight-bold"> > </div>
+                    <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">Actions</div>
+                </div>
+                <!-- ligne des data et des projets -->
+                <div class="divTableRow">
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell">&nbsp;</div>
+                </div>
+                <!-- ligne du footer -->
+                <div class="divTableRow">
+                    <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
+                    <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
+                    <div class="divTableCell bg-gris-module align-middle text-center entete">&nbsp;</div>
+                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell  align-middle bg-gris-module entete font-weight-bold">&nbsp;</div>
+                    <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -108,6 +86,35 @@
 </script>
 
 <style lang="scss" scoped>
+    .entete {
+        height: 50px;
+    }
+    .divTable{
+        display: table;
+        width: 100%;
+    }
+    .divTableRow {
+        display: table-row;
+    }
+    .divTableCell, .divTableHead {
+        // border: 1px solid #999999;
+        display: table-cell;
+        padding: 3px 10px;
+    }
+    .divTableHeading {
+        background-color: #EEE;
+        display: table-header-group;
+        font-weight: bold;
+    }
+    .divTableFoot {
+        background-color: #EEE;
+        display: table-footer-group;
+        font-weight: bold;
+    }
+    .divTableBody {
+        display: table-row-group;
+    }
+
     #periode {
         background-color: #ffca7a;
         height: 70px;
@@ -124,44 +131,6 @@
             top: -29px;
         }
     }
-    .p-datatable {
-        font-size: 10px;
-    }
-    /deep/ .p-datatable.p-datatable-customers {
-        .p-datatable-header {
-            border: 0 none;
-            padding: 12px;
-            text-align: left;
-            font-size: 10px;
-        }
-
-        .p-datatable-thead{
-            background-color: #E6DFDF85;
-            border-radius: 10px;
-        }
-
-        .p-datatable-thead > tr > th {
-            border: 0 none;
-            text-align: left;
-
-            &.p-filter-column {
-                border-top: 1px solid #c8c8c8;
-            }
-        }
-        p-column-title {
-            font-size: 10px;
-        }
-
-        .p-datatable-tbody > tr > td {
-            border: 0 none;
-            cursor: auto;
-        }
-
-        .p-dropdown-label:not(.p-placeholder) {
-            text-transform: uppercase;
-        }
-    }
-
     .testBg1{
         background-color: #069F90;
         border-radius: 8px;
@@ -194,5 +163,3 @@
     }
 
 </style>
-
-{"data":[{"saisieByWeek_moduleLibelle":"PACTNG_PMV","saisieByWeek_moduleId":1,"saisieByWeek_activite_id":"Appui-tech","01-02":5.5,"02-2":5.5}]
