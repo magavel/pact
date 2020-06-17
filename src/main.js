@@ -58,12 +58,14 @@ import { router } from './router';
 import store from './store';
 import "./shared/styles.css";
 import moment from 'moment'
-import getTrigramme from "./utils/getTrigramme";
-import dateFrancaise from "./utils/dateFrancaise";
-import dateFrFull from "./utils/dateFrFull";
-import jourFrShort from "./utils/jourFrShort";
-import monthYearShort from "./utils/monthYearShort";
-import dateFrShort from "./utils/dateFrShort"
+
+import getTrigramme from "./filters/getTrigramme";
+import dateFrancaise from "./filters/dateFrancaise";
+import dateFrFull from "./filters/dateFrFull";
+import jourFrShort from "./filters/jourFrShort";
+import monthYearShort from "./filters/monthYearShort";
+import dateFrShort from "./filters/dateFrShort"
+import fromMinutesToHours from "./filters/fromMinutesToHours"
 
 Vue.prototype.moment = moment
 
@@ -113,9 +115,9 @@ Vue.component('ToggleButton',ToggleButton);
 Vue.component('Message',Message);
 Vue.component('TreeTable',TreeTable);
 Vue.component('Toast',Toast);
-Vue.component('Dialog', Dialog),
-    Vue.component('Row',Row),
-    Vue.component('downloadCsv', JsonCSV)
+Vue.component('Dialog', Dialog);
+Vue.component('Row',Row);
+Vue.component('downloadCsv', JsonCSV);
 
 
 // les filtres... ou pipes c'est la même chose...
@@ -125,6 +127,7 @@ Vue.filter('dateFrFull', dateFrFull);
 Vue.filter('jourFrShort', jourFrShort);
 Vue.filter('monthYearShort', monthYearShort);
 Vue.filter('dateFrShort', dateFrShort);
+Vue.filter('fromMinutesToHours', fromMinutesToHours);
 
 
 
