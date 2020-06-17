@@ -65,12 +65,14 @@
 
         & a {
             font-weight: bold;
+            font-size: small;
             height: 50px;
             margin-right: -15px;
             color: white;
+            width: 149px;
 
             &:hover {
-                color: $secondary;
+                color: #e8ebf0;
             }
         }
 
