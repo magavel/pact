@@ -10,7 +10,8 @@ const state = {
   success: [], // log des success
   favorites: [], //activites favorites
   journeesFavorites: [], //journee favorites
-  controle: [], //donnée pour le controle
+  controle: [],//données pour le controle
+    controleKey:0, //key de mise à jour.
 };
 
 const mutations = {
@@ -58,10 +59,8 @@ const mutations = {
       localStorage.setItem('controles', parsed);
     state.controle = controles;
   },
-    UPDATE_TABLE_CONTROLE(state, data) {
-      //  state.controle.data = data;
-      //  const parsed = JSON.stringify(state.controle);
-     //   localStorage.setItem('controles', parsed);
+    UPDATE_TABLE_CONTROLE(state) {
+        state.controleKey += 1;
     }
 };
 
@@ -228,6 +227,10 @@ const actions = {
           commit('CREATE_ERROR', error);
         });
   },
+    updateTableControle({ commit }) {
+        commit('UPDATE_TABLE_CONTROLE');
+
+    }
 
 
 };

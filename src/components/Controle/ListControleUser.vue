@@ -1,7 +1,7 @@
 <template>
     <div>
         <Toast />
-        <TreeTable :value="nodes"
+        <TreeTable v-model="nodes"
                    :filters="filters"
                    filterMode="lenient" always-show-paginator
                    :paginator="true"
@@ -14,7 +14,7 @@
             <Column field="mission" header="Missions" ></Column>
             <Column field="activite" header="Activites"></Column>
             <Column v-for="col of columns" :key="col.field"
-                     :header="col.header" :expander="col.expander">
+                     :header="col.header" :expander="col.expander" >
                     <template #body="slotProps">
 
                         <div v-if="slotProps.node.data.username !== undefined">
@@ -39,27 +39,8 @@
                         </div>
 
                         </div>
-
-
-
                 </template>
             </Column>
-            <Column header="actions">
-                <template #body="slotProps">
-                    <div v-if="slotProps.node.data.username !== undefined">
-                     <!--   <Button type="button" icon="pi pi-plus" class="p-button-secondary" @click.prevent="ajouterUneActiviteFavorite(slotProps)"></Button>-->
-                    </div>
-                    <div v-else>
-                        <!--   je suis un fils -->
-                        <Button type="button" icon="pi pi-upload" class="p-button-secondary"
-                                @click="upload(slotProps.data.systeme_information_id)"></Button>
-
-                        <!-- <Button type="button" icon="pi pi-briefcase" class="p-button-secondary"
-                                @click="exportCSV($event,slotProps)"></Button> -->
-                     </div>
-                 </template>
-
-             </Column>
          </TreeTable>
      </div>
  </template>
@@ -69,46 +50,49 @@
      export default {
          computed: mapState({
              controle: state => state.users.controle,
+             nodes: state => state.users.controle.data,
+             columns: state => state.users.controle.colunns,
              dateSelectionee: state => state.saisies.dateSelectionee,
              loading: false,
+             miseAjourKey: state =>  state.users.controleKey,
          }),
              created() {
-            let dateDebut = this.$store.state.saisies.dateDeSaisie[0];
-            let dateFin = this.$store.state.saisies.dateDeSaisie[1];
-            dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
-            dateFin.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+            this.dateDebut = this.$store.state.saisies.dateDeSaisie[0];
+           this.dateFin = this.$store.state.saisies.dateDeSaisie[1];
+                 this.dateDebut.setHours(0, -this.dateDebut.getTimezoneOffset(), 0, 0);
+                 this.dateFin.setHours(0, -this.dateDebut.getTimezoneOffset(), 0, 0);
 
-            console.log('dateDebut.toISOString()', dateDebut.toISOString());
-            console.log('dateFin.toISOString()', dateFin.toISOString());
+            console.log('dateDebut.toISOString()',this.dateDebut.toISOString());
+            console.log('dateFin.toISOString()', this.dateFin.toISOString());
 
              let periode = new Object();
-                 periode.dateDebut = dateDebut.toISOString();
-                 periode.dateFin = dateFin.toISOString();
+                 periode.dateDebut = this.dateDebut.toISOString();
+                 periode.dateFin = this.dateFin.toISOString();
                  //periode.dateDebut = "2020-03-18T00:00:00.000Z";
                  //periode.dateFin = "2020-03-20T00:00:00.000Z";
 
              this.$store.dispatch('users/getControleSaisies', periode);
-            if (this.controle.data === undefined) {
+           /* if (this.controle.data === undefined) {
              if (localStorage.getItem('controles')) {
                  try {
                      this.local = JSON.parse(localStorage.getItem('controles'));
                      this.nodes = this.local.data;
                      this.columns = this.local.colunns;
-                     this.constructor = this.$store.users.controle;
+                 //    this.constructor = this.$store.users.controle;
                  } catch(e) {
                      localStorage.removeItem('controles');
                  }
              } }  else {
                  this.$store.dispatch('users/getControleSaisies',periode);
                  this.test();
-             }
+             }*/
 
          },
          data() {
              return {
                  filters: {},
-                 nodes : null,
-                 columns : null,
+                 //nodes : null,
+                 //columns : null,
                  local: null,
                  selectedKey1:null,
                  periode:null,
@@ -116,6 +100,8 @@
                  selectedCaseCharge:null,
                  componentKey:null,
                  selectedPopup: null,
+                 dateDebut: null,
+                 dateFin:null
 
              }
          },
@@ -178,7 +164,7 @@
                      //nouvelle saisie.
                     let uneSaisie = {
                          saisieId: this.selectedCase.saisieId,
-                        saisie_charge: (parseInt(this.selectedCaseCharge.split(':')[0]*60) + parseInt(this.selectedCaseCharge.split(':')[1])),
+                         saisie_charge: (parseInt(this.selectedCaseCharge.split(':')[0]*60) + parseInt(this.selectedCaseCharge.split(':')[1])),
                        //  saisie_charge: this.selectedCaseCharge,
                          saisie_phaseId : slotProps.node.data.phaseId,
                          activite_Id : slotProps.node.data.activiteId,
@@ -209,7 +195,7 @@
 
                  this.selectedCaseCharge = null;
 
-                 this.$store.commit("users/UPDATE_TABLE_CONTROLE", this.node);
+                 this.$store.commit("users/UPDATE_TABLE_CONTROLE");
 
               // this.forceRerender();
 
