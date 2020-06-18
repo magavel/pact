@@ -6,11 +6,12 @@
         <div class="col-4 ">
             <div id="periodeControle" class="ml-n2">
                             <span class="mr-2 ml-1">
-                                <img src="src/assets/event-24px.svg">
+                                <img src="../../assets/event-24px.svg">
                             </span>
-                <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
+                <Calendar v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"/>
                 <span class="ml-3 mr-3"> au </span>
-                <Calendar :locale="fr" dateFormat="dd/mm/yy"/>
+                <Calendar v-if="dateDeSaisie[1] !== null" v-model="dateDeSaisie[1]" :locale="fr" dateFormat="dd/mm/yy"/>
+                <Calendar v-else v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"/>
             </div>
         </div>
     </div>
@@ -18,6 +19,11 @@
 <script>
     export default {
         name: 'CardPeriodeControle',
+        computed: {
+            dateDeSaisie() {
+                return this.$store.state.saisies.dateDeSaisie;
+            },
+        },
         data(){
             return {
                 fr: {
