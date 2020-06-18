@@ -69,13 +69,23 @@
      export default {
          computed: mapState({
              controle: state => state.users.controle,
+             dateSelectionee: state => state.saisies.dateSelectionee,
              loading: false,
          }),
              created() {
+            let dateDebut = this.$store.state.saisies.dateDeSaisie[0];
+            let dateFin = this.$store.state.saisies.dateDeSaisie[1];
+            dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+            dateFin.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+
+            console.log('dateDebut.toISOString()', dateDebut.toISOString());
+            console.log('dateFin.toISOString()', dateFin.toISOString());
 
              let periode = new Object();
-                 periode.dateDebut =     "2020-03-18T00:00:00.000Z";
-                 periode.dateFin =     "2020-03-20T00:00:00.000Z";
+                 periode.dateDebut = dateDebut.toISOString();
+                 periode.dateFin = dateFin.toISOString();
+                 //periode.dateDebut = "2020-03-18T00:00:00.000Z";
+                 //periode.dateFin = "2020-03-20T00:00:00.000Z";
 
              this.$store.dispatch('users/getControleSaisies', periode);
             if (this.controle.data === undefined) {
