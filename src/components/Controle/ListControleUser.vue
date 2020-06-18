@@ -242,9 +242,9 @@
                      saisie_date : this.selectedCase.dateSaisie,
                  }
 
-                 this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
-                 this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
-                 this.$store.commit('saisies/UPDATE_TABS_KEY');
+                 //this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
+                 //this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
+                 //this.$store.commit('saisies/UPDATE_TABS_KEY');
      }
          }
      }
