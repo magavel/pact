@@ -1,6 +1,7 @@
 <template>
     <div class="mt-5">
         <div v-for="mission in saisiesParPeriode">
+            {{ mission }}
             <div v-for="col in mission.saisieByWeek_charges">
             le {{ col.chargeHebdomadaire_date }} charges: {{ col.chargeHebdomadaire_charges }}
             </div>
@@ -20,9 +21,9 @@
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">Actions</div>
                 </div>
                 <!-- ligne des data et des projets -->
-                <div class="divTableRow">
-                    <div class="divTableCell">&nbsp;</div>
-                    <div class="divTableCell">&nbsp;</div>
+                <div class="divTableRow" v-for="mission in saisiesParPeriode">
+                    <div class="divTableCell">{{ mission.saisieByWeek_moduleLibelle }}</div>
+                    <div class="divTableCell">{{ mission.saisieByWeek_activite_libelle }}</div>
                     <div class="divTableCell">&nbsp;</div>
                     <div class="divTableCell">&nbsp;</div>
                     <div class="divTableCell">&nbsp;</div>
