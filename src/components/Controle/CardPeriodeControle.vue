@@ -54,6 +54,7 @@
                     dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[0]]);
                     this.$store.dispatch('users/getControleSaisies', periode);
+                    this.$store.dispatch('users/getControleEquipeSaisies', periode);
                     this.$store.dispatch('users/updateTableControle');
 
 
@@ -68,6 +69,7 @@
 
                     this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
                     this.$store.dispatch('users/getControleSaisies', periode);
+                    this.$store.dispatch('users/getControleEquipeSaisies', periode);
                     this.$store.dispatch('users/updateTableControle');
 
                 }

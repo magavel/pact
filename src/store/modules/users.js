@@ -11,6 +11,7 @@ const state = {
   favorites: [], //activites favorites
   journeesFavorites: [], //journee favorites
   controle: [],//données pour le controle
+    controleEquipe: [], //données de controle Equipe
     controleKey:0, //key de mise à jour.
 };
 
@@ -59,6 +60,9 @@ const mutations = {
       localStorage.setItem('controles', parsed);
     state.controle = controles;
   },
+    GET_CONTROLE_EQUIPE(state, controles) {
+        state.controleEquipe = controles;
+    },
     UPDATE_TABLE_CONTROLE(state) {
         state.controleKey += 1;
     }
@@ -227,6 +231,27 @@ const actions = {
           commit('CREATE_ERROR', error);
         });
   },
+    getControleEquipeSaisies({ commit }, periode) {
+        userservice.getControleEquipeSaisies(periode)
+            .then((res) => {
+                const succes = {
+                    date: new Date(),
+                    message: 'lecture des contrôles',
+                }
+                commit('GET_CONTROLE_EQUIPE', res.data);
+                commit('GET_ALL_SUCCESS', succes);
+
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec sur la récuperation 
+            des user dans la méthode 
+            getUserBoard: ${err.message}`,
+                };
+                commit('CREATE_ERROR', error);
+            });
+    },
     updateTableControle({ commit }) {
         commit('UPDATE_TABLE_CONTROLE');
 

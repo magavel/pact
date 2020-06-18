@@ -9,7 +9,6 @@
           <keep-alive>
           <component v-bind:is="currentTabComponent" ></component>
               </keep-alive>
-              <!--<ListControleUser />-->
       </div>
     </div>
     <div id="formulaire">
@@ -34,6 +33,7 @@
   import ListControleEquipe from "../components/Controle/ListControleEquipe";
   import ListControleEquipeOrga from "../components/Controle/ListControleEquipeOrga";
   import AjoutActiviteControleUser from "../components/Controle/AjoutActiviteControleUser";
+
   import Tabs from "../components/saisies/Tabs";
   import Tab from "../components/saisies/Tab";
   import CardPeriodeControle from "../components/Controle/CardPeriodeControle";
