@@ -3,7 +3,7 @@
         <div class="text-center bg-white">
             <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
-        <div class="divTable">
+        <div class="divTable m-4">
             <div class="divTableBody">
                 <!-- ligne des titres -->
                 <div class="divTableRow">
@@ -21,7 +21,24 @@
                     <div class="divTableCell">&nbsp;</div>
                     <div class="divTableCell text-center" v-for="charge in mission.saisieByWeek_charges ">
                         <div @dblclick="update(charge.chargeHebdomadaire_saisieId)">
-                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}
+<!--                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}-->
+
+
+
+                            <div v-if= "isUpdate === false">
+                                <div class="popup" @click="myFunction()">{{ charge.chargeHebdomadaire_charges | fromMinutesToHours()}}
+                                    <span class="popuptext"  @click="modifierSaisie()">{{ charge.chargeHebdomadaire_commentaire }}</span>
+                                </div>
+                            </div>
+                            <div v-else>
+
+                                <InputMask @keydown.enter.stop="miseAjour()"
+                                           class="p-field col-xs-2 inputcolumn"
+                                           :value="charge.chargeHebdomadaire_charges" v-model="charge.chargeHebdomadaire_charges" mask="9:99" placeholder="  :  "/>
+
+                            </div>
+
+
                         </div>
                     </div>
                     <div class="divTableCell">&nbsp;</div>
@@ -93,13 +110,20 @@
         data () {
             return {
                 header : [],
+                isUpdate: false,
             }
         },
 
         methods: {
+
             update(id) {
                 console.log('id', id)
+               // this.isUpdate = true;
             },
+
+            myFunction() {
+
+                },
 
             test() {
              //   alert(this.saisiesParPeriode.length)
@@ -118,6 +142,48 @@
 </script>
 
 <style lang="scss" scoped>
+
+    /* Popup container */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    /* The actual popup (appears on top) */
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+
+    /* Popup arrow */
+    .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class when clicking on the popup container (hide and show the popup) */
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s
+    }
     .entete {
         height: 50px;
     }
