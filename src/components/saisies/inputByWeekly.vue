@@ -60,7 +60,7 @@
             calculSommeCharge: function() {
                 let tableau = [];
 
-                for(let a )
+
 
 
 
