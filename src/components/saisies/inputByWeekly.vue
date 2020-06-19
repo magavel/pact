@@ -51,8 +51,7 @@
                                 @click=""></Button>
                     </div>
                 </div>
-                <div class="divTableRow spacer">
-                </div>
+                <div class="divTableRow spacer"></div>
                 <!-- ligne du footer -->
                 <div class="divTableRow">
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
