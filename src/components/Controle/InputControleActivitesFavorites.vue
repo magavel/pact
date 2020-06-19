@@ -2,7 +2,21 @@
     <div class="mb-4 pb-4">
         <Toast />
         <Periode/>
-    <p>Vos activites</p>
+      <div class="row pl-5">
+        <div>
+          <span>Collaborateurs</span>
+        </div>
+      </div>
+      <div class="row pl-5">
+        <div id="inputCollaborateur">
+          <AutoComplete
+              v-model="selectedCollaborateur"
+              :suggestions="filteredCollaborateur"
+              :dropdown="true"
+              @complete="searchCollaborateurBasic($event)" field="utilisateur_username"/>
+        </div>
+      </div>
+    <p>les Activites favorites</p>
         <div class="row pl-5 mr-5">
     <DataTable v-model="favorites"
                class="p-datatable-responsive p-datatable-customers"
@@ -72,7 +86,7 @@
 </template>
 <script>
   import { mapState } from 'vuex';
-  import Periode from "./Periode";
+  import Periode from "../saisies/Periode";
   import Saisie from "../../models/saisie";
 
   export default {
@@ -89,6 +103,9 @@
             selectedSupprime : null, // favoris selectionnée
             componentKey: 0,
             messages: [],
+           selectedCollaborateur:  null,
+          listeCollaborateur: null,
+          filteredCollaborateur: null
         }
       },
       methods: {
@@ -125,7 +142,17 @@
           },
           forceRerender() {
               this.componentKey += 1;
-          }
+          },
+        searchCollaborateur(query) {
+          return this.listeCollaborateur.filter((collaborateur) => {
+            return collaborateur.utilisateur_username.toLowerCase().startsWith(query.toLowerCase());
+          });
+        },
+        searchCollaborateurBasic(event) {
+          setTimeout(() => {
+            this.filteredCollaborateur = this.searchCollaborateur(event.query);
+          }, 250);
+        },
       },
     name: 'InputActivitesFavorites',
       components: {Periode}
