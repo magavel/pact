@@ -6,7 +6,10 @@
                    :rows="5"
                    :scrollable="true"
                    scrollHeight="200px"
-                   dataKey="SaisieFavorite_saisieId" :rowHover="true" :selection.sync="selectedSaisies" :key="componentKey">
+                   dataKey="SaisieFavorite_saisieId"
+                   :rowHover="true"
+                   :selection.sync="selectedSaisies"
+                   :key="componentKey">
             <template #empty>
                 Aucune Activités trouvées.
             </template>

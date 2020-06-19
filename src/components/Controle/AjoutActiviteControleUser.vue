@@ -14,13 +14,35 @@
                 </div>
             </div>
             <div class="row pl-5">
-                <div id="inputCollaborateur">
+               <!-- <div id="inputCollaborateur">
                     <AutoComplete
                             v-model="selectedCollaborateur"
                             :suggestions="filteredCollaborateur"
                             :dropdown="true"
                             @complete="searchCollaborateurBasic($event)" field="utilisateur_username"/>
+                </div> -->
+              <Dropdown id="inputCollaborateur" v-model="selectedCollaborateur"
+                        :options="listeCollaborateur"
+                        optionLabel="utilisateur_username"
+                        option-value="utilisateur_username"
+                        :filter="true"
+                        placeholder="Selectionner collaborateur"
+                        :showClear="true" @change="rafraichirFavoris">
+                <template #option="slotProps">
+                <div class="p-dropdown-car-value" v-if="slotProps.value">
+                  <span>{{slotProps.option.utilisateur_prenom}}
+                    {{slotProps.option.utilisateur_nom}}</span>
                 </div>
+                <span v-else>{{slotProps.placeholder}}</span>
+                </template>
+                <template #option="slotProps">
+                  <div class="p-dropdown-car-option">
+                    <span>{{slotProps.option.utilisateur_prenom}}
+                    {{slotProps.option.utilisateur_nom}}</span>
+                  </div>
+                </template>
+              </Dropdown>
+
             </div>
         <div class="row pl-5">
             <div class="col">
@@ -75,7 +97,7 @@
             phaseActives: state=> state.saisies.phaseActives,
             refActivite: state=> state.references.refActivite,
             saisieUpdate: state=> state.saisies.saisieUpdate,
-            selectedCollaborateur:  state=> state.users.user,
+            listeCollaborateur: state=> state.users.users,
             loading: false,
         }),
         data() {
@@ -87,26 +109,21 @@
                 tabActivite: null,
                 messages: [],
                 isAjout: true,
-
-                listeCollaborateur: null,
+                selectedCollaborateur: null,
                 filteredCollaborateur: null
             }
         },
         created() {
-            this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
+          this.$store.dispatch('saisies/getPhaseActivesUtilisateurs', this.selectedCollaborateur);
             this.$store.dispatch('references/getRefActivite');
             this.$store.dispatch('users/getAllUsers');
-            this.listeCollaborateur = this.$store.state.users.users;
-
-
 
           if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
 
 
            // console.log('store', this.$store.state.users.user );
-               this.selectedCollaborateur =  this.$store.state.users.user;
-               console.log('selected modifie', this.selectedCollaborateur )
-
+               this.selectedCollaborateur =  this.saisieUpdate.selectedCollaborateurUsername;
+                 this.rafraichirFavoris();
                 this.selectedMission = this.saisieUpdate.SaisieFavorite_phaseId;
                 this.commentaire = this.saisieUpdate.SaisieFavorite_commentaire;
                 this.selectedActivite = this.saisieUpdate.SaisieFavorite_activiteId;
@@ -131,6 +148,9 @@
                 }
                 return dates;
             },
+          rafraichirFavoris() {
+            this.$store.dispatch('saisies/getPhaseActivesUtilisateurs', this.selectedCollaborateur);
+          },
            clickValider(event) {
                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
@@ -143,15 +163,11 @@
                     uneSaisie.activite_Id= this.selectedActivite;
                     uneSaisie.saisie_charge = parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]);
                     uneSaisie.saisie_commentaire = this.commentaire;
-                    uneSaisie.saisie_username = JSON.parse(localStorage.getItem('user')).username;
-                    uneSaisie.saisie_date = date;
+                    uneSaisie.saisie_username =  this.selectedCollaborateur;
+                 uneSaisie.saisie_date = date;
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
                });
-                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
-                this.$store.dispatch('saisies/getSaisieParPeriode', {
-                    dateDebut: this.$store.state.saisies.dateSelectionee[0],
-                    dateFin: this.$store.state.saisies.dateSelectionee[1]
-                });
+
                 //this.$parent.$parent.$parent.$forceUpdate(); // a checker
                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                //appel du Toaster
@@ -180,7 +196,7 @@
                 let dates = this.dateBetween(start, end);
                 dates.forEach((date) =>{
                     let saisieModif = {
-                        saisie_Id : this.saisieUpdate.SaisieFavorite_saisieId,
+
                         saisie_phaseId : this.selectedMission,
                         activite_Id : this.selectedActivite,
                         saisie_charge : parseInt(this.charges.split(':')[0]*60) + parseInt(this.charges.split(':')[1]),
@@ -188,13 +204,15 @@
                         saisie_username : JSON.parse(localStorage.getItem('user')).username,
                         saisie_date : date,
                     };
-                    this.$store.dispatch('saisies/updateSaisie',  saisieModif);
+                    if (this.saisieUpdate.SaisieFavorite_saisieId === -1) { // cas d'une valeur vide donc c'est une création
+
+                      this.$store.dispatch('saisies/ajouterUneSaisie',  saisieModif);
+                    } else {
+                      saisieModif.saisie_Id = this.saisieUpdate.SaisieFavorite_saisieId;
+                      this.$store.dispatch('saisies/updateSaisie', saisieModif);
+                    }
                 });
-                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
-                this.$store.dispatch('saisies/getSaisieParPeriode', {
-                    dateDebut: this.$store.state.saisies.dateSelectionee[0],
-                    dateFin: this.$store.state.saisies.dateSelectionee[1]
-                });
+
                 //this.$parent.$parent.$parent.$forceUpdate(); // a checker
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                 this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
@@ -246,4 +264,37 @@
     /deep/ #inputCollaborateur .p-inputtext{
         width: 454px;
     }
+
+
+
+    .p-dropdown {
+      width: 12rem;
+    }
+
+    .p-dropdown-car-option,
+    .p-dropdown-car-value {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        margin-right: .5rem;
+        width: 24px;
+      }
+
+      span {
+        line-height: 1;
+      }
+    }
+
+    .p-dropdown-car-value {
+      justify-content: flex-start;
+
+      img {
+        width: 17px;
+      }
+    }
+
+
+
 </style>

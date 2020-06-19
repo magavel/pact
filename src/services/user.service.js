@@ -9,9 +9,14 @@ class UserService {
    * retourne la liste des favorites de l'utilisateur en cours.
    * @returns {Promise<AxiosResponse<any>>}
    */
-  getAllFavorites() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return axios.get(config.API_URL.concat('users/', user.username, '/favoris'), { headers: authHeader() });
+  getAllFavorites(username) {
+
+    if (username === undefined) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return axios.get(config.API_URL.concat('users/', user.username, '/favoris'), {headers: authHeader()});
+    } else {
+      return axios.get(config.API_URL.concat('users/', username, '/favoris'), {headers: authHeader()});
+    }
   }
 
   /**

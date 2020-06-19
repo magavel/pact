@@ -123,9 +123,9 @@ const actions = {
                 commit('CREATE_ERROR', error);
             });
     },
-    getPhaseActivesUtilisateurs({commit}) {
+    getPhaseActivesUtilisateurs({commit}, username) {
         console.log("store phases actives");
-        SaisieService.getPhaseActivesUtilisateurs()
+        SaisieService.getPhaseActivesUtilisateurs(username)
             .then((res) => {
                 const succes = {
                     date: new Date(),

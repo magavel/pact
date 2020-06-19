@@ -74,8 +74,8 @@ const mutations = {
 };
 
 const actions = {
-  getAllFavorites({ commit}) {
-    userservice.getAllFavorites()
+  getAllFavorites({ commit}, username) {
+    userservice.getAllFavorites(username)
       .then((res) => {
         const succes = {
           date: new Date(),

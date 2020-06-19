@@ -89,14 +89,24 @@ class SaisieService {
      * retourne les phases actives
      * @returns {Promise<AxiosResponse<any>>}
      */
-    getPhaseActivesUtilisateurs() {
+    getPhaseActivesUtilisateurs(username) {
 
-        const user = JSON.parse(localStorage.getItem('user'));
-        console.log('phase activies')
+        console.log('username',username);
 
-        return axios.get(`${config.API_URL}users/${user.username}/phases`, {
-            headers: authHeader()
-        });
+        if (username === undefined || username === null) {
+
+            const user = JSON.parse(localStorage.getItem('user'));
+            console.log('phase activies')
+            return axios.get(`${config.API_URL}users/${user.username}/phases`, {
+                headers: authHeader()
+            });
+
+        } else {
+            return axios.get(`${config.API_URL}users/${username}/phases`, {
+                headers: authHeader()
+            });
+        }
+
 
     }
     /**
