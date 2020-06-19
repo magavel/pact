@@ -3,9 +3,13 @@
     <div class="card m-3">
       <div class="card-body">
         <CardPeriodeControle/>
-          <div @click="selectionnerTous">Tous</div>
-          <div @click="selectionnerEquipe">Par équipe projet</div>
-          <div @click="selectionnerEquipeOrga">Par équipe organisation</div>
+        <div class="d-flex justify-content-end m-2">
+          <div class="btn-group btn-group-md">
+            <button type="button" class="btn btn-secondary" @click="selectionnerTous">Tous</button>
+            <button type="button" class="btn btn-secondary" @click="selectionnerEquipe">Par équipe projet</button>
+            <button type="button" class="btn btn-secondary" @click="selectionnerEquipeOrga">Par équipe organisation</button>
+          </div>
+        </div>
           <keep-alive>
           <component v-bind:is="currentTabComponent" ></component>
               </keep-alive>
