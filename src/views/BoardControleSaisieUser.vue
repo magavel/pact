@@ -5,9 +5,9 @@
         <CardPeriodeControle/>
         <div class="d-flex justify-content-end m-2">
           <div class="btn-group btn-group-md">
-            <button type="button" class="btn btn-secondary" @click="selectionnerTous">Tous</button>
-            <button type="button" class="btn btn-secondary" @click="selectionnerEquipe">Par équipe projet</button>
-            <button type="button" class="btn btn-secondary" @click="selectionnerEquipeOrga">Par équipe organisation</button>
+            <button type="button" class="btn btn-outline-primary" @click="selectionnerTous">Tous</button>
+            <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipe">Par équipe projet</button>
+            <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipeOrga">Par équipe organisation</button>
           </div>
         </div>
           <keep-alive>
