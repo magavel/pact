@@ -1,11 +1,5 @@
 <template>
     <div class="mt-5">
-        <div v-for="mission in saisiesParPeriode">
-            {{ mission }}
-            <div v-for="col in mission.saisieByWeek_charges">
-            le {{ col.chargeHebdomadaire_date }} charges: {{ col.chargeHebdomadaire_charges }}
-            </div>
-        </div>
         <div class="text-center bg-white">
             <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
@@ -13,28 +7,35 @@
             <div class="divTableBody">
                 <!-- ligne des titres -->
                 <div class="divTableRow">
-                    <div class="divTableCell rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
-                    <div class="divTableCell bg-gris-module align-middle entete ">Type d'activités</div>
-                    <div class="divTableCell bg-gris-module align-middle text-center entete"> < </div>
-                    <div class="divTableCell">&nbsp;</div>
-                    <div class="divTableCell align-middle bg-gris-module entete font-weight-bold"> > </div>
-                    <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">Actions</div>
+                    <div class="divTableHeading rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
+                    <div class="divTableHeading bg-gris-module align-middle entete ">Type d'activités</div>
+                    <div class="divTableHeading bg-gris-module align-middle text-center entete font-weight-bold"> < </div>
+                    <div class="divTableHeading bg-gris-module align-middle text-center entete" v-for="date in tableauDate">{{ date | dateFrShort }}</div>
+                    <div class="divTableHeading align-middle bg-gris-module entete font-weight-bold"> > </div>
+                    <div class="divTableHeading rounded-right align-middle bg-gris-module  font-weight-bold">Actions</div>
                 </div>
                 <!-- ligne des data et des projets -->
                 <div class="divTableRow" v-for="mission in saisiesParPeriode">
                     <div class="divTableCell">{{ mission.saisieByWeek_moduleLibelle }}</div>
                     <div class="divTableCell">{{ mission.saisieByWeek_activite_libelle }}</div>
                     <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell text-center" v-for="charge in mission.saisieByWeek_charges ">
+                        <div @dblclick="update(charge.chargeHebdomadaire_saisieId)">
+                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}
+                        </div>
+                    </div>
                     <div class="divTableCell">&nbsp;</div>
-                    <div class="divTableCell">&nbsp;</div>
-                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell">
+                        <Button type="button" icon="pi pi-briefcase" class="p-button-secondary"
+                                @click="exportCSV($event,slotProps)"></Button>
+                    </div>
                 </div>
                 <!-- ligne du footer -->
                 <div class="divTableRow">
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
                     <div class="divTableCell bg-gris-module align-middle text-center entete">&nbsp;</div>
-                    <div class="divTableCell">&nbsp;</div>
+                    <div class="divTableCell bg-gris-module text-center entete" v-for="somme in calculSommeCharge">{{ somme | fromMinutesToHours }}</div>
                     <div class="divTableCell  align-middle bg-gris-module entete font-weight-bold">&nbsp;</div>
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
                 </div>
@@ -53,7 +54,29 @@
         computed: mapState({
             saisiesParPeriode: state => state.saisies.saisiesParPeriode,
             datePeriode: state => state.saisies.dateDeSaisie,
-            dateSaisiePeriode: state => state.saisies.dateSelectionee,
+            tableauDate: function () {
+               return utils.dateBetween(this.datePeriode[0], this.datePeriode[1]);
+            },
+            calculSommeCharge: function() {
+                let tableau = [];
+
+                for(let a )
+
+
+
+                for (let i = 0; i< this.saisiesParPeriode.length; i++) {
+                    let valeur = null;
+                    for(let j=0; j<this.saisiesParPeriode[i].saisieByWeek_charges.length; j++ ) {
+                        valeur =  this.saisiesParPeriode[i].saisieByWeek_charges[j].chargeHebdomadaire_charges;
+                        console.log( 'valeur', valeur);
+                    }
+                    valeur += valeur;
+                    tableau.push(valeur)
+                }
+                console.log('tableau', tableau)
+
+                return [34,67,87]
+            },
         }),
         created() {
             this.$store.dispatch('saisies/getSaisieParPeriode', {
@@ -69,6 +92,9 @@
         },
 
         methods: {
+            update(id) {
+                console.log('id', id)
+            },
 
             test() {
              //   alert(this.saisiesParPeriode.length)
@@ -99,13 +125,13 @@
     }
     .divTableCell, .divTableHead {
         // border: 1px solid #999999;
+
         display: table-cell;
         padding: 3px 10px;
     }
     .divTableHeading {
-        background-color: #EEE;
-        display: table-header-group;
         font-weight: bold;
+        display: table-cell;
     }
     .divTableFoot {
         background-color: #EEE;
