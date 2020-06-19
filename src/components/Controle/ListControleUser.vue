@@ -72,20 +72,7 @@
                  //periode.dateFin = "2020-03-20T00:00:00.000Z";
 
              this.$store.dispatch('users/getControleSaisies', periode);
-           /* if (this.controle.data === undefined) {
-             if (localStorage.getItem('controles')) {
-                 try {
-                     this.local = JSON.parse(localStorage.getItem('controles'));
-                     this.nodes = this.local.data;
-                     this.columns = this.local.colunns;
-                 //    this.constructor = this.$store.users.controle;
-                 } catch(e) {
-                     localStorage.removeItem('controles');
-                 }
-             } }  else {
-                 this.$store.dispatch('users/getControleSaisies',periode);
-                 this.test();
-             }*/
+
 
          },
          data() {
@@ -127,7 +114,29 @@
                  return eval("slotProps.node.data."+col.field.toString()+".commentaire ") ;
              },
              modifierSaisie(col,slotProps) {
-                 alert(eval("slotProps.node.data."+col.field.toString()+".saisieId"));
+                this.selectedPopup.classList.toggle("show");
+
+               let uneSaisieUpdate =  {
+                 selectedCollaborateurUsername : this.controle.data[slotProps.node.key.split('-')[0]].data.usernameId,
+                 SaisieFavorite_saisieId : eval("slotProps.node.data."+col.field.toString()+".saisieId"),
+                 SaisieFavorite_activiteId : slotProps.node.data.activiteId,
+                 SaisieFavorite_phaseId : slotProps.node.data.phaseId,
+                 SaisieFavorite_date : eval("slotProps.node.data."+col.field.toString()+".dateSaisie"),
+                 SaisieFavorite_charges : eval("slotProps.node.data."+col.field.toString()+".charge"),
+                 SaisieFavorite_commentaire : eval("slotProps.node.data."+col.field.toString()+".commentaire")
+
+               }
+               this.$store.dispatch('users/getUserById',this.controle.data[slotProps.node.key.split('-')[0]].data.usernameId);
+
+               this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisieUpdate);
+               this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
+               this.$store.commit('saisies/UPDATE_TABS_KEY');
+
+               this.selectedCase.update = false;
+
+               this.selectedCaseCharge = null;
+
+            //     alert(eval("slotProps.node.data."+col.field.toString()+".saisieId"));
              },
              update(col,slotProps) {
 
@@ -208,7 +217,8 @@
              myFunction(col,slotProps) {
 
                  if (this.selectedPopup !== null) {
-                     this.selectedPopup.style.display = "none";
+                    // this.selectedPopup.style.display = "none";
+                     this.selectedPopup.classList.toggle("show");
                  }
 
                  this.selectedCase = eval("slotProps.node.data."+col.field.toString()); // recuperation de la case lu.

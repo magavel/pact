@@ -108,6 +108,15 @@ class UserService {
     return axios.get(`${config.API_URL}users/${user.username}/controleEquipeSaisie?dateDebut=${dateDebut}&dateFin=${dateFin}`, { headers: authHeader() });
   }
 
+  /**
+   * get user par ID.
+   * @param username id user
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  getUserById(username) {
+    return axios.get(`${config.API_URL}users/${username}`, { headers: authHeader() });
+
+  }
 
 }
 

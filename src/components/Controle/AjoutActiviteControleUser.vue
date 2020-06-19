@@ -68,12 +68,14 @@
     import Periode from "../saisies/Periode";
     import { mapState } from 'vuex';
     import Saisie from "../../models/saisie";
+    import fromMinutesToHours from "../../filters/fromMinutesToHours";
 
     export default {
         computed:mapState( {
             phaseActives: state=> state.saisies.phaseActives,
             refActivite: state=> state.references.refActivite,
             saisieUpdate: state=> state.saisies.saisieUpdate,
+            selectedCollaborateur:  state=> state.users.user,
             loading: false,
         }),
         data() {
@@ -85,7 +87,7 @@
                 tabActivite: null,
                 messages: [],
                 isAjout: true,
-                selectedCollaborateur:  null,
+
                 listeCollaborateur: null,
                 filteredCollaborateur: null
             }
@@ -96,12 +98,21 @@
             this.$store.dispatch('users/getAllUsers');
             this.listeCollaborateur = this.$store.state.users.users;
 
-             if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
+
+
+          if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
+
+
+           // console.log('store', this.$store.state.users.user );
+               this.selectedCollaborateur =  this.$store.state.users.user;
+               console.log('selected modifie', this.selectedCollaborateur )
+
                 this.selectedMission = this.saisieUpdate.SaisieFavorite_phaseId;
                 this.commentaire = this.saisieUpdate.SaisieFavorite_commentaire;
                 this.selectedActivite = this.saisieUpdate.SaisieFavorite_activiteId;
-                this.charges = this.saisieUpdate.SaisieFavorite_charges;
+                this.charges = fromMinutesToHours(this.saisieUpdate.SaisieFavorite_charges);
                 this.isAjout = false;
+
             }
 
         },

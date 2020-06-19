@@ -1,11 +1,12 @@
 import userservice from '../../services/user.service';
 import router from '../../router';
+import SaisieService from "../../services/saisie.service";
 
 
 // initial state
 const state = {
   users: [], // un tableau de l'ensemble des utilisateurs
-  user: {},
+  user: null,
   errors: [], // log des erreurs
   success: [], // log des success
   favorites: [], //activites favorites
@@ -65,6 +66,10 @@ const mutations = {
     },
     UPDATE_TABLE_CONTROLE(state) {
         state.controleKey += 1;
+    },
+    GET_USER(state, value) {
+      state.user = value;
+      console.log('in store', state.user)
     }
 };
 
@@ -255,7 +260,23 @@ const actions = {
     updateTableControle({ commit }) {
         commit('UPDATE_TABLE_CONTROLE');
 
-    }
+    },
+    getUserById( {commit}, username){
+        userservice.getUserById(username)
+            .then((response) => {
+
+                console.log('response',response.data)
+                commit('GET_USER', response.data);
+            })
+            .catch((err) => {
+                const error = {
+                    date: new Date(),
+                    message: `echec sur recuperation user 
+            getUserById: ${err.message}`,
+                };
+                commit('CREATE_ERROR', error);
+            });
+    },
 
 
 };
