@@ -1,47 +1,7 @@
 <template>
     <div>
         <Toast />
-        <TreeTable v-model="nodes"
-                   :filters="filters"
-                   filterMode="lenient" always-show-paginator
-                   :paginator="true"
-                   :rows="10" :key="componentKey">
-            <Column field="username" header="Collaborateurs" :expander="true">
-                <template #filter>
-                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par nom" />
-                </template>
-            </Column>
-            <Column field="mission" header="Missions" ></Column>
-            <Column field="activite" header="Activites"></Column>
-            <Column v-for="col of columns" :key="col.field"
-                     :header="col.header" :expander="col.expander" >
-                    <template #body="slotProps">
 
-                        <div v-if="slotProps.node.data.username !== undefined">
-                      <span class="d-inline-block" tabindex="0" >
-                                                        <div id="charges">{{meth(col,slotProps) | fromMinutesToHours()}}</div>
-
-                        </span> </div>
-                        <div v-else>
-                        <div @dblclick="update(col,slotProps)">
-                            <div v-if= "isUpdate(col,slotProps) === false">
-                                <div class="popup" @click="myFunction(col,slotProps)">{{meth(col,slotProps) | fromMinutesToHours()}}
-                                    <span class="popuptext" :id="myPopupId(col,slotProps)"  @click="modifierSaisie(col,slotProps)">{{commentaire(col,slotProps)}}</span>
-                                </div>
-                        </div>
-                            <div v-else>
-
-                                <InputMask @keydown.enter.stop="miseAjour(col,slotProps)"
-                                           class="p-field col-xs-2 inputcolumn"
-                                           :value="meth(col,slotProps)" v-model="selectedCaseCharge" mask="9:99" placeholder="  :  "/>
-
-                            </div>
-                        </div>
-
-                        </div>
-                </template>
-            </Column>
-         </TreeTable>
      </div>
  </template>
 
@@ -228,9 +188,9 @@
                      saisie_date : this.selectedCase.dateSaisie,
                  }
 
-                 //this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
-                 //this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
-                 //this.$store.commit('saisies/UPDATE_TABS_KEY');
+                 this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
+                 this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
+                 this.$store.commit('saisies/UPDATE_TABS_KEY');
      }
          }
      }

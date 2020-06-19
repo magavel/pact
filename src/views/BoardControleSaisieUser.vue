@@ -3,7 +3,12 @@
     <div class="card m-3">
       <div class="card-body">
         <CardPeriodeControle/>
-        <ListControleUser />
+          <div @click="selectionnerTous">Tous</div>
+          <div @click="selectionnerEquipe">Par équipe projet</div>
+          <div @click="selectionnerEquipeOrga">Par équipe organisation</div>
+          <keep-alive>
+          <component v-bind:is="currentTabComponent" ></component>
+              </keep-alive>
       </div>
     </div>
     <div id="formulaire">
@@ -25,7 +30,10 @@
 
 <script>
   import ListControleUser from "../components/Controle/ListControleUser";
+  import ListControleEquipe from "../components/Controle/ListControleEquipe";
+  import ListControleEquipeOrga from "../components/Controle/ListControleEquipeOrga";
   import AjoutActiviteControleUser from "../components/Controle/AjoutActiviteControleUser";
+
   import Tabs from "../components/saisies/Tabs";
   import Tab from "../components/saisies/Tab";
   import CardPeriodeControle from "../components/Controle/CardPeriodeControle";
@@ -36,19 +44,38 @@
     CardPeriodeControle,
       ListControleUser,
       AjoutActiviteControleUser,
+      ListControleEquipe,
+      ListControleEquipeOrga,
     Tab,
     Tabs
   },
   data() {
     return {
       content: '',
+        currentTab : "ListControleUser",
     };
   },
   computed: {
     tabsKey(){
       return this.$store.state.saisies.tabsKey;
-    }
-  }
+    },
+      currentTabComponent: function() {
+          return this.currentTab;
+      }
+  },
+      methods: {
+          selectionnerTous() {
+              this.currentTab = "ListControleUser";
+          },
+          selectionnerEquipe() {
+              this.currentTab = "ListControleEquipe";
+
+          },
+          selectionnerEquipeOrga() {
+              this.currentTab = "ListControleEquipeOrga";
+          }
+
+      }
 };
 </script>
 

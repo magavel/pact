@@ -170,7 +170,6 @@ const actions = {
             });
     },
     updateSaisie({commit}, uneSaisie){
-        console.log('uneSaisie', uneSaisie);
         SaisieService.updateSaisie(uneSaisie).then(r => {
             console.log('r', r);
         });
