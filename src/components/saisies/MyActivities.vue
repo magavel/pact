@@ -50,6 +50,10 @@
                 return this.$store.state.saisies.tabsKey;
             }
         },
+        created() {
+            this.$router.push({ name: 'dailyListing'});
+        }
+
     }
 </script>
 <style>
