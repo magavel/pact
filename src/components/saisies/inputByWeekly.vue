@@ -16,7 +16,7 @@
                 </div>
                 <!-- ligne des data et des projets -->
                 <div class="divTableRow" v-for="mission in saisiesParPeriode">
-                    <div class="divTableCell">{{ mission.saisieByWeek_moduleLibelle }}</div>
+                    <div class="divTableCell" :class="mission.saisieByWeek_moduleLibelle">{{ mission.saisieByWeek_moduleLibelle }}</div>
                     <div class="divTableCell">{{ mission.saisieByWeek_activite_libelle }}</div>
                     <div class="divTableCell">&nbsp;</div>
                     <div class="divTableCell text-center" v-for="charge in mission.saisieByWeek_charges ">
@@ -60,7 +60,12 @@
             calculSommeCharge: function() {
                 let tableau = [];
 
-
+                for (let a = 0; a < this.tableauDate; a++){
+                    for (let i = 0; i< this.saisiesParPeriode.length; i++) {
+                        let valeur = null;
+                        valeur +=  this.saisiesParPeriode[i].saisieByWeek_charges[j].chargeHebdomadaire_charges;
+                    }
+                }
 
 
 
