@@ -56,7 +56,7 @@
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
                     <div class="divTableCell bg-gris-module align-middle text-center entete">&nbsp;</div>
-                    <div class="divTableCell bg-gris-module text-center entete" v-for="somme in tableauDate"9:99</div>
+                    <div class="divTableCell bg-gris-module text-center entete" v-for="somme in tableauDate"> 9:99</div>
                     <div class="divTableCell  align-middle bg-gris-module entete font-weight-bold">&nbsp;</div>
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
                 </div>
