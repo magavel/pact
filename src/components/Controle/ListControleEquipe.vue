@@ -6,29 +6,30 @@
                    filterMode="lenient" always-show-paginator
                    :paginator="true"
                    :rows="10" :key="componentKey">
-            <Column field="username" header="Collaborateurs" :expander="true">
+            <Column field="EquipeLibelle" header="Equipes" :expander="true">
                 <template #filter>
-                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par nom" />
+                    <InputText type="text" v-model="filters['EquipeLibelle']" class="p-column-filter" placeholder="Filtrer par nom" />
                 </template>
+            </Column>
+            <Column field="username" header="Collaborateurs" >
             </Column>
             <Column field="mission" header="Missions" ></Column>
             <Column field="activite" header="Activites"></Column>
             <Column v-for="col of columns" :key="col.field"
-                     :header="col.header" :expander="col.expander" >
-                    <template #body="slotProps">
-
-                        <div v-if="slotProps.node.data.username !== undefined">
+                    :header="col.header" :expander="col.expander" >
+                <template #body="slotProps">
+                    <div v-if="((slotProps.node.data.username !== undefined) || (slotProps.node.data.EquipeLibelle !== undefined))">
                       <span class="d-inline-block" tabindex="0" >
                                                         <div id="charges">{{meth(col,slotProps) | fromMinutesToHours()}}</div>
 
                         </span> </div>
-                        <div v-else>
+                    <div v-else>
                         <div @dblclick="update(col,slotProps)">
                             <div v-if= "isUpdate(col,slotProps) === false">
                                 <div class="popup" @click="myFunction(col,slotProps)">{{meth(col,slotProps) | fromMinutesToHours()}}
                                     <span class="popuptext" :id="myPopupId(col,slotProps)"  @click="modifierSaisie(col,slotProps)">{{commentaire(col,slotProps)}}</span>
                                 </div>
-                        </div>
+                            </div>
                             <div v-else>
 
                                 <InputMask @keydown.enter.stop="miseAjour(col,slotProps)"
@@ -38,10 +39,10 @@
                             </div>
                         </div>
 
-                        </div>
+                    </div>
                 </template>
             </Column>
-         </TreeTable>
+        </TreeTable>
      </div>
  </template>
 
@@ -49,9 +50,9 @@
      import { mapState } from 'vuex';
      export default {
          computed: mapState({
-             controle: state => state.users.controle,
-             nodes: state => state.users.controle.data,
-             columns: state => state.users.controle.colunns,
+             controle: state => state.users.controleEquipe,
+             nodes: state => state.users.controleEquipe.data,
+             columns: state => state.users.controleEquipe.colunns,
              dateSelectionee: state => state.saisies.dateSelectionee,
              loading: false,
              miseAjourKey: state =>  state.users.controleKey,
@@ -71,7 +72,7 @@
                  //periode.dateDebut = "2020-03-18T00:00:00.000Z";
                  //periode.dateFin = "2020-03-20T00:00:00.000Z";
 
-             this.$store.dispatch('users/getControleSaisies', periode);
+             this.$store.dispatch('users/getControleEquipeSaisies', periode);
            /* if (this.controle.data === undefined) {
              if (localStorage.getItem('controles')) {
                  try {
@@ -120,6 +121,10 @@
                 return eval("this.controle.data[slotProps.node.key.split('-')[0]].data." +col.field.toString()+".charge")
              },
              meth(col,slotProps) {
+
+                 console.log(col);
+                 console.log(slotProps);
+                 console.log(eval("slotProps.node.data.key"));
                  let res = eval("slotProps.node.data."+col.field.toString()+".charge");
                  return parseFloat(res.toString());
              },
@@ -228,9 +233,9 @@
                      saisie_date : this.selectedCase.dateSaisie,
                  }
 
-                 //this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
-                 //this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
-                 //this.$store.commit('saisies/UPDATE_TABS_KEY');
+                 this.$store.commit('saisies/GET_SAISIE_UPDATE', uneSaisie);
+                 this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
+                 this.$store.commit('saisies/UPDATE_TABS_KEY');
      }
          }
      }

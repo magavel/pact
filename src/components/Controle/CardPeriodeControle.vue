@@ -8,15 +8,17 @@
                             <span class="mr-2 ml-1">
                                 <img src="../../assets/event-24px.svg">
                             </span>
-                <Calendar v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"/>
+                <Calendar v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"   v-on:date-select="clickCalendar"/>
                 <span class="ml-3 mr-3"> au </span>
-                <Calendar v-if="dateDeSaisie[1] !== null" v-model="dateDeSaisie[1]" :locale="fr" dateFormat="dd/mm/yy"/>
-                <Calendar v-else v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"/>
+                <Calendar v-if="dateDeSaisie[1] !== null" v-model="dateDeSaisie[1]" :locale="fr" dateFormat="dd/mm/yy"  v-on:date-select="clickCalendar" />
+                <Calendar v-else v-model="dateDeSaisie[0]" :locale="fr" dateFormat="dd/mm/yy"  v-on:date-select="clickCalendar" />
             </div>
         </div>
     </div>
 </template>
 <script>
+    import router from "../../router";
+
     export default {
         name: 'CardPeriodeControle',
         computed: {
@@ -24,7 +26,7 @@
                 return this.$store.state.saisies.dateDeSaisie;
             },
         },
-        data(){
+        data() {
             return {
                 fr: {
                     firstDayOfWeek: 1,
@@ -39,6 +41,38 @@
                 },
                 dateDebut: null,
                 dateFin: null,
+            }
+        },
+        methods: {
+            clickCalendar() {
+                if (this.dateDeSaisie[1] === null || this.dateDeSaisie[1] === this.dateDeSaisie[0]) {
+                    // this.$store.state.saisies.saisies = [];
+                    let dateDebut = this.dateDeSaisie[0];
+                    let periode = new Object();
+                    periode.dateDebut = this.dateDeSaisie[0].toISOString();
+                    periode.dateFin = this.dateDeSaisie[0].toISOString();
+                    dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+                    this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[0]]);
+                    this.$store.dispatch('users/getControleSaisies', periode);
+                    this.$store.dispatch('users/getControleEquipeSaisies', periode);
+                    this.$store.dispatch('users/updateTableControle');
+
+
+                } else {
+                    let dateDebut = this.dateDeSaisie[0];
+                    let dateFin = this.dateDeSaisie[1];
+                    dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
+                    dateFin.setHours(0, -dateFin.getTimezoneOffset(), 0, 0);
+                    let periode = new Object();
+                    periode.dateDebut = this.dateDeSaisie[0].toISOString();
+                    periode.dateFin = this.dateDeSaisie[1].toISOString();
+
+                    this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
+                    this.$store.dispatch('users/getControleSaisies', periode);
+                    this.$store.dispatch('users/getControleEquipeSaisies', periode);
+                    this.$store.dispatch('users/updateTableControle');
+
+                }
             }
         }
     }

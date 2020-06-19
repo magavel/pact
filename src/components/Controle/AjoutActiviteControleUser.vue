@@ -8,14 +8,22 @@
                 novalidate="true"
                 @submit.prevent="clickValider"
         >
+            <div class="row pl-5">
+                <div>
+                <span>Collaborateurs</span>
+                </div>
+            </div>
+            <div class="row pl-5">
+                <div id="inputCollaborateur">
+                    <AutoComplete
+                            v-model="selectedCollaborateur"
+                            :suggestions="filteredCollaborateur"
+                            :dropdown="true"
+                            @complete="searchCollaborateurBasic($event)" field="utilisateur_username"/>
+                </div>
+            </div>
         <div class="row pl-5">
             <div class="col">
-                <div class="row">
-                    <span>Collaborateurs</span>
-                </div>
-                <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
-                </div>
                 <div class="row">
                     <span>Missions / Modules</span>
                 </div>
@@ -76,12 +84,17 @@
                 charges: null,
                 tabActivite: null,
                 messages: [],
-                isAjout: true
+                isAjout: true,
+                selectedCollaborateur:  null,
+                listeCollaborateur: null,
+                filteredCollaborateur: null
             }
         },
         created() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
             this.$store.dispatch('references/getRefActivite');
+            this.$store.dispatch('users/getAllUsers');
+            this.listeCollaborateur = this.$store.state.users.users;
 
              if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
                 this.selectedMission = this.saisieUpdate.SaisieFavorite_phaseId;
@@ -184,7 +197,17 @@
                 this.$store.commit("saisies/UPDATE_TABS_KEY");
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
                 //event.target.reset();
-            }
+            },
+            searchCollaborateur(query) {
+                return this.listeCollaborateur.filter((collaborateur) => {
+                    return collaborateur.utilisateur_username.toLowerCase().startsWith(query.toLowerCase());
+                });
+            },
+            searchCollaborateurBasic(event) {
+                setTimeout(() => {
+                    this.filteredCollaborateur = this.searchCollaborateur(event.query);
+                }, 250);
+            },
         },
         name: 'AjoutActivite',
         components: {Periode}
@@ -207,5 +230,9 @@
 
     #ajoutActivite{
         background-color: white;
+    }
+
+    /deep/ #inputCollaborateur .p-inputtext{
+        width: 454px;
     }
 </style>

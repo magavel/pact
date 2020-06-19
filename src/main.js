@@ -23,6 +23,7 @@ import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import Dialog from 'primevue/dialog';
 import Row from 'primevue/row';
+import AutoComplete from 'primevue/autocomplete';
 import JsonCSV from 'vue-json-csv';
 
 import Tooltip from 'primevue/tooltip';
@@ -118,6 +119,7 @@ Vue.component('Toast',Toast);
 Vue.component('Dialog', Dialog);
 Vue.component('Row',Row);
 Vue.component('downloadCsv', JsonCSV);
+Vue.component('AutoComplete', AutoComplete);
 
 
 // les filtres... ou pipes c'est la même chose...
