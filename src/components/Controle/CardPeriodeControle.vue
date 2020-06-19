@@ -88,10 +88,10 @@
         &::after {
             content: "\A";
             border-style: solid;
-            border-width: 13px 10px 10px 13px;
+            border-width: 15px 10px 10px 15px;
             border-color: transparent transparent transparent #FFCA7A;
             position: relative;
-            left: 57px;
+            left: 56px;
             top: -26px;
          }
     }

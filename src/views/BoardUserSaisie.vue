@@ -18,17 +18,6 @@
     components: {
       MyActivities
     },
-    computed: {
-      activiteFavKey(){
-        return this.$store.state.saisies.activiteFavKey;
-      },
-      ajoutActiviteKey(){
-        return this.$store.state.saisies.ajoutActiviteKey;
-      },
-      tabsKey(){
-        return this.$store.state.saisies.tabsKey;
-      }
-    },
     created() {
       this.$store.dispatch('users/getAllFavorites');
       this.$router.push({name: 'myActivities'});

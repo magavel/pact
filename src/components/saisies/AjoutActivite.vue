@@ -76,7 +76,8 @@
         created() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
             this.$store.dispatch('references/getRefActivite');
-
+            console.log('this.saisieUpdate', this.saisieUpdate);
+            console.log('this.saisieUpdate', this.$store.state.saisies.saisieUpdate);
              if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
                 this.selectedMission = this.saisieUpdate.SaisieFavorite_phaseId;
                 this.commentaire = this.saisieUpdate.SaisieFavorite_commentaire;
@@ -84,7 +85,6 @@
                 this.charges = this.saisieUpdate.SaisieFavorite_charges;
                 this.isAjout = false;
             }
-
         },
         methods: {
             dateBetween: function(startDate, endDate) {

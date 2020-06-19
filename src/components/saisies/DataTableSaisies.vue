@@ -28,7 +28,9 @@
 
             </Column>
             <Column field="SaisieFavorite_charges" header="charges" :sortable="true" filterMatchMode="contains">
-
+                <template #body="slotProps">
+                    {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
+                </template>
             </Column>
             <Column header="Actions">
                 <template #body="slotProps">

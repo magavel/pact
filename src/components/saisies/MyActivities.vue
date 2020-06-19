@@ -39,14 +39,17 @@
     export default {
         name: 'MyActivities',
         components: {AjoutActivite, Calendrier, InputActivitesFavorites, InputJourneeFavorites, Tab, Tabs},
-        props: {
-            activiteFavKey: {},
-            ajoutActiviteKey: {},
-            tabsKey: {}
+        computed: {
+            activiteFavKey(){
+                return this.$store.state.saisies.activiteFavKey;
+            },
+            ajoutActiviteKey(){
+                return this.$store.state.saisies.ajoutActiviteKey;
+            },
+            tabsKey(){
+                return this.$store.state.saisies.tabsKey;
+            }
         },
-        created() {
-            this.$router.push({ name: 'dailyListing'});
-        }
     }
 </script>
 <style>

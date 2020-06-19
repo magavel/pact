@@ -26,7 +26,9 @@ const mutations = {
         state.saisies = saisies.data;
     },
     GET_SAISIE_UPDATE(state, value){
+        console.log('value', value);
         state.saisieUpdate = value;
+        console.log('state.saisieUpdate', state.saisieUpdate);
     },
     CREATE_SAISIES(state, saisies) {
         state.saisies = [ saisies, ...state.saisies ];
@@ -72,6 +74,7 @@ const mutations = {
     },
     UPDATE_AJOUT_ACTIVITE_KEY(state){
         state.ajoutActiviteKey += 1;
+        console.log('tate.ajoutActiviteKey', state.ajoutActiviteKey);
     },
     DELETE_SUCCESS(state, sucess) {
         state.success = [ succes, ...state.success ];

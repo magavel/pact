@@ -200,7 +200,7 @@
             },
             searchCollaborateur(query) {
                 return this.listeCollaborateur.filter((collaborateur) => {
-                    return collaborateur.utilisateur_username.toLowerCase().startsWith(query.toLowerCase());
+                    return collaborateur.utilisateur_username.toLowerCase().includes(query.toLowerCase());
                 });
             },
             searchCollaborateurBasic(event) {
