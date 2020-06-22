@@ -3,19 +3,27 @@
     <div id="ajoutActivite" class="">
         <Toast />
         <Periode/>
+      <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <form
                 id="formSaisie"
                 novalidate="true"
-                @submit.prevent="clickValider"
+                @submit.prevent="handleSubmit(clickValider)"
         >
         <div class="row pl-5">
             <div class="col">
                 <div class="row">
-                    <span>Missions / Modules</span>
+                    <span>Missions</span>
                 </div>
+              <ValidationProvider name="mission" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+
+                    <Dropdown name="mission" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+              <span
+                  class="block text-red-600 text-xs absolute bottom-0 left-0"
+                  v-if="errors[0]"
+              >{{ errors[0] }}</span>
                 </div>
+              </ValidationProvider>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
                 </div>
@@ -27,27 +35,41 @@
                 <div class="row">
                     <span>Type d'activités</span>
                 </div>
+              <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown  name="typeActivite" v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                  <span
+                      class="block text-red-600 text-xs absolute bottom-0 left-0"
+                      v-if="errors[0]"
+                  >{{ errors[0] }}</span>
                 </div>
+              </ValidationProvider>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
                 </div>
+
                 <div class="row">
+                  <ValidationProvider name="charge" rules="required|controleTemps" v-slot="{ errors }">
                     <div id="charges">
-                        <InputMask v-model="charges" mask="9:99" placeholder="  :  "/>
+                        <InputMask name="charge" v-model="charges" mask="9:99" placeholder="  :  "/>
+                      <span
+                      > {{ errors[0] }}</span>
                     </div>
+                  </ValidationProvider>
                 </div>
+
             </div>
         </div>
         <div v-if="isAjout" class="row justify-content-end mr-3" style="margin-left: 39%">
+            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"></Button>
         </div>
         <div v-else class="row justify-content-end mr-3" style="margin-left: 39%">
             <Button id="annuler" label="Annuler" class="p-button-secondary mr-3" v-on:click="annuler"></Button>
-            <Button id="btnModifier" label="Modifier" v-on:click="updateSaisie"></Button>
+            <Button id="btnModifier" label="Modifier" v-on:click="handleSubmit(updateSaisie)"></Button>
         </div>
         </form>
+      </ValidationObserver>
     </div>
 </template>
 <script>
@@ -55,13 +77,46 @@
     import { mapState } from 'vuex';
     import Saisie from "../../models/saisie";
     import fromMinutesToHours from "../../filters/fromMinutesToHours";
+    import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+    import { required, email } from 'vee-validate/dist/rules';
+
+    // Override the default message.
+    extend('required', {
+      ...required,
+      message: 'Ce champs est requis'
+    });
+
+    extend("vide", {
+      validate: (value) => {
+        console.log('valeur de value', value);
+       /* if (!value || 0 === value.length) {
+          return true;
+        }
+        return false;*/
+      },
+      message:
+          "c'est vide"
+    });
+
+    extend("controleTemps", {
+      validate: (value) => {
+        if ((parseInt(value.split(':')[0]*60) + parseInt(value.split(':')[1])) > 0) {
+          return true;
+        }
+        return false;
+      },
+      message:
+          "Saisir une durée"
+    });
+
+
 
     export default {
         computed:mapState( {
             phaseActives: state=> state.saisies.phaseActives,
             refActivite: state=> state.references.refActivite,
             saisieUpdate: state=> state.saisies.saisieUpdate,
-            loading: false,
+
         }),
         data() {
             return {
@@ -71,7 +126,8 @@
                 charges: null,
                 tabActivite: null,
                 messages: [],
-                isAjout: true
+                isAjout: true,
+              loading: false,
             }
         },
         created() {
@@ -103,7 +159,14 @@
                 }
                 return dates;
             },
-           clickValider(event) {
+          async clickValider() {
+            this.loading = true;
+            const isValid = await this.$refs.observer.validate();
+            if (!isValid) {
+              this.loading = false;
+              return;
+            }
+            this.loading = false;
                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
                let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
@@ -134,7 +197,8 @@
                 this.commentaire= "";
                 this.selectedActivite= null;
                 this.charges= null;
-                event.target.reset();
+                this.$refs.observer.reset(); // remet à jour le form
+
             },
             annuler(){
                 this.isAjout = true;
@@ -145,7 +209,13 @@
                 this.$store.commit("saisies/UPDATE_TABS_KEY");
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
             },
-            updateSaisie(event){
+            async updateSaisie(){
+              this.loading = true;
+              const isValid = await this.$refs.observer.validate();
+              if (!isValid) {
+                this.loading = false;
+                return;
+              }
                 let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                 let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
                 let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
@@ -185,7 +255,7 @@
             }
         },
         name: 'AjoutActivite',
-        components: {Periode}
+        components: {Periode, ValidationProvider, ValidationObserver}
     }
 </script>
 

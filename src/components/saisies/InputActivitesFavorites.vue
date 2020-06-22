@@ -10,7 +10,13 @@
                scrollHeight="200px"
                :rows="4" :key="componentKey">
         <template #empty>
-            Aucune Activités trouvées.
+          <div class="row pl-5 mr-5 text-center">
+          <span >Aucune Activités favorites de renseignée</span>
+          </div>
+          <div class="row pl-5 mr-5 text-center">
+            <span >Ajouté des nouvelles activités et utilisé les icones
+              <em class="pi pi-star-o"></em> du tableau des activités pour constituer votre liste</span>
+          </div>
         </template>
         <template #loading>
             Chargement des données en cours.
@@ -184,8 +190,12 @@
         .p-dropdown-label:not(.p-placeholder) {
             text-transform: uppercase;
         }
+
     }
 
+    /deep/.p-datatable-emptymessage {
+      text-align: center;
+    }
     .testBg1{
         background-color: #069F90;
         border-radius: 8px;

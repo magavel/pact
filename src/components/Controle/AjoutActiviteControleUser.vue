@@ -3,6 +3,7 @@
     <div id="ajoutActivite" class="">
         <Toast />
         <Periode/>
+      <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <form
                 id="formSaisie"
                 novalidate="true"
@@ -13,6 +14,7 @@
                 <span>Collaborateurs</span>
                 </div>
             </div>
+          <ValidationProvider name="collaborateur" rules="required" v-slot="{ errors }">
             <div class="row pl-5">
                <!-- <div id="inputCollaborateur">
                     <AutoComplete
@@ -21,7 +23,7 @@
                             :dropdown="true"
                             @complete="searchCollaborateurBasic($event)" field="utilisateur_username"/>
                 </div> -->
-              <Dropdown id="inputCollaborateur" v-model="selectedCollaborateur"
+              <Dropdown  name="collaborateur" id="inputCollaborateur" v-model="selectedCollaborateur"
                         :options="listeCollaborateur"
                         optionLabel="utilisateur_username"
                         option-value="utilisateur_username"
@@ -42,16 +44,29 @@
                   </div>
                 </template>
               </Dropdown>
-
             </div>
+            <div class="row pl-5">
+              <span
+                  class="block text-red-600 text-xs absolute bottom-0 left-0"
+                  v-if="errors[0]"
+              >{{ errors[0] }}</span>
+            </div>
+            </ValidationProvider>
         <div class="row pl-5">
             <div class="col">
+
                 <div class="row">
-                    <span>Missions / Modules</span>
+                    <span>Missions</span>
                 </div>
+              <ValidationProvider name="missions" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+                    <Dropdown name="missions" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+                    <span
+                      class="block text-red-600 text-xs absolute bottom-0 left-0"
+                      v-if="errors[0]"
+                  >{{ errors[0] }}</span>
                 </div>
+              </ValidationProvider>
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
                 </div>
@@ -83,7 +98,9 @@
             <Button id="annuler" label="Annuler" class="p-button-secondary" v-on:click="annuler"></Button>
             <Button id="btnModifier" label="Modifier" v-on:click="updateSaisie"></Button>
         </div>
+
         </form>
+      </ValidationObserver>
     </div>
 </template>
 <script>
@@ -91,6 +108,38 @@
     import { mapState } from 'vuex';
     import Saisie from "../../models/saisie";
     import fromMinutesToHours from "../../filters/fromMinutesToHours";
+    import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+    import { required, email } from 'vee-validate/dist/rules';
+
+    // Override the default message.
+    extend('required', {
+      ...required,
+      message: 'Ce champs est requis'
+    });
+
+    extend("vide", {
+      validate: (value) => {
+        console.log('valeur de value', value);
+        /* if (!value || 0 === value.length) {
+           return true;
+         }
+         return false;*/
+      },
+      message:
+          "c'est vide"
+    });
+    extend("controleTemps", {
+      validate: (value) => {
+        if ((parseInt(value.split(':')[0]*60) + parseInt(value.split(':')[1])) > 0) {
+          return true;
+        }
+        return false;
+      },
+      message:
+          "Saisir une durée"
+    });
+
+
 
     export default {
         computed:mapState( {
@@ -151,7 +200,14 @@
           rafraichirFavoris() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs', this.selectedCollaborateur);
           },
-           clickValider(event) {
+           async clickValider() {
+             this.loading = true;
+             const isValid = await this.$refs.observer.validate();
+             if (!isValid) {
+               this.loading = false;
+               return;
+             }
+
                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
                let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
@@ -177,7 +233,7 @@
                 this.commentaire= "";
                 this.selectedActivite= null;
                 this.charges= null;
-                event.target.reset();
+                this.$refs.observer.reset();
             },
             annuler(){
                 this.isAjout = true;
@@ -188,7 +244,14 @@
                 this.$store.commit("saisies/UPDATE_TABS_KEY");
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
             },
-            updateSaisie(event){
+            async updateSaisie(event){
+              this.loading = true;
+              const isValid = await this.$refs.observer.validate();
+              if (!isValid) {
+                this.loading = false;
+                return;
+              }
+
                 let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                 let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
                 let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
@@ -225,6 +288,7 @@
                 this.charges= null;
                 this.$store.commit("saisies/UPDATE_TABS_KEY");
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', null);
+                this.$refs.observer.reset();
                 //event.target.reset();
             },
             searchCollaborateur(query) {
@@ -239,7 +303,7 @@
             },
         },
         name: 'AjoutActivite',
-        components: {Periode}
+        components: {Periode, ValidationProvider, ValidationObserver}
     }
 </script>
 
