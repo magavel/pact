@@ -38,7 +38,6 @@
             }
         },
         created() {
-            console.log('this.dateDeSaisie', this.dateDeSaisie);
             this.dateCalendrier = new Date();
             if(this.dateDeSaisie !== undefined){
                 this.dateCalendrier = this.dateDeSaisie;

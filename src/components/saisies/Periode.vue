@@ -48,8 +48,6 @@
                 tabDateISO.push(dateFin.toISOString());
                 this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
                 this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
-                console.log('this.dateDeSaisie', this.dateDeSaisie);
-                console.log('this.$store.state.saisies.dateSelectionee', this.$store.state.saisies.dateSelectionee);
             }
         }
     }
