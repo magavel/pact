@@ -9,6 +9,36 @@ import store from './store'
 
 Vue.use(Router);
 
+const ifNotAuthenticated = (to, from, next) => {
+  //console.log('!store.getters.isAuthenticated', !store.getters.isAuthenticated);
+  console.log('user : ', store.state.auth.user);
+  /*if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')*/
+  if(store.state.auth.user === null){
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  console.log('user : ', store.state.auth.user);
+  /*if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')*/
+  if(store.state.auth.user !== null){
+    next()
+    return
+  }
+  next('/login')
+}
+
+
 export const router = new Router({
   mode: 'history',
   routes: [
@@ -64,12 +94,15 @@ export const router = new Router({
       name: 'BoardControleSaisieUser',
       // lazy-loaded
       component: () => import('./views/BoardControleSaisieUser'),
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/activites',
       name: 'activites',
+      beforeEnter: ifAuthenticated,
       // lazy-loaded
       component: () => import('./views/BoardUserSaisie.vue'),
+
       children: [
         {
           path: 'ajoutActiviteControle',
@@ -101,6 +134,7 @@ export const router = new Router({
       // name: 'projects',
       // lazy-loaded
       component: () => import('./views/BoardProject.vue'),
+      beforeEnter: ifAuthenticated,
       children: [
         {
           path: '',
@@ -131,18 +165,4 @@ export const router = new Router({
 
 export default router;
 
-const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/')
-}
 
-const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/login')
-}

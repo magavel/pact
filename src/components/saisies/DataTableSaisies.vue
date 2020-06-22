@@ -121,17 +121,16 @@
                 this.componentKey += 1;
             },
             modifierSaisie(props){
-                console.log('this.saisies[props.index]', this.saisies[props.index]);
                 this.$store.commit('saisies/GET_SAISIE_UPDATE', this.saisies[props.index]);
                 this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
                 this.$store.commit('saisies/UPDATE_TABS_KEY');
-            }
+            },
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    /deep/ .p-datatable.p-datatable-customers {
+    /*/deep/ .p-datatable.p-datatable-customers {
         .p-datatable-header {
             border: 0 none;
             padding: 12px;
@@ -163,6 +162,21 @@
 
         .p-dropdown-label:not(.p-placeholder) {
             text-transform: uppercase;
+        }
+    }*/
+
+    /deep/ .p-datatable {
+        &.p-datatable-customers {
+            .p-datatable-thead > tr > th,
+            .p-datatable-tfoot > tr > td {
+
+            }
+
+            .p-datatable-tbody > tr > td {
+                .p-column-title {
+
+                }
+            }
         }
     }
 

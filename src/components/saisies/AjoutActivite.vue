@@ -133,16 +133,13 @@
         created() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs');
             this.$store.dispatch('references/getRefActivite');
-
              if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
                 this.selectedMission = this.saisieUpdate.SaisieFavorite_phaseId;
                 this.commentaire = this.saisieUpdate.SaisieFavorite_commentaire;
                 this.selectedActivite = this.saisieUpdate.SaisieFavorite_activiteId;
-                console.log('this.saisieUpdate.SaisieFavorite_charges', this.saisieUpdate.SaisieFavorite_charges);
                 this.charges = fromMinutesToHours(this.saisieUpdate.SaisieFavorite_charges);
                 this.isAjout = false;
             }
-
         },
         methods: {
             dateBetween: function(startDate, endDate) {
