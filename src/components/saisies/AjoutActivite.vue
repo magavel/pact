@@ -47,13 +47,11 @@
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
                 </div>
-
                 <div class="row">
-                  <ValidationProvider name="charge" rules="required|controleTemps" v-slot="{ errors }">
+                  <ValidationProvider name="charge" rules="required|controleTemps|controleMinute|controleHeure" v-slot="{ errors }">
                     <div id="charges">
                         <InputMask name="charge" v-model="charges" mask="9:99" placeholder="  :  "/>
-                      <span
-                      > {{ errors[0] }}</span>
+                      <span> {{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
                 </div>
@@ -107,6 +105,28 @@
       },
       message:
           "Saisir une durée"
+    });
+
+    extend("controleMinute", {
+      validate: (value) => {
+        if ((parseInt(value.split(':')[1])) <= 59) {
+          return true;
+        }
+        return false;
+      },
+      message:
+          "minutes supérieurs à 59"
+    });
+
+    extend("controleHeure", {
+      validate: (value) => {
+        if ((parseInt(value.split(':')[0])) <= 23) {
+          return true;
+        }
+        return false;
+      },
+      message:
+          "heures supérieurs à 23"
     });
 
 

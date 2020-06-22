@@ -7,15 +7,33 @@
         </div>
       </div>
       <div class="row pl-5">
-        <div id="inputCollaborateur">
-          <AutoComplete
-              v-model="selectedCollaborateur"
-              :suggestions="filteredCollaborateur"
-              :dropdown="true"
-              @complete="searchCollaborateurBasic($event)" field="utilisateur_username"/>
+        <Dropdown  name="collaborateur" id="inputCollaborateur" v-model="selectedCollaborateur"
+                   :options="listeCollaborateur"
+                   optionLabel="utilisateur_username"
+                   option-value="utilisateur_username"
+                   :filter="true"
+                   placeholder="Selectionner collaborateur"
+                   :showClear="true" @change="rafraichirFavoris">
+          <template #option="slotProps">
+            <div class="p-dropdown-car-value" v-if="slotProps.value">
+                  <span>{{slotProps.option.utilisateur_prenom}}
+                    {{slotProps.option.utilisateur_nom}}</span>
+            </div>
+            <span v-else>{{slotProps.placeholder}}</span>
+          </template>
+          <template #option="slotProps">
+            <div class="p-dropdown-car-option">
+                    <span>{{slotProps.option.utilisateur_prenom}}
+                    {{slotProps.option.utilisateur_nom}}</span>
+            </div>
+          </template>
+        </Dropdown>
+      </div>
+      <div class="row pl-5">
+        <div>
+          <span>Vos Journées favorites</span>
         </div>
       </div>
-    <p>Vos Journées favorites</p>
         <div class="row pl-5 mr-5">
         </div>
         <TreeTable  selectionMode="multiple" :value="journeesFavorites" :lazy="true" :paginator="true" :rows="rows" :loading="loading"
@@ -41,10 +59,12 @@
     computed:mapState( {
         journeesFavorites: state=> state.users.journeesFavorites,
         favorites: state=> state.users.favorites,
+      listeCollaborateur: state=> state.users.users,
     }),
     created() {
       this.$store.dispatch('users/getAllFavorites');
       this.$store.dispatch('users/getAllJourneeFavorites');
+      this.$store.dispatch('users/getAllUsers');
     },
       data() {
           return {
@@ -53,7 +73,6 @@
               loading: false,
               totalRecords: 0,
             selectedCollaborateur:  null,
-            listeCollaborateur: null,
             filteredCollaborateur: null
           }
       },
@@ -71,6 +90,9 @@
           this.filteredCollaborateur = this.searchCollaborateur(event.query);
         }, 250);
       },
+      rafraichirFavoris() {
+        this.$store.dispatch('users/getAllJourneeFavorites',this.selectedCollaborateur);
+      }
     },
     name: 'InputJourneeFavorites',
       components: {Periode}

@@ -1,6 +1,6 @@
 import userservice from '../../services/user.service';
 import router from '../../router';
-import SaisieService from "../../services/saisie.service";
+
 
 
 // initial state
@@ -116,7 +116,7 @@ const actions = {
         });
   },
   ajouterJourneeFavorites({commit}, journee) {
-    userservice.ajouterJourneeFavorites(GET_CONTROLEjournee)
+    userservice.ajouterJourneeFavorites(journee)
         .then((res) => {
           const succes = {
             date: new Date(),

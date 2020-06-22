@@ -16,13 +16,6 @@
             </div>
           <ValidationProvider name="collaborateur" rules="required" v-slot="{ errors }">
             <div class="row pl-5">
-               <!-- <div id="inputCollaborateur">
-                    <AutoComplete
-                            v-model="selectedCollaborateur"
-                            :suggestions="filteredCollaborateur"
-                            :dropdown="true"
-                            @complete="searchCollaborateurBasic($event)" field="utilisateur_username"/>
-                </div> -->
               <Dropdown  name="collaborateur" id="inputCollaborateur" v-model="selectedCollaborateur"
                         :options="listeCollaborateur"
                         optionLabel="utilisateur_username"
@@ -78,17 +71,28 @@
                 <div class="row">
                     <span>Type d'activités</span>
                 </div>
+              <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown name="typeActivite" v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                  <span
+                      class="block text-red-600 text-xs absolute bottom-0 left-0"
+                      v-if="errors[0]"
+                  >{{ errors[0] }}</span>
                 </div>
+              </ValidationProvider>
                 <div class="row mt-4">
                     <span>Charges(hh:mm)</span>
                 </div>
+              <ValidationProvider name="charge" rules="required|controleTemps" v-slot="{ errors }">
                 <div class="row">
                     <div id="charges">
                         <InputMask v-model="charges" mask="9:99" placeholder="  :  "/>
                     </div>
+                  <div>
+                    <span> {{ errors[0] }}</span>
+                  </div>
                 </div>
+              </ValidationProvider>
             </div>
         </div>
         <div v-if="isAjout" class="row justify-content-end mr-3" style="margin-left: 39%">
@@ -109,7 +113,7 @@
     import Saisie from "../../models/saisie";
     import fromMinutesToHours from "../../filters/fromMinutesToHours";
     import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-    import { required, email } from 'vee-validate/dist/rules';
+    import { required } from 'vee-validate/dist/rules';
 
     // Override the default message.
     extend('required', {

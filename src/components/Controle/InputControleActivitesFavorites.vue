@@ -1,12 +1,15 @@
 <template>
+  <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
     <div class="mb-4 pb-4">
         <Toast />
         <Periode/>
+
       <div class="row pl-5">
         <div>
           <span>Collaborateurs</span>
         </div>
       </div>
+      <ValidationProvider name="collaborateur" rules="required" v-slot="{ errors }">
       <div class="row pl-5">
         <Dropdown id="inputCollaborateur" v-model="selectedCollaborateur"
                   :options="listeCollaborateur"
@@ -30,6 +33,13 @@
           </template>
         </Dropdown>
       </div>
+        <div class="row pl-5">
+              <span
+                  class="block text-red-600 text-xs absolute bottom-0 left-0"
+                  v-if="errors[0]"
+              >{{ errors[0] }}</span>
+        </div>
+      </ValidationProvider>
       <div class="row pl-5">
       <div>
           <span>
@@ -84,19 +94,28 @@
         </Column>
         <Column header="Actions">
             <template #body="slotProps">
-                <Button type="button" icon="pi pi-plus" class="p-button-secondary" @click.prevent="ajouterUneActiviteFavorite(slotProps)"></Button>
+                <Button type="button" icon="pi pi-plus" class="p-button-secondary" @click.prevent="handleSubmit(ajouterUneActiviteFavorite(slotProps))"></Button>
             </template>
         </Column>
     </DataTable>
         </div>
         <div class="row">
         </div>
-     </div>
+         </div>
+  </ValidationObserver>
 </template>
 <script>
   import { mapState } from 'vuex';
   import Periode from "../saisies/Periode";
   import Saisie from "../../models/saisie";
+  import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+  import { required } from 'vee-validate/dist/rules';
+
+  // Override the default message.
+  extend('required', {
+    ...required,
+    message: 'Ce champs est requis'
+  });
 
   export default {
     computed:mapState( {
@@ -120,14 +139,18 @@
         }
       },
       methods: {
-          ajouterUneActiviteFavorite(props) {
+          async ajouterUneActiviteFavorite(props) {
+          const isValid = await this.$refs.observer.validate();
+          if (!isValid) {
+            return;
+          }
               let uneSaisieSelec = this.favorites[props.index];
               let uneSaisie = new Saisie();
               uneSaisie.saisie_phaseId = uneSaisieSelec.SaisieFavorite_phaseId;
               uneSaisie.activite_Id= uneSaisieSelec.SaisieFavorite_activiteId;
               uneSaisie.saisie_charge = uneSaisieSelec.SaisieFavorite_charges;
               uneSaisie.saisie_commentaire = uneSaisieSelec.SaisieFavorite_commentaire;
-              uneSaisie.saisie_username = this.selectedCollaborateur;;
+              uneSaisie.saisie_username = this.selectedCollaborateur;
               uneSaisie.saisie_date = new Date(this.$store.state.saisies.dateDeSaisie[0]);
               this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
               this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
@@ -153,7 +176,7 @@
         }
       },
     name: 'InputActivitesFavorites',
-      components: {Periode}
+      components: {Periode, ValidationObserver, ValidationProvider}
   }
 
     </script>

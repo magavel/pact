@@ -1,4 +1,9 @@
 <template>
+  <div>
+    <Toast />
+    <transition-group name="p-messages" tag="div">
+      <Message v-for="msg of messages" :severity="msg.severity" :key="msg.content" :life="3000">{{msg.content}}</Message>
+    </transition-group>
   <div class="col-md-12">
     <div class="card card-container">
       <img
@@ -18,11 +23,6 @@
             name="username"
           />
               <span>{{ errors[0] }}</span>
-           <!--<div
-            v-if="errors.has('username')"
-            class="alert alert-danger"
-            role="alert"
-          >l'identifiant est requis </div>-->
         </div>
           </ValidationProvider>
           <ValidationProvider name="password" rules="required" v-slot="{ errors }">
@@ -55,17 +55,20 @@
           Première visite ? <a href @click.prevent="register">Créer un compte</a>
         </div>
         <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+          <!--<div v-if="message" class="alert alert-danger" role="alert">{{message}}</div> -->
+
         </div>
       </form>
         </ValidationObserver>
     </div>
+  </div>
   </div>
 </template>
 
 <script>
 import { ValidationProvider,ValidationObserver,extend } from 'vee-validate';
 import {required } from 'vee-validate/dist/rules';
+import Message from 'primevue/message';
 
 import User from '../models/user';
 
@@ -77,13 +80,14 @@ extend('required', {
 export default {
   name: 'Login',
     components: {
-      ValidationProvider, ValidationObserver
+      ValidationProvider, ValidationObserver, Message
     },
   data() {
     return {
       user: new User('', ''),
       loading: false,
-      message: '',
+      message: null,
+      messages: [],
     };
   },
   computed: {
@@ -112,9 +116,13 @@ export default {
                       },
                       (error) => {
                           this.loading = false;
-                          this.message = (error.response && error.response.data)
+                    //    this.message = "problème de login/mot de passe";
+                        this.messages = [
+                          {severity: 'error', content: 'problème de login/mot de passe'}
+                        ]
+                          /*this.message = (error.response && error.response.data)
                                   || error.message
-                                  || error.toString();
+                                  || error.toString();*/
                       },
               );
           }

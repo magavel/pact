@@ -35,6 +35,11 @@
                     {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
                 </template>
             </Column>
+          <Column  header="Origine" :sortable="true" filterMatchMode="contains">
+            <template #body="slotProps">
+             Modifiée par {{ slotProps.data.SaisieFavorite_last_modified_by }}
+            </template>
+          </Column>
             <Column header="Actions">
                 <template #body="slotProps">
                     <Button type="button" icon="pi pi-times" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
@@ -111,11 +116,11 @@
                 this.display = false;
                 this.$store.dispatch('users/getAllFavorites');
                 //this.saisies.splice(index, 1);
-                this.forceRerender();
-                this.$toast.add({severity:'info', summary: 'Info Message', detail:'Activité favorite supprimée', life: 3000});
+                this.$toast.add({severity:'info', summary: 'Info Message', detail:'saisie supprimée', life: 3000});
                 this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
-                this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
+                //this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                this.forceRerender();
             },
             forceRerender() {
                 this.componentKey += 1;

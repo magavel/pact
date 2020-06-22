@@ -2,7 +2,11 @@
     <div class="mb-4 pb-4">
         <Toast />
         <Periode/>
-    <p>Vos activites</p>
+      <div class="row pl-5">
+        <div>
+          <span>Vos activites</span>
+        </div>
+      </div>
         <div class="row pl-5 mr-5">
     <DataTable v-model="favorites"
                class="p-datatable-responsive p-datatable-customers"
@@ -50,7 +54,7 @@
                 header="Charges (h:m)" body-class="pl-4">
             <template #body="slotProps">
                 <div :class="slotProps.data.SaisieFavorite_charges" class="pl-3">
-                    {{ slotProps.data.SaisieFavorite_charges}}
+                    {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
                 </div>
             </template>
         </Column>

@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
+  <!--  <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <div class="text-center">Profile</div>
       </h3>
     </header>
-    <p>
+    <strong>Login : </strong>  <strong>{{currentUser.username}}</strong>
+   <p>
       <strong>Token:</strong>
       {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
     </p>
@@ -20,17 +21,70 @@
     <strong>Authorities:</strong>
     <ul>
       <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
+    </ul> -->
+    <div class="row">
+      <div class="col-md-12 text-center"> Mon profile PactNG</div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <form>
+          <div class="form-group row">
+            <label for="username" class="col-4 col-form-label">Login</label>
+            <div class="col-8">
+              {{currentUser.username}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="name" class="col-4 col-form-label">Prenom</label>
+            <div class="col-8">
+              <input id="name" name="name" placeholder="First Name" class="form-control here" type="text" v-model="user.utilisateur_prenom">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lastname" class="col-4 col-form-label">Nom</label>
+            <div class="col-8">
+              <input id="lastname" name="lastname" placeholder="Last Name" class="form-control here" type="text" v-model="user.utilisateur_nom">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="email" class="col-4 col-form-label">Adresse mail</label>
+            <div class="col-8">
+              <input id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text" v-model="user.utilisateur_email">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="offset-4 col-8">
+              <button name="submit" type="submit" class="btn btn-primary" disabled="">mettre à jour mon profile</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: 'Profile',
-  computed: {
+  computed: mapState( {
+    user: state=> state.users.user,
+    loading: false,
     currentUser() {
       return this.$store.state.auth.user;
     },
+  }),
+  created() {
+    this.$store.dispatch('users/getUserById',this.currentUser.username);
+  },
+  data() {
+    return {
+
+    }
   },
   mounted() {
     if (!this.currentUser) {
