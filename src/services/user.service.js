@@ -23,9 +23,13 @@ class UserService {
    * retourne la liste des journees favorites de l'utilisateur en cours.
    * @returns {Promise<AxiosResponse<any>>}
    */
-  getAllJourneeFavorites() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return axios.get(config.API_URL.concat('users/', user.username, '/journeeFavoris'), { headers: authHeader() });
+  getAllJourneeFavorites(username) {
+    if (username === undefined) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return axios.get(config.API_URL.concat('users/', user.username, '/journeeFavoris'), {headers: authHeader()});
+    } else {
+      return axios.get(config.API_URL.concat('users/', username, '/journeeFavoris'), {headers: authHeader()});
+    }
   }
 
   /**

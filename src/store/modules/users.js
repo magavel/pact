@@ -54,7 +54,11 @@ const mutations = {
     state.errors = [ error, ...state.errors ];
   },
   GET_JOURNEE_FAVORITE_USERS(state, journee) {
-    state.journeesFavorites = journee;
+     if ( Array.isArray(journee) && emptyArray.length ) {
+         state.journeesFavorites = journee;
+     } else {
+         state.journeesFavorites = [];
+     }
   },
   GET_CONTROLE(state, controles) {
       const parsed = JSON.stringify(controles);
@@ -94,8 +98,8 @@ const actions = {
         };
         commit('GET_FAVORITE_ERROR', error);
       });
-  },  getAllJourneeFavorites({ commit}) {
-    userservice.getAllJourneeFavorites()
+  },  getAllJourneeFavorites({ commit}, username) {
+    userservice.getAllJourneeFavorites(username)
         .then((res) => {
           const succes = {
             date: new Date(),

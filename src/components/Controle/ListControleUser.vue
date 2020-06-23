@@ -20,7 +20,6 @@
                         <div v-if="slotProps.node.data.username !== undefined">
                       <span class="d-inline-block" tabindex="0" >
                                                         <div id="charges">{{meth(col,slotProps) | fromMinutesToHours()}}</div>
-
                         </span> </div>
                         <div v-else>
                         <div @dblclick="update(col,slotProps)">
@@ -34,10 +33,8 @@
                                 <InputMask @keydown.enter.stop="miseAjour(col,slotProps)"
                                            class="p-field col-xs-2 inputcolumn"
                                            :value="meth(col,slotProps)" v-model="selectedCaseCharge" mask="9:99" placeholder="  :  "/>
-
                             </div>
                         </div>
-
                         </div>
                 </template>
             </Column>

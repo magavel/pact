@@ -35,9 +35,18 @@
         </div>
       </div>
         <div class="row pl-5 mr-5">
-        </div>
+
         <TreeTable  selectionMode="multiple" :value="journeesFavorites" :lazy="true" :paginator="true" :rows="rows" :loading="loading"
                    :totalRecords="totalRecords" >
+          <template #empty>
+            <div class="row pl-5 mr-5 text-center">
+              <span >Aucune journées favorites de renseignée</span>
+            </div>
+            <div class="row pl-5 mr-5 text-center">
+            <span >Ajouté des nouvelles journées et utilisé l'icone
+              <em class="pi pi-heart"></em> à partir du tableau d'activités pour consituer votre liste</span>
+            </div>
+          </template>
             <Column field="SaisieFavorite_moduleLibelle" header="Mission" :expander="true"></Column>
             <Column field="SaisieFavorite_charges" header="Charge"></Column>
             <Column field="SaisieFavorite_commentaire" header="Commentaire"></Column>
@@ -48,6 +57,7 @@
                 </template>
             </Column>
         </TreeTable>
+        </div>
     </div>
 
 </template>
@@ -63,7 +73,7 @@
     }),
     created() {
       this.$store.dispatch('users/getAllFavorites');
-      this.$store.dispatch('users/getAllJourneeFavorites');
+      this.$store.dispatch('users/getAllJourneeFavorites',this.selectedCollaborateur);
       this.$store.dispatch('users/getAllUsers');
     },
       data() {

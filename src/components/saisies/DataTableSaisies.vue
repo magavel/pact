@@ -11,7 +11,7 @@
                    :selection.sync="selectedSaisies"
                    :key="componentKey">
             <template #empty>
-                Aucune Activités trouvées.
+                Aucune Activités sur la journée selectionnée, vous pouvez ajouter une ou plusieurs activités.
             </template>
             <template #loading>
                 Chargement des données en cours.
