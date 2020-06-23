@@ -2,11 +2,11 @@
     <div>
         <div id="saisie">
             <div id="container-saisie">
-                <div class="row ">
-                    <div class="col-0">
+                <div class="d-lg-flex">
+                    <div class="">
                         <Calendrier/>
                     </div>
-                    <div class="col-sm mr-3">
+                    <div class=" m-3">
                         <!-- router-view -->
                         <router-view></router-view>
                     </div>

@@ -18,18 +18,18 @@
             </template>
             <Column field="SaisieFavorite_moduleLibelle" header="Missions" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
-                    <div>
+                    <div class="">
                         <span :class="slotProps.data.SaisieFavorite_moduleLibelle" class="p-1">{{ slotProps.data.SaisieFavorite_moduleLibelle}} </span>
                     </div>
                 </template>
             </Column>
-            <Column field="SaisieFavorite_activite_libelle" header="Activite" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_activite_libelle" header="Type d'activités" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="SaisieFavorite_commentaire" header="Commentaire" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_commentaire" header="Commentaires" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="SaisieFavorite_charges" header="Charges" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_charges" header="Charges (h:m)" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
                     {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
                 </template>
