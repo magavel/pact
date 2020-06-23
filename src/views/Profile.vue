@@ -54,10 +54,17 @@
             </div>
           </div>
           <div class="form-group row">
+            <label for="email" class="col-4 col-form-label">Abreviation</label>
+            <div class="col-8">
+              <input id="email" name="email" placeholder="Abreviation" class="form-control here" required="required" type="text" v-model="user.utilisateur_abreviation">
+            </div>
+          </div>
+          <div class="form-group row">
             <div class="offset-4 col-8">
               <button name="submit" type="submit" class="btn btn-primary" disabled="">mettre à jour mon profile</button>
             </div>
           </div>
+
         </form>
       </div>
     </div>

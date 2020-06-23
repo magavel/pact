@@ -25,12 +25,19 @@
                 </div>
               </ValidationProvider>
                 <div class="row mt-4">
-                    <span>Commentaire (max 100 caractères)</span>
+                    <span>Commentaire (max 250 caractères)</span>
                 </div>
+              <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Textarea v-model="commentaire" rows="5" cols="30"></Textarea>
+                    <Textarea name="commentaire" v-model="commentaire" rows="5" cols="30"></Textarea>
                 </div>
+                <span
+                    class="block text-red-600 text-xs absolute bottom-0 left-0"
+                    v-if="errors[0]"
+                >{{ errors[0] }}</span>
+              </ValidationProvider>
             </div>
+
             <div class="col">
                 <div class="row">
                     <span>Type d'activités</span>
@@ -128,6 +135,18 @@
       message:
           "heures supérieurs à 23"
     });
+
+    extend("sizeMaxTextArea", {
+      validate: (value) => {
+        if (value.length <= 250) {
+          return true;
+        }
+        return false;
+      },
+      message:
+          "Taille du commentaire supérieur à 100 caractères"
+    });
+
 
 
 

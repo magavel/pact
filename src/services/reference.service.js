@@ -16,6 +16,9 @@ class ReferencesService {
     getRefTypeProjet(){
         return axios.get(config.API_URL.concat("referentiels/ref_type_projet"), { headers: authHeader()});
     }
+    getRefGrade() {
+        return axios.get(config.API_URL.concat("referentiels/ref_grade"), { headers: authHeader()});
+    }
 }
 
 export default new ReferencesService();
