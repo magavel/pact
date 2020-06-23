@@ -38,6 +38,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
   faHome,
+  faListAlt,
   faUser,
   faUserPlus,
   faUserFriends,
@@ -51,7 +52,7 @@ import {
   faCogs,
   faPlus,
   faInfoCircle,
-    faAngleRight,
+  faAngleRight,
   faLock,
   faLockOpen,
 } from '@fortawesome/free-solid-svg-icons';
@@ -72,6 +73,7 @@ import fromMinutesToHours from "./filters/fromMinutesToHours"
 Vue.prototype.moment = moment
 
 library.add(
+    faListAlt,
   faHome,
   faUser,
   faUserPlus,

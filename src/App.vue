@@ -60,7 +60,7 @@
 
   .backgroundNav {
     position:absolute;
-    width: 200px;
+    width: 240px;
     min-height: 200vh;
     background-color: $primary;
   }

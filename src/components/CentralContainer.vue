@@ -2,33 +2,48 @@
     <div class="container-fluid">
         <div class="row ">
             <nav class=" navGauche col-md-2 d-none d-md-block">
+                <div>
+                    <h2 class="text-secondary mb-5">
+                        PACT NG
+                    </h2>
+                </div>
                 <div class="">
                     <ul class="nav flex-column">
-                        <li class="nav-item ml-n4">
+                        <li class="nav-item ml-n4 mb-3">
                             <router-link v-if="currentUser" to="/home" class="nav-link">
-                                <font-awesome-icon icon="chalkboard"/>
-                                Rapport
+                                <span class="pr-3">
+
+                                    <i class="pi pi-chart-line"></i>
+
+                                </span>
+                                Rapports
                             </router-link>
                         </li>
-                        <li class="nav-item ml-n4">
+                        <li class="nav-item ml-n4 mb-3">
                             <router-link v-if="currentUser" to="/activites/myActivities/dailyListing" class="nav-link">
-                                <font-awesome-icon icon="pencil-alt"/>
-                                saisie
+                                <span class="pr-3">
+                                    <font-awesome-icon icon="pencil-alt"/>
+                                </span>
+                                Saisies
                             </router-link>
                         </li>
-                        <li class="nav-item ml-n4">
+                        <li class="nav-item ml-n4 mb-3">
                             <router-link v-if="currentUser" to="/projects" class="nav-link">
-                                <font-awesome-icon icon="pencil-alt"/>
+                                <span class="pr-3">
+                                    <i class="pi pi-list"></i>
+                                </span>
                                 Projets
                             </router-link>
                         </li>
-                        <li v-if="showAdminBoard" class="nav-item ml-n4">
+                        <li v-if="showAdminBoard" class="nav-item ml-n4 mb-3">
                             <router-link to="/user" class="nav-link">
-                                <font-awesome-icon icon="cogs"/>
+                                <span class="pr-3">
+                               <i class="pi pi-cog"></i>
+                                </span>
                                 Administration
                             </router-link>
                         </li>
-                        <li v-if="showModeratorBoard" class="nav-item ml-n4">
+                        <li v-if="showModeratorBoard" class="nav-item ml-n4 mb-3">
                             <router-link to="/mod" class="nav-link"> Board Pilote</router-link>
                         </li>
                     </ul>
@@ -65,10 +80,11 @@
 
         & a {
             font-weight: bold;
+            font-size: medium;
             height: 50px;
             margin-right: -15px;
             color: white;
-            width: 149px;
+            width: 212px;
         }
 
     }

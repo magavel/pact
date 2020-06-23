@@ -1,10 +1,10 @@
 <template>
   <div id="principal">
-    <div id="lien">
+    <div id="lien" class="mb-3">
         <!--<span><a href="#" class="titre">Mes Activités</a></span>-->
         <!--<span class="ml-5"><a href="#" class="titre">Saisir à la place de</a></span>-->
-      <router-link to="/activites/myActivities">Mes Activités</router-link>
-      <router-link to="/activites/ajoutActiviteControle" class="ml-5">Activités de mes équipes</router-link>
+      <router-link to="/activites/myActivities"><span class="mr-3">Mes Activités</span></router-link>
+      <router-link to="/activites/ajoutActiviteControle" class="ml-5"><span class="ml-3">Activités de mes équipes</span></router-link>
     </div>
     <router-view></router-view>
     <!--<MyActivities :activite-fav-key="activiteFavKey" :ajout-activite-key="ajoutActiviteKey" :tabs-key="tabsKey"/>-->
@@ -40,6 +40,8 @@
 
   #lien a{
     color: #535353;
+    font-size: medium;
+
   }
 
   #lien a:active{
@@ -50,6 +52,7 @@
   #lien .router-link-active{
     color: #154194;
     text-decoration: underline;
+    font-size: medium;
   }
 </style>
 
