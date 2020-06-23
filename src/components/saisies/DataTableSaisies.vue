@@ -16,21 +16,20 @@
             <template #loading>
                 Chargement des données en cours.
             </template>
-            <Column  selectionMode="multiple" headerStyle="width: 3em"></Column>
             <Column field="SaisieFavorite_moduleLibelle" header="Missions" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
-                    <div :class="slotProps.data.SaisieFavorite_moduleLibelle" class="pl-3">
-                        {{ slotProps.data.SaisieFavorite_moduleLibelle}}
+                    <div>
+                        <span :class="slotProps.data.SaisieFavorite_moduleLibelle" class="p-1">{{ slotProps.data.SaisieFavorite_moduleLibelle}} </span>
                     </div>
                 </template>
             </Column>
-            <Column field="SaisieFavorite_activite_libelle" header="activite" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_activite_libelle" header="Activite" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="SaisieFavorite_commentaire" header="commentaire" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_commentaire" header="Commentaire" :sortable="true" filterMatchMode="contains">
 
             </Column>
-            <Column field="SaisieFavorite_charges" header="charges" :sortable="true" filterMatchMode="contains">
+            <Column field="SaisieFavorite_charges" header="Charges" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
                     {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
                 </template>
@@ -135,68 +134,59 @@
 </script>
 
 <style lang="scss" scoped>
-    /*/deep/ .p-datatable.p-datatable-customers {
-        .p-datatable-header {
-            border: 0 none;
-            padding: 12px;
-            text-align: left;
-            font-size: 10px;
-        }
-
-        .p-datatable-thead{
-            background-color: #E6DFDF85;
-            border-radius: 10px;
-        }
-
-        .p-datatable-thead > tr > th {
-            border: 0 none;
-            text-align: left;
-
-            &.p-filter-column {
-                border-top: 1px solid #c8c8c8;
-            }
-        }
-        p-column-title {
-            font-size: 10px;
-        }
-
-        .p-datatable-tbody > tr > td {
-            border: 0 none;
-            cursor: auto;
-        }
-
-        .p-dropdown-label:not(.p-placeholder) {
-            text-transform: uppercase;
-        }
-    }*/
 
     /deep/ .p-datatable {
         &.p-datatable-customers {
             .p-datatable-thead > tr > th,
             .p-datatable-tfoot > tr > td {
+                padding: 3px;
+                background-color: #E6DFDF85;
+                border: none;
+                font-size: 0.9em;
+            }
 
+            .p-datatable-thead > tr > th:first-child{
+                border-radius: 10px 0px 0px 10px;
+            }
+
+            .p-datatable-thead > tr > th:last-child{
+                border-radius: 0px 10px 10px 0px;
             }
 
             .p-datatable-tbody > tr > td {
+                padding: 0;
+                border: none;
+                padding-top: 0.8em;
+                font-size: 0.8em;
+                border-bottom: 1px solid #00000029;
+                padding-left: 1em;
                 .p-column-title {
-
+                    font-size: 0.9em;
+                }
+                span{
+                    font-size: 0.8em;
                 }
             }
+            .p-sortable-column .p-sortable-column-icon{
+                display: none;
+            }
         }
+    }
+
+    /deep/ .p-datatable .p-datatable-scrollable-header{
+        background: none;
     }
 
     .PACTNG_PMV{
         background-color: #069F90;
         border-radius: 8px;
         color: white;
-        width: 9em;
     }
 
     .PACTNG_INFOCENTRE{
         background-color: #AA2393;
         border-radius: 8px;
         color: white;
-        width: 12em;
     }
     .testBg3{
         background-color: #4028A7;
@@ -214,7 +204,7 @@
     }
 
     .p-togglebutton{
-        height: 2.1em;
+        height: 1.9em;;
     }
 
     /deep/ .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover{

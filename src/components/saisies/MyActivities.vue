@@ -6,7 +6,7 @@
                     <div class="col-0">
                         <Calendrier/>
                     </div>
-                    <div class="col-sm ml-5 mr-5">
+                    <div class="col-sm mr-3">
                         <!-- router-view -->
                         <router-view></router-view>
                     </div>
