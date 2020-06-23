@@ -44,7 +44,7 @@
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown  name="typeActivite" v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown  name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite"  option-value="refTypeId" option-label="refTypeLibelleCourt"/>
                   <span
                       class="block text-red-600 text-xs absolute bottom-0 left-0"
                       v-if="errors[0]"

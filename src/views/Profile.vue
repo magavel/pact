@@ -54,9 +54,9 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="email" class="col-4 col-form-label">Abreviation</label>
+            <label for="abreviation" class="col-4 col-form-label">Abreviation</label>
             <div class="col-8">
-              <input id="email" name="email" placeholder="Abreviation" class="form-control here" required="required" type="text" v-model="user.utilisateur_abreviation">
+              <input id="abreviation" name="email" placeholder="Abreviation" class="form-control here" required="required" type="text" v-model="user.utilisateur_abreviation">
             </div>
           </div>
           <div class="form-group row">
@@ -80,17 +80,20 @@ export default {
   name: 'Profile',
   computed: mapState( {
     user: state=> state.users.user,
+    refgrade: state=> state.references.refGrade,
     loading: false,
     currentUser() {
       return this.$store.state.auth.user;
     },
   }),
   created() {
+    this.$store.dispatch('references/getRefGrade')
     this.$store.dispatch('users/getUserById',this.currentUser.username);
+    //this.refGradeUser = this.user.utilisateur_grade;
   },
   data() {
     return {
-
+      refGradeUser: null,
     }
   },
   mounted() {
@@ -98,5 +101,8 @@ export default {
       this.$router.push('/login');
     }
   },
+  methods: {
+
+  }
 };
 </script>

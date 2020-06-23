@@ -18,7 +18,10 @@ const mutations = {
     },
     GET_REF_ACTIVITE_SUCCESS(state, succes) {
         state.success = [succes, ...state.success];
-    }
+    },
+    GET_REF_GRADE(state, grades) {
+        state.refGrade = grades;
+    },
 };
 
 

@@ -75,10 +75,11 @@
         ],
           selectedCentre: null,
           centres: [
-              { type: "CDAD-B", value: "CDAD-B" },
+              { type: "CDAD-B", value: "CDAD-Bo" },
               { type: "CDAD-BDX", value: "BDX" },
               { type: "CDAD-R", value: "CDAD-R" },
-              { type: "CDAD-T", value: "CDAD-T" }
+              { type: "CDAD-T", value: "CDAD-T" },
+              { type: "PODEV-EM", value: "PODEV-EM" }
           ],
           selectedEquipe:null,
       }

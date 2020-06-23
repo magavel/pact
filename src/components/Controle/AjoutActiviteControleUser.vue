@@ -16,7 +16,7 @@
             </div>
           <ValidationProvider name="collaborateur" rules="required" v-slot="{ errors }">
             <div class="row pl-5">
-              <Dropdown  name="collaborateur" id="inputCollaborateur" v-model="selectedCollaborateur"
+              <Dropdown ref="collaborateur" name="collaborateur" id="inputCollaborateur" v-model="selectedCollaborateur"
                         :options="listeCollaborateur"
                         optionLabel="utilisateur_username"
                         option-value="utilisateur_username"
@@ -203,6 +203,7 @@
             },
           rafraichirFavoris() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs', this.selectedCollaborateur);
+
           },
            async clickValider() {
              this.loading = true;

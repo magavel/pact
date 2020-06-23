@@ -117,6 +117,14 @@ class UserService {
     return axios.get(`${config.API_URL}users/${user.username}/controleEquipeSaisie?dateDebut=${dateDebut}&dateFin=${dateFin}`, { headers: authHeader() });
   }
 
+  getControleEntiteOrgaSaisies(periode) {
+    const user = JSON.parse(localStorage.getItem('user'))
+    const dateDebut = periode.dateDebut;
+    const dateFin = periode.dateFin;
+
+    return axios.get(`${config.API_URL}users/${user.username}/controleEntiteOrgaSaisie?dateDebut=${dateDebut}&dateFin=${dateFin}`, { headers: authHeader() });
+  }
+
   /**
    * get user par ID.
    * @param username id user
