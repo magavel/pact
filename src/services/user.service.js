@@ -34,7 +34,7 @@ class UserService {
 
   /**
    * methode de suppression des favoris.
-   * @param Saisie_id
+   * @param Saisie_id identifiant de la saisie.
    */
   supprimerFavoris(saisie_id) {
     const user = JSON.parse(localStorage.getItem('user'));

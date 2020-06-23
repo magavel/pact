@@ -54,7 +54,7 @@ const mutations = {
     state.errors = [ error, ...state.errors ];
   },
   GET_JOURNEE_FAVORITE_USERS(state, journee) {
-     if ( Array.isArray(journee) && emptyArray.length ) {
+     if ( Array.isArray(journee) && journee.length ) {
          state.journeesFavorites = journee;
      } else {
          state.journeesFavorites = [];

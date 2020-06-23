@@ -5,6 +5,7 @@
                    :filters="filters"
                    filterMode="lenient" always-show-paginator
                    :paginator="true"
+                   :loading="loading"
                    :rows="10" :key="componentKey">
             <Column field="username" header="Collaborateurs" :expander="true">
                 <template #filter>
@@ -50,7 +51,6 @@
              nodes: state => state.users.controle.data,
              columns: state => state.users.controle.colunns,
              dateSelectionee: state => state.saisies.dateSelectionee,
-             loading: false,
              miseAjourKey: state =>  state.users.controleKey,
          }),
              created() {
@@ -70,6 +70,11 @@
 
              this.$store.dispatch('users/getControleSaisies', periode);
 
+               this.loading = true;
+               setTimeout(() => {
+                 this.loading = false;
+                }, 1000);
+
 
          },
          data() {
@@ -85,7 +90,8 @@
                  componentKey:null,
                  selectedPopup: null,
                  dateDebut: null,
-                 dateFin:null
+                 dateFin:null,
+                 loading: false,
 
              }
          },
@@ -203,10 +209,6 @@
 
                  this.$store.commit("users/UPDATE_TABLE_CONTROLE");
 
-              // this.forceRerender();
-
-
-             //    this.$forceUpdate();
              },
              exportCSV(event,slotProps) {
                  console.log(slotProps);
@@ -222,8 +224,6 @@
 
 
                  this.selectedCase = eval("slotProps.node.data."+col.field.toString()); // recuperation de la case lu.
-
-
 
                  let popup = document.getElementById("".concat(eval("slotProps.node.key"),'-',col.field.toString()));
 

@@ -25,11 +25,26 @@
                 let uneJourneeFavorite = new Object();
                  uneJourneeFavorite.JourneeTypeDTO_journeeTypeLibelle = this.moment(this.dateSelectionee[0]).format('dddd D MMMM');
                 uneJourneeFavorite.JourneeTypeDTO_listSaisie = [];
+
+              if ( Array.isArray(this.$store.state.saisies.saisies) && this.$store.state.saisies.saisies.length ) {
                 this.$store.state.saisies.saisies.forEach(saisie => {
-                    uneJourneeFavorite.JourneeTypeDTO_listSaisie.push(saisie.SaisieFavorite_saisieId);
+                  uneJourneeFavorite.JourneeTypeDTO_listSaisie.push(saisie.SaisieFavorite_saisieId);
                 });
                 this.$store.dispatch('users/ajouterJourneeFavorites', uneJourneeFavorite);
-                this.$toast.add({severity:'success', summary: 'Succes', detail:'Journée favorites enregistrée', life: 3000});
+                this.$toast.add({
+                  severity: 'success',
+                  summary: 'Succes',
+                  detail: 'Journée favorite enregistrée',
+                  life: 3000
+                });
+              } else {
+                this.$toast.add({
+                  severity: 'warm',
+                  summary: 'Attention',
+                  detail: 'Journée favorite selectionnée vide ',
+                  life: 3000
+                });
+              }
             }
         }
     }

@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <div class="card m-3">
-      <div class="card-body">
+  <div >
+    <div id="saisie">
+      <div id="container-saisie">
         <CardPeriodeControle/>
         <div class="d-flex justify-content-end m-2">
           <div class="btn-group btn-group-md">
@@ -93,5 +93,18 @@
   #periodeControle .p-inputtext {
     width: 100px;
     margin-top: 10%;
+  }
+
+  #saisie {
+    background-color: white;
+    margin-bottom: 2em;
+  }
+
+  #container-saisie {
+    margin-left: 0;
+    /*background-image: url("../assets/Trace-82.svg");*/
+    /*background-size: 800px;
+    background-repeat: no-repeat;*/
+    z-index: 1;
   }
 </style>
