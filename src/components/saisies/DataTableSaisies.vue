@@ -139,10 +139,11 @@
         &.p-datatable-customers {
             .p-datatable-thead > tr > th,
             .p-datatable-tfoot > tr > td {
-                padding: 3px;
+                padding: 5px;
                 background-color: #E6DFDF85;
                 border: none;
                 font-size: 0.9em;
+                padding-left: 1em;
             }
 
             .p-datatable-thead > tr > th:first-child{
@@ -157,9 +158,9 @@
                 padding: 0;
                 border: none;
                 padding-top: 0.8em;
-                font-size: 0.8em;
+                font-size: 0.9em;
                 border-bottom: 1px solid #00000029;
-                padding-left: 1em;
+                padding-left: 0.5em;
                 .p-column-title {
                     font-size: 0.9em;
                 }
@@ -169,6 +170,10 @@
             }
             .p-sortable-column .p-sortable-column-icon{
                 display: none;
+            }
+
+            .p-datatable-emptymessage > td{
+                text-align: center;
             }
         }
     }
