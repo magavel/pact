@@ -82,25 +82,7 @@
             calculSommeCharge: function() {
                 let tableau = [];
 
-                for (let a = 0; a < this.tableauDate; a++){
-                    for (let i = 0; i< this.saisiesParPeriode.length; i++) {
-                        let valeur = null;
-                        valeur +=  this.saisiesParPeriode[i].saisieByWeek_charges[j].chargeHebdomadaire_charges;
-                    }
-                }
 
-
-
-                for (let i = 0; i< this.saisiesParPeriode.length; i++) {
-                    let valeur = null;
-                    for(let j=0; j<this.saisiesParPeriode[i].saisieByWeek_charges.length; j++ ) {
-                        valeur =  this.saisiesParPeriode[i].saisieByWeek_charges[j].chargeHebdomadaire_charges;
-                        console.log( 'valeur', valeur);
-                    }
-                    valeur += valeur;
-                    tableau.push(valeur)
-                }
-                console.log('tableau', tableau)
 
                 return [34,67,87]
             },
