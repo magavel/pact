@@ -50,9 +50,10 @@
                 </template>
             </Column>
             <ColumnGroup type="footer" >
-                <Row >
-                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  footer=" TOTAL CHARGES:" :colspan="3" />
-                    <Column :footer="totalCharge | fromMinutesToHours" />
+                <Row>
+                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  :colspan="2"></Column>
+                    <Column  footer=" TOTAL CHARGES : " />
+                    <Column :footer="totalCharge | fromMinutesToHours " />
                     <Column></Column>
                     <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>
                 </Row>
@@ -92,12 +93,9 @@
                 return this.$store.state.saisies.dateSelectionee;
             },
             totalCharge() {
-                console.log('saisie', this.saisies)
                 let charge = null
-
                 this.saisies.forEach(element => {
                     charge += element.SaisieFavorite_charges;
-                    console.log(charge)
                 });
                 return charge
             }
