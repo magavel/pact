@@ -1,6 +1,7 @@
 <template>
     <div>
         <Toast />
+      <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <TreeTable v-model="nodes"
                    :filters="filters"
                    filterMode="lenient" always-show-paginator
@@ -31,10 +32,12 @@
                                 </div>
                             </div>
                             <div v-else>
-
+                              <ValidationProvider name="charge" rules="required|controleTemps|controleMinute|controleHeure" v-slot="{ errors }">
                                 <InputMask @keydown.enter.stop="miseAjour(col,slotProps)"
                                            class="p-field col-xs-2 inputcolumn"
                                            :value="meth(col,slotProps)" v-model="selectedCaseCharge" mask="9:99" placeholder="  :  "/>
+                                <span> {{ errors[0] }}</span>
+                              </ValidationProvider>
 
                             </div>
                         </div>
@@ -43,11 +46,48 @@
                 </template>
             </Column>
         </TreeTable>
+      </ValidationObserver>
      </div>
  </template>
 
  <script>
      import { mapState } from 'vuex';
+     import {extend, ValidationObserver, ValidationProvider} from "vee-validate";
+     import { required} from 'vee-validate/dist/rules';
+
+     extend("controleTemps", {
+       validate: (value) => {
+         if ((parseInt(value.split(':')[0]*60) + parseInt(value.split(':')[1])) > 0) {
+           return true;
+         }
+         return false;
+       },
+       message:
+           "Saisir une durée"
+     });
+
+     extend("controleMinute", {
+       validate: (value) => {
+         if ((parseInt(value.split(':')[1])) <= 59) {
+           return true;
+         }
+         return false;
+       },
+       message:
+           "minutes supérieurs à 59"
+     });
+
+     extend("controleHeure", {
+       validate: (value) => {
+         if ((parseInt(value.split(':')[0])) <= 23) {
+           return true;
+         }
+         return false;
+       },
+       message:
+           "heures supérieurs à 23"
+     });
+
      export default {
          computed: mapState({
              controle: state => state.users.controleEquipe,
@@ -237,7 +277,9 @@
                  this.$store.commit('saisies/UPDATE_AJOUT_ACTIVITE_KEY');
                  this.$store.commit('saisies/UPDATE_TABS_KEY');
      }
-         }
+         },
+       name: 'ListControleEquipe',
+       components: { ValidationProvider, ValidationObserver}
      }
 
    </script>

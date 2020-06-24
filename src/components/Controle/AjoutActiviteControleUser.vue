@@ -63,9 +63,15 @@
                 <div class="row mt-4">
                     <span>Commentaire (max 100 caractères)</span>
                 </div>
+              <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
                     <Textarea v-model="commentaire" rows="5" cols="30"></Textarea>
                 </div>
+                <span
+                    class="block text-red-600 text-xs absolute bottom-0 left-0"
+                    v-if="errors[0]"
+                >{{ errors[0] }}</span>
+              </ValidationProvider>
             </div>
             <div class="col">
                 <div class="row">
@@ -73,7 +79,7 @@
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown name="typeActivite" v-model="selectedActivite" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
                   <span
                       class="block text-red-600 text-xs absolute bottom-0 left-0"
                       v-if="errors[0]"
@@ -143,6 +149,16 @@
           "Saisir une durée"
     });
 
+    extend("sizeMaxTextArea", {
+      validate: (value) => {
+        if (value.length <= 250) {
+          return true;
+        }
+        return false;
+      },
+      message:
+          "Taille du commentaire supérieur à 250 caractères"
+    });
 
 
     export default {

@@ -144,11 +144,8 @@
         return false;
       },
       message:
-          "Taille du commentaire supérieur à 100 caractères"
+          "Taille du commentaire supérieur à 250 caractères"
     });
-
-
-
 
     export default {
         computed:mapState( {
