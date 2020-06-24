@@ -100,11 +100,6 @@
         font-size: 0.9em;
     }
 
-
-    /deep/ #divCalendar .p-datepicker table {
-        font-size: 12px;
-    }
-
     /deep/ .p-datepicker table{
         font-size: 0.9em;
     }

@@ -9,7 +9,7 @@
                 novalidate="true"
                 @submit.prevent="clickValider"
         >
-            <div class="row pl-5">
+            <div class="row pl-5 mt-5 mb-1">
                 <div>
                 <span>Collaborateurs</span>
                 </div>
@@ -45,10 +45,10 @@
               >{{ errors[0] }}</span>
             </div>
             </ValidationProvider>
-        <div class="row pl-5">
+        <div class="row pl-5 mt-5">
             <div class="col">
 
-                <div class="row">
+                <div class="row mb-1">
                     <span>Missions</span>
                 </div>
               <ValidationProvider name="missions" rules="required" v-slot="{ errors }">
@@ -60,7 +60,7 @@
                   >{{ errors[0] }}</span>
                 </div>
               </ValidationProvider>
-                <div class="row mt-4">
+                <div class="row mt-4 mb-1">
                     <span>Commentaire (max 100 caractères)</span>
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
@@ -74,7 +74,7 @@
               </ValidationProvider>
             </div>
             <div class="col">
-                <div class="row">
+                <div class="row mb-1">
                     <span>Type d'activités</span>
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
@@ -86,7 +86,7 @@
                   >{{ errors[0] }}</span>
                 </div>
               </ValidationProvider>
-                <div class="row mt-4">
+                <div class="row mt-4 mb-1">
                     <span>Charges(hh:mm)</span>
                 </div>
               <ValidationProvider name="charge" rules="required|controleTemps" v-slot="{ errors }">
@@ -105,7 +105,7 @@
             <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"></Button>
         </div>
         <div v-else class="row justify-content-end mr-3" style="margin-left: 39%">
-            <Button id="annuler" label="Annuler" class="p-button-secondary" v-on:click="annuler"></Button>
+            <Button id="annuler" label="Annuler" class="p-button-secondary mr-3" v-on:click="annuler"></Button>
             <Button id="btnModifier" label="Modifier" v-on:click="updateSaisie"></Button>
         </div>
 
@@ -342,6 +342,29 @@
         margin-right: 1%;
     }
 
+    #btnModifier{
+        background: #154194 0% 0% no-repeat padding-box;
+        border-radius: 30px;
+        opacity: 1;
+        letter-spacing: 0px;
+        color: #FFFBFB;
+        width: 100px;
+        height: 50px;
+        margin-right: 1%;
+        border: none;
+    }
+
+    #annuler{
+        border-radius: 30px;
+        opacity: 1;
+        letter-spacing: 0px;
+        width: 100px;
+        height: 50px;
+        background: #E0E4EB 0% 0% no-repeat padding-box;
+        border: none;
+        color: #535353;
+    }
+
     #ajoutActivite{
         background-color: white;
     }
@@ -353,7 +376,7 @@
 
 
     .p-dropdown {
-      width: 12rem;
+      width: 35rem;
     }
 
     .p-dropdown-car-option,

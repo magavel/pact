@@ -11,7 +11,7 @@
         >
         <div class="row pl-5">
             <div class="col">
-                <div class="row">
+                <div class="row mb-1">
                     <span>Missions</span>
                 </div>
               <ValidationProvider name="mission" rules="required" v-slot="{ errors }">
@@ -24,7 +24,7 @@
               >{{ errors[0] }}</span>
                 </div>
               </ValidationProvider>
-                <div class="row mt-4">
+                <div class="row mt-4 mb-1">
                     <span>Commentaire (max 250 caractères)</span>
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col">
-                <div class="row">
+                <div class="row mb-1">
                     <span>Type d'activités</span>
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
@@ -51,7 +51,7 @@
                   >{{ errors[0] }}</span>
                 </div>
               </ValidationProvider>
-                <div class="row mt-4">
+                <div class="row mt-4 mb-1">
                     <span>Charges(hh:mm)</span>
                 </div>
                 <div class="row">
