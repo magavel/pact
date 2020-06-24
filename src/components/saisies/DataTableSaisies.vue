@@ -3,9 +3,8 @@
         <Toast />
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
-                   :rows="5"
-                   :scrollable="true"
-                   scrollHeight="200px"
+                   :rows="4"
+                   :paginator="true"
                    dataKey="SaisieFavorite_saisieId"
                    :rowHover="false"
                    :selection.sync="selectedSaisies"

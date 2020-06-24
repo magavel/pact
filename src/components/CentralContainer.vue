@@ -2,12 +2,14 @@
     <div class="container-fluid">
         <div class="row ">
             <nav class=" navGauche col-md-2 d-none d-md-block">
-                <div>
-                    <h2 class="text-secondary mb-5">
-                        PACT NG
+                <div class="mt-n4">
+                    <h2 class="text-secondary pb-3">
+                        <div class="logo">
+                            <img src="../assets/images/LOGO.png"/>
+                        </div>
                     </h2>
                 </div>
-                <div class=" mt-n3">
+                <div class=" pt-1">
                     <ul class="nav flex-column">
                         <li class="nav-item ml-n4 mb-3">
                             <router-link v-if="currentUser" to="/home" class="nav-link">
@@ -21,10 +23,13 @@
                         </li>
                         <li class="nav-item ml-n4 mb-3">
                             <router-link v-if="currentUser" to="/activites/myActivities/dailyListing" class="nav-link">
-                                <span class="pr-3">
+                                <span class=" align-middle pr-3">
                                     <font-awesome-icon icon="pencil-alt"/>
                                 </span>
-                                Saisies
+                                <span class="align-middle">
+
+                                    Saisies
+                                </span>
                             </router-link>
                         </li>
                         <li class="nav-item ml-n4 mb-3">
@@ -74,6 +79,14 @@
     @import "../../node_modules/bootstrap/scss/bootstrap";
     .navGauche {
 
+    }
+    .logo {
+        width: 90px;
+
+        & img {
+            width: 100%;
+            height: 100%;
+        }
     }
     body {
         background-color: $background;
