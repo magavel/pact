@@ -1,6 +1,6 @@
 <template>
   <div id="principal" class="">
-    <div id="lien" class="mb-3 ml-n5">
+    <div id="lien" class="mb-5 ml-n5 mt-n2">
       <router-link to="/activites/myActivities"><span class="mr-3">Mes Activités</span></router-link>
       <router-link to="/activites/ajoutActiviteControle" class="ml-5"><span class="ml-3">Activités de mes équipes</span></router-link>
     </div>

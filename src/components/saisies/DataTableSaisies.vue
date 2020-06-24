@@ -5,9 +5,9 @@
                    class="p-datatable-responsive p-datatable-customers"
                    :rows="5"
                    :scrollable="true"
-                   scrollHeight="200px"
+                   scrollHeight="300px"
                    dataKey="SaisieFavorite_saisieId"
-                   :rowHover="true"
+                   :rowHover="false"
                    :selection.sync="selectedSaisies"
                    :key="componentKey">
             <template #empty>
@@ -157,7 +157,7 @@
                 padding: 0;
                 border: none;
                 padding-top: 0.8em;
-                font-size: 0.8em;
+                font-size: 0.9em;
                 border-bottom: 1px solid #00000029;
                 padding-left: 1em;
                 .p-column-title {

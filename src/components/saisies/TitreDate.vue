@@ -2,8 +2,8 @@
     <div>
         <Toast/>
     <div class="row mt-3" @click="ajouterJourneeFavorite">
-        <span class="text-center titre" id="spanJour">{{moment(this.dateSelectionee[0]).format('dddd D MMMM')}}</span>
-        <span class="ml-1"><img alt='' style="height: 15px" src="../../assets/ic_favorite_border_24px.svg"></span>
+        <span class="text-center titre" id="spanJour">Mes saisies du {{moment(this.dateSelectionee[0]).format('dddd D MMMM')}}</span>
+        <span class="ml-3"><img alt='' style="height: 15px" src="../../assets/ic_favorite_border_24px.svg"></span>
     </div>
     </div>
 </template>
@@ -61,7 +61,7 @@
 
     .titre {
         font-weight: bold;
-        font-size: 1em;
+        font-size: medium;
     }
 
 

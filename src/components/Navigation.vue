@@ -13,7 +13,7 @@
         <div v-if="currentUser" class="navbar-nav ml-auto">
             <ul class="navbar-nav px-3">
                 <li class="nav-item">
-                    <div class="dropdown">
+                    <div class="dropdown mb-n5">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font-awesome-icon icon="user"/>

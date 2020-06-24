@@ -81,9 +81,6 @@
             },
             calculSommeCharge: function() {
                 let tableau = [];
-
-
-
                 return [34,67,87]
             },
         }),
