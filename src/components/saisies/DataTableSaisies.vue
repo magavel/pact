@@ -5,7 +5,7 @@
                    class="p-datatable-responsive p-datatable-customers"
                    :rows="5"
                    :scrollable="true"
-                   scrollHeight="300px"
+                   scrollHeight="200px"
                    dataKey="SaisieFavorite_saisieId"
                    :rowHover="false"
                    :selection.sync="selectedSaisies"
@@ -31,7 +31,9 @@
             </Column>
             <Column field="SaisieFavorite_charges" header="Charges (h:m)" :sortable="true" filterMatchMode="contains">
                 <template #body="slotProps">
-                    {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
+                    <span class="">
+                        {{ slotProps.data.SaisieFavorite_charges | fromMinutesToHours() }}
+                    </span>
                 </template>
             </Column>
           <Column  header="Origine" :sortable="true" filterMatchMode="contains">
@@ -48,6 +50,14 @@
                     <Button type="button" icon="pi pi-pencil" class="p-button-secondary" @click="modifierSaisie(slotProps)"></Button>
                 </template>
             </Column>
+            <ColumnGroup type="footer" >
+                <Row >
+                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  footer=" TOTAL CHARGES:" :colspan="3" />
+                    <Column :footer="totalCharge | fromMinutesToHours" />
+                    <Column></Column>
+                    <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>
+                </Row>
+            </ColumnGroup>
         </DataTable>
         <Dialog :visible.sync="display">
             <template #header>
@@ -82,6 +92,16 @@
             dateSelectionee(){
                 return this.$store.state.saisies.dateSelectionee;
             },
+            totalCharge() {
+                console.log('saisie', this.saisies)
+                let charge = null
+
+                this.saisies.forEach(element => {
+                    charge += element.SaisieFavorite_charges;
+                    console.log(charge)
+                });
+                return charge
+            }
         },
         created() {
             let dateJour = new Date();
@@ -167,6 +187,9 @@
                 span{
                     font-size: 0.8em;
                 }
+            }
+            .footer {
+                border-radius: 10px 0px 0px 10px;
             }
             .p-sortable-column .p-sortable-column-icon{
                 display: none;

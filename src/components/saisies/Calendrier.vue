@@ -110,7 +110,13 @@
     }
 
     /deep/ .p-datepicker table td{
-        padding: 0;
+        padding: 0.4rem;
+    }
+
+    @media (max-width: 992px) {
+        /deep/ .p-datepicker table td{
+            padding: 0;
+        }
     }
 
    /* /deep/ #divCalendar .p-datepicker {
