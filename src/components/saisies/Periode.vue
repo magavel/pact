@@ -1,5 +1,5 @@
 <template>
-    <div id="periode" class="ml-n3">
+    <div id="periode" class="ml-n3 mb-3">
                             <span class="mr-2 ml-1">
                                 <img src="../../assets/event-24px.svg">
                             </span>

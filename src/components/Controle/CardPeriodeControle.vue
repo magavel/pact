@@ -3,7 +3,8 @@
         <div class="col mt-5 ml-1 text-center">
             <p id="titrePeriode">Liste des activités de vos équipes</p>
         </div>
-        <div class="col-lg-3 ">
+        <!--<div class="col-lg-3 ">-->
+        <div class="">
             <div id="periodeControle" class="ml-n2">
                             <span class="mr-2 ml-1">
                                 <img src="../../assets/event-24px.svg">
