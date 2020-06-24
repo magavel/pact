@@ -100,6 +100,22 @@
         font-size: 0.9em;
     }
 
+    /deep/ .p-datepicker table td > span.p-highlight{
+        background: $primary-variant
+    }
+
+    /deep/ .p-datepicker table td.p-datepicker-today > span{
+        background: none;
+        font-weight: 900;
+        font-size: 1.2em;
+    }
+
+    /deep/ .p-datepicker table td.p-datepicker-today > span.p-highlight{
+        background: $primary-variant;
+        font-weight: 900;
+        font-size: 1.2em;
+    }
+
     /deep/ .p-datepicker table{
         font-size: 0.9em;
     }

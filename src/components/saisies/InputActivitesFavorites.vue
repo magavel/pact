@@ -15,11 +15,11 @@
                :rows="4" :key="componentKey">
         <template #empty>
           <div class="row pl-5 mr-5 text-center">
-          <span >Aucune Activités favorites de renseignée</span>
+          <span class="messageFavoriVide">Aucune activité favorite renseignée</span>
           </div>
           <div class="row pl-5 mr-5 text-center">
-            <span >Ajouté des nouvelles activités et utilisé les icones
-              <em class="pi pi-star-o"></em> du tableau des activités pour constituer votre liste</span>
+            <span class="messageFavoriVide">Utilisez les icones
+              <em class="pi pi-star-o"></em> dans le bloc au-dessus pour constituer votre liste</span>
           </div>
         </template>
         <template #loading>
@@ -115,7 +115,7 @@
               this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
               this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
               this.forceRerender();
-              this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
+              this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été ajoutée à vos favoris', life: 3000});
           },
           afficherSupprimerDialog(props) {
               this.display = true;
@@ -230,6 +230,16 @@
                     font-size: 0.8em;
                 }
             }
+
+            .p-datatable-tbody > tr.p-datatable-emptymessage > td{
+                padding-bottom: 4rem;
+                padding-top: 4rem;
+            }
+
+            .p-datatable-tbody > tr.p-datatable-emptymessage > td span{
+                font-size: 1em;
+            }
+
             .p-sortable-column .p-sortable-column-icon{
                 display: none;
             }
@@ -239,7 +249,7 @@
             }
 
             .p-datatable-emptymessage > td > div:last-child > span{
-                margin-left: 22%;
+                margin-left: 28%;
             }
         }
     }
@@ -265,6 +275,5 @@
         border-radius: 8px;
         color: white;
     }
-
 
     </style>

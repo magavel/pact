@@ -1,8 +1,11 @@
 <template>
 
-    <div id="ajoutActivite" class="">
+    <div id="ajoutActivite" class="pb-4">
         <Toast />
-        <Periode/>
+        <div class="d-flex justify-content-between">
+            <Periode/>
+            <span class="mr-5 mt-3">*Champs obligatoires</span>
+        </div>
       <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <form
                 id="formSaisie"
@@ -12,7 +15,7 @@
         <div class="row pl-5">
             <div class="col">
                 <div class="row mb-1">
-                    <span>Missions</span>
+                    <span>Missions*</span>
                 </div>
               <ValidationProvider name="mission" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
@@ -29,7 +32,7 @@
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Textarea name="commentaire" v-model="commentaire" rows="5" cols="30"></Textarea>
+                    <Textarea name="commentaire" v-model="commentaire" rows="3" cols="30"></Textarea>
                 </div>
                 <span
                     class="block text-red-600 text-xs absolute bottom-0 left-0"
@@ -40,7 +43,7 @@
 
             <div class="col">
                 <div class="row mb-1">
-                    <span>Type d'activités</span>
+                    <span>Type d'activités*</span>
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
@@ -52,7 +55,7 @@
                 </div>
               </ValidationProvider>
                 <div class="row mt-4 mb-1">
-                    <span>Charges(hh:mm)</span>
+                    <span>Charges(hh:mm)*</span>
                 </div>
                 <div class="row">
                   <ValidationProvider name="charge" rules="required|controleTemps|controleMinute|controleHeure" v-slot="{ errors }">
@@ -224,7 +227,7 @@
                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                this.$store.commit('saisies/UPDATE_TABLE_SAISIE_KEY');
                //appel du Toaster
-               this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
+               this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été ajoutée', life: 3000});
                //reset des champs
                 this.selectedMission = null;
                 this.commentaire= "";
@@ -301,9 +304,9 @@
         opacity: 1;
         letter-spacing: 0px;
         color: #FFFBFB;
-        width: 100px;
+        width: 150px;
         height: 50px;
-        margin-right: 1%;
+        margin-right: 4%;
         border: none;
     }
     #btnModifier{
@@ -312,16 +315,16 @@
         opacity: 1;
         letter-spacing: 0px;
         color: #FFFBFB;
-        width: 100px;
+        width: 150px;
         height: 50px;
-        margin-right: 1%;
+        margin-right: 4%;
         border: none;
     }
     #annuler{
         border-radius: 30px;
         opacity: 1;
         letter-spacing: 0px;
-        width: 100px;
+        width: 150px;
         height: 50px;
         background: #E0E4EB 0% 0% no-repeat padding-box;
         border: none;

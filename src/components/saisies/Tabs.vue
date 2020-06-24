@@ -1,13 +1,18 @@
 <template>
     <div style="background-color: white">
         <div class="tabs">
-            <span v-if="isAjout" class="titre mt-5 ml-3">AJOUTER UNE ACTIVITE</span>
-            <span v-else class="titre mt-5 ml-3">MODIFIER UNE ACTIVITE</span>
-            <ul v-if="isAjout"  class="d-flex justify-content-center" style="list-style: none">
+            <!--<span v-if="isAjout" class="titre mt-5 ml-3">AJOUTER UNE ACTIVITE</span>-->
+            <!--<span v-else class="titre mt-5 ml-3">MODIFIER UNE ACTIVITE</span>-->
+            <ul v-if="isAjout"class="d-flex justify-content-center" style="list-style: none">
+                <li v-if="isAjout" class="titre li-titre"><em class="pi pi-plus-circle mr-3" style="font-size: 1em"></em>AJOUTER UNE ACTIVITE</li>
                 <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }" class="onglet pt-3">
                     <a :href="tab.href" @click="selectTab(tab)"><i v-bind:class="tab.icon" class="mr-1"></i>{{ tab.name }}</a>
                 </li>
             </ul>
+            <div v-else class="mt-2">
+
+                <span class="titre ml-5" style="font-weight: 600"><em class="pi pi-pencil mr-3"></em>MODIFIER UNE ACTIVITE</span>
+            </div>
         </div>
         <div class="tabs-details">
             <slot></slot>
@@ -50,7 +55,8 @@
     .tabs{
         background-color: #5172AF;
         margin-bottom: 15px;
-        height: 78px;
+        height: 60px;
+        padding-top: 10px;
     }
     .titre{
         color: white;
@@ -79,5 +85,12 @@
 
     .is-active a{
         color: #154194;
+    }
+
+    .li-titre{
+        margin-top: 10px;
+        margin-left: -250px;
+        margin-right: 170px;
+        font-weight: 600;
     }
 </style>

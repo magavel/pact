@@ -10,7 +10,7 @@
                    :selection.sync="selectedSaisies"
                    :key="componentKey">
             <template #empty>
-                Aucune Activités sur la journée selectionnée, vous pouvez ajouter une ou plusieurs activités.
+                Aucune activités sur la journée selectionnée, vous pouvez ajouter une ou plusieurs activités.
             </template>
             <template #loading>
                 Chargement des données en cours.
@@ -63,7 +63,7 @@
             <template #header>
                 <h3>Confirmation</h3>
             </template>
-            Voulez-vous supprimer votre saisie ?
+            Etes-vous certain de vouloir supprimer cette activité ?
             <template #footer>
                 <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerSaisie" />
                 <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.passive="fermerSaisieDialog" />
@@ -132,7 +132,7 @@
                 this.display = false;
                 this.$store.dispatch('users/getAllFavorites');
                 //this.saisies.splice(index, 1);
-                this.$toast.add({severity:'info', summary: 'Info Message', detail:'saisie supprimée', life: 3000});
+                this.$toast.add({severity:'info', summary: 'Info Message', detail:'L\'activité a bien été supprimée', life: 3000});
                 this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
                 //this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
@@ -184,6 +184,12 @@
                 span{
                     font-size: 0.8em;
                 }
+            }
+
+            .p-datatable-tbody > tr.p-datatable-emptymessage > td{
+                padding-bottom: 4rem;
+                padding-top: 4rem;
+                font-size: 1em;
             }
             .footer {
                 border-radius: 10px 0px 0px 10px;
