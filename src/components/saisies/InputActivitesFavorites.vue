@@ -161,7 +161,7 @@
         }
     }
 
-    /deep/ .p-datatable.p-datatable-customers {
+    /*/deep/ .p-datatable.p-datatable-customers {
         .p-datatable-header {
             border: 0 none;
             padding: 12px;
@@ -195,11 +195,60 @@
             text-transform: uppercase;
         }
 
+    }*/
+
+    /deep/ .p-datatable {
+        &.p-datatable-customers {
+            .p-datatable-thead > tr > th,
+            .p-datatable-tfoot > tr > td {
+                padding: 5px;
+                background-color: #E6DFDF85;
+                border: none;
+                font-size: 0.9em;
+                padding-left: 1em;
+            }
+
+            .p-datatable-thead > tr > th:first-child{
+                border-radius: 10px 0px 0px 10px;
+            }
+
+            .p-datatable-thead > tr > th:last-child{
+                border-radius: 0px 10px 10px 0px;
+            }
+
+            .p-datatable-tbody > tr > td {
+                padding: 0;
+                border: none;
+                padding-top: 0.8em;
+                font-size: 0.9em;
+                border-bottom: 1px solid #00000029;
+                padding-left: 0.5em;
+                .p-column-title {
+                    font-size: 0.9em;
+                }
+                span{
+                    font-size: 0.8em;
+                }
+            }
+            .p-sortable-column .p-sortable-column-icon{
+                display: none;
+            }
+
+            .p-datatable-emptymessage > td > div:first-child > span{
+                margin-left: 36%;
+            }
+
+            .p-datatable-emptymessage > td > div:last-child > span{
+                margin-left: 22%;
+            }
+        }
     }
 
-    /deep/.p-datatable-emptymessage {
-      text-align: center;
+    /deep/ .p-datatable .p-datatable-scrollable-header{
+        background: none;
     }
+
+
     .testBg1{
         background-color: #069F90;
         border-radius: 8px;

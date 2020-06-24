@@ -86,26 +86,31 @@
     }
 
 
-    #divCalendar {
-        /*background-image: url("../../assets/Trace-82.svg");
+    /*#divCalendar {
+        background-image: url("../../assets/Trace-82.svg");
         background-size: 354px;
         background-repeat: no-repeat;
         background-position-y: -30px;
-        background-position-x: 15px;*/
-    }
+        background-position-x: 15px;
+    }*/
 
 
-    /deep/ #divCalendar .p-datepicker table {
-        font-size: 50px;
-    }
-
-    /deep/  .p-datepicker .p-datepicker-header .p-datepicker-title{
+    /deep/ .p-datepicker .p-datepicker-header .p-datepicker-title{
         font-weight: 900;
+        font-size: 0.9em;
     }
 
 
     /deep/ #divCalendar .p-datepicker table {
         font-size: 12px;
+    }
+
+    /deep/ .p-datepicker table{
+        font-size: 0.9em;
+    }
+
+    /deep/ .p-datepicker table td{
+        padding: 0;
     }
 
    /* /deep/ #divCalendar .p-datepicker {
