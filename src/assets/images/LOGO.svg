@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="939" height="672" viewBox="0 0 939 672">
+  <defs>
+    <clipPath id="clip-LOGO_1">
+      <rect width="939" height="672"/>
+    </clipPath>
+  </defs>
+  <g id="LOGO_1" data-name="LOGO 1" clip-path="url(#clip-LOGO_1)">
+    <path id="Rectangle_6" data-name="Rectangle 6" d="M30,0H65A30,30,0,0,1,95,30V396a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V30A30,30,0,0,1,30,0Z" transform="translate(50 86)" fill="#ffca7a"/>
+    <path id="Rectangle_7" data-name="Rectangle 7" d="M30,0H65A30,30,0,0,1,95,30V262a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V30A30,30,0,0,1,30,0Z" transform="translate(174 220)" fill="#fffbfb"/>
+    <path id="Rectangle_8" data-name="Rectangle 8" d="M30,0H65A30,30,0,0,1,95,30V237a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V30A30,30,0,0,1,30,0Z" transform="translate(298 246)" fill="#154194"/>
+    <path id="Rectangle_9" data-name="Rectangle 9" d="M30,0H65A30,30,0,0,1,95,30V160a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V30A30,30,0,0,1,30,0Z" transform="translate(422 322)" fill="#ffca7a"/>
+    <path id="Rectangle_10" data-name="Rectangle 10" d="M30,0H65A30,30,0,0,1,95,30V214a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V30A30,30,0,0,1,30,0Z" transform="translate(613 268)" fill="#fffbfb"/>
+    <text id="PACT_NG" data-name="PACT NG" transform="translate(50 629)" fill="#fff" font-size="135" font-family="Poppins-SemiBold, Poppins" font-weight="600" letter-spacing="0.25em"><tspan x="0" y="0">PACT NG</tspan></text>
+    <path id="Rectangle_11" data-name="Rectangle 11" d="M30,0H65A30,30,0,0,1,95,30V283a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V30A30,30,0,0,1,30,0Z" transform="translate(753 199)" fill="#154194"/>
+  </g>
+</svg>
