@@ -57,7 +57,7 @@
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
                     <div class="divTableCell bg-gris-module align-middle text-center entete">&nbsp;</div>
-                    <div class="divTableCell bg-gris-module text-center entete" v-for="somme in tableauDate"> 9:99</div>
+                    <div class="divTableCell bg-gris-module text-center entete" v-for="somme in calculSommeCharge"> {{ somme | fromMinutesToHours }}</div>
                     <div class="divTableCell  align-middle bg-gris-module entete font-weight-bold">&nbsp;</div>
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
                 </div>
@@ -80,8 +80,20 @@
                return utils.dateBetween(this.datePeriode[0], this.datePeriode[1]);
             },
             calculSommeCharge: function() {
-                let tableau = [];
-                return [34,67,87]
+                let somme = [];
+                let i = 0;
+                // initialisation du tableau pour avoir un tableau préformé
+               for (const date of this.tableauDate ) {
+                   somme.push(0);
+               }
+                for (const saisie of this.saisiesParPeriode ) {
+                    for (const charge of saisie.saisieByWeek_charges) {
+                        somme[i] += parseInt(charge.chargeHebdomadaire_charges);
+                        i ++;
+                    }
+                    i = 0;
+                }
+                return somme;
             },
         }),
         created() {
@@ -89,7 +101,6 @@
                 dateDebut: this.$store.state.saisies.dateSelectionee[0],
                 dateFin: this.$store.state.saisies.dateSelectionee[1]
             });
-            this.test();
         },
         data () {
             return {
@@ -107,19 +118,8 @@
 
             myFunction() {
 
-                },
+            },
 
-            test() {
-             //   alert(this.saisiesParPeriode.length)
-               // alert(this.saisiesParPeriode[0].saisieByWeek_charges.length);
-                this.saisiesParPeriode[0].saisieByWeek_charges.forEach((saisie) => {
-                    let value ;
-                        this.header.push(saisie.chargeHebdomadaire_date);
-                }
-
-
-                );
-            }
 
         },
     }
