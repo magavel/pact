@@ -3,8 +3,8 @@
     <div id="saisie">
       <div id="container-saisie">
         <CardPeriodeControle/>
-        <div class="d-flex justify-content-end m-2">
-          <div class="btn-group btn-group-md">
+        <div class="d-flex justify-content-end m-2 pr-5">
+          <div class="btn-group btn-group-md mr-n2">
             <button type="button" class="btn btn-outline-primary" @click="selectionnerTous">Tous</button>
             <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipe">Par équipe projet</button>
             <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipeOrga">Par entité</button>

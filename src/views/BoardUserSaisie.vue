@@ -53,5 +53,9 @@
     text-decoration: underline;
     font-size: medium;
   }
+
+  #lien a.router-link-exact-active{
+    background: none;
+  }
 </style>
 
