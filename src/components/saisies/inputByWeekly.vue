@@ -1,12 +1,12 @@
 <template>
-    <div class="mt-5">
+    <div class="mw-100">
         <div class="text-center bg-white">
             <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
         <div class="divTable m-4">
-            <div class="divTableBody">
+            <div class="mw-100  divTableBody">
                 <!-- ligne des titres -->
-                <div class="divTableRow">
+                <div class=" divTableRow">
                     <div class="divTableHeading rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
                     <div class="divTableHeading bg-gris-module align-middle entete ">Type d'activités</div>
                     <div class="divTableHeading bg-gris-module align-middle text-center entete font-weight-bold"> < </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="divTableCell">&nbsp;</div>
                     <div class="divTableCell">
-                        <Button type="button" icon="pi pi-briefcase" class="p-button-secondary"
+                        <Button type="button" icon="pi pi-trash" class="p-button-secondary"
                                 @click=""></Button>
                     </div>
                 </div>
@@ -79,16 +79,21 @@
             tableauDate: function () {
                return utils.dateBetween(this.datePeriode[0], this.datePeriode[1]);
             },
+            /**
+             * Function qui fait la somme des valeur des charges jour / jour
+             * @returns []
+             */
             calculSommeCharge: function() {
                 let somme = [];
                 let i = 0;
                 // initialisation du tableau pour avoir un tableau préformé
+                // mais c'est pas trsè beau
                for (const date of this.tableauDate ) {
                    somme.push(0);
                }
                 for (const saisie of this.saisiesParPeriode ) {
                     for (const charge of saisie.saisieByWeek_charges) {
-                        somme[i] += parseInt(charge.chargeHebdomadaire_charges);
+                        somme[i] += charge.chargeHebdomadaire_charges;
                         i ++;
                     }
                     i = 0;

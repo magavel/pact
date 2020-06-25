@@ -66,7 +66,7 @@
             Etes-vous certain de vouloir supprimer cette activité ?
             <template #footer>
                 <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerSaisie" />
-                <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.passive="fermerSaisieDialog" />
+                <Button label="Non" icon="pi pi-trash" class="p-button-secondary"  @click.passive="fermerSaisieDialog" />
             </template>
         </Dialog>
     </div>

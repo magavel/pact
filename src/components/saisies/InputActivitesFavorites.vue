@@ -61,7 +61,7 @@
         <Column header="Actions">
             <template #body="slotProps">
                 <Button type="button" icon="pi pi-plus" class="p-button-secondary" @click.prevent="ajouterUneActiviteFavorite(slotProps)"></Button>
-                <Button type="button" icon="pi pi-times" class="p-button-secondary" @click.prevent="afficherSupprimerDialog(slotProps)"></Button>
+                <Button type="button" icon="pi pi-trash" class="p-button-secondary" @click.prevent="afficherSupprimerDialog(slotProps)"></Button>
             </template>
         </Column>
     </DataTable>
@@ -74,7 +74,7 @@
             </template>
             Voulez-vous supprimer votre activité favorites ?
             <template #footer>
-                <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerFavoris" />
+               <Button label="Oui" icon="pi pi-check" @click.prevent="supprimerFavoris" />
                 <Button label="Non" icon="pi pi-times" class="p-button-secondary"  @click.passive="fermerSupprimerDialog" />
             </template>
         </Dialog>
