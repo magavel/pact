@@ -89,8 +89,8 @@
 
     .li-titre{
         margin-top: 10px;
-        margin-left: -250px;
-        margin-right: 170px;
+        margin-left: -13em;
+        margin-right: 9em;
         font-weight: 600;
     }
 </style>

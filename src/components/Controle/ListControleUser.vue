@@ -8,9 +8,9 @@
                    :paginator="true"
                    :loading="loading"
                    :rows="10" :key="componentKey">
-            <Column field="username" header="Collaborateurs" :expander="true">
+            <Column field="username" header="Collaborateurs" :expander="true" filter-match-mode="contains">
                 <template #filter>
-                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par prénon" />
+                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Rechercher par nom ou prénom" />
                 </template>
             </Column>
             <Column field="mission" header="Missions" ></Column>
