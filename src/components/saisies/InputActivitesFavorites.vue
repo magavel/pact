@@ -115,7 +115,7 @@
               this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
               this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
               this.forceRerender();
-              this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été ajoutée à vos favoris', life: 3000});
+              this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été ajoutée', life: 3000});
           },
           afficherSupprimerDialog(props) {
               this.display = true;
@@ -129,7 +129,7 @@
               this.display = false;
               this.$store.dispatch('users/getAllFavorites');
               this.forceRerender();
-              this.$toast.add({severity:'info', summary: 'Info Message', detail:'Activité favorite supprimée', life: 3000});
+              this.$toast.add({severity:'info', summary: 'Info Message', detail:'L\'activité a bien été retirée de vos favoris', life: 3000});
               this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
               this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
           },
@@ -237,7 +237,7 @@
             }
 
             .p-datatable-tbody > tr.p-datatable-emptymessage > td span{
-                font-size: 1em;
+                font-size: 1.2em;
             }
 
             .p-sortable-column .p-sortable-column-icon{
@@ -249,7 +249,7 @@
             }
 
             .p-datatable-emptymessage > td > div:last-child > span{
-                margin-left: 28%;
+                margin-left: 26%;
             }
         }
     }
