@@ -214,7 +214,7 @@
                          saisie_phaseId : slotProps.node.data.phaseId,
                          activite_Id : slotProps.node.data.activiteId,
                          saisie_commentaire : "",
-                         saisie_username : JSON.parse(localStorage.getItem('user')).username,
+                         saisie_username : this.controle.data[slotProps.node.key.split('-')[0]].data.usernameId,
                          saisie_date : this.selectedCase.dateSaisie,
                         }
 
@@ -269,7 +269,7 @@
                      saisie_phaseId : slotProps.node.data.phaseId,
                      activite_Id : slotProps.node.data.activiteId,
                      saisie_commentaire : "",
-                     saisie_username : JSON.parse(localStorage.getItem('user')).username,
+                     saisie_username : this.controle.data[slotProps.node.key.split('-')[0]].data.usernameId,
                      saisie_date : this.selectedCase.dateSaisie,
                  }
 
