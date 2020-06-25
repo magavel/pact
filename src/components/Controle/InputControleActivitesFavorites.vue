@@ -162,7 +162,7 @@
               this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
               this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
               this.forceRerender();
-              this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
+              this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été ajoutée', life: 3000});
           },
           forceRerender() {
               this.componentKey += 1;

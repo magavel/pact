@@ -34,7 +34,7 @@
                 this.$toast.add({
                   severity: 'success',
                   summary: 'Succes',
-                  detail: 'Journée favorite enregistrée',
+                  detail: 'L\'activité a bien été ajoutée à vos favoris',
                   life: 3000
                 });
               } else {

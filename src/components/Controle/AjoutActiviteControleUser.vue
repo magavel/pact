@@ -1,6 +1,6 @@
 <template>
 
-    <div id="ajoutActivite" class="">
+    <div id="ajoutActivite" class="pb-4">
         <Toast />
         <Periode/>
       <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
@@ -65,7 +65,7 @@
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Textarea v-model="commentaire" rows="5" cols="30"></Textarea>
+                    <Textarea v-model="commentaire" rows="3" cols="30"></Textarea>
                 </div>
                 <span
                     class="block text-red-600 text-xs absolute bottom-0 left-0"
@@ -247,7 +247,7 @@
                 //this.$parent.$parent.$parent.$forceUpdate(); // a checker
                this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                //appel du Toaster
-               this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie enregistrée', life: 3000});
+               this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été ajoutée', life: 3000});
                //reset des champs
                 this.selectedMission = null;
                 this.commentaire= "";
@@ -300,7 +300,7 @@
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                 this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
                 //appel du Toaster
-                this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie modifiée', life: 3000});
+                this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été modifiée', life: 3000});
                 //reset des champs
                 this.selectedMission = null;
                 this.commentaire= "";
@@ -336,9 +336,10 @@
         opacity: 1;
         letter-spacing: 0px;
         color: #FFFBFB;
-        width: 100px;
+        width: 150px;
         height: 50px;
-        margin-right: 1%;
+        margin-right: 4%;
+        border: none;
     }
 
     #btnModifier{
@@ -347,9 +348,9 @@
         opacity: 1;
         letter-spacing: 0px;
         color: #FFFBFB;
-        width: 100px;
+        width: 150px;
         height: 50px;
-        margin-right: 1%;
+        margin-right: 4%;
         border: none;
     }
 
@@ -357,7 +358,7 @@
         border-radius: 30px;
         opacity: 1;
         letter-spacing: 0px;
-        width: 100px;
+        width: 150px;
         height: 50px;
         background: #E0E4EB 0% 0% no-repeat padding-box;
         border: none;

@@ -114,10 +114,22 @@
                     this.$store.dispatch('users/supprimerFavoris', this.saisies[props.index].SaisieFavorite_saisieId);
                     this.$store.dispatch('users/getAllFavorites');
                     this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                    this.$toast.add({
+                        severity: 'info',
+                        summary: 'Suppression favoris',
+                        detail: 'L\'activité a bien été retirée de vos favoris',
+                        life: 3000
+                    });
                 } else {
                     this.$store.dispatch('saisies/updateActiviteFavorite', this.saisies[props.index]);
                     this.$store.dispatch('users/getAllFavorites');
                     this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: 'Ajout favoris',
+                        detail: 'L\'activité a bien été ajoutée à vos favoris',
+                        life: 3000
+                    });
                 }
             },
             afficherSaisieDialog(props) {

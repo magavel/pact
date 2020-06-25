@@ -278,7 +278,7 @@
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                 //this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
                 //appel du Toaster
-                this.$toast.add({severity:'success', summary: 'Succes', detail:'Saisie modifiée', life: 3000});
+                this.$toast.add({severity:'success', summary: 'Succes', detail:'L\'activité a bien été modifiée', life: 3000});
                 //reset des champs
                 this.selectedMission = null;
                 this.commentaire= "";
