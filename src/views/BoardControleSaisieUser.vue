@@ -7,7 +7,7 @@
           <div class="btn-group btn-group-md">
             <button type="button" class="btn btn-outline-primary" @click="selectionnerTous">Tous</button>
             <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipe">Par équipe projet</button>
-            <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipeOrga">Par équipe organisation</button>
+            <button type="button" class="btn btn-outline-primary" @click="selectionnerEquipeOrga">Par entité</button>
           </div>
         </div>
           <keep-alive>

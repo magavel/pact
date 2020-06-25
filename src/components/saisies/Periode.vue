@@ -10,6 +10,8 @@
     </div>
 </template>
 <script>
+    import router from "../../router";
+
     export default {
         name: 'Periode',
         computed:{
@@ -41,13 +43,14 @@
             updateDate(){
                 let tabDateISO = [];
                 let dateDebut = this.dateDeSaisie[0];
-                let dateFin = this.dateCalendrier[1];
+                let dateFin = this.dateDeSaisie[1];
                 dateDebut.setHours(0, -dateDebut.getTimezoneOffset(), 0, 0);
                 dateFin.setHours(0, -dateFin.getTimezoneOffset(), 0, 0);
                 tabDateISO.push(dateDebut.toISOString());
                 tabDateISO.push(dateFin.toISOString());
                 this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
                 this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
+                this.$router.push({name: 'periodeListing'});
             }
         }
     }

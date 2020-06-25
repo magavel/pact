@@ -172,7 +172,7 @@
                 background-color: #E6DFDF85;
                 border: none;
                 font-size: 0.9em;
-                padding-left: 1em;
+                padding-left: 0.4em;
             }
 
             .p-datatable-thead > tr > th:first-child{
@@ -186,10 +186,11 @@
             .p-datatable-tbody > tr > td {
                 padding: 0;
                 border: none;
-                padding-top: 0.8em;
+                padding-top: 0.4em;
                 font-size: 0.9em;
                 border-bottom: 1px solid #00000029;
                 padding-left: 0.5em;
+                padding-bottom: 0.4em;
                 .p-column-title {
                     font-size: 0.9em;
                 }
@@ -214,6 +215,30 @@
                 text-align: center;
             }
         }
+    }
+
+    /deep/ .p-paginator{
+        .p-paginator-first, .p-paginator-prev, .p-paginator-next, .p-paginator-last {
+            min-width: 1rem;
+            height: 1rem;
+            padding-left: 0.5rem;
+        }
+        .p-paginator-prev{
+            padding-right: 2rem;
+        }
+
+        .p-paginator-next{
+            padding-left: 2rem;
+        }
+    }
+
+    /deep/ .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
+        background-color: #5172AF;
+    }
+
+    /deep/ .p-paginator .p-paginator-pages .p-paginator-page{
+        min-width: 1.5rem;
+        height: 1.5rem;
     }
 
     /deep/ .p-datatable .p-datatable-scrollable-header{

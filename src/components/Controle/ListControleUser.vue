@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pl-5 pr-5">
         <Toast />
       <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <TreeTable v-model="nodes"
@@ -413,6 +413,30 @@
          }
      }
 
+     /deep/ .p-paginator{
+         .p-paginator-first, .p-paginator-prev, .p-paginator-next, .p-paginator-last {
+             min-width: 1rem;
+             height: 1rem;
+             padding-left: 0.5rem;
+         }
+
+         .p-paginator-prev{
+             padding-right: 2rem;
+         }
+
+         .p-paginator-next{
+             padding-left: 2rem;
+         }
+     }
+
+     /deep/ .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
+         background-color: #5172AF;
+     }
+
+     /deep/ .p-paginator .p-paginator-pages .p-paginator-page{
+         min-width: 1.5rem;
+         height: 1.5rem;
+     }
 
      .float{
          position:fixed;
@@ -441,6 +465,37 @@
          opacity: 1;
      }
 
+     /deep/ .p-treetable{
+         border-radius: 14px;
+         border-collapse: collapse;
+     }
+
+     /deep/ .p-treetable .p-treetable-thead > tr > th{
+         background-color: #E6DFDF85;
+         border-bottom: 0.2px solid #00000029;
+         border-top: 0.2px solid #00000029;
+     }
+
+     /deep/ .p-treetable .p-treetable-thead > tr > th:first-child{
+         border-left: 0.2px solid #00000029;
+     }
+
+     /deep/ .p-treetable .p-treetable-thead > tr > th:last-child{
+         border-right: 0.2px solid #00000029;
+     }
+
+     /deep/ .p-treetable .p-treetable-tbody > tr > td{
+         border-bottom: 0.2px solid #00000029;
+         border-top: 0.2px solid #00000029;
+     }
+
+     /deep/ .p-treetable .p-treetable-tbody > tr > td:first-child{
+         border-left: 0.2px solid #00000029;
+     }
+
+     /deep/ .p-treetable .p-treetable-tbody > tr > td:last-child{
+         border-right: 0.2px solid #00000029;
+     }
 
  </style>
 

@@ -15,7 +15,7 @@
         <div class="row pl-5">
             <div class="col">
                 <div class="row mb-1">
-                    <span>Missions*</span>
+                    <span>Mission*</span>
                 </div>
               <ValidationProvider name="mission" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
@@ -28,7 +28,7 @@
                 </div>
               </ValidationProvider>
                 <div class="row mt-4 mb-1">
-                    <span>Commentaire (max 250 caractères)</span>
+                    <span>Commentaires (max 250 caractères)</span>
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
@@ -43,7 +43,7 @@
 
             <div class="col">
                 <div class="row mb-1">
-                    <span>Type d'activités*</span>
+                    <span>Type d'activité*</span>
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">

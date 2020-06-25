@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <div class="row ">
             <nav class=" navGauche col-md-2 d-none d-md-block">
-                <div class="mt-n4">
-                    <h2 class="text-secondary pb-3">
+                <div class="mt-n4 ml-4">
+                    <h2 class="text-secondary pb-3 pt-2">
                         <div class="logo">
                             <img src="../assets/images/LOGO.png"/>
                         </div>
