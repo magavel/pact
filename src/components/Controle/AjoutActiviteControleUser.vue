@@ -11,7 +11,7 @@
         >
             <div class="row pl-5 mt-5 mb-1">
                 <div>
-                <span>Collaborateurs</span>
+                <span>Collaborateur *</span>
                 </div>
             </div>
           <ValidationProvider name="collaborateur" rules="required" v-slot="{ errors }">
@@ -21,7 +21,6 @@
                         optionLabel="utilisateur_username"
                         option-value="utilisateur_username"
                         :filter="true"
-                        placeholder="Selectionner collaborateur"
                         :showClear="true"  @change="rafraichirFavoris">
                 <template #option="slotProps">
                 <div class="p-dropdown-car-value" v-if="slotProps.value">
@@ -49,7 +48,7 @@
             <div class="col">
 
                 <div class="row mb-1">
-                    <span>Missions</span>
+                    <span>Mission *</span>
                 </div>
               <ValidationProvider name="missions" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
@@ -65,7 +64,7 @@
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Textarea v-model="commentaire" rows="3" cols="30"></Textarea>
+                    <Textarea v-model="commentaires" rows="3" cols="30"></Textarea>
                 </div>
                 <span
                     class="block text-red-600 text-xs absolute bottom-0 left-0"
@@ -75,7 +74,7 @@
             </div>
             <div class="col">
                 <div class="row mb-1">
-                    <span>Type d'activités</span>
+                    <span>Type d'activité *</span>
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
@@ -87,7 +86,7 @@
                 </div>
               </ValidationProvider>
                 <div class="row mt-4 mb-1">
-                    <span>Charges(hh:mm)</span>
+                    <span>Charges (hh:mm)</span>
                 </div>
               <ValidationProvider name="charge" rules="required|controleTemps" v-slot="{ errors }">
                 <div class="row">

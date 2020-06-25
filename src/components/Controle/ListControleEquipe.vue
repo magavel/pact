@@ -9,7 +9,7 @@
                    :rows="10" :key="componentKey">
             <Column field="EquipeLibelle" header="Equipes" :expander="true">
                 <template #filter>
-                    <InputText type="text" v-model="filters['EquipeLibelle']" class="p-column-filter" placeholder="Filtrer par nom" />
+                    <InputText type="text" v-model="filters['EquipeLibelle']" class="p-column-filter" placeholder="Filtrer par équipes" />
                 </template>
             </Column>
             <Column field="username" header="Collaborateurs" >

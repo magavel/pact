@@ -3,7 +3,7 @@
         <Periode/>
       <div class="row pl-5">
         <div>
-          <span>Collaborateurs</span>
+          <span>Collaborateurs *</span>
         </div>
       </div>
       <div class="row pl-5">
@@ -12,7 +12,6 @@
                    optionLabel="utilisateur_username"
                    option-value="utilisateur_username"
                    :filter="true"
-                   placeholder="Selectionner collaborateur"
                    :showClear="true" @change="rafraichirFavoris">
           <template #option="slotProps">
             <div class="p-dropdown-car-value" v-if="slotProps.value">

@@ -1,7 +1,7 @@
 <template>
     <div class="mw-100">
         <div class="text-center bg-white">
-            <span class="font-weight-bolder"> Du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
+            <span class="font-weight-bolder"> Mes saisies du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
         <div class="divTable m-4">
             <div class="mw-100  divTableBody">
@@ -35,14 +35,10 @@
                                 </div>
                             </div>
                             <div v-else>
-
                                 <InputMask @keydown.enter.stop="miseAjour()"
                                            class="p-field col-xs-2 inputcolumn"
                                            :value="charge.chargeHebdomadaire_charges" v-model="charge.chargeHebdomadaire_charges" mask="9:99" placeholder="  :  "/>
-
                             </div>
-
-
                         </div>
                     </div>
                     <div class="divTableCell">&nbsp;</div>
@@ -57,7 +53,7 @@
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
                     <div class="divTableCell bg-gris-module align-middle text-center entete">&nbsp;</div>
-                    <div class="divTableCell bg-gris-module text-center entete" v-for="somme in calculSommeCharge"> {{ somme | fromMinutesToHours }}</div>
+                    <div class="divTableCell pt-3 bg-gris-module text-center entete" v-for="somme in calculSommeCharge"> {{ somme | fromMinutesToHours }}</div>
                     <div class="divTableCell  align-middle bg-gris-module entete font-weight-bold">&nbsp;</div>
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
                 </div>

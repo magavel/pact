@@ -42,7 +42,7 @@
           </Column>
             <Column header="Actions">
                 <template #body="slotProps">
-                    <Button type="button" icon="pi pi-times" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
+                    <Button type="button" icon="pi pi-trash" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
                     <ToggleButton v-model="slotProps.data.SaisieFavorite_isFavorite" type="button"
                                   class="p-button-secondary" @click='ajouterActiviteFavorite(slotProps)'
                                   off-icon="pi pi-star-o" on-icon="pi pi-star"></ToggleButton>

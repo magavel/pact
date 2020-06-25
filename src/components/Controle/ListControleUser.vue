@@ -10,7 +10,7 @@
                    :rows="10" :key="componentKey">
             <Column field="username" header="Collaborateurs" :expander="true">
                 <template #filter>
-                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par nom" />
+                    <InputText type="text" v-model="filters['username']" class="p-column-filter" placeholder="Filtrer par prénon" />
                 </template>
             </Column>
             <Column field="mission" header="Missions" ></Column>
