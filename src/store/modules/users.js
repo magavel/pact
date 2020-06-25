@@ -6,6 +6,7 @@ import router from '../../router';
 // initial state
 const state = {
   users: [], // un tableau de l'ensemble des utilisateurs
+  usersMetaData: {},
   user: null,
   errors: [], // log des erreurs
   success: [], // log des success
@@ -20,6 +21,7 @@ const state = {
 const mutations = {
   GET_ALL_USERS(state, users) {
     state.users = users.data;
+    state.usersMetaData = users.metadata;
   },
   CREATE_USER(state, user) {
     state.users = [ user, ...state.users ];

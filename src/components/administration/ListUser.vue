@@ -3,7 +3,7 @@
         <DataTable :value="users" :paginator="true" class="p-datatable-responsive p-datatable-customers" :rows="10"
                    dataKey="utilisateur_id" :rowHover="true" :selection.sync="selectedUser" :filters="filters" :loading="loading"
                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[10,25,50]"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                   :lazy="true">
 
         <template #header>
             <div class="table-header">
