@@ -22,7 +22,7 @@
                         option-value="utilisateur_username"
                         :filter="true"
                         placeholder="Selectionner collaborateur"
-                        :showClear="true" @change="rafraichirFavoris">
+                        :showClear="true"  @change="rafraichirFavoris">
                 <template #option="slotProps">
                 <div class="p-dropdown-car-value" v-if="slotProps.value">
                   <span>{{slotProps.option.utilisateur_prenom}}
@@ -184,8 +184,8 @@
         },
         created() {
           this.$store.dispatch('saisies/getPhaseActivesUtilisateurs', this.selectedCollaborateur);
-            this.$store.dispatch('references/getRefActivite');
-            this.$store.dispatch('users/getAllUsers');
+          this.$store.dispatch('references/getRefActivite');
+          this.$store.dispatch('users/getAllUsers');
 
           if(this.saisieUpdate !== null && this.saisieUpdate !== undefined){
 
@@ -219,7 +219,6 @@
             },
           rafraichirFavoris() {
             this.$store.dispatch('saisies/getPhaseActivesUtilisateurs', this.selectedCollaborateur);
-
           },
            async clickValider() {
              this.loading = true;

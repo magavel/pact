@@ -14,12 +14,20 @@ export default {
     return axios.post(`${config.API_URL}systemeInformations`, project, { headers: authHeader() });
   },
     // http://localhost:8080/apiPactNG/api/v1/systemeInformationsList
-  getAllProjects() {
-    //return axios.get(`${config.API_URL}systemeInformations?search= `, { headers: authHeader() })
-      return axios.get(`${config.API_URL}systemeInformationsList`, { headers: authHeader() })
-        .catch((err) => {
-            console.log('erreur du getAllProjects', err)
-        });
+  getAllProjects(pagination) {
+
+      if (pagination  === undefined) {
+          //return axios.get(`${config.API_URL}systemeInformations?search= `, { headers: authHeader() })
+          return axios.get(`${config.API_URL}systemeInformationsList`, {headers: authHeader()})
+              .catch((err) => {
+                  console.log('erreur du getAllProjects', err)
+              });
+      } else {
+          return axios.get(`${config.API_URL}systemeInformationsList?page=${pagination.last}&size=${pagination.size}`, {headers: authHeader()})
+              .catch((err) => {
+                  console.log('erreur du getAllProjects', err)
+              });
+      }
   },
     //  http://localhost:8080/apiPactNG/api/v1/systemeInformations/1
     getProjectById(id) {

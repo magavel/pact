@@ -4,7 +4,13 @@
             <h3>Liste de vos fiches projets</h3>
         </div>
         <DataTable class="p-datatable-responsive p-datatable-projet" ref="dt" :value="projects" :paginator="true"
-                   :rows="10" selectionMode="single" dataKey="systeme_information_id" :reorderableColumns="true">
+                   :rows="10" selectionMode="single"
+                   dataKey="systeme_information_id"
+                   @page="onPage($event)"
+                   :lazy="true"
+                   :total-records="nombre_de_lignes_totales"
+                   :loading="loading"
+                   :reorderableColumns="true">
             <template #loading>
                 Loading records, please wait...
             </template>
@@ -42,7 +48,7 @@
                     {{moment(slotProps.data.systeme_information_last_modified_date).fromNow()}}
                     par
                     <a class="bulle">
-                        {{ slotProps.data.systeme_information_last_modified_by | getTrigramme() }}
+                        {{ slotProps.data.systeme_information_last_modified_by  }}
                         <span>
               {{ slotProps.data.systeme_information_last_modified_by }}
             </span>
@@ -79,14 +85,21 @@
         data() {
             return {
                 filters: {},
+              loading: false,
             }
         },
         name: 'ListProject',
         computed: mapState({
-            projects: state => state.projects.projects,
+          projects: state => state.projects.projects,
+          nombre_de_lignes_totales: state => state.projects.projetsMetaData.nombre_de_lignes_totales,
+          nombre_de_pages_totales: state => state.projects.projetsMetaData.nombre_de_pages_totales,
         }),
         created() {
-            this.$store.dispatch('projects/getAllProjects');
+          let pagination = {
+            last : 0,
+            size : 10,
+          }
+            this.$store.dispatch('projects/getAllProjects',pagination);
         },
         methods: {
             exportCSV() {
@@ -96,7 +109,20 @@
                 // TODO
                 console.log('ds upload', id);
 
-            }
+            },
+          onPage(event) {
+            this.loading = true;
+
+            setTimeout(() => {
+              console.log('event', event);
+              let pagination = {
+                last : event.page,
+                size : 10,
+              }
+              this.$store.dispatch('projects/getAllProjects',pagination)
+              this.loading = false;
+            }, 1000);
+          }
         },
     };
 </script>

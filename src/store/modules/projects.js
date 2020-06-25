@@ -5,6 +5,7 @@ import router from '../../router';
 // initial state
 const state = {
   projects: [], // un tableau de l'ensemble des projets
+    projetsMetaData: {},
   projet: {},
   errors: [], // log des erreurs
   success: [], // log des success
@@ -18,6 +19,7 @@ const mutations = {
   },
   GET_ALL_PROJECTS(state, projects) {
     state.projects = projects.data;
+    state.projetsMetaData = projects.metadata;
   },
   CREATE_PROJECT(state, project) {
     state.project =  project;
@@ -66,8 +68,8 @@ const actions = {
         commit('CREATE_PROJECT', project);
       });
   },
-  getAllProjects({ commit }) {
-    projectService.getAllProjects()
+  getAllProjects({ commit }, pagination) {
+    projectService.getAllProjects(pagination)
       .then((res) => {
         const succes = {
           date: new Date(),
