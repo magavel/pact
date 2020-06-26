@@ -40,7 +40,7 @@
             this.dateDeSaisie.push(new Date());
         },
         methods: {
-            updateDate(){
+            updateDate() {
                 let tabDateISO = [];
                 let dateDebut = this.dateDeSaisie[0];
                 let dateFin = this.dateDeSaisie[1];
@@ -50,7 +50,14 @@
                 tabDateISO.push(dateFin.toISOString());
                 this.$store.commit('saisies/UPDATE_DATE_SAISIE', [this.dateDeSaisie[0], this.dateDeSaisie[1]]);
                 this.$store.commit('saisies/UPDATE_DATE', tabDateISO);
-                this.$router.push({name: 'periodeListing'});
+                console.log('this.$router.currentRoute', this.$router.currentRoute);
+                if (this.$router.currentRoute.name === 'dailyListing' || this.$router.currentRoute.name === 'periodeListing'){
+                    if (dateDebut.toISOString() === dateFin.toISOString()) {
+                        this.$router.push({name: 'dailyListing'});
+                    } else {
+                        this.$router.push({name: 'periodeListing'});
+                    }
+                }
             }
         }
     }
