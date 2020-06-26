@@ -26,9 +26,6 @@
                     <div class="divTableCell text-center" v-for="charge in mission.saisieByWeek_charges ">
                         <div @dblclick="update(charge.chargeHebdomadaire_saisieId)">
 <!--                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}-->
-
-
-
                             <div v-if= "isUpdate === false">
                                 <div class="popup" @click="myFunction()">{{ charge.chargeHebdomadaire_charges | fromMinutesToHours()}}
                                     <span class="popuptext"  @click="modifierSaisie()">{{ charge.chargeHebdomadaire_commentaire }}</span>
@@ -53,7 +50,10 @@
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
                     <div class="divTableCell bg-gris-module align-middle text-center entete">&nbsp;</div>
-                    <div class="divTableCell pt-3 bg-gris-module text-center entete" v-for="somme in calculSommeCharge"> {{ somme | fromMinutesToHours }}</div>
+                    <div class="divTableCell pt-3 bg-gris-module text-center entete" v-for="somme in calculSommeCharge">
+                        <span v-if="saisiesParPeriode.length !== 0">{{ somme | fromMinutesToHours }}</span>
+                        <span v-else></span>
+                    </div>
                     <div class="divTableCell  align-middle bg-gris-module entete font-weight-bold">&nbsp;</div>
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
                 </div>
