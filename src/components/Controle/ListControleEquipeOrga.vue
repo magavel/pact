@@ -6,7 +6,7 @@
                  filterMode="lenient" always-show-paginator
                  :paginator="true"
                  :rows="10" :key="componentKey">
-        <Column field="EntiteLibelle" header="Entite organisationnelle" :expander="true">
+        <Column selectionMode="multiple"  field="EntiteLibelle" header="Entite organisationnelle" :expander="true">
           <template #filter>
             <InputText type="text" v-model="filters['EntiteLibelle']" class="p-column-filter" placeholder="Filtrer par nom" />
           </template>

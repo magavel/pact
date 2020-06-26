@@ -3,6 +3,7 @@
         <Toast />
       <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <TreeTable v-model="nodes"
+                   class="p-treetable-header"
                    :filters="filters"
                    filterMode="lenient" always-show-paginator
                    :paginator="true"
@@ -296,6 +297,13 @@
 
  <style lang="scss" scoped>
 
+.p-treetable-header > tr > th:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.p-treetable-header > tr > th:last-child{
+    border-radius: 0px 10px 10px 0px;
+}
 
      /* Popup container */
      .popup {
