@@ -19,7 +19,6 @@
                 </div>
               <ValidationProvider name="mission" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-
                     <Dropdown name="mission" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
               <span
                   class="block text-red-600 text-xs absolute bottom-0 left-0"
@@ -47,7 +46,8 @@
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown  name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite"  option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown v-if="selectedMission !== null"  name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite"  option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown v-else  name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite"  option-value="refTypeId" option-label="refTypeLibelleCourt" disabled/>
                   <span
                       class="block text-red-600 text-xs absolute bottom-0 left-0"
                       v-if="errors[0]"
@@ -332,5 +332,9 @@
     }
     #ajoutActivite{
         background-color: white;
+    }
+
+    .p-disabled{
+        background-color: #E6DFDF85;
     }
 </style>
