@@ -59,6 +59,44 @@
                 </div>
             </div>
         </div>
+
+        <!-- test-->
+        <DataTable
+                :value="saisiesParPeriode"
+                :paginator="true"
+                :rows="10"
+        >
+            <template #empty>
+                Pas d'activité prévue pour cette période
+            </template>
+            <template #loading>
+                Chargement des missions ...
+            </template>
+            <Column headerStyle="width: 200px" field="saisieByWeek_moduleLibelle" header="Missions/ Modules"></Column>
+            <Column headerStyle="width: 200px" field="year" header="Type d'activités"></Column>
+            <Column v-for=" col of tableauDate" :header="col | dateFrShort ">
+
+            </Column>
+            <Column headerStyle="width: 100px" field="brand" header="Actions"></Column>
+            <ColumnGroup type="footer" >
+                <Row>
+                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  ></Column>
+                    <Column footer=" TOTAL CHARGES : " />
+                    <Column v-for="somme in calculSommeCharge" >
+                        <template #footer="slotProps">
+                            <span class="">
+                                {{ somme | fromMinutesToHours() }}
+                            </span>
+                        </template>
+                    </Column>
+                    <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>
+                </Row>
+            </ColumnGroup>
+        </DataTable>
+        <!--fin test-->
+
+
+
     </div>
 </template>
 
