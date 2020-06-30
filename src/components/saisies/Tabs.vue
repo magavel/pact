@@ -11,7 +11,7 @@
             </ul>
             <div v-else class="mt-2">
 
-                <span class="titre ml-5" style="font-weight: 600"><em class="pi pi-pencil mr-3"></em>MODIFIER UNE ACTIVITE</span>
+                <span class="titre ml-4" style="font-weight: 600"><em class="pi pi-pencil mr-3"></em>MODIFIER UNE ACTIVITE</span>
             </div>
         </div>
         <div class="tabs-details">
@@ -89,8 +89,8 @@
 
     .li-titre{
         margin-top: 10px;
-        margin-left: -13em;
-        margin-right: 9em;
+        margin-left: -25em;
+        margin-right: 12em;
         font-weight: 600;
     }
 </style>

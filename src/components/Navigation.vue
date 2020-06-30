@@ -70,10 +70,10 @@
 
     }
 
-    .dropdown-menu {
-        position: absolute;
+    .dropdown div {
         left: -150px;
     }
+
     .dropdownWidth textarea {
         width: 90%;
     }

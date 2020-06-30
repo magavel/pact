@@ -200,8 +200,8 @@
             }
 
             .p-datatable-tbody > tr.p-datatable-emptymessage > td{
-                padding-bottom: 4rem;
-                padding-top: 4rem;
+                padding-bottom: 3rem;
+                padding-top: 3rem;
                 font-size: 1em;
             }
             .footer {

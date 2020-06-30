@@ -61,7 +61,7 @@
                   <ValidationProvider name="charge" rules="required|controleTemps|controleMinute|controleHeure" v-slot="{ errors }">
                     <div id="charges">
                         <InputMask name="charge" v-model="charges" mask="9:99" placeholder="  :  "/>
-                      <span> {{ errors[0] }}</span>
+                      <span  v-if="errors[0]"> {{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
                 </div>
