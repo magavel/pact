@@ -61,7 +61,7 @@
   .backgroundNav {
     position:absolute;
     width: 240px;
-    min-height: 200vh;
+    min-height: 138vh;
     background-color: $primary;
   }
 
