@@ -52,7 +52,8 @@
                 </div>
               <ValidationProvider name="missions" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown name="missions" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+                    <Dropdown v-if="selectedCollaborateur !== null" name="missions" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
+                    <Dropdown v-else name="missions" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin" disabled/>
                     <span
                       class="block text-red-600 text-xs absolute bottom-0 left-0"
                       v-if="errors[0]"
@@ -64,7 +65,8 @@
                 </div>
               <ValidationProvider name="commentaire" rules="sizeMaxTextArea" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Textarea v-model="commentaires" rows="3" cols="30"></Textarea>
+                    <Textarea v-if="selectedCollaborateur !== null" v-model="commentaires" rows="3" cols="30"></Textarea>
+                    <Textarea v-else v-model="commentaires" rows="3" cols="30" disabled class="p-disabled"></Textarea>
                 </div>
                 <span
                     class="block text-red-600 text-xs absolute bottom-0 left-0"
@@ -78,7 +80,8 @@
                 </div>
               <ValidationProvider name="typeActivite" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown v-if="selectedCollaborateur !== null" name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt"/>
+                    <Dropdown v-else name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite" option-value="refTypeId" option-label="refTypeLibelleCourt" disabled/>
                   <span
                       class="block text-red-600 text-xs absolute bottom-0 left-0"
                       v-if="errors[0]"
@@ -91,7 +94,8 @@
               <ValidationProvider name="charge" rules="required|controleTemps" v-slot="{ errors }">
                 <div class="row">
                     <div id="charges">
-                        <InputMask v-model="charges" mask="9:99" placeholder="  :  "/>
+                        <InputMask v-if="selectedCollaborateur !== null" v-model="charges" mask="9:99" placeholder="  :  "/>
+                        <InputMask v-else v-model="charges" mask="9:99" placeholder="  :  " disabled class="p-disabled"/>
                     </div>
                   <div>
                     <span> {{ errors[0] }}</span>
@@ -400,6 +404,10 @@
       img {
         width: 17px;
       }
+    }
+
+    .p-disabled{
+        background-color: #E6DFDF85;
     }
 
 

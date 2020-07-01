@@ -3,5 +3,5 @@
 /node_modules
 package.json
 package-lock.json
-./src/shared/config.js
 /dist/
+

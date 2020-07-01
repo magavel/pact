@@ -1,4 +1,4 @@
-/**
+           /**
  * Retourne le trigramme utilisé dans les filtres composé de
  * 2 premières lettre du prénom
  * 1 ere lettre du nom

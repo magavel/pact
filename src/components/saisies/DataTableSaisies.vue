@@ -107,6 +107,7 @@
             }
             dateJour.setHours(0, -dateJour.getTimezoneOffset(), 0, 0);
             this.$store.dispatch('saisies/getSaisies', [dateJour.toISOString(), dateJour.toISOString()]);
+            console.log('this.$store.state.saisies', this.$store.state.saisies);
         },
         methods:{
             ajouterActiviteFavorite(props) {
@@ -145,8 +146,8 @@
                 this.$store.dispatch('users/getAllFavorites');
                 //this.saisies.splice(index, 1);
                 this.$toast.add({severity:'info', summary: 'Info Message', detail:'L\'activité a bien été supprimée', life: 3000});
-                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
-                //this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
+                //this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+                this.$store.commit("saisies/UPDATE_TABLE_SAISIE_KEY");
                 this.$store.commit("saisies/UPDATE_ACTIVITE_FAV_KEY");
                 this.forceRerender();
             },
@@ -200,8 +201,8 @@
             }
 
             .p-datatable-tbody > tr.p-datatable-emptymessage > td{
-                padding-bottom: 4rem;
-                padding-top: 4rem;
+                padding-bottom: 3rem;
+                padding-top: 3rem;
                 font-size: 1em;
             }
             .footer {

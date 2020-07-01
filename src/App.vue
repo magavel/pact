@@ -12,6 +12,7 @@
                 :show-admin-board="showAdminBoard"
                 :show-moderator-board="showModeratorBoard"/>
       </div>
+    mise à jour du 01 juillet 2020
     </div>
   </div>
 </template>
@@ -61,7 +62,7 @@
   .backgroundNav {
     position:absolute;
     width: 240px;
-    min-height: 200vh;
+    min-height: 138vh;
     background-color: $primary;
   }
 
