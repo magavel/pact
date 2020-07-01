@@ -195,14 +195,14 @@
                 }
                 return dates;
             },
-          async clickValider() {
-            this.loading = true;
+          clickValider() {
+            /*this.loading = true;
             const isValid = await this.$refs.observer.validate();
             if (!isValid) {
               this.loading = false;
               return;
             }
-            this.loading = false;
+            this.loading = false;*/
                let start = new Date(this.$store.state.saisies.dateDeSaisie[0]);
                let end = new Date(this.$store.state.saisies.dateDeSaisie[1]);
                let loop =   new Date(this.$store.state.saisies.dateDeSaisie[0]);
@@ -218,7 +218,7 @@
                     uneSaisie.saisie_date = date;
                     this.$store.dispatch('saisies/ajouterUneSaisie',  uneSaisie);
                });
-                this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
+                //this.$store.dispatch('saisies/getSaisies', [this.$store.state.saisies.dateSelectionee[0], this.$store.state.saisies.dateSelectionee[1]]);
                 this.$store.dispatch('saisies/getSaisieParPeriode', {
                     dateDebut: this.$store.state.saisies.dateSelectionee[0],
                     dateFin: this.$store.state.saisies.dateSelectionee[1]
