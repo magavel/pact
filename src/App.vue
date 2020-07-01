@@ -12,8 +12,8 @@
                 :show-admin-board="showAdminBoard"
                 :show-moderator-board="showModeratorBoard"/>
       </div>
-    </div>
     mise à jour du 01 juillet 2020
+    </div>
   </div>
 </template>
 
