@@ -13,3 +13,4 @@ export const config = {
   API_MANAGE : 'https://pactng-api.concept-toulon.dirisi.defense.gouv.fr/pactng-backend/management/',
 }
 
+//test
