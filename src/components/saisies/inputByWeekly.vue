@@ -73,11 +73,21 @@
                 Chargement des missions ...
             </template>
             <Column headerStyle="width: 200px" field="saisieByWeek_moduleLibelle" header="Missions/ Modules"></Column>
-            <Column headerStyle="width: 200px" field="year" header="Type d'activités"></Column>
-            <Column v-for=" col of tableauDate" :header="col | dateFrShort ">
+            <Column headerStyle="width: 200px" field="chargeHebdomadaire_saisieId" header="Type d'activités">
 
             </Column>
-            <Column headerStyle="width: 100px" field="brand" header="Actions"></Column>
+            <Column v-for=" col of tableauDate" :header="col | dateFrShort ">
+                <template #body="slotProps">
+                    <span class="">
+                        {{ slotProps.data.saisieByWeek_charges }}
+                    </span>
+                </template>
+            </Column>
+            <Column headerStyle="width: 100px" field="brand" header="Actions">
+                <template #body="slotProps">
+                    <Button type="button" icon="pi pi-trash" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
+                </template>
+            </Column>
             <ColumnGroup type="footer" >
                 <Row>
                     <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  ></Column>
@@ -85,7 +95,7 @@
                     <Column v-for="somme in calculSommeCharge" >
                         <template #footer="slotProps">
                             <span class="">
-                                {{ somme | fromMinutesToHours() }}
+                                {{ somme | fromMinutesToHours }}
                             </span>
                         </template>
                     </Column>
