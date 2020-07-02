@@ -3,9 +3,10 @@
         <div class="text-center bg-white">
             <span class="font-weight-bolder"> Mes saisies du {{ datePeriode[0] | dateFrFull() }} au {{ datePeriode[1] | dateFrFull()}}</span>
         </div>
-        <div class="divTable m-4">
+        <div class="divTable d-flex flex-nowrap m-4">
+<!--
             <div class="mw-100  divTableBody">
-                <!-- ligne des titres -->
+                 ligne des titres
                 <div class=" divTableRow">
                     <div class="divTableHeading rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
                     <div class="divTableHeading bg-gris-module align-middle entete ">Type d'activités</div>
@@ -14,18 +15,18 @@
                     <div class="divTableHeading align-middle bg-gris-module entete font-weight-bold"> > </div>
                     <div class="divTableHeading rounded-right align-middle bg-gris-module  font-weight-bold">Actions</div>
                 </div>
-                <!-- ligne des data et des projets -->
+                 ligne des data et des projets
                 <div class="divTableRow" v-for="mission in saisiesParPeriode">
                     <div class="divTableCell">
-                        <span class="p-2" :class="mission.saisieByWeek_moduleLibelle">
+                        <span class="p-2 production">
                             {{ mission.saisieByWeek_moduleLibelle }}
                         </span>
                     </div>
                     <div class="divTableCell">{{ mission.saisieByWeek_activite_libelle }}</div>
                     <div class="divTableCell">&nbsp;</div>
-                    <div class="divTableCell text-center" v-for="charge in mission.saisieByWeek_charges ">
+                    <div class="divTableCell text-center scrollHorizontal overflow-auto" v-for="charge in mission.saisieByWeek_charges ">
                         <div @dblclick="update(charge.chargeHebdomadaire_saisieId)">
-<!--                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}-->
+                                                        {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}
                             <div v-if= "isUpdate === false">
                                 <div class="popup" @click="myFunction()">{{ charge.chargeHebdomadaire_charges | fromMinutesToHours()}}
                                     <span class="popuptext"  @click="modifierSaisie()">{{ charge.chargeHebdomadaire_commentaire }}</span>
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <div class="divTableRow spacer"></div>
-                <!-- ligne du footer -->
+                 ligne du footer
                 <div class="divTableRow">
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
@@ -58,51 +59,144 @@
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold">&nbsp;</div>
                 </div>
             </div>
+              -->
+
+
+            <!-- tableau des missions -->
+            <div class="mw-100  divTableBody">
+                <!-- ligne des titres -->
+                <div class=" divTableRow">
+                    <div class="divTableHeading rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
+                    <div class="divTableHeading bg-gris-module align-middle entete ">Type d'activités</div>
+
+                </div>
+                <!-- ligne des data et des projets -->
+                <div class="divTableRow" v-for="mission in saisiesParPeriode">
+                    <div class="divTableCell" style="height: 33px">
+                        <span class="p-2 production">
+                            {{ mission.saisieByWeek_moduleLibelle }}
+                        </span>
+                    </div>
+                    <div class="divTableCell">{{ mission.saisieByWeek_activite_libelle }}</div>
+
+                </div>
+                <div class="divTableRow spacer"></div>
+                <!-- ligne du footer -->
+                <div class="divTableRow">
+                    <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
+                    <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
+                </div>
+            </div>
+            <!-- fin tableau des missions -->
+
+
+            <!-- tableau central des charges  -->
+            <div class=" tableauCentral divTableBody">
+                <!-- ligne des titres -->
+                <div class=" divTableRow">
+                    <div  class="divTableHeading bg-gris-module align-middle text-center entete" v-for="date in tableauDate">{{ date | dateFrShort }}</div>
+                </div>
+                <!-- ligne des data et des projets -->
+                <div class="divTableRow" v-for="mission in saisiesParPeriode">
+
+                    <div style="height: 33px" class="divTableCell text-center scrollHorizontal overflow-auto" v-for="charge in mission.saisieByWeek_charges ">
+                        <div @dblclick="update(charge.chargeHebdomadaire_saisieId)">
+                            <!--                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}-->
+                            <div v-if= "isUpdate === false">
+                                <div class="popup" @click="myFunction()">{{ charge.chargeHebdomadaire_charges | fromMinutesToHours()}}
+                                    <span class="popuptext"  @click="modifierSaisie()">{{ charge.chargeHebdomadaire_commentaire }}</span>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <InputMask @keydown.enter.stop="miseAjour()"
+                                           class="p-field col-xs-2 inputcolumn"
+                                           :value="charge.chargeHebdomadaire_charges" v-model="charge.chargeHebdomadaire_charges" mask="9:99" placeholder="  :  "/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="divTableRow spacer"></div>
+                <!-- ligne du footer -->
+                <div class="divTableRow">
+                    <div class="divTableCell pt-3 bg-gris-module text-center entete" v-for="somme in calculSommeCharge">
+                        <span v-if="saisiesParPeriode.length !== 0">{{ somme | fromMinutesToHours }}</span>
+                        <span v-else></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- tableau des actions -->
+            <div class="mw-100  divTableBody">
+                <!-- ligne des titres -->
+                <div class=" divTableRow">
+                    <div class="divTableHeading rounded-right align-middle bg-gris-module  font-weight-bold" style="height: 50px">Actions</div>
+                </div>
+                <!-- ligne des data et des projets -->
+                <div class="divTableRow" v-for="mission in saisiesParPeriode">
+                    <div class="divTableCell" style="height: 27px">
+                        <Button style="height: 27px" type="button" icon="pi pi-trash" class="p-button-secondary"
+                                @click=""></Button>
+                    </div>
+                </div>
+                <div class="divTableRow spacer"></div>
+                <!-- ligne du footer -->
+                <div class="divTableRow">
+                    <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold" style="height: 50px">&nbsp;</div>
+                </div>
+            </div>
+
+            <!-- fin tableau des actions -->
+
+
         </div>
 
-        <!-- test-->
-        <DataTable
-                :value="saisiesParPeriode"
-                :paginator="true"
-                :rows="10"
-        >
-            <template #empty>
-                Pas d'activité prévue pour cette période
-            </template>
-            <template #loading>
-                Chargement des missions ...
-            </template>
-            <Column headerStyle="width: 200px" field="saisieByWeek_moduleLibelle" header="Missions/ Modules"></Column>
-            <Column headerStyle="width: 200px" field="chargeHebdomadaire_saisieId" header="Type d'activités">
 
-            </Column>
-            <Column v-for=" col of tableauDate" :header="col | dateFrShort ">
-                <template #body="slotProps">
-                    <span class="">
-                        {{ slotProps.data.saisieByWeek_charges }}
-                    </span>
-                </template>
-            </Column>
-            <Column headerStyle="width: 100px" field="brand" header="Actions">
-                <template #body="slotProps">
-                    <Button type="button" icon="pi pi-trash" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
-                </template>
-            </Column>
-            <ColumnGroup type="footer" >
-                <Row>
-                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  ></Column>
-                    <Column footer=" TOTAL CHARGES : " />
-                    <Column v-for="somme in calculSommeCharge" >
-                        <template #footer="slotProps">
-                            <span class="">
-                                {{ somme | fromMinutesToHours }}
-                            </span>
-                        </template>
-                    </Column>
-                    <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>
-                </Row>
-            </ColumnGroup>
-        </DataTable>
+
+
+        <!-- test-->
+<!--        <DataTable-->
+<!--                :value="saisiesParPeriode"-->
+<!--                :paginator="true"-->
+<!--                :rows="10"-->
+<!--        >-->
+<!--            <template #empty>-->
+<!--                Pas d'activité prévue pour cette période-->
+<!--            </template>-->
+<!--            <template #loading>-->
+<!--                Chargement des missions ...-->
+<!--            </template>-->
+<!--            <Column headerStyle="width: 200px" field="saisieByWeek_moduleLibelle" header="Missions/ Modules"></Column>-->
+<!--            <Column headerStyle="width: 200px" field="chargeHebdomadaire_saisieId" header="Type d'activités">-->
+
+<!--            </Column>-->
+<!--            <Column v-for=" col of tableauDate" :header="col | dateFrShort ">-->
+<!--                <template #body="slotProps">-->
+<!--                    <span class="">-->
+<!--                        {{ slotProps.data.saisieByWeek_charges }}-->
+<!--                    </span>-->
+<!--                </template>-->
+<!--            </Column>-->
+<!--            <Column headerStyle="width: 100px" field="brand" header="Actions">-->
+<!--                <template #body="slotProps">-->
+<!--                    <Button type="button" icon="pi pi-trash" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>-->
+<!--                </template>-->
+<!--            </Column>-->
+<!--            <ColumnGroup type="footer" >-->
+<!--                <Row>-->
+<!--                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  ></Column>-->
+<!--                    <Column footer=" TOTAL CHARGES : " />-->
+<!--                    <Column v-for="somme in calculSommeCharge" >-->
+<!--                        <template #footer="slotProps">-->
+<!--                            <span class="">-->
+<!--                                {{ somme | fromMinutesToHours }}-->
+<!--                            </span>-->
+<!--                        </template>-->
+<!--                    </Column>-->
+<!--                    <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>-->
+<!--                </Row>-->
+<!--            </ColumnGroup>-->
+<!--        </DataTable>-->
         <!--fin test-->
 
 
@@ -175,6 +269,11 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .tableauCentral {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
     .spacer{
         height: 10px;
     }
@@ -265,35 +364,6 @@
             top: -29px;
         }
     }
-    .testBg1{
-        background-color: #069F90;
-        border-radius: 8px;
-        color: white;
-    }
 
-    .testBg2{
-        background-color: #AA2393;
-        border-radius: 8px;
-        color: white;
-    }
-    .testBg3{
-        background-color: #4028A7;
-        border-radius: 8px;
-        color: white;
-    }
-
-    .PACTNG_PMV{
-        background-color: #069F90;
-        border-radius: 8px;
-        color: white;
-
-    }
-
-    .PACTNG_INFOCENTRE{
-        background-color: #AA2393;
-        border-radius: 8px;
-        color: white;
-
-    }
 
 </style>
