@@ -12,7 +12,7 @@
                 :show-admin-board="showAdminBoard"
                 :show-moderator-board="showModeratorBoard"/>
       </div>
-    mise à jour du 01 juillet 2020
+    mise à jour du 02 juillet 2020
     </div>
   </div>
 </template>

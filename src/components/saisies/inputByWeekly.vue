@@ -63,14 +63,14 @@
 
 
             <!-- tableau des missions -->
-            <div class="mw-100  divTableBody">
-                <!-- ligne des titres -->
+<!--            <div class="mw-100  divTableBody">
+                &lt;!&ndash; ligne des titres &ndash;&gt;
                 <div class=" divTableRow">
                     <div class="divTableHeading rounded-left align-middle large entete bg-gris-module pl-3">Missions/ Modules</div>
                     <div class="divTableHeading bg-gris-module align-middle entete ">Type d'activités</div>
 
                 </div>
-                <!-- ligne des data et des projets -->
+                &lt;!&ndash; ligne des data et des projets &ndash;&gt;
                 <div class="divTableRow" v-for="mission in saisiesParPeriode">
                     <div class="divTableCell" style="height: 33px">
                         <span class="p-2 production">
@@ -81,27 +81,27 @@
 
                 </div>
                 <div class="divTableRow spacer"></div>
-                <!-- ligne du footer -->
+                &lt;!&ndash; ligne du footer &ndash;&gt;
                 <div class="divTableRow">
                     <div class="divTableCell rounded-left align-middle entete bg-gris-module">Total des charges</div>
                     <div class="divTableCell bg-gris-module align-middle entete">&nbsp;</div>
                 </div>
             </div>
-            <!-- fin tableau des missions -->
+            &lt;!&ndash; fin tableau des missions &ndash;&gt;
 
 
-            <!-- tableau central des charges  -->
+            &lt;!&ndash; tableau central des charges  &ndash;&gt;
             <div class=" tableauCentral divTableBody">
-                <!-- ligne des titres -->
+                &lt;!&ndash; ligne des titres &ndash;&gt;
                 <div class=" divTableRow">
                     <div  class="divTableHeading bg-gris-module align-middle text-center entete" v-for="date in tableauDate">{{ date | dateFrShort }}</div>
                 </div>
-                <!-- ligne des data et des projets -->
+                &lt;!&ndash; ligne des data et des projets &ndash;&gt;
                 <div class="divTableRow" v-for="mission in saisiesParPeriode">
 
                     <div style="height: 33px" class="divTableCell text-center scrollHorizontal overflow-auto" v-for="charge in mission.saisieByWeek_charges ">
                         <div @dblclick="update(charge.chargeHebdomadaire_saisieId)">
-                            <!--                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}-->
+                            &lt;!&ndash;                            {{ charge.chargeHebdomadaire_charges | fromMinutesToHours }}&ndash;&gt;
                             <div v-if= "isUpdate === false">
                                 <div class="popup" @click="myFunction()">{{ charge.chargeHebdomadaire_charges | fromMinutesToHours()}}
                                     <span class="popuptext"  @click="modifierSaisie()">{{ charge.chargeHebdomadaire_commentaire }}</span>
@@ -117,7 +117,7 @@
 
                 </div>
                 <div class="divTableRow spacer"></div>
-                <!-- ligne du footer -->
+                &lt;!&ndash; ligne du footer &ndash;&gt;
                 <div class="divTableRow">
                     <div class="divTableCell pt-3 bg-gris-module text-center entete" v-for="somme in calculSommeCharge">
                         <span v-if="saisiesParPeriode.length !== 0">{{ somme | fromMinutesToHours }}</span>
@@ -126,13 +126,13 @@
                 </div>
             </div>
 
-            <!-- tableau des actions -->
+            &lt;!&ndash; tableau des actions &ndash;&gt;
             <div class="mw-100  divTableBody">
-                <!-- ligne des titres -->
+                &lt;!&ndash; ligne des titres &ndash;&gt;
                 <div class=" divTableRow">
                     <div class="divTableHeading rounded-right align-middle bg-gris-module  font-weight-bold" style="height: 50px">Actions</div>
                 </div>
-                <!-- ligne des data et des projets -->
+                &lt;!&ndash; ligne des data et des projets &ndash;&gt;
                 <div class="divTableRow" v-for="mission in saisiesParPeriode">
                     <div class="divTableCell" style="height: 27px">
                         <Button style="height: 27px" type="button" icon="pi pi-trash" class="p-button-secondary"
@@ -140,11 +140,11 @@
                     </div>
                 </div>
                 <div class="divTableRow spacer"></div>
-                <!-- ligne du footer -->
+                &lt;!&ndash; ligne du footer &ndash;&gt;
                 <div class="divTableRow">
                     <div class="divTableCell rounded-right align-middle bg-gris-module  font-weight-bold" style="height: 50px">&nbsp;</div>
                 </div>
-            </div>
+            </div>-->
 
             <!-- fin tableau des actions -->
 
@@ -155,48 +155,57 @@
 
 
         <!-- test-->
-<!--        <DataTable-->
-<!--                :value="saisiesParPeriode"-->
-<!--                :paginator="true"-->
-<!--                :rows="10"-->
-<!--        >-->
-<!--            <template #empty>-->
-<!--                Pas d'activité prévue pour cette période-->
-<!--            </template>-->
-<!--            <template #loading>-->
-<!--                Chargement des missions ...-->
-<!--            </template>-->
-<!--            <Column headerStyle="width: 200px" field="saisieByWeek_moduleLibelle" header="Missions/ Modules"></Column>-->
-<!--            <Column headerStyle="width: 200px" field="chargeHebdomadaire_saisieId" header="Type d'activités">-->
+        <DataTable
+                :value="saisiesParPeriode"
+                class="p-datatable-responsive p-datatable-customers"
+                :paginator="true"
+                :rows="4"
+        >
+            <template #empty>
+                Pas d'activité prévue pour cette période
+            </template>
+            <template #loading>
+                Chargement des missions ...
+            </template>
+            <Column headerStyle="width: 200px"  header="Missions/ Modules">
+                <template #body="slotProps">
+                    <span class="production m-2">
+                        {{ slotProps.data.saisieByWeek_moduleLibelle }}
+                    </span>
+                </template>
+            </Column>
+            <Column headerStyle="width: 200px" field="saisieByWeek_activite_libelle" header="Type d'activités">
 
-<!--            </Column>-->
-<!--            <Column v-for=" col of tableauDate" :header="col | dateFrShort ">-->
+            </Column>
+            <Column v-for=" col of tableauDate" :field="chargeHebdomadaire_charges" :header="col | dateFrShort ">
 <!--                <template #body="slotProps">-->
 <!--                    <span class="">-->
-<!--                        {{ slotProps.data.saisieByWeek_charges }}-->
+<!--                        {{ slotProps.data.saisieByWeek_charges.chargeHebdomadaire_charges }}-->
 <!--                    </span>-->
 <!--                </template>-->
-<!--            </Column>-->
-<!--            <Column headerStyle="width: 100px" field="brand" header="Actions">-->
-<!--                <template #body="slotProps">-->
-<!--                    <Button type="button" icon="pi pi-trash" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>-->
-<!--                </template>-->
-<!--            </Column>-->
-<!--            <ColumnGroup type="footer" >-->
-<!--                <Row>-->
-<!--                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  ></Column>-->
-<!--                    <Column footer=" TOTAL CHARGES : " />-->
-<!--                    <Column v-for="somme in calculSommeCharge" >-->
-<!--                        <template #footer="slotProps">-->
-<!--                            <span class="">-->
-<!--                                {{ somme | fromMinutesToHours }}-->
-<!--                            </span>-->
-<!--                        </template>-->
-<!--                    </Column>-->
-<!--                    <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>-->
-<!--                </Row>-->
-<!--            </ColumnGroup>-->
-<!--        </DataTable>-->
+            </Column>
+            <Column headerStyle="width: 100px" field="brand" header="Actions">
+                <template #body="slotProps">
+                    <Button type="button" icon="pi pi-trash" class="p-button-secondary"  @click.prevent="afficherSaisieDialog(slotProps)"></Button>
+                </template>
+            </Column>
+            <ColumnGroup type="footer" >
+                <Row>
+                    <Column footerStyle="border-top-left-radius:10px; border-bottom-left-radius:10px"  ></Column>
+                    <Column footer=" TOTAL CHARGES : " />
+                    <Column v-for="somme in calculSommeCharge" >
+                        <template #footer="slotProps">
+                            <span class="">
+                                {{ somme | fromMinutesToHours }}
+                            </span>
+                        </template>
+                    </Column>
+                    <Column footerStyle="border-top-right-radius:10px; border-bottom-right-radius:10px"></Column>
+                </Row>
+            </ColumnGroup>
+        </DataTable>
+
+
         <!--fin test-->
 
 
@@ -363,6 +372,86 @@
             left: -5px;
             top: -29px;
         }
+    }
+    /deep/ .p-datatable {
+        &.p-datatable-customers {
+            .p-datatable-thead > tr > th,
+            .p-datatable-tfoot > tr > td {
+                padding: 5px;
+                background-color: #E6DFDF85;
+                border: none;
+                font-size: 0.9em;
+                padding-left: 0.4em;
+            }
+
+            .p-datatable-thead > tr > th:first-child{
+                border-radius: 10px 0px 0px 10px;
+            }
+
+            .p-datatable-thead > tr > th:last-child{
+                border-radius: 0px 10px 10px 0px;
+            }
+
+            .p-datatable-tbody > tr > td {
+                padding: 0;
+                border: none;
+                padding-top: 0.4em;
+                font-size: 0.9em;
+                border-bottom: 1px solid #00000029;
+                padding-left: 0.5em;
+                padding-bottom: 0.4em;
+                .p-column-title {
+                    font-size: 0.9em;
+                }
+                span{
+                    font-size: 0.8em;
+                }
+            }
+
+            .p-datatable-tbody > tr.p-datatable-emptymessage > td{
+                padding-bottom: 3rem;
+                padding-top: 3rem;
+                font-size: 1em;
+            }
+            .footer {
+                border-radius: 10px 0px 0px 10px;
+            }
+            .p-sortable-column .p-sortable-column-icon{
+                display: none;
+            }
+
+            .p-datatable-emptymessage > td{
+                text-align: center;
+            }
+        }
+    }
+
+    /deep/ .p-paginator{
+        .p-paginator-first, .p-paginator-prev, .p-paginator-next, .p-paginator-last {
+            min-width: 1rem;
+            height: 1rem;
+            padding-left: 0.5rem;
+        }
+        .p-paginator-prev{
+            padding-right: 2rem;
+        }
+
+        .p-paginator-next{
+            padding-left: 2rem;
+        }
+    }
+
+    /deep/ .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
+        background-color: #5172AF;
+    }
+
+    /deep/ .p-paginator .p-paginator-pages .p-paginator-page{
+        min-width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    /deep/ .p-datatable .p-datatable-scrollable-header{
+        background: none;
     }
 
 
