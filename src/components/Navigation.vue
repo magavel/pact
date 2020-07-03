@@ -17,7 +17,7 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font-awesome-icon icon="user"/>
-                            {{ currentUser.username }}
+                            {{ currentUser.username }} ({{ currentUser.username | getTrigramme }})
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
@@ -26,7 +26,8 @@
                                 Profile
                             </router-link>
                             <router-link to="/updatePassword" class="dropdown-item">
-                                <font-awesome-icon icon="user"/>
+                                <!--<font-awesome-icon icon="user"/>-->
+                                <span class="ml-3"><img alt='' class="ml-n3" style="height: 18px; width: 14px" src="../assets/icons/ic_vpn_key_24px.svg"></span>
                                 Changer son mot de passe
                             </router-link>
 

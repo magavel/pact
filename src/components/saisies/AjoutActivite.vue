@@ -2,7 +2,7 @@
 
     <div id="ajoutActivite" class="pb-4">
         <Toast />
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between pr-3">
             <Periode/>
             <span class="mr-5 mt-3">*Champs obligatoires</span>
         </div>
@@ -19,11 +19,12 @@
                 </div>
               <ValidationProvider name="mission" rules="required" v-slot="{ errors }">
                 <div class="row dropdownWidth">
-                    <Dropdown name="mission" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin"/>
-              <span
+                    <Dropdown name="mission" v-model="selectedMission" :options="phaseActives" option-value="phase_id" option-label="phase_chemin" filter="true"/>
+              <!--<span
                   class="block text-red-600 text-xs absolute bottom-0 left-0"
                   v-if="errors[0]"
-              >{{ errors[0] }}</span>
+              >{{ errors[0] }}</span>-->
+                    <InlineMessage v-if="errors[0]">{{ errors[0] }}</InlineMessage>
                 </div>
               </ValidationProvider>
                 <div class="row mt-4 mb-1">
@@ -33,10 +34,7 @@
                 <div class="row dropdownWidth">
                     <Textarea name="commentaire" v-model="commentaire" rows="3" cols="30"></Textarea>
                 </div>
-                <span
-                    class="block text-red-600 text-xs absolute bottom-0 left-0"
-                    v-if="errors[0]"
-                >{{ errors[0] }}</span>
+                <InlineMessage v-if="errors[0]">{{ errors[0] }}</InlineMessage>
               </ValidationProvider>
             </div>
 
@@ -48,27 +46,24 @@
                 <div class="row dropdownWidth">
                     <Dropdown v-if="selectedMission !== null"  name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite"  option-value="refTypeId" option-label="refTypeLibelleCourt"/>
                     <Dropdown v-else  name="typeActivite" v-model="selectedActivite" :filter="true" :options="refActivite"  option-value="refTypeId" option-label="refTypeLibelleCourt" disabled/>
-                  <span
-                      class="block text-red-600 text-xs absolute bottom-0 left-0"
-                      v-if="errors[0]"
-                  >{{ errors[0] }}</span>
+                    <InlineMessage v-if="errors[0]">{{ errors[0] }}</InlineMessage>
                 </div>
               </ValidationProvider>
                 <div class="row mt-4 mb-1">
-                    <span>Charges(hh:mm)*</span>
+                    <span>Charges (h:m)*</span>
                 </div>
                 <div class="row">
                   <ValidationProvider name="charge" rules="required|controleTemps|controleMinute|controleHeure" v-slot="{ errors }">
                     <div id="charges">
                         <InputMask name="charge" v-model="charges" mask="9:99" placeholder="  :  "/>
-                      <span  v-if="errors[0]"> {{ errors[0] }}</span>
+                        <InlineMessage v-if="errors[0]">{{ errors[0] }}</InlineMessage>
                     </div>
                   </ValidationProvider>
                 </div>
 
             </div>
         </div>
-        <div v-if="isAjout" class="row justify-content-end mr-3" style="margin-left: 39%">
+        <div v-if="isAjout" class="row justify-content-end mr-4" style="margin-left: 39%">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <Button id="btnAjouter" type="submit" label="Ajouter" class="p-button-secondary"></Button>
         </div>

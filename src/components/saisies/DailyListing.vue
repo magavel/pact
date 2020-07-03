@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%">
+    <div style="width: 100%; height: 100px">
         <TitreDate/>
         <DataTableSaisies :key="tableauSaisieKey" />
         <TotalCharges/>
@@ -11,6 +11,7 @@
     import TotalCharges from "./TotalCharges"
 
     export default {
+
         name: 'DailyListing',
         components: {DataTableSaisies, TitreDate, TotalCharges},
         computed: {

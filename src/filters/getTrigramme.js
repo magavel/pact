@@ -8,7 +8,15 @@
 export default function getTrigramme(nomComplet) {
     if (nomComplet) {
         const nom = nomComplet.split('.')
-        const trigramme = nom[0].charAt(0) + nom[0].charAt(1) + nom[1].charAt(0)
+        console.log(nom)
+        console.log(nom.length)
+        let trigramme = 'Inconnu'
+        if(nom.length>1) {
+            trigramme = nom[0].charAt(0) + nom[0].charAt(1) + nom[1].charAt(0)
+        }
+        else{
+            trigramme = nom[0].charAt(0) + nom[0].charAt(1);
+        }
         return trigramme.toUpperCase();
     }else {
         return 'Inconnu'

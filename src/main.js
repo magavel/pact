@@ -26,7 +26,7 @@ import Row from 'primevue/row';
 import AutoComplete from 'primevue/autocomplete';
 import JsonCSV from 'vue-json-csv';
 import Password from 'primevue/password';
-
+import InlineMessage from 'primevue/inlinemessage';
 import Tooltip from 'primevue/tooltip';
 
 import 'bootstrap';
@@ -124,6 +124,7 @@ Vue.component('Row',Row);
 Vue.component('downloadCsv', JsonCSV);
 Vue.component('AutoComplete', AutoComplete);
 Vue.component('Password',Password);
+Vue.component('InlineMessage',InlineMessage);
 
 
 // les filtres... ou pipes c'est la même chose...

@@ -100,6 +100,11 @@
         font-size: 0.9em;
     }
 
+    /deep/ .p-datepicker .p-datepicker-header{
+        margin-top: 18px;
+        margin-bottom: 18px;
+    }
+
     /deep/ .p-datepicker table td > span.p-highlight{
         background: $primary-variant
     }
@@ -122,6 +127,7 @@
 
     /deep/ .p-datepicker table td{
         padding: 0.4rem;
+        padding-top: 0.7rem;
     }
 
     @media (max-width: 992px) {
@@ -159,6 +165,9 @@
     /deep/.p-datepicker table th{
         text-align: center;
         padding: 0.2rem;
+        padding-top: 0px;
+        padding-bottom: 1rem;
+        margin-bottom: 1em;
     }
 
     /deep/ .p-datepicker .p-datepicker-header{

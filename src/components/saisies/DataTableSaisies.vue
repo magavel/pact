@@ -3,7 +3,7 @@
         <Toast />
         <DataTable v-model="saisies"
                    class="p-datatable-responsive p-datatable-customers"
-                   :rows="4"
+                   :rows="5"
                    :paginator="true"
                    dataKey="SaisieFavorite_saisieId"
                    :rowHover="false"
@@ -37,7 +37,7 @@
             </Column>
           <Column  header="Origine" :sortable="true" filterMatchMode="contains">
             <template #body="slotProps">
-             Modifiée par {{ slotProps.data.SaisieFavorite_last_modified_by }}
+             Modifiée par {{ slotProps.data.SaisieFavorite_last_modified_by | getTrigramme }}
             </template>
           </Column>
             <Column header="Actions">
